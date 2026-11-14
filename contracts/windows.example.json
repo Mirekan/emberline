@@ -1,0 +1,18 @@
+{
+  "_comment": "DRAFT v0.1 — D-02 proposal. Critical burning windows with eligible-year denominators.",
+  "aoi_id": "riau",
+  "threshold_percentile": 75,
+  "threshold_meaning": "descriptive seasonal percentile — NOT a safety threshold",
+  "run_id": "PROTO-C01-v0.9_20261114T1200Z_b2primary",
+  "model_version": "b2-primary",
+  "fixture": null,
+  "windows": [
+    { "start_md": "08-01", "end_md": "10-15", "wraps_new_year": false,
+      "years_active": 9, "years_eligible": 12,
+      "median_intensity_mw": 18.4,
+      "definition": "contiguous smoothed-curve positions >= 75th percentile, min run 3 days" },
+    { "start_md": "12-20", "end_md": "01-10", "wraps_new_year": true,
+      "years_active": 4, "years_eligible": 12,
+      "median_intensity_mw": 3.2 }
+  ]
+}

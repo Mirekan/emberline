@@ -1,0 +1,21 @@
+{
+  "_comment": "DRAFT v0.1 — D-02 proposal. Day-of-year climatology: median + IQR (p10/p90 optional), circular ±7-day smoothing, denominators published.",
+  "aoi_id": "riau",
+  "metric": "harmonized_frp_sum_mw",
+  "smoothing_days": 7,
+  "smoothing_method": "circular rolling mean over month/day positions",
+  "baseline_years": { "first": 2012, "last": 2024, "eligible": 12, "note": "years failing the eligible rule are excluded and counted, never counted as inactive" },
+  "run_id": "PROTO-C01-v0.9_20261114T1200Z_b2primary",
+  "model_version": "b2-primary",
+  "fixture": null,
+  "positions": [
+    { "month_day": "01-01", "median_mw": 2.1, "iqr": { "p25_mw": 0.8, "p75_mw": 3.9 }, "p10_p90": { "p10_mw": 0.2, "p90_mw": 6.0 }, "n_years": 12 },
+    { "month_day": "09-14", "median_mw": 22.7, "iqr": { "p25_mw": 14.1, "p75_mw": 31.2 }, "p10_p90": { "p10_mw": 8.0, "p90_mw": 38.5 }, "n_years": 12 }
+  ],
+  "critical_windows": [
+    { "start_md": "08-01", "end_md": "10-15", "start_doy_leap": 214, "end_doy_leap": 288,
+      "wraps_new_year": false, "threshold_percentile": 75,
+      "years_active": 9, "years_eligible": 12, "median_intensity_mw": 18.4 }
+  ],
+  "boundary": "Critical window is a descriptive seasonal percentile — not a safe-to-burn recommendation."
+}

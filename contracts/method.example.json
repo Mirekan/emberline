@@ -1,0 +1,37 @@
+{
+  "_comment": "DRAFT v0.1 — D-02 proposal. Served verbatim from artifacts; every number traceable to run_id. Unfavorable results are reported as-is.",
+  "protocol_id": "PROTO-C01-v0.9",
+  "run_id": "PROTO-C01-v0.9_20261114T1200Z_b2primary",
+  "model_version": "b2-primary",
+  "fixture": null,
+  "sensors": { "reference": "aqua_modis", "mapped": "snpp_viirs", "excluded": ["terra_modis", "noaa20_viirs", "noaa21_viirs"] },
+  "split": { "train_years": [2012, 2013, 2014, 2015, 2016, 2017, 2018], "test_years": [2019, 2020, 2021, 2022, 2023, 2024, 2025], "method": "contiguous_earliest_60pct_of_eligible_years" },
+  "method_form": "log1p(S_modis) = a + b*log1p(S_viirs) + c*log1p(1+n_viirs) + d*I_night; S_hat = k*expm1(y_hat), k = Duan smearing (training residuals)",
+  "coefficients": { "a": 0.31, "b": 0.94, "c": 0.02, "d": -0.06, "k": 1.03, "monotone_constraints": { "b": ">=0", "c": ">=0" } },
+  "metrics": {
+    "mean_log_ratio_bias": 0.06,
+    "smape": 0.34,
+    "mape_zero_actual_excluded": "N/A:no_nonzero_actual_pairs_in_test",
+    "pearson_daily": 0.86, "spearman_daily": 0.83,
+    "pearson_weekly": 0.91, "spearman_weekly": 0.89,
+    "log_space_r2": 0.71,
+    "ks_statistic": 0.09, "wasserstein_distance": 4.6,
+    "calendar_pattern_correlation": 0.94,
+    "interval_coverage_empirical": 0.77
+  },
+  "metric_caveats": { "sample_sizes": { "test_days_paired": 2418, "nonzero_pairs": 1122 }, "primary_resolution": "daily", "na_policy": "N/A:<reason>, never infinity, never fabricated zero" },
+  "stress_tests": [
+    { "pseudo_transition": "2016-07-05", "window_days": 14,
+      "shift_naive": 1.86, "shift_harmonized": 1.08, "shift_truth": 1.04, "error_ratio": 1.04,
+      "status": "computed" },
+    { "pseudo_transition": "2021-11-30", "status": "deferred", "reason": "paired_retrieval_fraction 0.58 < 0.70 in window" }
+  ],
+  "baselines": { "b0_naive_splice": { "level_shift_error_x": 1.82 }, "b1_global_ratio": { "level_shift_error_x": 1.31 }, "b2_harmonized": { "level_shift_error_x": 1.09 } },
+  "limitations": [
+    "Harmonized values are model estimates — not ground truth; every value ships with its interval.",
+    "Detections are never summed into a fire count across sensors.",
+    "Aqua-reference calibration limits claims to what it supports; Terra claims forbidden.",
+    "Gaps are flagged, never interpolated. Failed retrieval is not zero."
+  ],
+  "citations": "NASA FIRMS — MODIS C6.1 (Giglio et al. 2016); VIIRS 375 m VNP14IMG (Schroeder et al. 2014)."
+}

@@ -1,0 +1,31 @@
+{
+  "_comment": "DRAFT v0.1 — D-02 proposal, C+E sign-off pending. Calendar payload: 366 fixed month/day positions, five distinct cell states (never color alone).",
+  "aoi_id": "riau",
+  "metric": "harmonized_frp_sum_mw",
+  "units": "MW (MODIS-equivalent, harmonized FRP-sum)",
+  "run_id": "PROTO-C01-v0.9_20261114T1200Z_b2primary",
+  "model_version": "b2-primary",
+  "fixture": null,
+  "positions": [
+    { "month_day": "01-01", "doy_leap": 1,
+      "value_mw": 12.4, "interval": { "lo_mw": 8.1, "hi_mw": 17.0 },
+      "state": "data", "source_flag": "harmonized_viirs",
+      "flags": [], "years_with_data": 13, "years_eligible": 13 },
+    { "month_day": "02-29", "doy_leap": 60,
+      "value_mw": null, "interval": null,
+      "state": "not_applicable", "source_flag": null,
+      "flags": [], "years_with_data": 3, "years_eligible": 13,
+      "reason": "feb29_non_leap" },
+    { "month_day": "06-14", "doy_leap": 166,
+      "value_mw": null, "interval": null,
+      "state": "retrieval_gap", "source_flag": null,
+      "flags": [], "years_with_data": 0, "years_eligible": 13,
+      "reason": "failed_request" },
+    { "month_day": "09-14", "doy_leap": 258,
+      "value_mw": 27.4, "interval": { "lo_mw": 15.3, "hi_mw": 39.5 },
+      "state": "data", "source_flag": "harmonized_viirs",
+      "flags": ["high_uncertainty"], "years_with_data": 13, "years_eligible": 13 }
+  ],
+  "state_enum": ["data", "valid_zero", "retrieval_gap", "high_uncertainty", "insufficient_support", "not_applicable"],
+  "legend_rule": "states are pattern + text + icon in the UI, never color alone"
+}

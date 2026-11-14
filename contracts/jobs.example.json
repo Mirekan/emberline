@@ -1,0 +1,36 @@
+{
+  "_comment": "DRAFT v0.1 — D-02 proposal. Job lifecycle + error schema. Status enum: queued · running · complete · failed · insufficient_data · unsupported · expired.",
+  "post_analyze_request": {
+    "aoi_id": "riau",
+    "bbox": { "west": 100.8, "south": -1.9, "east": 103.4, "north": 0.2 },
+    "date_range": { "start": "2012-01-20", "end": "2026-07-31" }
+  },
+  "post_analyze_response_queued": {
+    "job_id": "job_7f3c9a", "status": "queued", "queue_position": 1,
+    "poll": "/api/jobs/job_7f3c9a",
+    "note": "bounded in-process job; capped AOI <= 5 deg x 5 deg; capped date range"
+  },
+  "job_status_examples": {
+    "running": { "job_id": "job_7f3c9a", "status": "running", "progress_pct": 60,
+      "stage": "Fetching FIRMS windows — window 7 of 12", "started_utc": "2026-11-14T08:00:00Z", "expires_utc": "2026-11-14T08:30:00Z" },
+    "complete": { "job_id": "job_7f3c9a", "status": "complete",
+      "aoi_id": "riau", "run_id": "PROTO-C01-v0.9_20261114T1200Z_b2primary", "result": "/api/aoi/riau/series" },
+    "failed": { "job_id": "job_7f3c9a", "status": "failed",
+      "error": { "code": "upstream_unavailable", "message": "FIRMS request failed after 3 retries (rate limit). Try again in a few minutes — presets stay available.", "retryable": true } },
+    "insufficient_data": { "job_id": "job_7f3c9a", "status": "insufficient_data",
+      "error": { "code": "insufficient_overlap", "message": "Too few overlapping detections in 2012–2025 to fit a mapping. Try a larger area or a preset — results are never borrowed from another AOI.", "retryable": false } },
+    "unsupported": { "job_id": "job_7f3c9a", "status": "unsupported",
+      "error": { "code": "bbox_too_large", "message": "Custom areas are limited to 5° × 5°. Your box is 7.2° × 4.5°.", "retryable": false } },
+    "expired": { "job_id": "job_7f3c9a", "status": "expired",
+      "error": { "code": "job_expired", "message": "This job expired after 30 minutes without finishing. Run the analysis again — nothing was saved half-way.", "retryable": true } }
+  },
+  "error_schema": {
+    "type": "object",
+    "required": ["status", "error"],
+    "error": { "type": "object", "required": ["code", "message"], "properties": {
+      "code": { "type": "string" },
+      "message": { "type": "string", "description": "names the problem and the recovery; sanitized, never a traceback" },
+      "retryable": { "type": "boolean" }
+    } }
+  }
+}
