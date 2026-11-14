@@ -26,7 +26,7 @@ data:
 	python3 pipeline/fetch_firms.py
 
 reproduce:
-	@test -f pipeline/grid.py || { echo "NOT READY: science pipeline missing — owner C-02..C-07"; exit 1; }
+	@test -f pipeline/run.py || { echo "NOT READY: science pipeline runner missing — owner C-02..C-07"; exit 1; }
 	python3 -m pipeline.run --aoi $(AOI)
 
 test:
