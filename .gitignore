@@ -1,0 +1,29 @@
+# Secrets — never commit. FIRMS MAP_KEY lives only in local .env (human-filled).
+.env
+*.key
+*.pem
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+.pytest_cache/
+.ruff_cache/
+
+# Node / frontend
+node_modules/
+web/dist/
+web/.vite/
+
+# Data caches — raw/processed bytes stay out of git; the MANIFEST is committed.
+data/**
+!data/raw/
+data/raw/**
+!data/raw/MANIFEST.json
+
+# Scientific artifacts — small versioned JSONs are committed; heavy binaries are not.
+artifacts/**/*.parquet
+
+# OS / editor noise
+.DS_Store
+*.swp

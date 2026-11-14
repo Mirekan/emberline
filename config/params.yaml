@@ -1,0 +1,218 @@
+# EmberLine — scientific parameters (C-01, part of PROTO-C01-v0.9)
+# Machine-readable contract behind docs/method.md. Contract test: tests/test_protocol_contract.py
+# WARNING: values marked PROVISIONAL are re-frozen BEFORE fitting (never after seeing test results).
+
+protocol_version: "PROTO-C01-v0.9"
+status: "DRAFT_FOR_REVIEW"
+created_utc: "2026-11-14T03:30:00Z"
+owner_role: "C"
+reviewer_role: "B"
+team_actual_start_local: "2026-11-14T09:00:00+07:00"
+
+sensors:
+  reference_sensor: "aqua_modis"
+  viirs_platform: "snpp_viirs"
+  viirs_platform_status: "PROVISIONAL_DEC1"
+  exact_source_strings: "PLACEHOLDER_PENDING_B01"
+  excluded_in_v1: ["terra_modis", "noaa20_viirs", "noaa21_viirs"]
+  silent_sensor_substitution: "forbidden"
+
+metric_policy:
+  target_metric: "frp_sum"
+  frp_units: "MW"
+  frp_sum_meaning: "aggregate_of_sampled_radiative_power_observations_not_energy_not_burned_area_not_fire_count"
+  detection_count: "separate_metric_never_merged_never_labeled_fire_count"
+  forbidden_claims: ["physical_fire_count", "total_daily_energy", "burned_area", "ground_truth"]
+
+confidence_filters:
+  modis:
+    field: "confidence"
+    keep_min_numeric: 30
+    keep_classes: ["nominal", "high"]
+  viirs:
+    field: "confidence"
+    keep_classes: ["n", "h"]
+  unknown_policy: "exclude_and_count_never_promote"
+  original_values_retained: true
+
+dedupe:
+  method: "exact_row_identity_per_source_key"
+  coordinate_rounding: "forbidden"
+  keys:
+    modis: ["source", "satellite", "version", "acq_date_utc", "acq_time_utc", "latitude", "longitude", "daynight"]
+    viirs: ["source", "satellite", "version", "acq_date_utc", "acq_time_utc", "latitude", "longitude", "daynight"]
+  cross_platform_or_overpass_near_detections: "legitimate_observations_never_deduplicated"
+  sp_nrt_overlap: "resolved_explicitly_never_blended"
+
+missingness:
+  four_states: ["failed_request", "unavailable_archive", "success_zero_detections", "verified_observation_opportunity"]
+  zero_fill_failures: "forbidden"
+  zero_fill_unavailable_periods: "forbidden"
+  masks_travel_with_artifacts: true
+
+support:
+  status: "PROVISIONAL_DEC2"
+  training_year_min_paired_retrieval_fraction: 0.90
+  training_year_min_modis_signal_days: 10
+  test_year_min_paired_retrieval_fraction: 0.90
+  one_sided_signal: "retained_with_flag_excluded_from_fitting_never_deleted"
+  fitting_requires:
+    min_training_years: 2
+    min_test_years: 1
+  insufficient_support_result: "explicit_insufficient_data_never_transferred_model"
+
+split:
+  method: "contiguous_earliest_fraction_of_eligible_overlap_years"
+  train_fraction: 0.6
+  shuffle: false
+  year_moves_after_first_result: "forbidden"
+  small_overlap_rule: "total_le_3_eligible_years -> leave-one-year-out CV within training; degenerate test disclosed"
+
+training_only:
+  law: "every learned step fit on training years or training-internal folds only"
+  learned_steps:
+    - "b1_ratio"
+    - "b2_coefficients"
+    - "smearing_factor"
+    - "interval_calibration"
+    - "covariate_or_feature_choice"
+    - "method_selection"
+    - "normalization_constants"
+    - "imputation"
+    - "threshold_tuning"
+  heldout_use_for_fitting_calibration_selection_tuning: "forbidden"
+
+methods:
+  b0_naive_splice:
+    definition: "observed MODIS before supported VIIRS era, raw VIIRS after"
+    correction: "none"
+  b1_global_ratio:
+    definition: "r = sum(S_modis)/sum(S_viirs) over training matched cell-days"
+    prediction: "S_hat = r * S_viirs"
+  b2_primary:
+    form: "log1p(S_modis) = a + b*log1p(S_viirs) + c*log1p(1 + n_viirs) + d*I_night"
+    monotone_constraints: { "b": ">=0", "c": ">=0" }
+    back_transform: "S_hat = k * expm1(y_hat); k = Duan smearing factor from training residuals"
+    zero_inflation_if_used: "detection_probability_first_conditional_magnitude_second"
+    fallback_if_unstable: "b2_simple_log_ratio_only"
+    variant_selection: "training_internal_folds_only"
+  identical_heldout_rows_all_methods: true
+  first_run_baseline_values: "recorded_as_observations_not_targets_no_favorable_aoi_selection"
+  quantile_correction:
+    v1: "omitted"
+    deviation_id: "DEV-S03"
+    if_added_later: "training_only"
+
+uncertainty:
+  nominal_target: 0.8
+  calibration_level: "aoi_daily"
+  method: "training_residual_day_block_bootstrap"
+  sum_of_cell_bounds_for_aoi_interval: "forbidden"
+  bounds: { finite: true, ordered: true, nonnegative: true }
+  extrapolation_flag: "inputs outside training 1st-99th percentile"
+  held_out_coverage_measured_and_reported: true
+  decorative_band_if_uncalibratable: "forbidden_publish_explicit_unavailability"
+
+source_policy:
+  pre_viirs_era: "observed_aqua_reference"
+  viirs_era: "mapped_viirs_estimate_with_interval_and_flags"
+  overlap_period: "separate_observed_modis_comparison_retained"
+  otherwise: "explicit_gap_with_reason"
+  blending_or_day_by_day_switching: "forbidden"
+  terra_or_worldwide_claims_from_aqua_model: "forbidden"
+
+metrics:
+  required:
+    - "mean_log_ratio_bias"
+    - "smape"
+    - "mape_zero_actual_excluded"
+    - "pearson_daily"
+    - "spearman_daily"
+    - "pearson_weekly"
+    - "spearman_weekly"
+    - "log_space_r2"
+    - "ks_statistic"
+    - "wasserstein_distance"
+    - "calendar_pattern_correlation"
+    - "interval_coverage_empirical"
+  na_policy: "N/A:<reason> for zero denominators, constant series, empty groups; never infinity; never fabricated zero"
+  sample_sizes_and_missing_counts: "required_with_every_metric"
+  daily_vs_weekly_primary_rule: "daily primary if >=60% test days paired-retrieved AND >=10 nonzero-signal days; else weekly primary (pre-registered)"
+  leave_one_year_out: "training_internal_summary_required"
+  modis_role: "reference_measurement_not_ground_truth"
+
+stress_tests:
+  count_min_per_aoi: 3
+  selection_rule: "T_i = peak MODIS FRP-sum day within each of 3 equal segments of the eligible held-out span (predetermined, no peeking)"
+  window_days: { before: 14, after: 14 }
+  window_requirements:
+    fully_inside_heldout: true
+    min_paired_retrieval_fraction: 0.7
+  comparison:
+    naive: "MODIS before + raw VIIRS after"
+    harmonized: "MODIS before + harmonized VIIRS after"
+    truth: "continued MODIS throughout"
+  report: ["shift_naive", "shift_harmonized", "shift_minus_truth", "error_ratio"]
+  changepoint_significance: "only with pre-stated dependence-aware valid procedure; else marked not_implemented; no manufactured p-values"
+  invalid_or_short_windows: "reported_failed_or_deferred_with_exact_shortfall"
+  unfavorable_results_visibility: "kept_in_artifacts_method_view_and_deck"
+
+index:
+  formula: "idx(day) = log1p(harmonized_frp_sum) / log1p(p95_training_daily_reference_modis_frp_sum)"
+  denominator: "frozen_from_training"
+  denominator_nonpositive_or_missing: "index_unavailable_raw_units_shown"
+  uncertainty_transform: "same monotone transform applied to bounds"
+  extremes_clipping: "forbidden"
+  cross_aoi_comparability: "not_automatic_must_be_stated_in_ui_and_exports"
+
+calendar:
+  positions: 366
+  template: "month_day"
+  true_dates_in_exports: true
+  feb29_non_leap: "not_applicable_never_missing_data"
+  climatology: { median: true, iqr: true, p10_p90: "optional" }
+  circular_smoothing_days: 7
+  critical_windows:
+    threshold_percentile_of_smoothed_curve: 75
+    threshold_meaning: "descriptive seasonal percentile NOT a safety threshold"
+    min_run_days: 3
+    dec_jan_wrapping: true
+    publish_years_active_and_years_eligible: true
+  eligible_year_rule: ">=60% of year's positions valid (non-missing)"
+  active_year_rule:
+    status: "PROVISIONAL_DEC3"
+    definition: "smoothed index exceeds window threshold on >=3 days of the year"
+  missing_years: "never_counted_as_inactive"
+  sparse_records_label: "insufficient_never_normal"
+  rollups_reconcile_with_daily: true
+
+provenance:
+  run_manifest_fields:
+    - "run_id"
+    - "git_sha"
+    - "created_utc"
+    - "aoi_bbox_date_range"
+    - "sources"
+    - "input_sha256"
+    - "params_hash"
+    - "train_years"
+    - "test_years"
+    - "metrics_path"
+    - "library_versions"
+    - "seeds"
+  seeds_deterministic: true
+  artifact_roots: { configs: "config/", pipeline: "pipeline/", artifacts: "artifacts/", docs: "docs/" }
+  map_key_or_credentials_in_code_configs_logs_manifests_docs: "forbidden"
+
+deviations:
+  - { id: "DEV-S01", summary: "aqua_plus_one_viirs_platform_only", affects: ["FR-DATA-6", "FR-HARM-8"], approval: "PENDING_A02" }
+  - { id: "DEV-S02", summary: "frp_sum_only_metric_selector_deferred", affects: ["FR-HARM-1"], approval: "PENDING_A02" }
+  - { id: "DEV-S03", summary: "monotone_log_mapping_quantile_correction_omitted_v1", affects: ["FR-HARM-3"], approval: "PENDING_A02" }
+  - { id: "DEV-S06", summary: "csv_provenance_columns_instead_of_comment_header", affects: ["FR-EXP-1"], approval: "PENDING_A02" }
+
+decisions_pending:
+  - { id: "DEC-1", needs: "B-01 keyed availability probe", resolves: "exact source strings, archive dates, S-NPP confirmation" }
+  - { id: "DEC-2", needs: "B-05 overlap evidence", resolves: "minimum support numbers; frozen before fitting" }
+  - { id: "DEC-3", needs: "coverage review at C-06", resolves: "years_active definition" }
+  - { id: "DEC-4", needs: "A record", resolves: "re-baselined gates (team start 09:00 WIB; proposed G2 ~H22-H23; G3 stays H30)" }
+  - { id: "DEC-5", needs: "A-01 confirmation", resolves: "deadline timezone and official brief (claims language only)" }

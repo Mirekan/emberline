@@ -1,0 +1,40 @@
+# EmberLine — grid & AOI contract (C-01, part of PROTO-C01-v0.9)
+# Owned by C; AOI preset coordinates live in config/aois.yaml owned by B-02.
+# All values below are frozen decisions F-4 unless marked otherwise.
+
+protocol_version: "PROTO-C01-v0.9"
+status: "DRAFT_FOR_REVIEW"          # becomes FROZEN v1.0 at B/D/E sign-off
+
+grid:
+  cell_size_deg: 0.1
+  cell_id_scheme: "floor(x / 0.1) -> (lat_idx, lon_idx); id = 'R{lat_idx:05d}C{lon_idx:05d}'"
+  assignment: "detection centroid -> containing cell; coordinate rounding forbidden"
+  cell_geometry: "half-open [west, east) x [south, north)"
+  aoi_clipping: "keep cells whose centroid lies inside the AOI bbox"
+  boundary_rule: "detections exactly on east/north edge belong to the neighbouring cell"
+  unequal_cell_area: "cells shrink ~cos(latitude); NOT area-corrected in v1 (documented limitation)"
+  area_correction_v1: "none"
+
+aoi_limits:
+  bbox_cap_deg: 5.0
+  bbox_validation: "finite numbers; west < east; south < north"
+  antimeridian_crossing: "rejected in v1 with explicit message"
+
+aois:
+  source_of_truth: "config/aois.yaml (owned by task B-02)"
+  status: "PENDING_B02"
+  expected_presets:
+    - "riau_or_jambi"
+    - "central_kalimantan"
+    - "northern_california"
+    - "pantanal"
+    - "nsw_victoria"
+  note: "names above are candidates from the plan, not approved coordinates; usable dates come from B-01/B-05 evidence only"
+
+time_policy:
+  daily_bin: "UTC calendar day from acq_date + zero-padded acq_time (timezone-aware)"
+  timezone_conversions: "none"
+  invalid_acq_time: "reject and count"
+  daynight_preserved: true
+  overpass_class: "(source, platform, daynight)"
+  ui_note_for_E: "a UTC day is not a local midnight-to-midnight day; month/day seasonality unaffected"

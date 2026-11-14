@@ -1,0 +1,36 @@
+{
+  "_comment": "DRAFT v0.1 — D-02 proposal, C+E sign-off pending. Do not implement against anything else.",
+  "aoi_id": "riau",
+  "bbox": { "west": 100.8, "south": -1.9, "east": 103.4, "north": 0.2 },
+  "date_range": { "start": "2012-01-01", "end": "2026-10-31" },
+  "units": {
+    "frp": "MW",
+    "note": "FRP-sum = aggregate of sampled radiative-power observations; not energy, not burned area, not a fire count"
+  },
+  "series": [
+    {
+      "date": "2023-09-12",
+      "source_flag": "harmonized_viirs",
+      "raw": {
+        "modis_frp_sum_mw": 412.5,
+        "viirs_frp_sum_mw": 388.2,
+        "modis_detection_count": 14,
+        "viirs_detection_count": 61
+      },
+      "harmonized": { "lo_mw": 352.0, "estimate_mw": 401.3, "hi_mw": 456.7 },
+      "flags": ["one_sided"],
+      "run_id": "PROTO-C01-v0.9_20261114T1200Z_b2primary",
+      "model_version": "b2-primary",
+      "train_years": [2012, 2013, 2014, 2015, 2016, 2017, 2018],
+      "test_years": [2019, 2020, 2021, 2022, 2023, 2024, 2025]
+    },
+    {
+      "date": "2024-04-01",
+      "source_flag": "gap",
+      "reason": "unavailable_archive",
+      "raw": null,
+      "harmonized": null,
+      "flags": []
+    }
+  ]
+}
