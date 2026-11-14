@@ -13,6 +13,7 @@ Every PRD deviation must appear here before affected work starts; silent deviati
 | DEV-S04 | Bounded custom rectangles only; genuine recompute for supported cached areas, explicit unsupported/insufficient otherwise | FR-UI-1 | PENDING |
 | DEV-S05 | One app, one backend, precomputed versioned artifacts; no DB/auth/queue/runtime-LLM | PRD §11 | PENDING |
 | DEV-S06 | CSV provenance as ordinary columns, not leading comment headers | FR-EXP-1 | PENDING |
+| DEV-UI1 | MOCK · SYNTHETIC badge hidden in the web UI while FIXTURE_SYNTHETIC payloads are served (user request, demo legibility). `mock`/`fixture` fields remain in every payload for provenance; exports still carry provenance. Remove this row and restore the badge before any external demo claiming real data. | FR-UI-12 | PROPOSED |
 
 ## Open decisions
 

@@ -12,33 +12,35 @@ help:
 	@echo "EmberLine targets (owner in brackets):"
 	@echo "  make dev                 [D-01] run backend + frontend locally"
 	@echo "  make data                [B-03] fetch -> validate -> cache (resumable)"
+	@echo "  make fixture             [B-06] build FIXTURE_SYNTHETIC for D/E dev"
 	@echo "  make reproduce AOI=<id>  [C-07] raw inputs -> versioned artifacts + manifest"
 	@echo "  make test                [D-01] all role tests (C/B/D/E)"
 	@echo "  make serve               [D-07] serve versioned artifacts (deployment)"
 	@echo "  make build               [D/E]  build frontend bundle"
 
 dev:
-	@test -f api/app.py || { echo "NOT READY: api/ backend not implemented yet — owner D-03/D-04"; exit 1; }
-	@echo "[D] starting backend + frontend (to be implemented)"
+	@python -m uvicorn api.app:app --port 8300 &
+	@cd web && npm run dev
 
 data:
-	@test -f pipeline/fetch_firms.py || { echo "NOT READY: pipeline/fetch_firms.py missing — owner B-03"; exit 1; }
-	python3 pipeline/fetch_firms.py
+	@python pipeline/fetch_firms.py
+
+fixture:
+	@python pipeline/build_synthetic_fixture.py
 
 reproduce:
-	@test -f pipeline/grid.py || { echo "NOT READY: science pipeline missing — owner C-02..C-07"; exit 1; }
-	python3 -m pipeline.run --aoi $(AOI)
+	@python pipeline/run.py --aoi $(AOI) --fixture $(FIXTURE)
+	@python pipeline/time_cache_reload.py
 
 test:
-	@python3 tests/test_protocol_contract.py
+	@python tests/test_protocol_contract.py
+	@python tests/test_b_ingestion.py
 	@echo ""
-	@echo "[note] only the C-01 protocol contract test exists so far;"
-	@echo "       B-04 / C-02.. / D / E tests land with their tasks; D-01 consolidates."
+	@echo "[note] C-01 protocol contract + B ingestion contract pass = green;"
+	@echo "       D API verified via curl smoke (see docs/handoffs/); E build via make build."
 
 serve:
-	@test -f api/app.py || { echo "NOT READY: api/ not implemented — owner D-07"; exit 1; }
-	@echo "[D] serving versioned artifacts (to be implemented)"
+	@python -m uvicorn api.app:app --port 8300
 
 build:
-	@test -f web/package.json || { echo "NOT READY: web/ not implemented — owner E"; exit 1; }
-	@echo "[D/E] frontend build (to be implemented)"
+	cd web && npm run build

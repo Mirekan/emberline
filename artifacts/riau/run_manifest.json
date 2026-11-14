@@ -1,0 +1,58 @@
+{
+  "run_id": "PROTO-C01-v0.9_20261114T0818Z_b2_simple_log_ratio_only_FIXTURE",
+  "git_sha": "6c03fcadfc41efd3329a382ca8661fbea9740567",
+  "created_utc": "2026-11-14T08:18:24+00:00",
+  "aoi_bbox_date_range": {
+    "aoi": "riau",
+    "slug": "w100_s-2_e105_n1",
+    "bbox": [
+      100.0,
+      -2.0,
+      105.0,
+      1.0
+    ],
+    "coverage": {
+      "first": "2012-01-20",
+      "last": "2026-07-31"
+    }
+  },
+  "sources": [
+    "MODIS_SP",
+    "VIIRS_SNPP_SP"
+  ],
+  "input_sha256": {
+    "data/fixtures/FIXTURE_SYNTHETIC/riau/MODIS_SP/w100_s-2_e105_n1/normalized.csv": "cdfc5b12934cbc589a6c02072660f0e49926d146c720b66c1f0c5f67d8e4b7e3",
+    "data/fixtures/FIXTURE_SYNTHETIC/riau/VIIRS_SNPP_SP/w100_s-2_e105_n1/normalized.csv": "0e3cb9b62b80a34b0453b10ac48990a93f9613c069b26d048dd6f8b6ed504526"
+  },
+  "params_hash": "e834f86cc3f7c2069cef3c92ecf47c1acec58e9014468cc766166d253a892979",
+  "train_years": [
+    "2012",
+    "2013",
+    "2014",
+    "2015",
+    "2016",
+    "2017",
+    "2018",
+    "2019",
+    "2020"
+  ],
+  "test_years": [
+    "2021",
+    "2022",
+    "2023",
+    "2024",
+    "2025",
+    "2026"
+  ],
+  "metrics_path": "artifacts/riau/metrics.json",
+  "library_versions": {
+    "python": "stdlib-only",
+    "numpy": "not-used",
+    "pandas": "not-used"
+  },
+  "seeds": {
+    "bootstrap": 20261114
+  },
+  "fixture": "FIXTURE_SYNTHETIC",
+  "boundary": "Historical & descriptive \u2014 not predictive."
+}

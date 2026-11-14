@@ -1,0 +1,41 @@
+{
+  "run_id": "PROTO-C01-v0.9_20261114T0818Z_b2_simple_log_ratio_only_FIXTURE",
+  "fixture": "FIXTURE_SYNTHETIC",
+  "selection_rule": "peak MODIS FRP-sum day per equal segment of eligible held-out span (predetermined)",
+  "window_days": 14,
+  "results": [
+    {
+      "segment": 1,
+      "pseudo_transition": "2022-09-21",
+      "window": "2022-09-07..2022-10-05",
+      "paired_retrieval_fraction": 1.0,
+      "status": "computed",
+      "shift_naive": 4.376,
+      "shift_harmonized": 0.941,
+      "shift_truth": 1.095,
+      "error_ratio": 0.859
+    },
+    {
+      "segment": 2,
+      "pseudo_transition": "2024-09-29",
+      "window": "2024-09-15..2024-10-13",
+      "paired_retrieval_fraction": 1.0,
+      "status": "computed",
+      "shift_naive": 2.912,
+      "shift_harmonized": 0.626,
+      "shift_truth": 0.772,
+      "error_ratio": 0.811
+    },
+    {
+      "segment": 3,
+      "pseudo_transition": "2025-09-12",
+      "window": "2025-08-29..2025-09-26",
+      "paired_retrieval_fraction": 1.0,
+      "status": "computed",
+      "shift_naive": 4.008,
+      "shift_harmonized": 0.862,
+      "shift_truth": 1.13,
+      "error_ratio": 0.763
+    }
+  ]
+}
