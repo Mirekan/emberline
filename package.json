@@ -1,0 +1,13 @@
+{
+  "name": "emberline",
+  "private": true,
+  "version": "0.1.0",
+  "description": "EmberLine — root convenience scripts. Frontend lives in web/, backend in api/.",
+  "scripts": {
+    "dev": "npm --prefix web run dev",
+    "build": "npm --prefix web run build",
+    "install:web": "npm --prefix web install",
+    "serve": "python -m uvicorn api.app:app --port 8300",
+    "preview": "npm --prefix web run preview"
+  }
+}
