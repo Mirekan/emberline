@@ -3,13 +3,20 @@
 *.key
 *.pem
 
-# Rust
+# Rust (backend per cab7b61)
 debug
 target
 **/*.rs.bk
 *.pdb
 **/mutants.out*/
 rustc-ice-*.txt
+
+# Python — pipeline/ (B/C) stays Python; needed until that changes
+__pycache__/
+*.pyc
+.venv/
+.pytest_cache/
+.ruff_cache/
 
 # Node / frontend
 node_modules/
