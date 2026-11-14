@@ -170,11 +170,18 @@ def check_list():
           result4["manifest"]["status"] == "insufficient_data"
           and Path(result4["outputs"]["series"]).exists())
 
-    # -- real fixture ------------------------------------------------------------------
+    # -- real Riau file: status consistent with eligibility (era evolves: fixture
+    #    -> deferred; full era -> ok). Invariant: ok iff >=2 eligible years, and
+    #    a sparse sample is never shown as a normal baseline either way.
     if REAL_HARM.exists():
         result5 = calendar.run(str(REAL_HARM), None, tmp, "riau")
-        check("real Riau fixture -> deferred (upstream insufficient_data)",
-              result5["manifest"]["status"] == "deferred")
+        m5 = result5["manifest"]
+        st = m5["status"]
+        n_eligible = len(m5.get("years_eligible", []))
+        check("real Riau harmonized series: status ok iff >=2 eligible years",
+              (st == "ok") == (n_eligible >= calendar.MIN_ELIGIBLE_YEARS)
+              and st in {"ok", "insufficient_data"},
+              f"status={st}, eligible={m5.get('years_eligible')}")
     return checks
 
 

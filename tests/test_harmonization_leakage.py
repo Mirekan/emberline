@@ -178,12 +178,17 @@ def run_all_checks() -> list[tuple[str, bool, str]]:
           ext_days and "extrapolation" in ext_days[0]["flags"],
           f"got {ext_days[0]['flags'] if ext_days else 'no day'}")
 
-    # -- 6. honest insufficient support -------------------------------------------
+    # -- 6. real Riau file: status consistent with the F-9b gate (either era) -------
     if REAL_PAIRS.exists():
-        result_real = harmonize.run(str(REAL_PAIRS), tempfile.mkdtemp(), "riau", run_ts=RUN_TS)
-        check("real Riau fixture -> insufficient_data, no model fitted",
-              result_real["manifest"]["outcome"]["status"] == "insufficient_data",
-              f"got {result_real['manifest']['outcome'].get('status')}")
+        result_real = harmonize.run(str(REAL_PAIRS), tempfile.mkdtemp(prefix="c04_real_"),
+                                    "riau", run_ts=RUN_TS)
+        st = result_real["manifest"]["outcome"]["status"]
+        eligible = set(result_real["manifest"]["eligible_years"])
+        supported = (len({y for y in eligible if y <= harmonize.TRAIN_END}) >= harmonize.MIN_TRAIN_YEARS
+                     and len({y for y in eligible if y >= harmonize.TEST_START[:4]}) >= harmonize.MIN_TEST_YEARS)
+        check("real Riau file: model exists iff support gate passes (no fake fit either way)",
+              (st == "ok") == supported,
+              f"status={st}, eligible={sorted(eligible)}")
     single = year_rows("2019")
     result_single = harmonize.run(write_pairs(single), tempfile.mkdtemp(), "synthetic", run_ts=RUN_TS)
     check("single eligible year -> insufficient_data (F-9b gate)",

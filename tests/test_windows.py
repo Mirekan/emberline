@@ -87,12 +87,15 @@ def check_list():
     result_def = windows.run(Path(tempfile.mkdtemp(prefix="c06win_")), None)
     check("absent calendar artifacts -> deferred", result_def["manifest"]["status"] == "deferred")
 
-    # -- real fixture ------------------------------------------------------------------
+    # -- real Riau file: windows status consistent with upstream calendar state -------
     real = Path(__file__).resolve().parents[1] / "artifacts/riau/climatology.json"
     if real.exists():
         result_real = windows.run(real.parent, real.parent)
-        check("real Riau fixture -> deferred (calendar upstream deferred)",
-              result_real["manifest"]["status"] == "deferred")
+        clim = json.loads(real.read_text())
+        expected_ok = clim.get("status") == "ok" and len(clim.get("years_eligible", [])) >= 2
+        check("real Riau: windows status consistent with calendar upstream state",
+              (result_real["manifest"]["status"] == "ok") == expected_ok,
+              f"windows={result_real['manifest']['status']}, clim={clim.get('status')}")
     return checks
 
 

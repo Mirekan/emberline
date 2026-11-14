@@ -138,14 +138,23 @@ def run_all_checks() -> list[tuple[str, bool, str]]:
           all({"retrieval_fraction", "signal_days", "eligible"} <= set(y)
               for y in manifest["year_eligibility"]))
 
-    # -- 7. REAL Riau fixture -> honest insufficient_data ----------------------
+    # -- 7. REAL Riau file: status consistent with F-9b support (either era) -----
+    # The real file evolved: compact fixture (15-day overlap) -> insufficient_data;
+    # full era (14.5 y) -> ok. The INVARIANT is what matters: a fit exists iff
+    # the support gate passes — a fake fit on thin support is forbidden both ways.
     if REAL_PAIRS.exists():
         result5 = baselines.run(str(REAL_PAIRS), tempfile.mkdtemp(), "riau")
-        check("real Riau fixture (15-day overlap) -> insufficient_data, not a fake fit",
-              result5["manifest"]["outcome"]["status"] == "insufficient_data",
-              f"got {result5['manifest']['outcome'].get('status')}")
+        m5 = result5["manifest"]
+        eligible = set(m5["eligible_years"])
+        n_train = len({y for y in eligible if y <= baselines.TRAIN_END})
+        n_test = len({y for y in eligible if y >= baselines.TEST_START[:4]})
+        supported = (n_train >= baselines.MIN_TRAIN_YEARS and n_test >= baselines.MIN_TEST_YEARS)
+        status = m5["outcome"]["status"]
+        check("real Riau file: status ok iff F-9b support passes (no fake fit either way)",
+              (status == "ok") == supported,
+              f"status={status}, train_years={n_train}, test_years={n_test}")
     else:
-        check("real Riau fixture present for the honesty check", False,
+        check("real Riau file present for the honesty check", False,
               f"{REAL_PAIRS} missing — run the C-02 swap-in first")
 
     # -- 8. schema drift hard-fails ---------------------------------------------
