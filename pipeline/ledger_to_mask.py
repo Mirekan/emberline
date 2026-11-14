@@ -41,6 +41,13 @@ def convert(
     seen: dict[tuple[str, str], str] = {}
     conflicts: list[tuple] = []
     windows = 0
+    # Precedence across campaigns (append-only ledger can hold multiple attempts
+    # for the same window — e.g. the re-fetch campaign): a VERIFIED-SUCCESS
+    # supersedes a failure, because B-03 never overwrites a known-good raw file
+    # (validate.py independently hash-verifies those files). Resolved conflicts
+    # are disclosed in the stats, never silently dropped.
+    precedence = {"retrieved_rows": 4, "retrieved_empty": 3, "unavailable": 2, "failed": 1,
+                  "not_requested": 0}
     with open(ledger_path, encoding="utf-8") as handle:
         for line in handle:
             line = line.strip()
@@ -59,7 +66,7 @@ def convert(
                 status = "retrieved_rows" if int(entry.get("rows", 0)) > 0 else "retrieved_empty"
             elif status == "ok_empty":
                 status = "retrieved_empty"
-            elif status not in {"failed", "unavailable", "not_requested"}:
+            elif status not in precedence:
                 raise LedgerError(f"unknown ledger status {status!r} — contract violation")
             start = date.fromisoformat(str(entry["window_start"]))
             end = date.fromisoformat(str(entry["window_end"]))
@@ -68,10 +75,17 @@ def convert(
                 key = (str(entry["source"]), day.isoformat())
                 if key in seen and seen[key] != status:
                     conflicts.append((key, seen[key], status))
-                seen.setdefault(key, status)
+                if key not in seen or precedence[status] > precedence[seen[key]]:
+                    seen[key] = status
                 day += timedelta(days=1)
     if conflicts:
-        raise LedgerError(f"conflicting mask statuses for overlapping windows: {conflicts[:5]}")
+        # disclosed, not silent: resolved by success-supersedes-failure (see above)
+        conflict_days = len({(c[0]) for c in conflicts})
+        conflict_note = (f"{len(conflicts)} conflicting entries on {conflict_days} (source, date) keys "
+                         f"resolved by precedence: verified success supersedes failure "
+                         f"(raw files never overwritten; hash-verified by validate.py)")
+    else:
+        conflict_note = None
     rows = [
         {"aoi_id": aoi_id, "source": src, "date": day, "status": status}
         for (src, day), status in sorted(seen.items())
@@ -80,8 +94,12 @@ def convert(
         writer = csv.DictWriter(handle, fieldnames=["aoi_id", "source", "date", "status"])
         writer.writeheader()
         writer.writerows(rows)
-    return {"windows_used": windows, "mask_rows": len(rows),
-            "retrieved_empty_dates": sum(1 for r in rows if r["status"] == "retrieved_empty")}
+    stats = {"windows_used": windows, "mask_rows": len(rows),
+             "retrieved_empty_dates": sum(1 for r in rows if r["status"] == "retrieved_empty"),
+             "conflict_entries_resolved": len(conflicts)}
+    if conflicts:
+        stats["conflict_rule"] = conflict_note
+    return stats
 
 
 def main(argv: list[str] | None = None) -> int:
