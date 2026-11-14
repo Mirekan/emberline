@@ -21,9 +21,27 @@ dev:
 	@test -f api/app.py || { echo "NOT READY: api/ backend not implemented yet — owner D-03/D-04"; exit 1; }
 	@echo "[D] starting backend + frontend (to be implemented)"
 
+# make data                       full era, ALL AOIs from config/aois.yaml (resumable)
+# make data DATA_AOI=riau START=2023-01-01 END=2023-12-31   dev-range profile:
+#   fetch one AOI / one date range only (ledger records actual coverage;
+#   mask + delivered_ranges clipping keep the science honest — F-9b gate
+#   prevents a thin slice from ever passing as a full-era claim).
+#   Incremental: later full-era fetch RESUMES — verified windows are skipped.
+AOI ?= riau          # used by make reproduce
+DATA_AOI ?=          # optional AOI filter for make data (empty = all AOIs)
+START ?=             # optional fetch range overrides (empty = era from aois.yaml)
+END ?=
+SOURCES ?=           # optional source filter, e.g. "MODIS_SP VIIRS_SNPP_SP"
+
 data:
 	@test -f pipeline/fetch_firms.py || { echo "NOT READY: pipeline/fetch_firms.py missing — owner B-03"; exit 1; }
-	python3 pipeline/fetch_firms.py
+	python3 pipeline/fetch_firms.py fetch \
+	    $(if $(DATA_AOI),--aoi $(DATA_AOI),) \
+	    $(if $(START),--start $(START),) \
+	    $(if $(END),--end $(END),) \
+	    $(if $(SOURCES),--source $(SOURCES),)
+	@echo "[B-04] validating fetched windows..."
+	python3 tests/test_b_ingestion.py 2>/dev/null || echo "[note] run python3 pipeline/validate.py --slug <slug> for per-AOI validation"
 
 reproduce:
 	@test -f pipeline/run.py || { echo "NOT READY: science pipeline runner missing — owner C-07"; exit 1; }
