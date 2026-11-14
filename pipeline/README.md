@@ -5,8 +5,8 @@ the other's modules — the interface is files under `data/` and `artifacts/`.
 
 | File | Owner | Task | Status |
 |---|---|---|---|
-| `fetch_firms.py` | B | B-03 | pending (≤5-day Area API chunks, resumable, immutable raw) |
-| `validate.py` | B | B-04 | pending (schemas, confidence, dedupe, masks) |
+| `fetch_firms.py` | B | B-03 | landed (`make data` default run; ≤5-day chunks, resumable, immutable raw; handoff: docs/handoffs/B-03_downloader.md) |
+| `validate.py` | B | B-04 | landed (schemas, verbatim confidence, exact-identity dedupe, retrieval masks; tests/test_b_ingestion.py 17/17) |
 | `grid.py` | C | C-02 | pending (0.1° grid, centroid assignment) |
 | `match.py` | C | C-02 | pending (cell-day×day/night matched aggregates) |
 | `harmonize.py` | C | C-04 | pending (B0/B1/B2 per PROTO-C01-v0.9) |

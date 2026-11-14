@@ -1,0 +1,68 @@
+# EmberLine — AOI presets (task B-02, owner: B; referenced by config/grid.yaml)
+# Source of truth for preset ids, coordinates, and per-source date ranges.
+#
+# Basis (B-01 keyed availability probe, 2026-11-14T03:15Z):
+#   MODIS_SP       2000-11-01 .. 2026-08-31
+#   VIIRS_SNPP_SP  2012-01-20 .. 2026-07-31   -> overlap era = 2012-01-20 .. 2026-07-31
+# NRT sources cover only recent months; never blended into the SP era (params.yaml source_policy).
+#
+# Presets below were team-approved 2026-11-14. OPEN FLAG for A/C (see
+# docs/handoffs/B-03_downloader.md): grid.yaml's candidate list mentioned
+# northern_california / pantanal / nsw_victoria; if the team prefers a global
+# story, swap presets BEFORE the remaining downloads (riau + central_kalimantan
+# are already fetched).
+
+protocol_version: PROTO-C01-v0.9
+
+aois:
+  - id: riau
+    name: "Riau - Sumatra peatland"
+    west: 100.0
+    south: -2.0
+    east: 105.0
+    north: 1.0
+    sources: MODIS_SP VIIRS_SNPP_SP
+    start: 2012-01-20
+    end: 2026-07-31
+  - id: central_kalimantan
+    name: "Central Kalimantan - ex-Mega Rice Project"
+    west: 113.0
+    south: -3.0
+    east: 116.0
+    north: 0.0
+    sources: MODIS_SP VIIRS_SNPP_SP
+    start: 2012-01-20
+    end: 2026-07-31
+  - id: south_sumatra
+    name: "South Sumatra - Ogan Komering peatland"
+    west: 103.0
+    south: -5.0
+    east: 106.0
+    north: -2.0
+    sources: MODIS_SP VIIRS_SNPP_SP
+    start: 2012-01-20
+    end: 2026-07-31
+  - id: jambi
+    name: "Jambi - peatland and plantation frontier"
+    west: 102.0
+    south: -3.0
+    east: 104.5
+    north: -1.0
+    sources: MODIS_SP VIIRS_SNPP_SP
+    start: 2012-01-20
+    end: 2026-07-31
+  - id: merauke
+    name: "Merauke - Papua seasonal savanna fires"
+    west: 137.0
+    south: -9.0
+    east: 141.0
+    north: -7.0
+    sources: MODIS_SP VIIRS_SNPP_SP
+    start: 2012-01-20
+    end: 2026-07-31
+
+notes:
+  - riau and central_kalimantan are the two G1 AOIs (downloads complete or in flight)
+  - south_sumatra jambi merauke pending a density probe before full download
+  - do not extend end past 2026-07-31 (SP availability limit) without a new keyed availability probe
+  - every preset stays within the 5 deg bbox cap from config/grid.yaml
