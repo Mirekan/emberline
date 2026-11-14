@@ -20,11 +20,8 @@ pub async fn fake_not_found() -> HttpResponse {
     let mut rng = rand::rng();
 
     // ? Generate a random number for the size of the packet data
-    let r: u8 = rng.random_range(0..=255);
-    let mut data: Vec<u8> = Vec::new();
-    for _ in 0..=r {
-        data.push(0);
-    }
+    let r: usize = rng.random_range(0..=255);
+    let data: Vec<u8> = vec![0; r];
 
     // ?  Returns back the data
     HttpResponse::Ok()
