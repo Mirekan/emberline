@@ -150,8 +150,10 @@ def run(aoi_id: str, run_ts: str | None = None, detections: list[Path] | None = 
     # -- stages 4/5: C-05 metrics + stress ----------------------------------------------
     series_b = artifacts / "baseline_series.csv"
     series_h = artifacts / "harmonized_daily.csv"
-    stages["c05_metrics"] = {"status": metrics.run(series_b, series_h, stage_pairs if stage_pairs.exists() else None,
-                                                   artifacts, aoi_id)["manifest"].get("status")}
+    m = metrics.run(series_b, series_h, stage_pairs if stage_pairs.exists() else None,
+                    artifacts, aoi_id)["manifest"]
+    stages["c05_metrics"] = {"status": m.get("status") or m.get("outcome", {}).get("status"),
+                             "outputs": {"metrics": str(artifacts / "harmonization_metrics.json")}}
     stages["c05_splice_stress"] = {"status": splice_stress.run(series_b, series_h, artifacts, aoi_id)["manifest"].get("status")}
 
     # -- stage 6: C-06 calendar + windows --------------------------------------------------
