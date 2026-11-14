@@ -98,7 +98,7 @@ def run_all_checks() -> list[tuple[str, bool, str]]:
             det(frp_mw="9.5", acq_time="1345", scan="2.0", longitude="100.06"),
             det(satellite="Aqua", source="MODIS_SP", daynight="N", frp_mw="5.0",
                 acq_time="0130", latitude="0.05", longitude="100.05"),
-            det(satellite="SNPP", source="VIIRS_SNPP_SP", frp_mw="20.0",
+            det(satellite="N", source="VIIRS_SNPP_SP", frp_mw="20.0",
                 longitude="100.05", confidence_class="h"),
         ],
         [mask("MODIS_SP"), mask("VIIRS_SNPP_SP")],
@@ -118,6 +118,8 @@ def run_all_checks() -> list[tuple[str, bool, str]]:
     check("VIIRS aggregated separately from MODIS (F-6)",
           viirs_unit and viirs_unit["detection_count"] == 1
           and abs(viirs_unit["frp_sum_mw"] - 20.0) < 1e-9)
+    check("B-04 reality: VIIRS rows carry satellite='N', accepted via source string (DEC-1)",
+          viirs_unit and viirs_unit["satellite"] == "N")
     pair = pair_of(result)
     check("matched pair: both signal -> fitting-eligible",
           pair and pair["state"] == match.ST_MATCHED_SIGNAL and pair["fitting_eligible"])
@@ -127,7 +129,7 @@ def run_all_checks() -> list[tuple[str, bool, str]]:
         [
             # date A: MODIS signal, VIIRS retrieved-empty -> one_sided (excluded)
             det(acq_date="2023-09-12"),
-            det(satellite="SNPP", source="VIIRS_SNPP_SP", acq_date="2023-09-12",
+            det(satellite="N", source="VIIRS_SNPP_SP", acq_date="2023-09-12",
                 latitude="0.15", longitude="100.15", frp_mw="3.0"),
             # date B: MODIS signal, VIIRS failed that date -> missing_retrieval
             det(acq_date="2024-02-29", acq_time="1330"),
@@ -168,7 +170,7 @@ def run_all_checks() -> list[tuple[str, bool, str]]:
         [
             det(),  # Aqua
             det(satellite="Terra", source="MODIS_SP"),  # excluded in v1, disclosed
-            det(satellite="SNPP", source="VIIRS_SNPP_SP", frp_mw="4.0"),  # SNPP
+            det(satellite="N", source="VIIRS_SNPP_SP", frp_mw="4.0"),  # SNPP
             det(satellite="NOAA-20", source="VIIRS_NOAA20_SP", frp_mw="4.0"),  # excluded
         ],
         [mask("MODIS_SP"), mask("VIIRS_SNPP_SP")],
@@ -206,7 +208,7 @@ def run_all_checks() -> list[tuple[str, bool, str]]:
     for i in range(5):
         lat_i = str(0.01 + i * 0.02)  # distinct coordinates -> distinct observations,
         rows.append(det(frp_mw=str(1.0 + i / 7), latitude=lat_i))  # all inside cell R0
-        rows.append(det(satellite="SNPP", source="VIIRS_SNPP_SP",
+        rows.append(det(satellite="N", source="VIIRS_SNPP_SP",
                         frp_mw=str(2.0 + i / 11), latitude=lat_i))
     masks = [mask("MODIS_SP"), mask("VIIRS_SNPP_SP")]
     first = build([dict(r) for r in rows], [dict(m) for m in masks])

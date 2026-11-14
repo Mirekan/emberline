@@ -62,20 +62,17 @@ REQUIRED_MASK_COLUMNS = {"aoi_id", "source", "date", "status"}
 _REFERENCE_SENSOR = "aqua_modis"   # from config/params.yaml sensors.reference_sensor
 _TARGET_SENSOR = "snpp_viirs"      # from config/params.yaml sensors.viirs_platform
 
+# DEC-1 RESOLVED (B-01 keyed probe + B-05 fetch): the exact FIRMS source strings
+# are MODIS_SP and VIIRS_SNPP_SP. Platform acceptance is therefore SOURCE-based:
+#   reference family = source contains 'modis' AND satellite == 'Aqua'
+#     (Terra rows are counted and excluded — S-01, never blended);
+#   target family    = source contains 'viirs' AND source contains 'snpp'.
+# B-04 normalized VIIRS rows carry satellite='N' (FIRMS convention) — satellite
+# stays a pass-through field and is NOT the platform discriminator for VIIRS.
+
 
 class MatchError(ValueError):
     """Contract/protocol violation: hard-fail, resolve upstream — never guess."""
-
-
-def _sensor_parts(sensor: str) -> tuple[str, str]:
-    """'aqua_modis' -> ('modis', 'aqua'); 'snpp_viirs' -> ('viirs', 'snpp')."""
-    sat, fam = sensor.split("_", 1)
-    return fam.lower(), sat.lower()
-
-
-REFERENCE_FAMILY, REFERENCE_SATELLITE = _sensor_parts(_REFERENCE_SENSOR)
-TARGET_FAMILY, TARGET_SATELLITE = _sensor_parts(_TARGET_SENSOR)
-V1_PLATFORMS = {(REFERENCE_FAMILY, REFERENCE_SATELLITE), (TARGET_FAMILY, TARGET_SATELLITE)}
 
 
 # --------------------------------------------------------------------------- io
@@ -234,8 +231,12 @@ def aggregate_units(
         if fam is None:
             counts["rejected_unknown_source"] += 1
             continue
-        sat = str(row.get("satellite", "")).strip().lower()
-        if (fam, sat) not in V1_PLATFORMS:
+        sat = str(row.get("satellite", "")).strip()
+        src_l = str(row.get("source", "")).strip().lower()
+        accepted = (fam == "modis" and sat.lower() == "aqua") or (
+            fam == "viirs" and "snpp" in src_l
+        )
+        if not accepted:
             counts["excluded_platform_v1"] += 1  # e.g. Terra / NOAA-20 — disclosed, not blended
             continue
         try:

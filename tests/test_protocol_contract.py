@@ -64,10 +64,10 @@ def run_all_checks(grid: dict, p: dict) -> list[tuple[str, bool, str]]:
     # -- sensors (F-1, F-2, F-3) --------------------------------------------
     s = p["sensors"]
     check("reference sensor is Aqua MODIS", s["reference_sensor"] == "aqua_modis")
-    check("VIIRS platform S-NPP carries explicit PROVISIONAL marker",
-          s["viirs_platform"] == "snpp_viirs" and s["viirs_platform_status"] == "PROVISIONAL_DEC1")
-    check("exact source strings are a decision-needed marker, not invented",
-          "PENDING" in str(s["exact_source_strings"]))
+    check("S-NPP platform + exact source strings frozen (DEC-1 resolved by B-01/B-05)",
+          s["viirs_platform"] == "snpp_viirs"
+          and s["viirs_platform_status"].startswith("FROZEN_DEC1")
+          and set(s["exact_source_strings"]) == {"MODIS_SP", "VIIRS_SNPP_SP"})
     check("Terra and NOAA-20/21 excluded in v1",
           set(s["excluded_in_v1"]) == {"terra_modis", "noaa20_viirs", "noaa21_viirs"})
     m = p["metric_policy"]
@@ -114,8 +114,8 @@ def run_all_checks(grid: dict, p: dict) -> list[tuple[str, bool, str]]:
     check("four missingness states defined",
           len(miss["four_states"]) == 4 and miss["zero_fill_failures"] == "forbidden")
     sup = p["support"]
-    check("minimum support carries PROVISIONAL marker (DEC-2)",
-          sup["status"] == "PROVISIONAL_DEC2")
+    check("minimum support frozen on B-05 coverage evidence (DEC-2)",
+          sup["status"].startswith("FROZEN_DEC2"))
     check("support thresholds written (0.90 coverage, 10 signal days)",
           sup["training_year_min_paired_retrieval_fraction"] == 0.90
           and sup["training_year_min_modis_signal_days"] == 10)
@@ -130,6 +130,9 @@ def run_all_checks(grid: dict, p: dict) -> list[tuple[str, bool, str]]:
     check("split is contiguous earliest ~60% of eligible years",
           sp["method"].startswith("contiguous_earliest") and sp["train_fraction"] == 0.6
           and sp["shuffle"] is False)
+    check("split dates frozen with explicit basis (B-05 era)",
+          sp["frozen_split_dates"]["train_end"] == "2020-10-08"
+          and sp["frozen_split_dates"]["test_start"] == "2020-10-09")
     to = p["training_only"]
     check("training-only law lists every learned step",
           len(to["learned_steps"]) == 9)

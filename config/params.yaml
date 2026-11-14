@@ -12,8 +12,8 @@ team_actual_start_local: "2026-11-14T09:00:00+07:00"
 sensors:
   reference_sensor: "aqua_modis"
   viirs_platform: "snpp_viirs"
-  viirs_platform_status: "PROVISIONAL_DEC1"
-  exact_source_strings: "PLACEHOLDER_PENDING_B01"
+  viirs_platform_status: "FROZEN_DEC1_B01_B05"   # B-01 probe + B-05 fetch confirm S-NPP SP archive
+  exact_source_strings: ["MODIS_SP", "VIIRS_SNPP_SP"]   # DEC-1 resolved; A to record in DECISIONS.md
   excluded_in_v1: ["terra_modis", "noaa20_viirs", "noaa21_viirs"]
   silent_sensor_substitution: "forbidden"
 
@@ -51,7 +51,8 @@ missingness:
   masks_travel_with_artifacts: true
 
 support:
-  status: "PROVISIONAL_DEC2"
+  status: "FROZEN_DEC2_B05"   # B-05 coverage evidence confirms the provisional numbers are met:
+  frozen_basis: "weakest year 334 MODIS rows (2022 Kalteng) >> 10 signal days; 5307/5307 retrieved days per source ~ 100% >= 90%"
   training_year_min_paired_retrieval_fraction: 0.90
   training_year_min_modis_signal_days: 10
   test_year_min_paired_retrieval_fraction: 0.90
@@ -67,6 +68,10 @@ split:
   shuffle: false
   year_moves_after_first_result: "forbidden"
   small_overlap_rule: "total_le_3_eligible_years -> leave-one-year-out CV within training; degenerate test disclosed"
+  frozen_split_dates:
+    train_end: "2020-10-08"
+    test_start: "2020-10-09"
+    basis: "earliest ~60% of overlap era 2012-01-20..2026-07-31 (B-05: 5307 retrieved days per AOI/source); frozen before fitting, never moved after seeing results"
 
 training_only:
   law: "every learned step fit on training years or training-internal folds only"
@@ -211,8 +216,8 @@ deviations:
   - { id: "DEV-S06", summary: "csv_provenance_columns_instead_of_comment_header", affects: ["FR-EXP-1"], approval: "PENDING_A02" }
 
 decisions_pending:
-  - { id: "DEC-1", needs: "B-01 keyed availability probe", resolves: "exact source strings, archive dates, S-NPP confirmation" }
-  - { id: "DEC-2", needs: "B-05 overlap evidence", resolves: "minimum support numbers; frozen before fitting" }
+  - { id: "DEC-1", needs: "RESOLVED by B-01 probe + B-05 fetch (MODIS_SP, VIIRS_SNPP_SP; era cap 2026-07-31)", resolves: "A to record in DECISIONS.md" }
+  - { id: "DEC-2", needs: "RESOLVED by B-05 coverage evidence (0.90/10-day thresholds met; weakest year 334 rows)", resolves: "A to record in DECISIONS.md" }
   - { id: "DEC-3", needs: "coverage review at C-06", resolves: "years_active definition" }
   - { id: "DEC-4", needs: "A record", resolves: "re-baselined gates (team start 09:00 WIB; proposed G2 ~H22-H23; G3 stays H30)" }
   - { id: "DEC-5", needs: "A-01 confirmation", resolves: "deadline timezone and official brief (claims language only)" }

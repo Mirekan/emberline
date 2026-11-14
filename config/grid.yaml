@@ -22,14 +22,14 @@ aoi_limits:
 
 aois:
   source_of_truth: "config/aois.yaml (owned by task B-02)"
-  status: "PENDING_B02"
+  status: "B02_DELIVERED_OPEN_FLAG_A_C"
   expected_presets:
-    - "riau_or_jambi"
+    - "riau"
     - "central_kalimantan"
-    - "northern_california"
-    - "pantanal"
-    - "nsw_victoria"
-  note: "names above are candidates from the plan, not approved coordinates; usable dates come from B-01/B-05 evidence only"
+    - "south_sumatra"
+    - "jambi"
+    - "merauke"
+  note: "B-02 delivered an Indonesia-only preset set (2026-11-14), substituting the plan's global candidates (northern_california/pantanal/nsw_victoria) — OPEN FLAG recorded in docs/handoffs/B-03_downloader.md; needs A/C confirmation and a DECISIONS.md entry. riau + central_kalimantan fetched (G1); other three pending density probe. Era cap 2026-07-31 (SP archive)."
 
 time_policy:
   daily_bin: "UTC calendar day from acq_date + zero-padded acq_time (timezone-aware)"
