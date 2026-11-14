@@ -50,7 +50,30 @@ make reproduce AOI=riau   # C-07: full science pipeline from raw inputs
 2. **Artifacts are the interface.** B→C: parquet + schema. C→D: versioned artifacts + `run_id`. D→E: HTTP payloads frozen in `contracts/`.
 3. **Code against frozen contract examples**, not against in-progress implementations.
 4. Shared files (`Makefile`, `contracts/`, `DECISIONS.md`) have exactly one editor each.
-5. Commit per task with `[task-id]` prefix; never commit `data/`, `.env`, or credentials.
+5. Commit per task with `[task-id]` prefix; use `[misc]` for small unplanned changes; never commit `data/`, `.env`, or credentials.
+
+## Commit messages
+
+Use this format:
+
+`[<task-id>] <type>(<scope>): <imperative summary>`
+
+For small changes outside the task plan, replace `<task-id>` with `misc`:
+
+`[misc] <type>(<scope>): <imperative summary>`
+
+Examples:
+
+```text
+[C-02] feat(pipeline): generate AOI grid
+[misc] chore(repo): update .gitignore
+[misc] docs(readme): clarify quickstart
+[misc] refactor(pipeline): remove unused helper
+```
+
+Use `feat` for new behavior, `fix` for bug corrections, `refactor` for internal restructuring, `perf` for performance improvements, `docs` for documentation, `test` for tests, `build` for build integration, and `chore` for maintenance.
+
+Use the task ID when a small change belongs to an existing task. Do not hide a bug, security issue, or data-loss fix under `[misc]`; create a proper task or use `[hotfix]`.
 
 ## Scientific protocol
 
