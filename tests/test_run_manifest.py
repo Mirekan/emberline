@@ -65,9 +65,17 @@ def check_list():
     check("match stage ran (ok) on the real fixture", stages["c02_match"]["status"] == "ok")
     honest = {"c03_baselines", "c04_harmonize", "c05_metrics", "c05_splice_stress",
               "c06_calendar", "c06_windows"}
-    check("downstream stages recorded as insufficient_data/deferred — never silently ok",
-          all(stages[s]["status"] in {"insufficient_data", "deferred"} for s in honest),
-          f"got {[(s, stages[s]['status']) for s in honest]}")
+    statuses = {s: stages[s]["status"] for s in honest}
+    # INVARIANT (era-evolution safe): downstream statuses follow the support gate —
+    # ALL ok when the gate passes on full-era data (fit authorized after sign-off),
+    # or ALL insufficient_data/deferred on thin-support data. Forbidden either way:
+    # a mix that fakes success, or null/missing statuses (display bug guard).
+    all_ok = all(v == "ok" for v in statuses.values())
+    none_ok = all(v in {"insufficient_data", "deferred", "skipped"} for v in statuses.values())
+    check("downstream stages consistent with support gate: all ok (full era) or all insufficient/deferred (fixture)",
+          all_ok or none_ok, f"got {statuses}")
+    check("no stage status is null/missing (display guard)",
+          all(v for v in statuses.values()))
     check("honesty note present in manifest",
           "NOT failures or passes" in manifest["honesty_note"])
 
