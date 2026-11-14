@@ -107,9 +107,21 @@ def run(aoi_id: str, run_ts: str | None = None, detections: list[Path] | None = 
         detections_rows: list[dict] = []
         for p in det_paths:
             detections_rows.extend(read_table(p))
+        # delivered window per source -> mask clipped so zero-fill never covers
+        # dates whose detections were not delivered (F-9: zeros need retrievals)
+        delivered_ranges: dict[str, tuple[str, str]] = {}
+        for row in detections_rows:
+            fam = "modis" if "modis" in str(row.get("source", "")).lower() else \
+                  ("viirs" if "viirs" in str(row.get("source", "")).lower() else None)
+            if fam is None:
+                continue
+            day = str(row.get("acq_date") or str(row.get("acq_datetime_utc", ""))[:10])
+            lo, hi = delivered_ranges.get(fam, (day, day))
+            delivered_ranges[fam] = (min(lo, day), max(hi, day))
         result = match_run(detections_rows, read_table(mask_path), aoi_id,
                            float(inputs["aoi"]["west"]), float(inputs["aoi"]["south"]),
-                           float(inputs["aoi"]["east"]), float(inputs["aoi"]["north"]))
+                           float(inputs["aoi"]["east"]), float(inputs["aoi"]["north"]),
+                           delivered_ranges=delivered_ranges or None)
         paths = match_write(result, c02_dir)
         pairs_path = Path(paths["matched_pairs"])  # match_write returns strings
         stages["c02_match"] = {"status": "ok", "outputs": paths,
