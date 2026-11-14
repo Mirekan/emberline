@@ -231,6 +231,7 @@ def aggregate_units(
         if fam is None:
             counts["rejected_unknown_source"] += 1
             continue
+        counts[f"rows_in_{fam}"] += 1
         sat = str(row.get("satellite", "")).strip()
         src_l = str(row.get("source", "")).strip().lower()
         accepted = (fam == "modis" and sat.lower() == "aqua") or (
@@ -284,7 +285,9 @@ def aggregate_units(
                 unit["scan_values"].append(float(scan))
             except (TypeError, ValueError):
                 warnings.add("nonnumeric_scan_ignored")
-        conf = _norm_conf_class(row.get("confidence_class", row.get("confidence")))
+        conf = _norm_conf_class(
+            row.get("confidence_class", row.get("confidence_raw", row.get("confidence")))
+        )
         if conf:
             unit[f"conf_{conf}"] += 1
         counts["rows_aggregated"] += 1
@@ -440,16 +443,35 @@ def run(
     mask_rows: list[dict],
     aoi_id: str,
     bbox_west: float, bbox_south: float, bbox_east: float, bbox_north: float,
+    delivered_ranges: dict | None = None,
 ) -> dict:
-    """Full C-02 step: units + matched pairs + summary (the C-03/C-04 input)."""
+    """Full C-02 step: units + matched pairs + summary (the C-03/C-04 input).
+
+    delivered_ranges (optional): {family: (min_date, max_date)} actually covered
+    by the delivered rows. Mask dates outside a delivered range are dropped with
+    an explicit disclosure — otherwise a full-era mask over a compact fixture
+    would fabricate matched_zero pairs for dates whose detections were never
+    delivered (F-9: zeros may only come from verified retrievals).
+    """
     units, summary = aggregate_units(detections, bbox_west, bbox_south, bbox_east, bbox_north, aoi_id)
     family_status, mask_info = load_retrieval_mask(mask_rows, aoi_id)
+    summary["mask"] = mask_info
+    if delivered_ranges:
+        clipped = 0
+        for fam, (lo, hi) in delivered_ranges.items():
+            for key in [k for k in family_status if k[0] == fam]:
+                day = key[1]
+                if (lo and day < lo) or (hi and day > hi):
+                    family_status.pop(key)
+                    clipped += 1
+        if clipped:
+            summary["warnings"] = sorted(set(summary["warnings"]) | {"mask_clipped_to_delivered_window"})
+            summary["mask"]["mask_dates_clipped_to_delivered"] = clipped
     aoi_cells = aoi_cell_ids(validate_bbox(bbox_west, bbox_south, bbox_east, bbox_north))
     pairs, pair_stats = build_matched_pairs(units, family_status, aoi_id, aoi_cells)
     states = defaultdict(int)
     for pair in pairs:
         states[pair["state"]] += 1
-    summary["mask"] = mask_info
     summary["matched_pairs"] = len(pairs)
     summary["pair_states"] = dict(sorted(states.items()))
     summary["fitting_eligible_pairs"] = sum(1 for p in pairs if p["fitting_eligible"])
@@ -485,16 +507,30 @@ def main(argv: list[str] | None = None) -> int:  # pragma: no cover - CLI for B-
     import argparse
 
     parser = argparse.ArgumentParser(description="C-02 matched overlap aggregates")
-    parser.add_argument("--input", required=True, help="B-04 normalized detections (csv/parquet)")
+    parser.add_argument("--input", required=True, nargs="+",
+                        help="B-04 normalized detections (csv/parquet); one path per source")
     parser.add_argument("--mask", required=True, help="retrieval mask csv (aoi_id,source,date,status)")
     parser.add_argument("--aoi-id", required=True)
     parser.add_argument("--bbox", required=True, help="west,south,east,north")
     parser.add_argument("--out", default=None, help="output dir (default data/processed/<aoi-id>)")
     args = parser.parse_args(argv)
     west, south, east, north = (float(part) for part in args.bbox.split(","))
-    detections = read_table(args.input)
+    detections: list[dict] = []
+    for path in args.input:
+        detections.extend(read_table(path))
+    delivered_ranges = {}
+    for fam in ("modis", "viirs"):
+        days = sorted(
+            str(r.get("acq_date") or str(r.get("acq_datetime_utc", ""))[:10]).strip()
+            for r in detections
+            if _family(str(r.get("source", ""))) == fam
+        )
+        days = [d for d in days if len(d) == 10 and d[4] == "-"]
+        if days:
+            delivered_ranges[fam] = (days[0], days[-1])
     mask_rows = read_table(args.mask)
-    result = run(detections, mask_rows, args.aoi_id, west, south, east, north)
+    result = run(detections, mask_rows, args.aoi_id, west, south, east, north,
+                 delivered_ranges=delivered_ranges or None)
     out_dir = args.out or f"data/processed/{args.aoi_id}"
     paths = write_outputs(result, out_dir)
     print(json.dumps({"summary": result["summary"], "outputs": paths}, indent=2, sort_keys=True))

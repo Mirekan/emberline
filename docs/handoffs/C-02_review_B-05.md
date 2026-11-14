@@ -41,6 +41,33 @@ C-02 swap-in and the recount are BLOCKED until B transfers
 `data/processed/<aoi>/` normalized rows + retrieval masks (or grants access).
 Requested channel: shared drive / direct transfer; `data/**` stays out of git.
 
+## UPDATE 14 Nov ~13:15 WIB — Riau fixture swap-in completed (recount DONE for the delivered fixture)
+
+B delivered a compact REAL fixture (B-06, `FIXTURE_REAL_SAMPLE`):
+`data/processed/{MODIS_SP,VIIRS_SNPP_SP}/w100_s-2_e105_n1/normalized.csv`
+covering 2012-01-20..2015-09-15 (VIIRS file window starts 2015-09-01). C ran the
+full seam end-to-end: `ledger_to_mask.py` (2,124 windows → 10,614 mask days =
+5,307 × 2 sources ✓) → `match.py` swap-in. **Recount vs B-04 validation reports:
+exact on every number** — MODIS rows_in 26,917 ✓; VIIRS 26,420 ✓;
+`excluded_platform_v1` = Terra 10,250 ✓ (S-01); Aqua aggregated 16,667 ✓; one
+detection disclosed as outside-AOI (centroid rule F-4). Pair states: 818
+matched_signal / 2,910 one_sided (excluded from fitting) / 41,272 matched_zero
+(zero-filled within the 15-day both-retrieved window) / 7,518 missing_retrieval
+days outside the fixture window (honest: VIIRS side not delivered → not
+fittable). Mask clipped to the delivered window, disclosed as
+`mask_clipped_to_delivered_window`.
+
+**VIIRS era question resolved**: the fixture's 2015-09-01 VIIRS start is a
+fixture-window choice, NOT the archive boundary — B-01 availability probe says
+`VIIRS_SNPP_SP 2012-01-20..2026-07-31` and the ledger shows 264 pre-2015-09
+windows all containing rows (first: 2012-01-20, 330 rows). Overlap era
+2012-01-20..2026-07-31 and the frozen split (train ≤ 2020-10-08) stand.
+
+Remaining for full C-02 (not the fixture): Central Kalimantan processed files
+not yet delivered; full-era Riau/Kalteng rows → then matched_pairs scale needs
+parquet (pyarrow pin, D-01). C-03 proceeds on synthetic AOI-day series until
+then — with the fixture correctly returning `insufficient_data` for fitting.
+
 ## Open flags for A
 
 1. **Presets substitution**: B-02 replaced the plan's global candidates with an
