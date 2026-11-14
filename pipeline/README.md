@@ -14,7 +14,7 @@ the other's modules — the interface is files under `data/` and `artifacts/`.
 | `ledger_to_mask.py` | C | C-02 | **✅ converts B-03 fetch_ledger.jsonl → retrieval-mask csv** |
 | `run.py` | C | C-02/C-07 | pending — one-command runner consolidating the pipeline steps |
 | `baselines.py` | C | C-03 | **scaffold ✅** (B0/B1 on frozen date-split; leakage-guarded; CLI `python3 -m pipeline.baselines --pairs <matched_pairs.csv> --aoi-id …`; real Riau fixture honestly returns insufficient_data) |
-| `harmonize.py` | C | C-04 | pending (B0/B1/B2 per PROTO-C01-v0.9) |
+| `harmonize.py` | C | C-04 | **scaffold ✅** (B2 monotone log-space `a + b·log1p(S_v) + c·log1p(1+n) + d·I_night`, b/c≥0 via recorded projection; Duan smearing training-only; AOI-daily day-bootstrap intervals — nominal 80%, measured at C-05; zero policy v1: no-VIIRS-signal→0; CLI `python3 -m pipeline.harmonize --pairs … --aoi-id …`; real Riau fixture → insufficient_data) |
 | `metrics.py` | C | C-05 | pending (held-out metrics + N/A policies) |
 | `calendar.py` | C | C-06 | pending (366-position climatology) |
 | `windows.py` | C | C-06 | pending (critical windows, Dec–Jan wrap) |
