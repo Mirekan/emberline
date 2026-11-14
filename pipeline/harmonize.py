@@ -105,22 +105,9 @@ def _fit_monotone_ols(x: np.ndarray, y: np.ndarray) -> tuple[np.ndarray, dict]:
     return coef, projected
 
 
-def fit_b2(pairs: list[dict], eligible_years_set: set[str]) -> dict | None:
-    """Fit on TRAINING cell-days only. Returns model dict or None if unsupportable."""
-    train_rows = [
-        r for r in pairs
-        if str(r.get("fitting_eligible")).lower() == "true"
-        and r["date"][:4] in eligible_years_set
-        and r["date"] <= TRAIN_END
-    ]
-    train_years = sorted({r["date"][:4] for r in train_rows})
-    test_years = sorted({
-        r["date"][:4] for r in pairs
-        if r["date"][:4] in eligible_years_set and r["date"] > TRAIN_END
-    })
-    if len(train_years) < MIN_TRAIN_YEARS or len(test_years) < MIN_TEST_YEARS:
-        return None
-
+def fit_b2_rows(train_rows: list[dict]) -> dict:
+    """Core fit on explicitly given TRAINING rows (no support gate — the gate
+    belongs to the full run; LOYO folds call this directly)."""
     x = np.array([_features(r) for r in train_rows])
     y = np.array([np.log1p(max(0.0, _num(r, "modis_frp_sum_mw") or 0.0)) for r in train_rows])
     coef, projected = _fit_monotone_ols(x, y)
@@ -135,10 +122,31 @@ def fit_b2(pairs: list[dict], eligible_years_set: set[str]) -> dict | None:
         "fit_inputs": {
             "unit": "cell-day pairs, fitting-eligible only (F-6), training years only",
             "n_train_rows": len(train_rows),
-            "train_years": train_years,
-            "test_years_recorded_never_fitted": test_years,
         },
     }
+
+
+def fit_b2(pairs: list[dict], eligible_years_set: set[str]) -> dict | None:
+    """Fit on TRAINING cell-days only, behind the F-9b support gate.
+    Returns model dict or None if unsupportable."""
+    train_rows = [
+        r for r in pairs
+        if str(r.get("fitting_eligible")).lower() == "true"
+        and r["date"][:4] in eligible_years_set
+        and r["date"] <= TRAIN_END
+    ]
+    train_years = sorted({r["date"][:4] for r in train_rows})
+    test_years = sorted({
+        r["date"][:4] for r in pairs
+        if r["date"][:4] in eligible_years_set and r["date"] > TRAIN_END
+    })
+    if len(train_years) < MIN_TRAIN_YEARS or len(test_years) < MIN_TEST_YEARS:
+        return None
+
+    model = fit_b2_rows(train_rows)
+    model["fit_inputs"]["train_years"] = train_years
+    model["fit_inputs"]["test_years_recorded_never_fitted"] = test_years
+    return model
 
 
 def _predict_cell(coef: dict, smearing_k: float, row: dict) -> float:
