@@ -140,7 +140,7 @@ def run_test(test_rows: list[dict], date_index: dict[str, list[dict]],
 
 def run(baselines_csv: str | Path, harmonized_csv: str | Path,
         out_dir: str | Path, aoi_id: str, run_ts: str | None = None,
-        harmonized_field: str = "B2_predicted_mw",
+        harmonized_column: str = "predicted_b2_mw",
         out_name: str = "splice_stress_test.json",
         method_label: str = "B2") -> dict:
     baselines_csv, harmonized_csv = Path(baselines_csv), Path(harmonized_csv)
@@ -163,7 +163,7 @@ def run(baselines_csv: str | Path, harmonized_csv: str | Path,
             if h is None:
                 raise ValueError(f"harmonized series missing held-out day {r['date']}/{r['daynight']}")
             merged = dict(r)
-            merged["B2_predicted_mw"] = _num(h.get(harmonized_field))
+            merged["B2_predicted_mw"] = _num(h.get(harmonized_column))
             test_rows.append(merged)
         date_index: dict[str, list[dict]] = defaultdict_groups(test_rows)
         dates, transitions, deferred = select_transitions(test_rows)
