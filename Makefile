@@ -26,7 +26,7 @@ data:
 	python3 pipeline/fetch_firms.py
 
 reproduce:
-	@test -f pipeline/run.py || { echo "NOT READY: science pipeline runner missing — owner C-02..C-07"; exit 1; }
+	@test -f pipeline/run.py || { echo "NOT READY: science pipeline runner missing — owner C-07"; exit 1; }
 	python3 -m pipeline.run --aoi $(AOI)
 
 test:
@@ -36,9 +36,12 @@ test:
 	@python3 tests/test_harmonization_leakage.py
 	@python3 tests/test_metrics.py
 	@python3 tests/test_splice_stress.py
+	@python3 tests/test_calendar.py
+	@python3 tests/test_windows.py
+	@python3 tests/test_run_manifest.py
 	@python3 tests/test_b_ingestion.py 2>/dev/null || echo "[skip] tests/test_b_ingestion.py not present in this checkout"
 	@echo ""
-	@echo "[note] C-01..C-05 contract tests consolidated here; B/D/E tests join as they land (D-01 owns final consolidation)."
+	@echo "[note] C-01..C-07 contract tests consolidated; test_run_manifest is the memory-heaviest (full-chain rerun) — run when the machine has headroom."
 
 serve:
 	@test -f api/app.py || { echo "NOT READY: api/ not implemented — owner D-07"; exit 1; }
