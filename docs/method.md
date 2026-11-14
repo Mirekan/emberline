@@ -3,8 +3,8 @@
 
 | | |
 |---|---|
-| **Protocol ID** | `PROTO-C01-v0.9` |
-| **Status** | `DRAFT_FOR_REVIEW` — values are frozen; B/D/E sign-off pending. Becomes `FROZEN v1.0` at sign-off. |
+| **Protocol ID** | `PROTO-C01-v0.9` (frozen identifier — run IDs reference this string) |
+| **Status** | **`FROZEN v1.0`** — signed off by B/D/E 14 Nov 2026 ~16:10 WIB (owner=reviewer same human, disclosed in DECISIONS.md). Changes now require a version bump + re-review. |
 | **Owner / Reviewer** | Team member C / Team member B (per TEAM_TASKS.csv C-01) |
 | **Created** | 14 Nov 2026 ~10:30 WIB (event day 1; team actual start 09:00 WIB — see DEC-4) |
 | **Companion configs** | `config/grid.yaml`, `config/params.yaml` (machine-readable contract) |
@@ -227,9 +227,9 @@ Any protocol change after step 4 = version bump + reviewer sign-off + affected a
 
 ## 8. Sign-off (required before any fitting)
 
-- [ ] **B** — units, matching, source-limit rules agree with ingestable reality
-- [ ] **D** — payload fields, status/null semantics implementable as written
-- [ ] **E** — labels, legends, calendar meanings renderable as written
-- [ ] **A** — scope decisions + deviations recorded in DECISIONS.md
+- [x] **B** — units, matching, source-limit rules agree with ingestable reality — signed 14 Nov 2026 ~16:10 WIB (owner=reviewer same human, disclosed)
+- [x] **D** — payload fields, status/null semantics implementable as written — signed 14 Nov 2026 ~16:10 WIB (owner=reviewer same human, disclosed)
+- [x] **E** — labels, legends, calendar meanings renderable as written — signed 14 Nov 2026 ~16:10 WIB (owner=reviewer same human, disclosed)
+- [x] **A** — scope decisions + deviations recorded in DECISIONS.md (DEV-S01..S06, DEC-1..4, AOI-PRESETS, INT-1/2 — all APPROVED 14 Nov)
 
-*Signed versions are recorded with timestamp + reviewer name in the CSV evidence column. This draft claims no scientific results; nothing is implemented yet.*
+*Signed versions are recorded with timestamp + reviewer name in the CSV evidence column and in DECISIONS.md. The protocol identifier stays `PROTO-C01-v0.9`; the frozen status is v1.0. Real-data fitting is now authorized — the compact Riau fixture still returns insufficient_data honestly (correct behavior), full-era runs land with the data handoff.*

@@ -3,7 +3,7 @@
 # WARNING: values marked PROVISIONAL are re-frozen BEFORE fitting (never after seeing test results).
 
 protocol_version: "PROTO-C01-v0.9"
-status: "DRAFT_FOR_REVIEW"
+status: "FROZEN"   # v1.0 — signed by B/D/E 14 Nov 2026 (DECISIONS.md §sign-offs)
 created_utc: "2026-11-14T03:30:00Z"
 owner_role: "C"
 reviewer_role: "B"
