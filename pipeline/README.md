@@ -13,6 +13,7 @@ the other's modules — the interface is files under `data/` and `artifacts/`.
 | `match.py` | C | C-02 | **scaffold ✅ + Riau fixture swap-in** (CLI: `python3 -m pipeline.match --input <modis.csv> <viirs.csv> --mask <mask.csv> --aoi-id … --bbox …`; mask clipped to delivered window, disclosed) |
 | `ledger_to_mask.py` | C | C-02 | **✅ converts B-03 fetch_ledger.jsonl → retrieval-mask csv** |
 | `run.py` | C | C-02/C-07 | pending — one-command runner consolidating the pipeline steps |
+| `baselines.py` | C | C-03 | **scaffold ✅** (B0/B1 on frozen date-split; leakage-guarded; CLI `python3 -m pipeline.baselines --pairs <matched_pairs.csv> --aoi-id …`; real Riau fixture honestly returns insufficient_data) |
 | `harmonize.py` | C | C-04 | pending (B0/B1/B2 per PROTO-C01-v0.9) |
 | `metrics.py` | C | C-05 | pending (held-out metrics + N/A policies) |
 | `calendar.py` | C | C-06 | pending (366-position climatology) |

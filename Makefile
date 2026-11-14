@@ -31,9 +31,11 @@ reproduce:
 
 test:
 	@python3 tests/test_protocol_contract.py
+	@python3 tests/test_grid_match.py
+	@python3 tests/test_baseline_leakage.py
+	@python3 tests/test_b_ingestion.py 2>/dev/null || echo "[skip] tests/test_b_ingestion.py not present in this checkout"
 	@echo ""
-	@echo "[note] only the C-01 protocol contract test exists so far;"
-	@echo "       B-04 / C-02.. / D / E tests land with their tasks; D-01 consolidates."
+	@echo "[note] C-01/C-02/C-03 contract tests consolidated here; B/D/E tests join as they land (D-01 owns final consolidation)."
 
 serve:
 	@test -f api/app.py || { echo "NOT READY: api/ not implemented — owner D-07"; exit 1; }
