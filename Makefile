@@ -5,21 +5,21 @@
 #   G4 = make test + make build. Evidence links go in TEAM_TASKS.csv.
 
 AOI ?= riau
+PYTHON ?= .venv/bin/python
 
 .PHONY: help dev data reproduce test serve build
 
 help:
 	@echo "EmberLine targets (owner in brackets):"
-	@echo "  make dev                 [D-01] run backend + frontend locally"
+	@echo "  make dev                 [D-01] run Rust backend locally (frontend pending)"
 	@echo "  make data                [B-03] fetch -> validate -> cache (resumable)"
 	@echo "  make reproduce AOI=<id>  [C-07] raw inputs -> versioned artifacts + manifest"
-	@echo "  make test                [D-01] all role tests (C/B/D/E)"
-	@echo "  make serve               [D-07] serve versioned artifacts (deployment)"
-	@echo "  make build               [D/E]  build frontend bundle"
+	@echo "  make test                [D-01] Rust API + C-01 protocol checks (B/E pending)"
+	@echo "  make serve               [D-01] run release backend skeleton (artifacts pending)"
+	@echo "  make build               [D-01] build release backend (frontend pending)"
 
 dev:
-	@test -f api/app.py || { echo "NOT READY: api/ backend not implemented yet — owner D-03/D-04"; exit 1; }
-	@echo "[D] starting backend + frontend (to be implemented)"
+	cargo run --manifest-path api/Cargo.toml --locked
 
 data:
 	@test -f pipeline/fetch_firms.py || { echo "NOT READY: pipeline/fetch_firms.py missing — owner B-03"; exit 1; }
@@ -30,15 +30,11 @@ reproduce:
 	python3 -m pipeline.run --aoi $(AOI)
 
 test:
-	@python3 tests/test_protocol_contract.py
-	@echo ""
-	@echo "[note] only the C-01 protocol contract test exists so far;"
-	@echo "       B-04 / C-02.. / D / E tests land with their tasks; D-01 consolidates."
+	cargo test --manifest-path api/Cargo.toml --locked
+	$(PYTHON) tests/test_protocol_contract.py
 
 serve:
-	@test -f api/app.py || { echo "NOT READY: api/ not implemented — owner D-07"; exit 1; }
-	@echo "[D] serving versioned artifacts (to be implemented)"
+	cargo run --manifest-path api/Cargo.toml --locked --release
 
 build:
-	@test -f web/package.json || { echo "NOT READY: web/ not implemented — owner E"; exit 1; }
-	@echo "[D/E] frontend build (to be implemented)"
+	cargo build --manifest-path api/Cargo.toml --locked --release

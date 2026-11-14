@@ -27,7 +27,7 @@ and `../TEAM_TASKS.csv`. This README is a stub — task F-05 owns final content.
 | `pipeline/grid.py`, `match.py`, `harmonize.py`, `metrics.py`, `calendar.py`, `windows.py` | **C** | science pipeline |
 | `data/raw/`, `data/processed/` | **B** | caches (git-ignored; `data/raw/MANIFEST.json` committed) |
 | `artifacts/` | **C** outputs, **D** serves | versioned results (JSON committed, parquet ignored) |
-| `api/` | **D** | FastAPI serving artifacts — never imports pipeline |
+| `api/` | **D** | Rust/actix-web server skeleton; artifact serving pending — never imports pipeline |
 | `web/` | **E** | React/Vite frontend — never imports Python |
 | `tests/` | all roles | tests beside their code; `make test` runs everything |
 | `docs/method.md`, `validation.md`, `limitations.md` | **C** (A verifies) | science docs |
@@ -37,12 +37,26 @@ and `../TEAM_TASKS.csv`. This README is a stub — task F-05 owns final content.
 
 ## Quickstart
 
+Requirements: Rust 1.89+ with Cargo; Python 3 with `venv`/`pip` (or `uv`) for
+the existing science protocol check. No credentials required for the skeleton.
+
 ```bash
+python3 -m venv .venv
+.venv/bin/python -m pip install -r requirements-test.txt
+# Alternative setup: uv venv .venv && uv pip install --python .venv/bin/python -r requirements-test.txt
 make help        # target list with owners
-make test        # runs everything implemented so far (C-01 contract test ✅)
-make data        # B-03: fetch → validate → cache (once implemented)
-make reproduce AOI=riau   # C-07: full science pipeline from raw inputs
+make test        # Rust API tests + C-01 protocol check
+make build       # release backend binary: api/target/release/emberline-api
+make dev         # backend only: http://127.0.0.1:8000
+# In another terminal:
+curl http://127.0.0.1:8000/api/health
 ```
+
+`make serve` runs the release backend. Health returns HTTP 200 for liveness,
+`status: "not_ready"`, `ready: false`, and null data/run versions until validated
+artifacts are integrated. Frontend, science endpoints, and deployment are pending.
+`make data` (B-03) and `make reproduce AOI=riau` (C-07) remain unimplemented.
+See [`api/README.md`](api/README.md) for configuration and limits.
 
 ## Integration rules (short version)
 
