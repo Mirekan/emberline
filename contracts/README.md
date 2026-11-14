@@ -17,7 +17,7 @@ Rules:
 
 | Endpoint | Owner task | Example | Status |
 |---|---|---|---|
-| `GET /api/health` | D-03 | — | DRAFT |
+| `GET /api/health` | D-03 | [`../api/README.md`](../api/README.md#current-http-boundary) | Local skeleton; C/E review pending |
 | `GET /api/aoi/presets` | D-04 (config: B-02) | — | DRAFT |
 | `GET /api/aoi/{id}/series` | D-04 | [`series.example.json`](series.example.json) | **FROZEN v1.0 — signed by C+E 14 Nov 2026 (owner=reviewer same human, disclosed in DECISIONS.md); D implements against this** |
 | `GET /api/aoi/{id}/calendar` | D-04 / C-06 | — | DRAFT |
