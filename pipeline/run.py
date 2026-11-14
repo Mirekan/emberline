@@ -111,7 +111,7 @@ def run(aoi_id: str, run_ts: str | None = None, detections: list[Path] | None = 
                            float(inputs["aoi"]["west"]), float(inputs["aoi"]["south"]),
                            float(inputs["aoi"]["east"]), float(inputs["aoi"]["north"]))
         paths = match_write(result, c02_dir)
-        pairs_path = paths["matched_pairs"]
+        pairs_path = Path(paths["matched_pairs"])  # match_write returns strings
         stages["c02_match"] = {"status": "ok", "outputs": paths,
                                "pair_states": result["summary"]["pair_states"]}
 
