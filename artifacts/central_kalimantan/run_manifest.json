@@ -1,0 +1,100 @@
+{
+  "aoi_bbox_date_range": {
+    "bbox": "113,-3,116,0",
+    "end": "2026-07-31",
+    "start": "2012-01-20"
+  },
+  "aoi_id": "central_kalimantan",
+  "created_utc": "2026-11-14T15:42:11+00:00",
+  "git_sha": "6e6c604",
+  "honesty_note": "stage statuses are recorded verbatim \u2014 insufficient_data/deferred stages are NOT failures or passes, they are the actual state",
+  "input_sha256": {
+    "data/manifests/retrieval_mask_central_kalimantan.csv": "c111d2c1f026de6f1a0204b02abe665daa7efab2a967cef6e7978cd90c1f1d0f",
+    "data/processed/MODIS_SP/w113_s-3_e116_n0/normalized.csv": "33324fd727bec68f792cfed0925d4912ec22b7272d47fe18973f75538003544a",
+    "data/processed/VIIRS_SNPP_SP/w113_s-3_e116_n0/normalized.csv": "c7d85cc093c728db611d9066f072d44ad4f405abf911a7ecd37445e44e9b945a"
+  },
+  "library_versions": {
+    "numpy": "2.5.4",
+    "pandas": "3.1.1",
+    "python": "3.14.8"
+  },
+  "metrics_path": "/home/ade/project/nasa/science_analytics/emberline/artifacts/central_kalimantan/harmonization_metrics.json",
+  "params_hash": "0d6ea05a5d7d73122aff09c5fb006b62586c4c6f0a1f49790fb83ae4fe02bcce",
+  "protocol_version": "PROTO-C01-v0.9",
+  "run_id": "PROTO-C01-v0.9_6e6c604_20261114T1541Z",
+  "seeds": {
+    "interval_bootstrap": 42
+  },
+  "sources": [
+    "MODIS_SP",
+    "VIIRS_SNPP_SP"
+  ],
+  "stage_statuses": {
+    "c02_match": {
+      "outputs": {
+        "matched_pairs": "/home/ade/project/nasa/science_analytics/emberline/data/processed/central_kalimantan/c02/matched_pairs.csv",
+        "summary": "/home/ade/project/nasa/science_analytics/emberline/data/processed/central_kalimantan/c02/match_summary.json",
+        "units_per_sensor": "/home/ade/project/nasa/science_analytics/emberline/data/processed/central_kalimantan/c02/units_per_sensor.csv",
+        "zero_fill_days": "/home/ade/project/nasa/science_analytics/emberline/data/processed/central_kalimantan/c02/zero_fill_days.csv"
+      },
+      "pair_states": {
+        "matched_signal": 15515,
+        "matched_zero": 9456823,
+        "one_sided": 80262
+      },
+      "status": "ok"
+    },
+    "c03_baselines": {
+      "outputs": {
+        "manifest": "/home/ade/project/nasa/science_analytics/emberline/artifacts/central_kalimantan/baselines.json",
+        "series": "/home/ade/project/nasa/science_analytics/emberline/artifacts/central_kalimantan/baseline_series.csv"
+      },
+      "status": "ok"
+    },
+    "c04_harmonize": {
+      "outputs": {
+        "manifest": "/home/ade/project/nasa/science_analytics/emberline/artifacts/central_kalimantan/model_manifest.json",
+        "series": "/home/ade/project/nasa/science_analytics/emberline/artifacts/central_kalimantan/harmonized_daily.csv"
+      },
+      "status": "ok"
+    },
+    "c05_metrics": {
+      "status": null
+    },
+    "c05_splice_stress": {
+      "status": "ok"
+    },
+    "c06_calendar": {
+      "outputs": {
+        "calendar": "/home/ade/project/nasa/science_analytics/emberline/artifacts/central_kalimantan/calendar.csv",
+        "climatology": "/home/ade/project/nasa/science_analytics/emberline/artifacts/central_kalimantan/climatology.json",
+        "series": "/home/ade/project/nasa/science_analytics/emberline/artifacts/central_kalimantan/accepted_series.csv"
+      },
+      "status": "ok"
+    },
+    "c06_windows": {
+      "status": "ok"
+    }
+  },
+  "task": "C-07",
+  "test_years": [
+    "2020",
+    "2021",
+    "2022",
+    "2023",
+    "2024",
+    "2025",
+    "2026"
+  ],
+  "train_years": [
+    "2012",
+    "2013",
+    "2014",
+    "2015",
+    "2016",
+    "2017",
+    "2018",
+    "2019",
+    "2020"
+  ]
+}

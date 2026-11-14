@@ -27,6 +27,7 @@ human, that limitation is disclosed here (small-team day-1 condition).**
 | DEC-3 | `years_active` = year's daily index ≥ window threshold on ≥3 era days (PROVISIONAL rule frozen with windows.json); years_eligible = ≥60% of calendar-era days | C-06 coverage review | APPROVED 14 Nov |
 | DEC-4 | Gate re-baseline: team start 09:00 WIB 14 Nov; G2 evidence ≈ H22–H23; G3 feature freeze stays H30 (Sun 06:00); deadline unchanged | team actual start | APPROVED 14 Nov |
 | DEC-5 | Official brief + deadline timezone — STILL UNRESOLVED (A-01 not yet confirmed by organizer); claims language stays conservative until then | A-01 | OPEN |
+| DEC-6 | **Method selection outcome (G2 fail action, §6.4): B1 training-fitted ratio = accepted harmonization (published series); B2 monotone mapping = NEGATIVE RESULT on held-out data (worse than B1 on both AOIs), kept visible in artifacts/method page/demo. No held-out tuning occurred — split & methods frozen pre-results.** | real G2 metrics (docs/validation.md) | APPROVED 14 Nov (protocol-mandated fail action) |
 | AOI-PRESETS | Indonesia-only five (riau, central_kalimantan, south_sumatra, jambi, merauke) replace plan's global candidates | B-02 delivery + density probe plan | APPROVED 14 Nov |
 
 ## Integration decisions

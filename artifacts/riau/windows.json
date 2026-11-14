@@ -1,0 +1,100 @@
+{
+  "activity": {
+    "active_days_per_year": {
+      "2012": 85,
+      "2013": 73,
+      "2014": 79,
+      "2015": 83,
+      "2016": 47,
+      "2017": 42,
+      "2018": 57,
+      "2019": 88,
+      "2020": 27,
+      "2021": 25,
+      "2022": 18,
+      "2023": 39,
+      "2024": 55,
+      "2025": 40,
+      "2026": 18
+    },
+    "missing_years_note": "years absent from the accepted series are never counted inactive",
+    "rule": "years_active = year's daily index >= window threshold on >= 3 era days (DEC-3 PROVISIONAL; frozen with this artifact)",
+    "threshold_rule": "75th percentile of the smoothed climatology median curve (descriptive, NOT a safety threshold)",
+    "years_active": [
+      "2012",
+      "2013",
+      "2014",
+      "2015",
+      "2016",
+      "2017",
+      "2018",
+      "2019",
+      "2020",
+      "2021",
+      "2022",
+      "2023",
+      "2024",
+      "2025",
+      "2026"
+    ]
+  },
+  "aoi_id": "riau",
+  "n_windows": 3,
+  "protocol_version": "PROTO-C01-v0.9",
+  "status": "ok",
+  "task": "C-06 windows",
+  "threshold": {
+    "meaning": "descriptive seasonal percentile \u2014 NOT a safety threshold; stated in UI and exports",
+    "percentile_of_smoothed_curve": 75,
+    "value": 0.489244
+  },
+  "windows": [
+    {
+      "end_month_day": "03-26",
+      "end_position": 86,
+      "length_days": 12,
+      "max_index_in_window": 0.543077,
+      "median_index_in_window": 0.518279,
+      "start_month_day": "03-15",
+      "start_position": 75,
+      "wraps_dec_jan": false
+    },
+    {
+      "end_month_day": "09-10",
+      "end_position": 254,
+      "length_days": 56,
+      "max_index_in_window": 0.623008,
+      "median_index_in_window": 0.593606,
+      "start_month_day": "07-17",
+      "start_position": 199,
+      "wraps_dec_jan": false
+    },
+    {
+      "end_month_day": "10-05",
+      "end_position": 279,
+      "length_days": 22,
+      "max_index_in_window": 0.559028,
+      "median_index_in_window": 0.544834,
+      "start_month_day": "09-14",
+      "start_position": 258,
+      "wraps_dec_jan": false
+    }
+  ],
+  "years_eligible": [
+    "2012",
+    "2013",
+    "2014",
+    "2015",
+    "2016",
+    "2017",
+    "2018",
+    "2019",
+    "2020",
+    "2021",
+    "2022",
+    "2023",
+    "2024",
+    "2025",
+    "2026"
+  ]
+}

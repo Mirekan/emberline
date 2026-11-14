@@ -1,0 +1,90 @@
+{
+  "activity": {
+    "active_days_per_year": {
+      "2012": 82,
+      "2013": 57,
+      "2014": 85,
+      "2015": 92,
+      "2016": 46,
+      "2017": 44,
+      "2018": 71,
+      "2019": 85,
+      "2020": 41,
+      "2021": 25,
+      "2022": 21,
+      "2023": 82,
+      "2024": 52,
+      "2025": 35,
+      "2026": 3
+    },
+    "missing_years_note": "years absent from the accepted series are never counted inactive",
+    "rule": "years_active = year's daily index >= window threshold on >= 3 era days (DEC-3 PROVISIONAL; frozen with this artifact)",
+    "threshold_rule": "75th percentile of the smoothed climatology median curve (descriptive, NOT a safety threshold)",
+    "years_active": [
+      "2012",
+      "2013",
+      "2014",
+      "2015",
+      "2016",
+      "2017",
+      "2018",
+      "2019",
+      "2020",
+      "2021",
+      "2022",
+      "2023",
+      "2024",
+      "2025",
+      "2026"
+    ]
+  },
+  "aoi_id": "central_kalimantan",
+  "n_windows": 2,
+  "protocol_version": "PROTO-C01-v0.9",
+  "status": "ok",
+  "task": "C-06 windows",
+  "threshold": {
+    "meaning": "descriptive seasonal percentile \u2014 NOT a safety threshold; stated in UI and exports",
+    "percentile_of_smoothed_curve": 75,
+    "value": 0.568895
+  },
+  "windows": [
+    {
+      "end_month_day": "07-31",
+      "end_position": 213,
+      "length_days": 3,
+      "max_index_in_window": 0.573846,
+      "median_index_in_window": 0.572022,
+      "start_month_day": "07-29",
+      "start_position": 211,
+      "wraps_dec_jan": false
+    },
+    {
+      "end_month_day": "10-31",
+      "end_position": 305,
+      "length_days": 89,
+      "max_index_in_window": 0.925345,
+      "median_index_in_window": 0.691975,
+      "start_month_day": "08-04",
+      "start_position": 217,
+      "wraps_dec_jan": false
+    }
+  ],
+  "years_eligible": [
+    "2012",
+    "2013",
+    "2014",
+    "2015",
+    "2016",
+    "2017",
+    "2018",
+    "2019",
+    "2020",
+    "2021",
+    "2022",
+    "2023",
+    "2024",
+    "2025",
+    "2026"
+  ]
+}

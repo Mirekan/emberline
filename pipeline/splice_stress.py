@@ -139,7 +139,10 @@ def run_test(test_rows: list[dict], date_index: dict[str, list[dict]],
 
 
 def run(baselines_csv: str | Path, harmonized_csv: str | Path,
-        out_dir: str | Path, aoi_id: str, run_ts: str | None = None) -> dict:
+        out_dir: str | Path, aoi_id: str, run_ts: str | None = None,
+        harmonized_field: str = "B2_predicted_mw",
+        out_name: str = "splice_stress_test.json",
+        method_label: str = "B2") -> dict:
     baselines_csv, harmonized_csv = Path(baselines_csv), Path(harmonized_csv)
     if not baselines_csv.exists() or not harmonized_csv.exists():
         manifest = {
@@ -160,7 +163,7 @@ def run(baselines_csv: str | Path, harmonized_csv: str | Path,
             if h is None:
                 raise ValueError(f"harmonized series missing held-out day {r['date']}/{r['daynight']}")
             merged = dict(r)
-            merged["B2_predicted_mw"] = _num(h["predicted_b2_mw"])
+            merged["B2_predicted_mw"] = _num(h.get(harmonized_field))
             test_rows.append(merged)
         date_index: dict[str, list[dict]] = defaultdict_groups(test_rows)
         dates, transitions, deferred = select_transitions(test_rows)
@@ -168,6 +171,7 @@ def run(baselines_csv: str | Path, harmonized_csv: str | Path,
         manifest = {
             "protocol_version": PROTOCOL_VERSION, "task": "C-05 stress", "aoi_id": aoi_id,
             "status": "ok" if any(t.get("status") == "ok" for t in tests) else "deferred",
+            "method": method_label,
             "selection_rule": "T_i = peak observed-MODIS FRP-sum day of each equal third "
                               "of the held-out span (predetermined, no peeking at predictions)",
             "heldout_span": [dates[0], dates[-1]] if dates else None,
@@ -179,7 +183,7 @@ def run(baselines_csv: str | Path, harmonized_csv: str | Path,
         }
     out_dir = Path(out_dir)
     out_dir.mkdir(parents=True, exist_ok=True)
-    path = out_dir / "splice_stress_test.json"
+    path = out_dir / out_name
     path.write_text(json.dumps(manifest, indent=2, sort_keys=True))
     return {"manifest": manifest, "outputs": {"stress": str(path)}}
 

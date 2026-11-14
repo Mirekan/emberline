@@ -1,0 +1,103 @@
+{
+  "aoi_bbox_date_range": {
+    "bbox": "100,-2,105,1",
+    "end": "2026-07-31",
+    "start": "2012-01-20"
+  },
+  "aoi_id": "riau",
+  "created_utc": "2026-11-14T16:16:16+00:00",
+  "git_sha": "63d1f37",
+  "honesty_note": "stage statuses are recorded verbatim \u2014 insufficient_data/deferred stages are NOT failures or passes, they are the actual state",
+  "input_sha256": {
+    "data/manifests/retrieval_mask_riau.csv": "718e0a8893e96935804e22f42b8488d2a9062b1f08925479ae5f6f3d5159e4f3",
+    "data/processed/MODIS_SP/w100_s-2_e105_n1/normalized.csv": "bf34413b78f543b6acc1a9059cd62b9ddcf69668b7530f63f84aae79f7611e15",
+    "data/processed/VIIRS_SNPP_SP/w100_s-2_e105_n1/normalized.csv": "b6a66521b1aeba54aa756ca69507b5ef99d8a4c1490eb794245b59bc6ecaa69e"
+  },
+  "library_versions": {
+    "numpy": "2.5.4",
+    "pandas": "3.1.1",
+    "python": "3.14.8"
+  },
+  "metrics_path": "/home/ade/project/nasa/science_analytics/emberline/artifacts/riau/harmonization_metrics.json",
+  "params_hash": "0d6ea05a5d7d73122aff09c5fb006b62586c4c6f0a1f49790fb83ae4fe02bcce",
+  "protocol_version": "PROTO-C01-v0.9",
+  "run_id": "PROTO-C01-v0.9_63d1f37_20261114T1600Z",
+  "seeds": {
+    "interval_bootstrap": 42
+  },
+  "sources": [
+    "MODIS_SP",
+    "VIIRS_SNPP_SP"
+  ],
+  "stage_statuses": {
+    "c02_match": {
+      "outputs": {
+        "matched_pairs": "/home/ade/project/nasa/science_analytics/emberline/data/processed/riau/c02/matched_pairs.csv",
+        "summary": "/home/ade/project/nasa/science_analytics/emberline/data/processed/riau/c02/match_summary.json",
+        "units_per_sensor": "/home/ade/project/nasa/science_analytics/emberline/data/processed/riau/c02/units_per_sensor.csv",
+        "zero_fill_days": "/home/ade/project/nasa/science_analytics/emberline/data/processed/riau/c02/zero_fill_days.csv"
+      },
+      "pair_states": {
+        "matched_signal": 15591,
+        "matched_zero": 15810667,
+        "one_sided": 94742
+      },
+      "status": "ok"
+    },
+    "c03_baselines": {
+      "outputs": {
+        "manifest": "/home/ade/project/nasa/science_analytics/emberline/artifacts/riau/baselines.json",
+        "series": "/home/ade/project/nasa/science_analytics/emberline/artifacts/riau/baseline_series.csv"
+      },
+      "status": "ok"
+    },
+    "c04_harmonize": {
+      "outputs": {
+        "manifest": "/home/ade/project/nasa/science_analytics/emberline/artifacts/riau/model_manifest.json",
+        "series": "/home/ade/project/nasa/science_analytics/emberline/artifacts/riau/harmonized_daily.csv"
+      },
+      "status": "ok"
+    },
+    "c05_metrics": {
+      "outputs": {
+        "metrics": "/home/ade/project/nasa/science_analytics/emberline/artifacts/riau/harmonization_metrics.json"
+      },
+      "status": "ok"
+    },
+    "c05_splice_stress": {
+      "status": "ok"
+    },
+    "c06_calendar": {
+      "outputs": {
+        "calendar": "/home/ade/project/nasa/science_analytics/emberline/artifacts/riau/calendar.csv",
+        "climatology": "/home/ade/project/nasa/science_analytics/emberline/artifacts/riau/climatology.json",
+        "series": "/home/ade/project/nasa/science_analytics/emberline/artifacts/riau/accepted_series.csv"
+      },
+      "status": "ok"
+    },
+    "c06_windows": {
+      "status": "ok"
+    }
+  },
+  "task": "C-07",
+  "test_years": [
+    "2020",
+    "2021",
+    "2022",
+    "2023",
+    "2024",
+    "2025",
+    "2026"
+  ],
+  "train_years": [
+    "2012",
+    "2013",
+    "2014",
+    "2015",
+    "2016",
+    "2017",
+    "2018",
+    "2019",
+    "2020"
+  ]
+}
