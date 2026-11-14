@@ -72,11 +72,15 @@ def _num(row: dict, field: str) -> float | None:
     return float(raw)
 
 
-def aggregate_aoi_days(pairs: list[dict]) -> tuple[list[dict], dict]:
+def aggregate_aoi_days(pairs: list[dict], zero_fill: list[dict] | None = None) -> tuple[list[dict], dict]:
     """C-02 matched pairs -> AOI-day series per day/night class (F-3).
 
     Series values come from BOTH-retrieved pairs (one-sided rows still belong to
     the observed record); `fitting_rows` counts the F-6-eligible subset.
+    `zero_fill` is the COMPACT zero-fill table from C-02 (date, daynight,
+    n_zero_cells): each entry marks a both-retrieved day whose cells are all
+    true zeros — it creates the AOI-day bucket with 0.0 values (never absent),
+    so no-fire days survive without materializing millions of per-cell rows.
     """
     buckets: dict[tuple[str, str], dict] = {}
     counts = defaultdict(int)
@@ -100,6 +104,18 @@ def aggregate_aoi_days(pairs: list[dict]) -> tuple[list[dict], dict]:
             bucket["any_fitting_eligible"] = True
             counts["fitting_eligible_pairs"] += 1
         counts["pairs_seen"] += 1
+    for zf in zero_fill or []:
+        day, daynight = str(zf["date"]), str(zf["daynight"])
+        bucket = buckets.setdefault((day, daynight), {
+            "date": day, "daynight": daynight,
+            "modis_frp_sum_mw": 0.0, "viirs_frp_sum_mw": 0.0,
+            "modis_signal_days_contrib": 0,
+            "both_retrieved": True, "any_fitting_eligible": False,
+        })
+        bucket["both_retrieved"] = True  # verified retrievals with all-zero cells
+        bucket["any_fitting_eligible"] = True
+        bucket["n_zero_cells"] = int(zf.get("n_zero_cells", 0))
+        counts["zero_fill_days_ingested"] += 1
     days = [buckets[k] for k in sorted(buckets)]
     for bucket in days:
         bucket["modis_frp_sum_mw"] = round(bucket["modis_frp_sum_mw"], 6)
@@ -208,7 +224,8 @@ def fit_and_predict(aoi_days: list[dict], eligible: set[str]) -> dict:
     }
 
 
-def run(pairs_path: str | Path, out_dir: str | Path, aoi_id: str) -> dict:
+def run(pairs_path: str | Path, out_dir: str | Path, aoi_id: str,
+        zero_fill_csv: str | Path | None = None) -> dict:
     """Full C-03 step: eligibility -> frozen split -> B0/B1 -> artifacts."""
     pairs = load_pairs(pairs_path)
     required = {"date", "daynight", "modis_frp_sum_mw", "viirs_frp_sum_mw", "state", "fitting_eligible"}
@@ -217,7 +234,11 @@ def run(pairs_path: str | Path, out_dir: str | Path, aoi_id: str) -> dict:
     missing = required - set(pairs[0])
     if missing:
         raise BaselineError(f"matched pairs schema mismatch — missing {sorted(missing)}")
-    aoi_days, pair_counts = aggregate_aoi_days(pairs)
+    zero_fill = []
+    if zero_fill_csv and Path(zero_fill_csv).exists():
+        with open(zero_fill_csv, newline="", encoding="utf-8") as handle:
+            zero_fill = [dict(row) for row in csv.DictReader(handle)]
+    aoi_days, pair_counts = aggregate_aoi_days(pairs, zero_fill or None)
     era_days = _era_day_counts([b["date"] for b in aoi_days])
     eligible, year_report = eligible_years(aoi_days, era_days)
     outcome = fit_and_predict(aoi_days, eligible)

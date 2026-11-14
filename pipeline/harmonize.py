@@ -90,14 +90,19 @@ def _features(row: dict) -> list[float]:
             float(np.log1p(max(0.0, 1.0 + n_viirs))), night]
 
 
-def _fit_monotone_ols(x: np.ndarray, y: np.ndarray) -> tuple[np.ndarray, dict]:
-    """OLS with b,c >= 0 enforced by projection (recorded, never silent)."""
-    coef, *_ = np.linalg.lstsq(x, y, rcond=None)
+def _fit_monotone_ols(x: np.ndarray, y: np.ndarray,
+                      w: np.ndarray | None = None) -> tuple[np.ndarray, dict]:
+    """Weighted OLS with b,c >= 0 enforced by projection (recorded, never silent).
+    Weights reproduce duplicated-row semantics exactly (compact zero-fill)."""
+    if w is None:
+        w = np.ones(len(y))
+    sw = np.sqrt(w)
+    coef, *_ = np.linalg.lstsq(x * sw[:, None], y * sw, rcond=None)
     projected: dict[str, str] = {}
     for idx, name in ((1, "b"), (2, "c")):
         if coef[idx] < 0:
             keep = [j for j in range(x.shape[1]) if j != idx]
-            refit, *_ = np.linalg.lstsq(x[:, keep], y, rcond=None)
+            refit, *_ = np.linalg.lstsq(x[:, keep] * sw[:, None], y * sw, rcond=None)
             for out_i, in_i in enumerate(keep):
                 coef[out_i] = refit[out_i]
             coef[idx] = 0.0
@@ -105,14 +110,30 @@ def _fit_monotone_ols(x: np.ndarray, y: np.ndarray) -> tuple[np.ndarray, dict]:
     return coef, projected
 
 
-def fit_b2_rows(train_rows: list[dict]) -> dict:
+def fit_b2_rows(train_rows: list[dict],
+                zero_weights: dict[str, float] | None = None) -> dict:
     """Core fit on explicitly given TRAINING rows (no support gate — the gate
-    belongs to the full run; LOYO folds call this directly)."""
+    belongs to the full run; LOYO folds call this directly).
+
+    zero_weights: {"day": total_zero_cells, "night": total_zero_cells} — the
+    compact zero-fill representation. Every zero-fill cell-day has identical
+    features [1, 0, 0, I_night] and target 0, so weighting by count is
+    mathematically IDENTICAL to materializing every per-cell row.
+    """
     x = np.array([_features(r) for r in train_rows])
     y = np.array([np.log1p(max(0.0, _num(r, "modis_frp_sum_mw") or 0.0)) for r in train_rows])
-    coef, projected = _fit_monotone_ols(x, y)
+    w = np.ones(len(train_rows))
+    if zero_weights:
+        for daynight, weight in zero_weights.items():
+            if weight <= 0:
+                continue
+            night = 1.0 if daynight == "night" else 0.0
+            x = np.vstack([x, np.array([[1.0, 0.0, 0.0, night]])])
+            y = np.append(y, 0.0)
+            w = np.append(w, float(weight))
+    coef, projected = _fit_monotone_ols(x, y, w)
     residuals = y - x @ coef
-    smearing_k = float(np.mean(np.exp(residuals)))  # Duan, training-only
+    smearing_k = float(np.sum(w * np.exp(residuals)) / np.sum(w))  # weighted Duan, training-only
 
     a, b, c, d = (round(float(v), 8) for v in coef)
     return {
@@ -120,13 +141,16 @@ def fit_b2_rows(train_rows: list[dict]) -> dict:
         "monotone_projection": projected or "none_active",
         "smearing_k": round(smearing_k, 8),
         "fit_inputs": {
-            "unit": "cell-day pairs, fitting-eligible only (F-6), training years only",
-            "n_train_rows": len(train_rows),
+            "unit": "cell-day pairs, fitting-eligible only (F-6), training years only; "
+                    "compact zero-fill entered as exact weights (identical to duplicated rows)",
+            "n_train_rows": int(len(train_rows)),
+            "zero_cells_weighted": {k: int(v) for k, v in (zero_weights or {}).items()},
         },
     }
 
 
-def fit_b2(pairs: list[dict], eligible_years_set: set[str]) -> dict | None:
+def fit_b2(pairs: list[dict], eligible_years_set: set[str],
+           zero_weights: dict[str, float] | None = None) -> dict | None:
     """Fit on TRAINING cell-days only, behind the F-9b support gate.
     Returns model dict or None if unsupportable."""
     train_rows = [
@@ -143,7 +167,7 @@ def fit_b2(pairs: list[dict], eligible_years_set: set[str]) -> dict | None:
     if len(train_years) < MIN_TRAIN_YEARS or len(test_years) < MIN_TEST_YEARS:
         return None
 
-    model = fit_b2_rows(train_rows)
+    model = fit_b2_rows(train_rows, zero_weights)
     model["fit_inputs"]["train_years"] = train_years
     model["fit_inputs"]["test_years_recorded_never_fitted"] = test_years
     return model
@@ -162,9 +186,12 @@ def _predict_cell(coef: dict, smearing_k: float, row: dict) -> float:
     return max(0.0, smearing_k * float(np.expm1(y_hat)))
 
 
-def _aoi_day_series(pairs: list[dict], eligible: set[str], model: dict) -> tuple[list[dict], list[float]]:
+def _aoi_day_series(pairs: list[dict], eligible: set[str], model: dict, aoi_id: str,
+                    zero_fill: list[dict] | None = None) -> tuple[list[dict], list[float]]:
     """Group cell-day pairs into AOI-days (both-retrieved only), predict, and
-    collect TRAINING AOI-day residuals for interval calibration."""
+    collect TRAINING AOI-day residuals for interval calibration. Compact
+    zero-fill days become 0.0-value AOI-days (all cells predict 0 by policy) —
+    no-fire days exist in the series without per-cell materialization."""
     by_day: dict[tuple[str, str], list[dict]] = {}
     for row in pairs:
         if row["date"][:4] not in eligible:
@@ -192,6 +219,27 @@ def _aoi_day_series(pairs: list[dict], eligible: set[str], model: dict) -> tuple
         if entry["role"] == "train":
             train_residuals.append(observed - predicted)
         days.append(entry)
+    for zf in zero_fill or []:
+        key = (str(zf["date"]), str(zf["daynight"]))
+        if str(zf["date"])[:4] not in eligible:
+            continue
+        existing = next((d for d in days if (d["date"], d["daynight"]) == key), None)
+        if existing is None:
+            day, daynight = key
+            entry = {
+                "aoi_id": aoi_id, "date": day, "daynight": daynight,
+                "role": "train" if day <= TRAIN_END else "test",
+                "source_flag": "harmonized_viirs",
+                "n_cells_predicted": int(zf.get("n_zero_cells", 0)),
+                "observed_modis_mw": 0.0, "predicted_b2_mw": 0.0,
+                "lo_mw": None, "hi_mw": None, "flags": [],
+            }
+            if entry["role"] == "train":
+                train_residuals.append(0.0)  # perfect zero prediction on an all-zero day
+            days.append(entry)
+        else:
+            existing["n_cells_predicted"] += int(zf.get("n_zero_cells", 0))
+    days.sort(key=lambda d: (d["date"], d["daynight"]))
     return days, train_residuals
 
 
@@ -245,7 +293,7 @@ def _flag_extrapolation(pairs: list[dict], days: list[dict], eligible: set[str])
 
 
 def run(pairs_path: str | Path, out_dir: str | Path, aoi_id: str,
-        run_ts: str | None = None) -> dict:
+        run_ts: str | None = None, zero_fill_csv: str | Path | None = None) -> dict:
     """Full C-04 step: eligibility gate -> B2 fit -> AOI-day estimates + intervals."""
     pairs = load_pairs(pairs_path)
     if not pairs:
@@ -254,7 +302,14 @@ def run(pairs_path: str | Path, out_dir: str | Path, aoi_id: str,
     if missing:
         raise BaselineError(f"matched pairs schema mismatch — missing {sorted(missing)}")
 
-    aoi_days_for_gate, _ = aggregate_aoi_days(pairs)
+    # compact zero-fill is part of coverage: read it BEFORE the F-9b gate so
+    # retrieved all-zero days count toward the paired-retrieval fraction
+    zero_fill_rows: list[dict] = []
+    if zero_fill_csv and Path(zero_fill_csv).exists():
+        with open(zero_fill_csv, newline="", encoding="utf-8") as handle:
+            zero_fill_rows = [dict(row) for row in csv.DictReader(handle)]
+
+    aoi_days_for_gate, _ = aggregate_aoi_days(pairs, zero_fill_rows)
     era_days = _era_day_counts([b["date"] for b in aoi_days_for_gate])
     eligible, year_report = eligible_years(aoi_days_for_gate, era_days)
     train_year_count = len({y for y in eligible if y <= TRAIN_END[:4]})
@@ -265,13 +320,20 @@ def run(pairs_path: str | Path, out_dir: str | Path, aoi_id: str,
                          "eligible_years": sorted(eligible)}
         days: list[dict] = []
     else:
-        model = fit_b2(pairs, eligible)
+        # compact zero-fill -> exact weights, filtered to TRAINING days only (F-11)
+        zero_weights: dict[str, float] = {}
+        for zf in zero_fill_rows:
+            day = str(zf["date"])
+            if day <= TRAIN_END and day[:4] in eligible:
+                zero_weights[str(zf["daynight"])] = \
+                    zero_weights.get(str(zf["daynight"]), 0.0) + float(zf.get("n_zero_cells", 0))
+        model = fit_b2(pairs, eligible, zero_weights or None)
         if model is None:
             outcome = {"status": "insufficient_data",
                        "reason": "no training rows after eligibility/split — no model fitted"}
             days = []
         else:
-            days, train_residuals = _aoi_day_series(pairs, eligible, model)
+            days, train_residuals = _aoi_day_series(pairs, eligible, model, aoi_id, zero_fill_rows)
             intervals = [_apply_intervals(days, train_residuals, cls)
                          for cls in ("day", "night") if train_residuals]
             flagged, support = _flag_extrapolation(pairs, days, eligible)

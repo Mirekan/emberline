@@ -117,8 +117,10 @@ def run(aoi_id: str, run_ts: str | None = None, detections: list[Path] | None = 
 
     # -- stage 2: C-03 baselines ----------------------------------------------------
     stage_pairs = pairs_path or (c02_dir / "matched_pairs.csv")
+    zero_fill_csv = c02_dir / "zero_fill_days.csv"
     if stage_pairs.exists():
-        b = baselines.run(stage_pairs, artifacts, aoi_id)
+        b = baselines.run(stage_pairs, artifacts, aoi_id,
+                          zero_fill_csv=zero_fill_csv if zero_fill_csv.exists() else None)
         stages["c03_baselines"] = {"status": b["manifest"]["outcome"].get("status"),
                                    "outputs": b["outputs"]}
     else:
@@ -126,7 +128,8 @@ def run(aoi_id: str, run_ts: str | None = None, detections: list[Path] | None = 
 
     # -- stage 3: C-04 harmonize ------------------------------------------------------
     if stage_pairs.exists():
-        h = harmonize.run(stage_pairs, artifacts, aoi_id)
+        h = harmonize.run(stage_pairs, artifacts, aoi_id,
+                          zero_fill_csv=zero_fill_csv if zero_fill_csv.exists() else None)
         stages["c04_harmonize"] = {"status": h["manifest"]["outcome"].get("status"),
                                    "outputs": h["outputs"]}
     else:

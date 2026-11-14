@@ -349,29 +349,38 @@ def load_retrieval_mask(mask_rows: list[dict], aoi_id: str) -> tuple[dict, dict]
 
 def build_matched_pairs(
     units: list[dict], family_status: dict, aoi_id: str, aoi_cells: list[str]
-) -> list[dict]:
+) -> tuple[list[dict], list[dict], dict]:
     """Pair per-sensor units into (cell, date, daynight) comparison rows (F-6).
+
+    MEMORY CONTRACT (scale guard, full-era safe): only SIGNAL-BEARING rows are
+    materialized (matched_signal / one_sided / missing_retrieval). Zero-filled
+    cells-days are represented COMPACTLY as one row per (date, daynight) with
+    n_zero_cells — every zero-fill row is identical (0,0) except cell_id, so
+    this is a lossless representation (full era: ~16M rows -> ~5.3k rows;
+    materializing them as dicts was the 10 GB memory blow-up). Consumers:
+    baselines/harmonize ingest the compact table and expand it as WEIGHTS, which
+    is mathematically identical to duplicated rows in weighted OLS.
 
     Coverage semantics:
     - Dates where BOTH families were retrieved: every (cell, day/night) in the
-      AOI becomes a pair; cell-days without detections contribute a TRUE ZERO.
-      Skipping them would silently drop no-fire days (survivorship bias) — the
-      zero fill is the frozen F-6 semantics ("possibly zero-detection retrieval").
+      AOI counts; cell-days without detections are TRUE ZEROS (F-6) — counted,
+      not dropped (survivorship bias avoided), not materialized per cell.
     - Dates where only ONE family was retrieved: rows exist only where the
       retrieved side has signal (state missing_retrieval, reason recorded).
-    - One-sided signal (one side > 0, other side a retrieved zero) is retained
-      with a flag and excluded from fitting.
+    - One-sided signal is retained with a flag and excluded from fitting.
     """
     grouped: dict[tuple, dict] = defaultdict(dict)
     for unit in units:
         grouped[(unit["cell_id"], unit["date"], unit["daynight"])][unit["family"]] = unit
 
     dates_both, dates_partial = [], []
+    dates_both_set = set()
     for day in sorted({day_ for (_fam, day_) in family_status}):
         modis_status = family_status.get(("modis", day), "not_requested")
         viirs_status = family_status.get(("viirs", day), "not_requested")
         if modis_status == "retrieved" and viirs_status == "retrieved":
             dates_both.append(day)
+            dates_both_set.add(day)
         elif modis_status == "retrieved" or viirs_status == "retrieved":
             dates_partial.append((day, modis_status, viirs_status))
 
@@ -412,19 +421,29 @@ def build_matched_pairs(
         return row
 
     pairs: list[dict] = []
-    zero_filled = 0
+    zero_fill: list[dict] = []
+    zero_cells_total = 0
     stray_rows = 0  # detections on dates the mask says failed/unavailable — data/mask inconsistency
     for day in dates_both:
-        for cell in aoi_cells:  # deterministic (south->north, west->east) order
-            for daynight in ("day", "night"):
-                row = pair_row(cell, day, daynight)
-                if row["state"] == ST_MATCHED_ZERO:
-                    zero_filled += 1
-                pairs.append(row)
+        for daynight in ("day", "night"):
+            n_signal_cells = 0
+            for cell in aoi_cells:  # deterministic (south->north, west->east) order
+                sides = grouped.get((cell, day, daynight), {})
+                has_signal = any(
+                    (fam in sides and sides[fam]["frp_sum_mw"] > 0)
+                    for fam in ("modis", "viirs")
+                )
+                if has_signal:
+                    n_signal_cells += 1
+                    pairs.append(pair_row(cell, day, daynight))
+            n_zero_cells = len(aoi_cells) - n_signal_cells
+            if n_zero_cells:
+                zero_fill.append({"date": day, "daynight": daynight, "n_zero_cells": n_zero_cells})
+                zero_cells_total += n_zero_cells
     for day, modis_status, viirs_status in dates_partial:
         retrieved_fam = "modis" if modis_status == "retrieved" else "viirs"
         for (cell, unit_day, daynight), sides in sorted(grouped.items()):
-            if unit_day != day:
+            if unit_day != day or day in dates_both_set:
                 continue
             if set(sides) - {retrieved_fam}:
                 stray_rows += 1  # detections exist for a side the mask says failed
@@ -434,8 +453,14 @@ def build_matched_pairs(
                 continue  # no signal: the gap lives in the mask, not a pair row
             pairs.append(pair_row(cell, day, daynight))
 
-    stats = {"zero_filled_pairs": zero_filled, "stray_rows_on_nonretrieved_date": stray_rows}
-    return pairs, stats
+    stats = {
+        "zero_filled_cells": zero_cells_total,
+        "zero_fill_days": len(zero_fill),
+        "stray_rows_on_nonretrieved_date": stray_rows,
+        "memory_note": "zero-fill represented compactly (one count per date/daynight) — "
+                       "lossless: every zero-fill row is (0,0) except cell_id",
+    }
+    return pairs, zero_fill, stats
 
 
 def run(
@@ -468,15 +493,17 @@ def run(
             summary["warnings"] = sorted(set(summary["warnings"]) | {"mask_clipped_to_delivered_window"})
             summary["mask"]["mask_dates_clipped_to_delivered"] = clipped
     aoi_cells = aoi_cell_ids(validate_bbox(bbox_west, bbox_south, bbox_east, bbox_north))
-    pairs, pair_stats = build_matched_pairs(units, family_status, aoi_id, aoi_cells)
+    pairs, zero_fill, pair_stats = build_matched_pairs(units, family_status, aoi_id, aoi_cells)
     states = defaultdict(int)
     for pair in pairs:
         states[pair["state"]] += 1
-    summary["matched_pairs"] = len(pairs)
+    states["matched_zero"] = pair_stats["zero_filled_cells"]  # compact, not materialized
+    summary["matched_pairs"] = len(pairs) + pair_stats["zero_filled_cells"]
     summary["pair_states"] = dict(sorted(states.items()))
-    summary["fitting_eligible_pairs"] = sum(1 for p in pairs if p["fitting_eligible"])
+    summary["fitting_eligible_pairs"] = sum(1 for p in pairs if p["fitting_eligible"]) \
+        + pair_stats["zero_filled_cells"]
     summary.update(pair_stats)
-    return {"units": units, "pairs": pairs, "summary": summary}
+    return {"units": units, "pairs": pairs, "zero_fill": zero_fill, "summary": summary}
 
 
 def write_outputs(result: dict, out_dir: str | Path) -> dict:
@@ -484,7 +511,9 @@ def write_outputs(result: dict, out_dir: str | Path) -> dict:
     out_dir = Path(out_dir)
     out_dir.mkdir(parents=True, exist_ok=True)
     paths = {}
-    for name, rows in (("units_per_sensor", result["units"]), ("matched_pairs", result["pairs"])):
+    for name, rows in (("units_per_sensor", result["units"]),
+                       ("matched_pairs", result["pairs"]),
+                       ("zero_fill_days", result.get("zero_fill", []))):
         path = out_dir / f"{name}.csv"
         if rows:
             columns = list(rows[0])

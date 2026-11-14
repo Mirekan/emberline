@@ -158,10 +158,13 @@ def run_all_checks() -> list[tuple[str, bool, str]]:
           and p_b["viirs_frp_sum_mw"] is None and "missing_retrieval:viirs:failed" in p_b["flags"],
           f"got {p_b}")
     p_c = pair_of(result2, date="2023-06-01")
-    check("both retrieved-empty -> matched_zero, fitting-eligible",
-          p_c and p_c["state"] == match.ST_MATCHED_ZERO and p_c["fitting_eligible"]
-          and p_c["modis_frp_sum_mw"] == 0.0 and p_c["viirs_frp_sum_mw"] == 0.0,
-          f"got {p_c}")
+    zf = {(r["date"], r["daynight"]): int(r["n_zero_cells"]) for r in result2["zero_fill"]}
+    check("both retrieved-empty -> COMPACT zero-fill (lossless), counted fitting-eligible",
+          "matched_zero" in result2["summary"]["pair_states"]
+          and result2["summary"]["pair_states"]["matched_zero"] == 14
+          and zf.get(("2023-06-01", "day")) == 4 and zf.get(("2023-06-01", "night")) == 4
+          and zf.get(("2023-09-12", "day")) == 2 and zf.get(("2023-09-12", "night")) == 4,
+          f"got zf={zf} states={result2['summary']['pair_states']}")
     check("leap day 2024-02-29 groups as a normal UTC day",
           p_b is not None and p_b["date"] == "2024-02-29")
 
@@ -213,8 +216,9 @@ def run_all_checks() -> list[tuple[str, bool, str]]:
     masks = [mask("MODIS_SP"), mask("VIIRS_SNPP_SP")]
     first = build([dict(r) for r in rows], [dict(m) for m in masks])
     second = build([dict(r) for r in reversed(rows)], [dict(m) for m in masks])
-    check("same input in any order -> identical units (deterministic)",
-          first["units"] == second["units"] and first["pairs"] == second["pairs"])
+    check("same input in any order -> identical units + compact zero-fill (deterministic)",
+          first["units"] == second["units"] and first["pairs"] == second["pairs"]
+          and first["zero_fill"] == second["zero_fill"])
 
     # -- honest bookkeeping ----------------------------------------------------
     result5 = build([det(latitude="0.5", longitude="100.05")], [mask()])
