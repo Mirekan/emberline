@@ -449,6 +449,60 @@ def cmd_inspect(args) -> int:
     return 0
 
 
+def cmd_verify(args) -> int:
+    """Check the local raw cache against data/raw/MANIFEST.json.
+
+    For teammates who received data/ via a shared drive instead of running
+    `make data`, and for A-07 reproduction: every ok/ok_empty window must
+    exist and hash-match the committed manifest. Exit 1 on any problem.
+    """
+    manifest_path = RAW_DIR / "MANIFEST.json"
+    if not manifest_path.exists():
+        sys.exit("ERROR: data/raw/MANIFEST.json not found - run `python pipeline/fetch_firms.py manifest` first")
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    counters = Counter()
+    problems = []
+    expected = set()
+    for w in manifest.get("windows", []):
+        rel = w.get("path")
+        if not rel:
+            continue
+        expected.add(rel)
+        if w.get("status") == "failed":
+            counters["manifest_failed_windows"] += 1
+            continue
+        path = ROOT / rel
+        if not path.exists():
+            counters["missing"] += 1
+            problems.append(f"missing   {rel}")
+            continue
+        sha = w.get("sha256")
+        if not sha:
+            counters["no_hash_in_manifest"] += 1
+            continue
+        if hashlib.sha256(path.read_bytes()).hexdigest() != sha:
+            counters["hash_mismatch"] += 1
+            problems.append(f"MISMATCH  {rel}")
+        else:
+            counters["verified"] += 1
+    for src_dir in sorted(RAW_DIR.glob("*/*/*")):
+        if src_dir.is_dir():
+            for f in sorted(src_dir.glob("*.csv")):
+                rel = f.relative_to(ROOT).as_posix()
+                if rel not in expected:
+                    counters["extra_local_files"] += 1
+                    problems.append(f"extra     {rel}")
+    print(f"manifest  : {manifest.get('generated_utc')} git_sha={manifest.get('git_sha')}")
+    print(f"summary   : {dict(counters)}")
+    for line in problems[:20]:
+        print(f"  {line}")
+    if len(problems) > 20:
+        print(f"  ... and {len(problems) - 20} more")
+    ok = counters["verified"]
+    print(f"RESULT    : {ok} windows verified against the committed manifest")
+    return 1 if (counters["missing"] or counters["hash_mismatch"]) else 0
+
+
 def cmd_default() -> int:
     """`make data`: fetch all configured AOIs, validate, write evidence + MANIFEST."""
     key = load_map_key()
@@ -504,6 +558,9 @@ def main(argv=None) -> int:
 
     p_mf = sub.add_parser("manifest", help="(re)write data/raw/MANIFEST.json from the ledger")
     p_mf.set_defaults(func=lambda args: (write_manifest(), 0)[1])
+
+    p_vf = sub.add_parser("verify", help="check the local raw cache against data/raw/MANIFEST.json")
+    p_vf.set_defaults(func=cmd_verify)
 
     args = parser.parse_args(argv)
     if args.cmd is None:

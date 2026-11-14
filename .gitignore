@@ -28,6 +28,12 @@ data/**
 !data/raw/
 data/raw/**
 !data/raw/MANIFEST.json
+# Small reviewable evidence under data/manifests/ is committed too (B-04/B-05):
+# human-readable G1 evidence + the keyed availability probe backing DEC-1.
+# fetch_ledger.jsonl and validation_report_*.json stay local (regenerated per run).
+!data/manifests/
+!data/manifests/*.md
+!data/manifests/data_availability_*.csv
 
 # Scientific artifacts — small versioned JSONs are committed; heavy binaries are not.
 artifacts/**/*.parquet
