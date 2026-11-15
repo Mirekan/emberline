@@ -195,6 +195,7 @@ export default function App() {
                   <Overview
                     goCalendar={() => setTab("firecalendar")}
                     goMethod={() => setTab("methodology")}
+                    goMap={() => setTab("firemap")}
                   />
                 )}
                 {tab === "firemap" && <FireMap />}
