@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
-import { api, Preset, Detections, Detection } from "../api";
+import { api, Preset, Detections, Detection, Grid, GridCell } from "../api";
 import { useAoi } from "../App";
 
 const REGIONS: { name: string; center: [number, number]; preset?: string }[] = [
@@ -165,6 +165,7 @@ export default function FireMap() {
   const mapRef = useRef<L.Map | null>(null);
   const canvasRendererRef = useRef<L.Canvas | null>(null);
   const tileLayerRef = useRef<L.TileLayer | null>(null);
+  const gridLayerRef = useRef<L.LayerGroup | null>(null);
   const dotsLayerRef = useRef<L.LayerGroup | null>(null);
   const sidebarRef = useRef<HTMLDivElement>(null);
   const toolbarRef = useRef<HTMLDivElement>(null);
@@ -175,8 +176,14 @@ export default function FireMap() {
     return REGIONS.find(r => r.preset === aoi)?.name ?? "Riau";
   });
   const [presets, setPresets] = useState<Preset[]>([]);
+  const [grid, setGrid] = useState<Grid | null>(null);
+  const [gridLoading, setGridLoading] = useState(false);
+  const [gridError, setGridError] = useState("");
+  const [selectedCell, setSelectedCell] = useState<GridCell | null>(null);
   const [det, setDet] = useState<Detections | null>(null);
-  const [detOn, setDetOn] = useState(true); // Default ON: FIRMS dots are immediately rendered on map load
+  const [detOn, setDetOn] = useState(false);
+  const [detLoading, setDetLoading] = useState(false);
+  const [detError, setDetError] = useState("");
   const [detYear, setDetYear] = useState("all"); // Default to all years for full hotspot coverage
   const [detSensor, setDetSensor] = useState<"all" | "modis" | "viirs">("all");
   const [mapTheme, setMapTheme] = useState<"dark" | "osm">("dark");
@@ -394,19 +401,104 @@ export default function FireMap() {
     };
   }, []);
 
-  // Fetch telemetry artifacts for selected AOI directly
+  // Load the lightweight density grid first; detailed detections are fetched only after a cell is selected.
   useEffect(() => {
+    let cancelled = false;
     const targetAoi = selName === null ? "all" : aoi;
-    api.detections(targetAoi)
-      .then(d => {
-        setDet(d);
+    setGrid(null);
+    setGridError("");
+    setSelectedCell(null);
+    setDet(null);
+    setDetOn(false);
+    setGridLoading(true);
+    api.grid(targetAoi)
+      .then(data => {
+        if (!cancelled) setGrid(data);
       })
-      .catch(() => {
-        setDet(null);
+      .catch(error => {
+        if (!cancelled) {
+          setGridError(error instanceof Error ? error.message : "Gagal memuat intensitas peta.");
+        }
+      })
+      .finally(() => {
+        if (!cancelled) setGridLoading(false);
       });
+    return () => { cancelled = true; };
   }, [aoi, selName]);
 
-  // Render Fire Dots ("Nitik-nitik" pinned solidly to the island, 100% netep, zero jitter)
+  useEffect(() => {
+    if (!selectedCell || !detOn) {
+      setDet(null);
+      setDetLoading(false);
+      setDetError("");
+      return;
+    }
+
+    let cancelled = false;
+    const targetAoi = selName === null ? "all" : aoi;
+    setDet(null);
+    setDetError("");
+    setDetLoading(true);
+    api.detections(targetAoi, selectedCell)
+      .then(data => {
+        if (!cancelled) setDet(data);
+      })
+      .catch(error => {
+        if (!cancelled) {
+          setDetError(error instanceof Error ? error.message : "Gagal memuat titik satelit.");
+        }
+      })
+      .finally(() => {
+        if (!cancelled) setDetLoading(false);
+      });
+    return () => { cancelled = true; };
+  }, [aoi, selName, selectedCell, detOn]);
+
+  // Render detailed fire dots only for the selected grid cell.
+  useEffect(() => {
+    const map = mapRef.current;
+    if (!map) return;
+    gridLayerRef.current?.remove();
+    gridLayerRef.current = null;
+    if (!grid || grid.cells.length === 0) return;
+
+    const maxCount = Math.max(0, ...grid.cells.map(cell => cell.detection_count));
+    const layer = L.layerGroup();
+    for (const cell of grid.cells) {
+      const count = cell.detection_count;
+      const intensity = count > 0 && maxCount > 0
+        ? Math.log1p(count) / Math.log1p(maxCount)
+        : 0;
+      const fillColor = count === 0
+        ? "#64748B"
+        : intensity < 0.34 ? "#FACC15" : intensity < 0.67 ? "#F97316" : "#EF4444";
+      const selected = selectedCell?.cell_id === cell.cell_id;
+      const area = L.rectangle(
+        [[cell.south, cell.west], [cell.north, cell.east]],
+        {
+          color: selected ? "#FFFFFF" : fillColor,
+          weight: selected ? 2 : 0.6,
+          fillColor,
+          fillOpacity: count === 0 ? 0.06 : 0.2 + intensity * 0.48,
+          interactive: true,
+          bubblingMouseEvents: false,
+        },
+      );
+      area.bindTooltip(`${count.toLocaleString()} observasi FIRMS`, { sticky: true });
+      area.on("click", () => {
+        const alreadySelected = selectedCell?.cell_id === cell.cell_id;
+        setSelectedCell(alreadySelected ? null : cell);
+        setDetOn(!alreadySelected);
+        setDetYear("all");
+        setDetSensor("all");
+      });
+      area.addTo(layer);
+    }
+    layer.addTo(map);
+    gridLayerRef.current = layer;
+  }, [grid, selectedCell, mapReady]);
+
+  // Render fire dots for the selected cell only, capped for predictable map performance.
   useEffect(() => {
     const map = mapRef.current;
     const canvasRenderer = canvasRendererRef.current;
@@ -427,7 +519,7 @@ export default function FireMap() {
       (detSensor === "all" || d.sensor === detSensor)
     );
 
-    // Limit to 2,500 highest FRP points to ensure buttery-smooth 60 FPS
+    // Limit to 2,500 highest FRP points to keep dense cells responsive.
     const cappedRows = rows.length > 2500
       ? [...rows].sort((a, b) => b.frp - a.frp).slice(0, 2500)
       : rows;
@@ -518,7 +610,7 @@ export default function FireMap() {
       {/* Base Map Container */}
       <div ref={mapEl} style={{ position: "absolute", inset: 0 }} />
 
-      {/* Floating Control Toolbar (Fullscreen, Panel Toggle, Quick Dot Toggle) */}
+      {/* Floating Control Toolbar */}
       <div
         ref={toolbarRef}
         style={{
@@ -572,6 +664,7 @@ export default function FireMap() {
         <button
           type="button"
           onClick={() => setDetOn(o => !o)}
+          disabled={!selectedCell}
           className={"seg-btn" + (detOn ? " active" : "")}
           style={{
             background: detOn ? "var(--ember-sub)" : "var(--surface)",
@@ -584,10 +677,12 @@ export default function FireMap() {
             display: "inline-flex",
             alignItems: "center",
             gap: 6,
+            opacity: selectedCell ? 1 : 0.65,
           }}
-          title={detOn ? "Sembunyikan titik satelit" : "Tampilkan titik satelit FIRMS"}
+          aria-pressed={detOn}
+          title={selectedCell ? (detOn ? "Sembunyikan titik sel terpilih" : "Tampilkan titik sel terpilih") : "Klik area berwarna untuk memilih sel"}
         >
-          {detOn ? "Titik Api: Aktif" : "Titik Api: Nonaktif"}
+          {!selectedCell ? "Klik Area untuk Titik" : detOn ? "Titik Api: Aktif" : "Titik Api: Nonaktif"}
         </button>
       </div>
 
@@ -706,80 +801,125 @@ export default function FireMap() {
           </div>
         )}
 
-        {det && (
+        {(gridLoading || gridError) && (
           <div style={{
-            margin: "0 14px 8px", padding: 10,
-            background: "var(--sunken)", borderRadius: 8, border: "1px solid var(--line)",
+            margin: "0 14px 8px", fontSize: 10.5, color: gridError ? "var(--danger, #dc2626)" : "var(--ink2)",
+            background: "var(--sunken)", border: "1px solid var(--line)",
+            borderRadius: 8, padding: "6px 10px",
           }}>
-            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 8 }}>
-              <span style={{ fontSize: 12, fontWeight: 600, color: "var(--ink)" }}>
-                Titik Satelit FIRMS
-              </span>
-              <button
-                className={"seg-btn" + (detOn ? " active" : "")}
-                onClick={() => setDetOn(o => !o)}
-                aria-pressed={detOn}
-                style={{
-                  background: detOn ? "var(--ember-sub)" : "var(--surface)",
-                  color: detOn ? "var(--ember)" : "var(--ink)",
-                  fontWeight: 600,
-                  fontSize: 11,
-                  padding: "3px 10px",
-                }}
-                title="Tampilkan / sembunyikan titik panas"
-              >
-                {detOn ? "Ditampilkan" : "Disembunyikan"}
-              </button>
-            </div>
-
-            {!detOn ? (
-              <div style={{ fontSize: 10.5, color: "var(--ink3)", lineHeight: 1.4, margin: "4px 0" }}>
-                Titik api dinonaktifkan secara default agar peta ringan. Klik tombol <b>Disembunyikan</b> di atas untuk memunculkan {detRows.length} titik.
-              </div>
-            ) : (
-              <>
-                <div style={{ display: "flex", gap: 8, marginTop: 4 }}>
-                  <select
-                    className="glass-select"
-                    value={detYear}
-                    style={{ flex: 1, minWidth: 0 }}
-                    onChange={e => setDetYear(e.target.value)}
-                  >
-                    <option value="all">Semua Tahun</option>
-                    {detYears.map(y => (
-                      <option key={y} value={y}>{y}</option>
-                    ))}
-                  </select>
-                  <select
-                    className="glass-select"
-                    value={detSensor}
-                    style={{ flex: 1, minWidth: 0 }}
-                    onChange={e => setDetSensor(e.target.value as "all" | "modis" | "viirs")}
-                  >
-                    <option value="all">Semua Sensor</option>
-                    <option value="viirs">VIIRS 375m</option>
-                    <option value="modis">MODIS 1km</option>
-                  </select>
-                </div>
-
-                {/* Sensor legend */}
-                <div style={{ display: "flex", alignItems: "center", gap: 12, marginTop: 8, fontSize: 11, color: "var(--ink2)" }}>
-                  <span style={{ display: "inline-flex", alignItems: "center", gap: 5 }}>
-                    <i style={{ width: 10, height: 10, borderRadius: "50%", background: "#EF4444", display: "inline-block", boxShadow: "0 0 4px rgba(239,68,68,0.5)" }} /> VIIRS 375m
-                  </span>
-                  <span style={{ display: "inline-flex", alignItems: "center", gap: 5 }}>
-                    <i style={{ width: 10, height: 10, borderRadius: "50%", background: "#2563EB", display: "inline-block", boxShadow: "0 0 4px rgba(37,99,235,0.5)" }} /> MODIS 1km
-                  </span>
-                  <span style={{ marginLeft: "auto", color: "var(--ink3)", fontSize: 10 }}>Radius ∝ √FRP</span>
-                </div>
-
-                <div style={{ fontSize: 10, color: "var(--ink3)", marginTop: 5, lineHeight: 1.4 }}>
-                  {detRows.length} titik aktif. Klik titik mana saja untuk melihat koordinat &amp; telemetri satelit.
-                </div>
-              </>
-            )}
+            {gridError ? `Intensitas peta gagal dimuat: ${gridError}` : "Memuat intensitas observasi per area…"}
           </div>
         )}
+
+        <div style={{
+          margin: "0 14px 8px", padding: 10,
+          background: "var(--sunken)", borderRadius: 8, border: "1px solid var(--line)",
+        }}>
+          <div style={{ fontSize: 11, fontWeight: 600, color: "var(--ink)", marginBottom: 7 }}>
+            Intensitas hotspot · jumlah observasi
+          </div>
+          <div style={{ display: "flex", gap: 10, fontSize: 10.5, color: "var(--ink2)" }}>
+            <span style={{ display: "inline-flex", alignItems: "center", gap: 4 }}>
+              <i style={{ display: "inline-block", width: 10, height: 10, borderRadius: 2, background: "#FACC15" }} /> Rendah
+            </span>
+            <span style={{ display: "inline-flex", alignItems: "center", gap: 4 }}>
+              <i style={{ display: "inline-block", width: 10, height: 10, borderRadius: 2, background: "#F97316" }} /> Sedang
+            </span>
+            <span style={{ display: "inline-flex", alignItems: "center", gap: 4 }}>
+              <i style={{ display: "inline-block", width: 10, height: 10, borderRadius: 2, background: "#EF4444" }} /> Tinggi
+            </span>
+          </div>
+          <div style={{ fontSize: 10, color: "var(--ink3)", lineHeight: 1.4, marginTop: 6 }}>
+            Warna merangkum observasi satelit historis pada sel 0,1°. Klik sel untuk memuat titik di area itu.
+          </div>
+        </div>
+
+        <div style={{
+          margin: "0 14px 8px", padding: 10,
+          background: "var(--sunken)", borderRadius: 8, border: "1px solid var(--line)",
+        }}>
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 8 }}>
+            <span style={{ fontSize: 12, fontWeight: 600, color: "var(--ink)" }}>
+              Titik Satelit FIRMS
+            </span>
+            <button
+              type="button"
+              className={"seg-btn" + (detOn ? " active" : "")}
+              onClick={() => setDetOn(o => !o)}
+              disabled={!selectedCell}
+              aria-pressed={detOn}
+              style={{
+                background: detOn ? "var(--ember-sub)" : "var(--surface)",
+                color: detOn ? "var(--ember)" : "var(--ink)",
+                fontWeight: 600,
+                fontSize: 11,
+                padding: "3px 10px",
+              }}
+              title={selectedCell ? "Tampilkan / sembunyikan titik di sel terpilih" : "Pilih sel pada peta terlebih dahulu"}
+            >
+              {detOn ? "Ditampilkan" : "Disembunyikan"}
+            </button>
+          </div>
+
+          {!selectedCell ? (
+            <div style={{ fontSize: 10.5, color: "var(--ink3)", lineHeight: 1.4 }}>
+              Titik satelit belum dimuat. Pilih salah satu sel berwarna pada peta untuk melihat lokasinya.
+            </div>
+          ) : !detOn ? (
+            <div style={{ fontSize: 10.5, color: "var(--ink3)", lineHeight: 1.4 }}>
+              Sel {selectedCell.cell_id} dipilih. Aktifkan titik untuk menampilkannya.
+            </div>
+          ) : detLoading ? (
+            <div style={{ fontSize: 10.5, color: "var(--ink3)" }}>Memuat titik pada sel terpilih…</div>
+          ) : detError ? (
+            <div role="alert" style={{ fontSize: 10.5, color: "var(--danger, #dc2626)", lineHeight: 1.4 }}>
+              Titik satelit gagal dimuat: {detError}
+            </div>
+          ) : det ? (
+            <>
+              <div style={{ fontSize: 10.5, color: "var(--ink2)", marginBottom: 7 }}>
+                Sel {selectedCell.cell_id} · {det.n_detections.toLocaleString()} observasi
+              </div>
+              <div style={{ display: "flex", gap: 8, marginTop: 4 }}>
+                <select
+                  className="glass-select"
+                  value={detYear}
+                  style={{ flex: 1, minWidth: 0 }}
+                  onChange={e => setDetYear(e.target.value)}
+                >
+                  <option value="all">Semua Tahun</option>
+                  {detYears.map(y => (
+                    <option key={y} value={y}>{y}</option>
+                  ))}
+                </select>
+                <select
+                  className="glass-select"
+                  value={detSensor}
+                  style={{ flex: 1, minWidth: 0 }}
+                  onChange={e => setDetSensor(e.target.value as "all" | "modis" | "viirs")}
+                >
+                  <option value="all">Semua Sensor</option>
+                  <option value="viirs">VIIRS 375m</option>
+                  <option value="modis">MODIS 1km</option>
+                </select>
+              </div>
+
+              <div style={{ display: "flex", alignItems: "center", gap: 12, marginTop: 8, fontSize: 11, color: "var(--ink2)" }}>
+                <span style={{ display: "inline-flex", alignItems: "center", gap: 5 }}>
+                  <i style={{ width: 10, height: 10, borderRadius: "50%", background: "#EF4444", display: "inline-block" }} /> VIIRS 375m
+                </span>
+                <span style={{ display: "inline-flex", alignItems: "center", gap: 5 }}>
+                  <i style={{ width: 10, height: 10, borderRadius: "50%", background: "#2563EB", display: "inline-block" }} /> MODIS 1km
+                </span>
+                <span style={{ marginLeft: "auto", color: "var(--ink3)", fontSize: 10 }}>Radius ∝ √FRP</span>
+              </div>
+
+              <div style={{ fontSize: 10, color: "var(--ink3)", marginTop: 5, lineHeight: 1.4 }}>
+                {detRows.length.toLocaleString()} titik sesuai filter; {Math.min(detRows.length, 2500).toLocaleString()} marker ditampilkan maks. Klik titik untuk detail.
+              </div>
+            </>
+          ) : null}
+        </div>
 
         <div style={{ flex: 1, overflowY: "auto", overscrollBehavior: "contain", scrollBehavior: "smooth", padding: "0 8px 8px" }}>
           {list.map(r => {

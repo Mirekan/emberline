@@ -33,3 +33,9 @@ Artifact-backed routes return an explicit error when the requested data is
 unavailable. The analyze job store is in-process and bounded; jobs are not
 persisted across server restarts. `FIRMS_MAP_KEY`, when used by other tools,
 is not returned by the API.
+
+The map grid includes per-cell FIRMS observation counts and is available for
+an individual AOI or `all`. Detection requests can include all four
+`west`, `south`, `east`, and `north` query parameters to return points within
+that half-open cell boundary; the map uses this to fetch points only after a
+cell is selected.

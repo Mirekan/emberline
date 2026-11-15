@@ -15,6 +15,7 @@ from __future__ import annotations
 
 import csv
 import json
+import math
 import re
 import uuid
 from datetime import datetime, timedelta, timezone
@@ -191,30 +192,129 @@ def stress(aoi: str):
 
 @app.get("/api/aoi/{aoi}/grid")
 def api_grid(aoi: str):
-    """Per-cell yearly raw FRP totals (O-02 map layer). Raw sensor scale."""
-    return _load(aoi, "grid.json")
+    """Per-cell observation counts and yearly raw FRP totals for the map."""
+    if aoi not in ("all", "indonesia"):
+        return _grid_with_detection_counts(aoi)
+
+    merged_cells = {}
+    years = set()
+    cell_deg = None
+    scale_note = None
+    for path in sorted(ARTIFACTS.iterdir()):
+        if (
+            not path.is_dir()
+            or path.name in ("all", "indonesia")
+            or not (path / "grid.json").is_file()
+            or not (path / "detections.json").is_file()
+        ):
+            continue
+        grid = _grid_with_detection_counts(path.name)
+        cell_deg = grid["cell_deg"] if cell_deg is None else cell_deg
+        scale_note = grid.get("scale_note", scale_note)
+        years.update(grid.get("years", []))
+        for cell in grid["cells"]:
+            existing = merged_cells.get(cell["cell_id"])
+            if existing is None:
+                merged_cells[cell["cell_id"]] = cell
+                continue
+            existing["total_modis"] += cell["total_modis"]
+            existing["total_viirs"] += cell["total_viirs"]
+            existing["detection_count"] += cell["detection_count"]
+            existing["n_days"] = max(existing["n_days"], cell["n_days"])
+            for year, values in cell.get("years", {}).items():
+                target = existing["years"].setdefault(
+                    year, {"modis": 0, "viirs": 0, "n_days": 0}
+                )
+                target["modis"] += values.get("modis", 0)
+                target["viirs"] += values.get("viirs", 0)
+                target["n_days"] = max(target["n_days"], values.get("n_days", 0))
+
+    if cell_deg is None:
+        raise HTTPException(404, detail="Data grid untuk wilayah Indonesia belum tersedia.")
+
+    cells = sorted(merged_cells.values(), key=lambda cell: (cell["south"], cell["west"]))
+    return {
+        "cell_deg": cell_deg,
+        "years": sorted(years),
+        "n_cells": len(cells),
+        "scale_note": scale_note,
+        "cells": cells,
+    }
+
+
+def _grid_with_detection_counts(aoi: str):
+    grid = _load(aoi, "grid.json")
+    cell_deg = grid["cell_deg"]
+    cells_by_index = {}
+    for cell in grid["cells"]:
+        lat_index = math.floor(cell["south"] / cell_deg + 1e-9)
+        lon_index = math.floor(cell["west"] / cell_deg + 1e-9)
+        cell["detection_count"] = 0
+        cells_by_index[(lat_index, lon_index)] = cell
+
+    detections = _load(aoi, "detections.json").get("detections", [])
+    for detection in detections:
+        lat_index = math.floor(detection["lat"] / cell_deg + 1e-9)
+        lon_index = math.floor(detection["lon"] / cell_deg + 1e-9)
+        cell = cells_by_index.get((lat_index, lon_index))
+        if cell is not None:
+            cell["detection_count"] += 1
+    return grid
+
+
+def _filter_detections(detections: list[dict], bounds: tuple[float, float, float, float]):
+    west, south, east, north = bounds
+    return [
+        detection for detection in detections
+        if west <= detection["lon"] < east and south <= detection["lat"] < north
+    ]
 
 
 @app.get("/api/aoi/{aoi}/detections")
-def api_detections(aoi: str):
+def api_detections(
+    aoi: str,
+    west: float | None = None,
+    south: float | None = None,
+    east: float | None = None,
+    north: float | None = None,
+):
     """Validated hotspot detections — one entry = one satellite pixel, not one fire."""
+    bounds_values = (west, south, east, north)
+    if any(value is not None for value in bounds_values):
+        if west is None or south is None or east is None or north is None:
+            raise HTTPException(422, detail="west, south, east, and north must be provided together.")
+        if not all(math.isfinite(value) for value in (west, south, east, north)):
+            raise HTTPException(422, detail="Detection bounds must be finite numbers.")
+        if west >= east or south >= north:
+            raise HTTPException(422, detail="Bounds must satisfy west < east and south < north.")
+        bounds = (west, south, east, north)
+    else:
+        bounds = None
+
     if aoi in ("all", "indonesia"):
         p = ARTIFACTS / "all" / "detections.json"
-        if p.exists():
-            return json.loads(p.read_text(encoding="utf-8"))
-        all_dets = []
-        for d in sorted(ARTIFACTS.glob("*")):
-            if d.is_dir() and d.name != "all" and (d / "detections.json").exists():
-                try:
-                    all_dets.extend(json.loads((d / "detections.json").read_text(encoding="utf-8")).get("detections", []))
-                except Exception:
-                    pass
-        return {
-            "n_detections": len(all_dets),
-            "note": "Aggregated FIRMS satellite detections across all monitored Indonesian sentinel regions.",
-            "detections": all_dets,
-        }
-    return _load(aoi, "detections.json")
+        if p.exists() and bounds is None:
+            data = json.loads(p.read_text(encoding="utf-8"))
+        else:
+            all_dets = []
+            for d in sorted(ARTIFACTS.glob("*")):
+                if d.is_dir() and d.name != "all" and (d / "detections.json").exists():
+                    try:
+                        all_dets.extend(json.loads((d / "detections.json").read_text(encoding="utf-8")).get("detections", []))
+                    except Exception:
+                        pass
+            data = {
+                "n_detections": len(all_dets),
+                "note": "Aggregated FIRMS satellite detections across all monitored Indonesian sentinel regions.",
+                "detections": all_dets,
+            }
+    else:
+        data = _load(aoi, "detections.json")
+
+    if bounds is not None:
+        data["detections"] = _filter_detections(data["detections"], bounds)
+        data["n_detections"] = len(data["detections"])
+    return data
 
 
 @app.get("/api/aoi/{aoi}/export")
