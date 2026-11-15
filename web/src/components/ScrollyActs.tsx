@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   animate,
   motion,
@@ -12,11 +12,13 @@ import {
 import type { ReactNode } from "react";
 import { stageState } from "./stageState";
 import { useAoi } from "../App";
+import { api } from "../api";
 
 type ActWindow = [number, number, number, number];
 
 export function RiskGaugeCard() {
-  const { t } = useAoi();
+  const { aoi, lang, t } = useAoi();
+  const [telemetry, setTelemetry] = useState<{ score: number; peakMonth: string; label: string; color: string } | null>(null);
   const score = useMotionValue(0);
   const roundedScore = useTransform(score, value => Math.round(value).toString().padStart(2, "0"));
   const radius = 52;
@@ -24,13 +26,78 @@ export function RiskGaugeCard() {
   const arc = circumference * (260 / 360);
 
   useEffect(() => {
-    const animation = animate(score, 24, {
-      duration: 1.8,
+    let cancelled = false;
+    api.calendar(aoi).then(cal => {
+      if (cancelled || !cal?.years?.length) return;
+      const today = new Date();
+      const mm = String(today.getMonth() + 1).padStart(2, "0");
+      const dd = String(today.getDate()).padStart(2, "0");
+      const todayMd = `${mm}-${dd}`;
+
+      const todayIndexes: number[] = [];
+      const monthTotals = new Map<string, number>();
+
+      for (const y of cal.years) {
+        for (const p of y.positions) {
+          if (p.month_day === todayMd && p.index != null) {
+            todayIndexes.push(p.index);
+          }
+          const m = p.month_day.slice(0, 2);
+          monthTotals.set(m, (monthTotals.get(m) ?? 0) + (p.value_mw ?? 0));
+        }
+      }
+
+      const avgIdx = todayIndexes.length
+        ? todayIndexes.reduce((a, b) => a + b, 0) / todayIndexes.length
+        : 0.20;
+      const targetScore = Math.min(100, Math.max(0, Math.round(avgIdx * 100)));
+
+      let maxMonth = "08";
+      let maxVal = -1;
+      monthTotals.forEach((val, m) => {
+        if (val > maxVal) { maxVal = val; maxMonth = m; }
+      });
+      const monthNames = lang === "en"
+        ? ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+        : ["Jan", "Feb", "Mar", "Apr", "Mei", "Jun", "Jul", "Agu", "Sep", "Okt", "Nov", "Des"];
+      const peakName = monthNames[Number(maxMonth) - 1] ?? "Agu";
+
+      const isEn = lang === "en";
+      const label = targetScore >= 75
+        ? (isEn ? "Danger" : "Bahaya")
+        : targetScore >= 50
+        ? (isEn ? "Alert" : "Siaga")
+        : targetScore >= 25
+        ? (isEn ? "Advisory" : "Waspada")
+        : (isEn ? "Safe" : "Aman");
+      const color = targetScore >= 75
+        ? "#EF4444"
+        : targetScore >= 50
+        ? "#F97316"
+        : targetScore >= 25
+        ? "#FACC15"
+        : "var(--safe)";
+
+      setTelemetry({ score: targetScore, peakMonth: peakName, label, color });
+    }).catch(() => {
+      setTelemetry({ score: 24, peakMonth: "Agu", label: lang === "en" ? "Safe" : "Aman", color: "var(--safe)" });
+    });
+    return () => { cancelled = true; };
+  }, [aoi, lang]);
+
+  const currentScore = telemetry?.score ?? 24;
+  const statusColor = telemetry?.color ?? "var(--safe)";
+  const statusLabel = telemetry?.label ?? t("hud_safe");
+  const peakMonth = telemetry?.peakMonth ?? (lang === "en" ? "Aug" : "Ags");
+
+  useEffect(() => {
+    const animation = animate(score, currentScore, {
+      duration: 1.5,
       ease: [0.22, 1, 0.36, 1],
-      delay: 0.35,
+      delay: 0.25,
     });
     return () => animation.stop();
-  }, [score]);
+  }, [score, currentScore]);
 
   return (
     <div
@@ -61,24 +128,24 @@ export function RiskGaugeCard() {
               cy="64"
               r={radius}
               fill="none"
-              stroke="var(--safe)"
+              stroke={statusColor}
               strokeWidth="7"
               strokeLinecap="round"
               strokeDasharray={`0 ${circumference}`}
-              animate={{ strokeDasharray: `${arc * 0.24} ${circumference}` }}
-              transition={{ duration: 1.8, ease: [0.22, 1, 0.36, 1], delay: 0.35 }}
+              animate={{ strokeDasharray: `${arc * (currentScore / 100)} ${circumference}` }}
+              transition={{ duration: 1.5, ease: [0.22, 1, 0.36, 1], delay: 0.25 }}
             />
           </svg>
           <div className="hero-gauge-value">
             <strong><motion.span>{roundedScore}</motion.span></strong>
             <span>/100</span>
-            <b><span /> {t("hud_safe")}</b>
+            <b style={{ color: statusColor }}><span style={{ background: statusColor }} /> {statusLabel}</b>
           </div>
         </div>
 
         <div className="hero-hud-metrics">
-          <div><span>{t("hud_concept_coverage")}</span><strong>{t("hud_concept_val")}</strong></div>
-          <div><span>{t("hud_obs_label")}</span><strong>{t("hud_obs_val")}</strong></div>
+          <div><span>{t("hud_concept_coverage")}</span><strong>{currentScore}/100</strong></div>
+          <div><span>{t("hud_obs_label")}</span><strong>{peakMonth}</strong></div>
           <div><span>{t("hud_context_label")}</span><strong>{t("hud_context_val")}</strong></div>
         </div>
       </div>
