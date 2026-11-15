@@ -2690,6 +2690,73 @@ tbody tr:hover {
   color: var(--ink);
 }
 
+.ai-direct-answer-container {
+  background: var(--surface);
+  border: 1px solid var(--line-strong, var(--line));
+  border-left: 4px solid var(--ember);
+  border-radius: 8px;
+  padding: 14px 16px;
+  margin-bottom: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.ai-direct-answer-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  padding-bottom: 8px;
+  border-bottom: 1px dashed var(--line);
+}
+
+.ai-direct-answer-badge {
+  font-size: 11.5px;
+  font-weight: 700;
+  color: var(--ember);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.ai-direct-answer-body {
+  font-size: 12.5px;
+  line-height: 1.65;
+  color: var(--ink);
+}
+
+.ai-markdown-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 11px;
+  line-height: 1.45;
+  margin: 10px 0;
+  background: var(--canvas);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.ai-markdown-table th {
+  background: var(--sunken);
+  color: var(--ink);
+  font-weight: 700;
+  text-align: left;
+  padding: 6px 10px;
+  border-bottom: 1px solid var(--line);
+  border-right: 1px solid var(--line);
+}
+
+.ai-markdown-table td {
+  padding: 6px 10px;
+  border-bottom: 1px solid var(--line);
+  border-right: 1px solid var(--line);
+  color: var(--ink2);
+}
+
+.ai-markdown-table tr:last-child td {
+  border-bottom: none;
+}
+
 .ai-status-bar {
   display: flex;
   align-items: center;

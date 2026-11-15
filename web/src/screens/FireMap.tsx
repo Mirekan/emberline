@@ -9,6 +9,7 @@ function MarkdownView({ content }: { content: string }) {
   const elements: React.ReactNode[] = [];
   let inBlockquote = false;
   let quoteLines: string[] = [];
+  let tableRows: string[] = [];
 
   const flushQuote = (key: number) => {
     if (quoteLines.length > 0) {
@@ -23,28 +24,86 @@ function MarkdownView({ content }: { content: string }) {
     }
   };
 
-  const formatInline = (text: string): React.ReactNode => {
-    const parts = text.split(/(\*\*[^*]+\*\*)/g);
-    return parts.map((part, idx) => {
-      if (part.startsWith("**") && part.endsWith("**")) {
-        return <strong key={idx}>{part.slice(2, -2)}</strong>;
+  const flushTable = (key: number) => {
+    if (tableRows.length > 0) {
+      const parsedRows = tableRows
+        .map(r => r.trim())
+        .filter(r => r.startsWith("|") && r.endsWith("|"))
+        .map(r => r.slice(1, -1).split("|").map(c => c.trim()));
+
+      if (parsedRows.length >= 2) {
+        const header = parsedRows[0];
+        const isSep = parsedRows[1].every(c => /^[-:\s]+$/.test(c));
+        const bodyRows = isSep ? parsedRows.slice(2) : parsedRows.slice(1);
+
+        elements.push(
+          <div key={`table-wrap-${key}`} style={{ overflowX: "auto", margin: "10px 0" }}>
+            <table className="ai-markdown-table">
+              <thead>
+                <tr>
+                  {header.map((th, thi) => (
+                    <th key={thi}>{formatInline(th)}</th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {bodyRows.map((row, ri) => (
+                  <tr key={ri}>
+                    {row.map((td, tdi) => (
+                      <td key={tdi}>{formatInline(td)}</td>
+                    ))}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        );
       }
-      return part;
+      tableRows = [];
+    }
+  };
+
+  const formatInline = (text: string): React.ReactNode => {
+    const rawParts = text.split(/<br\s*\/?>/gi);
+    return rawParts.map((rawPart, rawIdx) => {
+      const parts = rawPart.split(/(\*\*[^*]+\*\*)/g);
+      const rendered = parts.map((part, idx) => {
+        if (part.startsWith("**") && part.endsWith("**")) {
+          return <strong key={idx}>{part.slice(2, -2)}</strong>;
+        }
+        return part;
+      });
+      return (
+        <span key={rawIdx}>
+          {rawIdx > 0 && <br />}
+          {rendered}
+        </span>
+      );
     });
   };
 
-  lines.forEach((line, idx) => {
-    const trimmed = line.trim();
+  for (let idx = 0; idx < lines.length; idx++) {
+    const trimmed = lines[idx].trim();
+
+    // Markdown table row
+    if (trimmed.startsWith("|") && trimmed.endsWith("|")) {
+      if (inBlockquote) { inBlockquote = false; flushQuote(idx); }
+      tableRows.push(trimmed);
+      continue;
+    } else if (tableRows.length > 0) {
+      flushTable(idx);
+    }
+
     if (trimmed.startsWith(">")) {
       inBlockquote = true;
       quoteLines.push(trimmed.replace(/^>\s*/, ""));
-      return;
+      continue;
     } else if (inBlockquote) {
       inBlockquote = false;
       flushQuote(idx);
     }
 
-    if (!trimmed) return;
+    if (!trimmed) continue;
 
     if (trimmed.startsWith("### ")) {
       elements.push(
@@ -69,11 +128,10 @@ function MarkdownView({ content }: { content: string }) {
     } else {
       elements.push(<p key={idx}>{formatInline(trimmed)}</p>);
     }
-  });
-
-  if (inBlockquote) {
-    flushQuote(lines.length);
   }
+
+  if (tableRows.length > 0) flushTable(lines.length);
+  if (inBlockquote) flushQuote(lines.length);
 
   return <div className="ai-markdown-body">{elements}</div>;
 }
@@ -1368,11 +1426,19 @@ export default function FireMap() {
             <div className="ai-header-actions">
               <button
                 type="button"
-                className={"ai-btn-key" + (grokApiKey ? " active" : "")}
+                className={"ai-btn-key active"}
                 onClick={() => setApiKeySettingsOpen(o => !o)}
                 title="Konfigurasi API Key Groq / Grok"
               >
-                <span>API Key: {grokApiKey ? "Tersimpan" : "Bawaan"}</span>
+                <span>
+                  {aiResponse?.provider === "groq"
+                    ? "Groq Cloud (Aktif)"
+                    : aiResponse?.provider === "grok"
+                    ? "xAI Grok (Aktif)"
+                    : grokApiKey
+                    ? "API Key (Kustom)"
+                    : "Groq Cloud (.env)"}
+                </span>
               </button>
               <button
                 type="button"
@@ -1560,28 +1626,48 @@ export default function FireMap() {
                   </span>
                 </div>
 
+                {/* 1. DIRECT AI ANSWER CONTAINER (HIGHLIGHTED FRONT & CENTER) */}
+                <div className="ai-direct-answer-container">
+                  <div className="ai-direct-answer-header">
+                    <span className="ai-direct-answer-badge">
+                      Jawaban Analisis AI ({aiResponse.provider === "groq" ? "Groq GPT-OSS" : aiResponse.provider === "grok" ? "xAI Grok" : "Telemetri Satelit"})
+                    </span>
+                    <span style={{ fontSize: 10.5, color: "var(--ink3)" }}>
+                      {aiQuestion ? `Pertanyaan: "${aiQuestion}"` : "Analisis Telemetri"}
+                    </span>
+                  </div>
+                  <div className="ai-direct-answer-body">
+                    <MarkdownView content={aiResponse.analysis} />
+                  </div>
+                </div>
+
+                {/* 2. SATELLITE TELEMETRY & BIOPHYSICAL CONTEXT (BELOW THE ANSWER) */}
                 {aiResponse.telemetry_context && (
-                  <div className="ai-context-grid">
-                    <div className="ai-context-tile">
-                      <div className="ai-context-label">Bioma & Ekosistem</div>
-                      <div className="ai-context-value">{aiResponse.telemetry_context.biome}</div>
+                  <div style={{ marginTop: 14, paddingTop: 10, borderTop: "1px dashed var(--line)" }}>
+                    <div style={{ fontSize: 11, fontWeight: 700, color: "var(--ink2)", marginBottom: 8, display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+                      <span>Parameter Biofisik & Konteks Satelit:</span>
+                      <span style={{ fontSize: 10, color: "var(--ink3)", fontWeight: 500 }}>NASA FIRMS C6.1 / VNP14IMG</span>
                     </div>
-                    <div className="ai-context-tile">
-                      <div className="ai-context-label">Kerentanan Gambut</div>
-                      <div className="ai-context-value">{aiResponse.telemetry_context.peatland_susceptibility}</div>
-                    </div>
-                    <div className="ai-context-tile">
-                      <div className="ai-context-label">Siklus Iklim</div>
-                      <div className="ai-context-value">{aiResponse.telemetry_context.seasonal_climate}</div>
-                    </div>
-                    <div className="ai-context-tile">
-                      <div className="ai-context-label">Resolusi & Radiasi</div>
-                      <div className="ai-context-value">{aiResponse.telemetry_context.frp_interpretation}</div>
+                    <div className="ai-context-grid">
+                      <div className="ai-context-tile">
+                        <div className="ai-context-label">Bioma & Ekosistem</div>
+                        <div className="ai-context-value">{aiResponse.telemetry_context.biome}</div>
+                      </div>
+                      <div className="ai-context-tile">
+                        <div className="ai-context-label">Kerentanan Gambut</div>
+                        <div className="ai-context-value">{aiResponse.telemetry_context.peatland_susceptibility}</div>
+                      </div>
+                      <div className="ai-context-tile">
+                        <div className="ai-context-label">Siklus Iklim</div>
+                        <div className="ai-context-value">{aiResponse.telemetry_context.seasonal_climate}</div>
+                      </div>
+                      <div className="ai-context-tile">
+                        <div className="ai-context-label">Resolusi & Radiasi</div>
+                        <div className="ai-context-value">{aiResponse.telemetry_context.frp_interpretation}</div>
+                      </div>
                     </div>
                   </div>
                 )}
-
-                <MarkdownView content={aiResponse.analysis} />
 
                 {aiResponse.note && (
                   <div style={{ fontSize: 10.5, color: "var(--ink3)", marginTop: 10, fontStyle: "italic", borderTop: "1px solid var(--line)", paddingTop: 6 }}>

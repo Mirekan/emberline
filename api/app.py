@@ -818,55 +818,68 @@ def _call_grok_hotspot_analysis(
     # Configure endpoint & model based on key type
     if provider_type == "groq":
         api_url = "https://api.groq.com/openai/v1/chat/completions"
-        model_name = "qwen/qwen3.8-27b"
+        model_name = "openai/gpt-oss-120b"
+        fallback_model = "openai/gpt-oss-20b"
         provider_name = "groq"
         user_agent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
     else:
         api_url = "https://api.x.ai/v1/chat/completions"
         model_name = "grok-2-latest"
+        fallback_model = "grok-beta"
         provider_name = "grok"
         user_agent = "EmberLine/1.0"
 
-    req_data = json.dumps({
-        "model": model_name,
-        "messages": [
-            {"role": "system", "content": system_prompt},
-            {"role": "user", "content": user_prompt},
-        ],
-        "temperature": 0.2,
-        "max_tokens": 1200,
-    }).encode("utf-8")
+    def _execute_req(m_name: str) -> str:
+        req_payload = json.dumps({
+            "model": m_name,
+            "messages": [
+                {"role": "system", "content": system_prompt},
+                {"role": "user", "content": user_prompt},
+            ],
+            "temperature": 0.2,
+            "max_tokens": 1200,
+        }).encode("utf-8")
 
-    req = urllib.request.Request(
-        api_url,
-        data=req_data,
-        headers={
-            "Content-Type": "application/json",
-            "Authorization": f"Bearer {key}",
-            "User-Agent": user_agent,
-        },
-        method="POST",
-    )
-
-    try:
+        req = urllib.request.Request(
+            api_url,
+            data=req_payload,
+            headers={
+                "Content-Type": "application/json",
+                "Authorization": f"Bearer {key}",
+                "User-Agent": user_agent,
+            },
+            method="POST",
+        )
         with urllib.request.urlopen(req, timeout=18) as resp:
             raw_res = json.loads(resp.read().decode("utf-8"))
-            content = raw_res.get("choices", [{}])[0].get("message", {}).get("content", "")
-            if not content:
-                raise ValueError(f"Respon kosong dari {provider_name.upper()} API.")
-            
-            heuristic_ctx = _analyze_hotspot_heuristic(
-                lat=lat, lon=lon, date=date, frp=frp, sensor=sensor,
-                conf=conf, daynight=daynight, question=question, region=region
-            )
-            return {
-                "status": "success",
-                "provider": provider_name,
-                "model": raw_res.get("model", model_name),
-                "analysis": content,
-                "telemetry_context": heuristic_ctx["telemetry_context"],
-                "note": f"Analisis dihasilkan oleh {provider_name.upper()} AI dengan guardrail telemetri satelit EmberLine."
-            }
+            return raw_res.get("choices", [{}])[0].get("message", {}).get("content", "")
+
+    try:
+        content = ""
+        used_model = model_name
+        try:
+            content = _execute_req(model_name)
+        except Exception:
+            # Fallback to secondary model if main model hits capacity
+            if fallback_model:
+                used_model = fallback_model
+                content = _execute_req(fallback_model)
+
+        if not content:
+            raise ValueError(f"Respon kosong dari {provider_name.upper()} API.")
+
+        heuristic_ctx = _analyze_hotspot_heuristic(
+            lat=lat, lon=lon, date=date, frp=frp, sensor=sensor,
+            conf=conf, daynight=daynight, question=question, region=region
+        )
+        return {
+            "status": "success",
+            "provider": provider_name,
+            "model": used_model,
+            "analysis": content,
+            "telemetry_context": heuristic_ctx["telemetry_context"],
+            "note": f"Analisis dihasilkan oleh {provider_name.upper()} AI ({used_model}) dengan guardrail telemetri satelit EmberLine."
+        }
     except Exception as exc:
         fallback_res = _analyze_hotspot_heuristic(
             lat=lat, lon=lon, date=date, frp=frp, sensor=sensor,
