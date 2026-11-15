@@ -81,7 +81,7 @@ export default function Overview({
             <p>{t("overview_pillar2_desc")}</p>
           </div>
           <div className="overview-feature-card">
-            <div className="overview-feature-badge">C-06 · 78,200 Grid Cells</div>
+            <div className="overview-feature-badge">{lang === "id" ? "Siklus Musiman · 78.200 Sel Grid" : "Seasonal Cycle · 78,200 Grid Cells"}</div>
             <h3>{t("overview_pillar3_title")}</h3>
             <p>{t("overview_pillar3_desc")}</p>
           </div>
