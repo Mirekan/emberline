@@ -16,7 +16,7 @@ const PRESET_NAMES: Record<string, string> = {
 };
 
 export default function CalendarScreen({ goMap }: { goMap: () => void }) {
-  const { aoi, setAoi, setCalFilter, series } = useAoi();
+  const { aoi, setAoi, setCalFilter, series, lang, t } = useAoi();
   const [cal, setCal] = useState<Calendar | null>(null);
   const [loading, setLoading] = useState(true);
   const [err, setErr] = useState<string | null>(null);
@@ -58,10 +58,10 @@ export default function CalendarScreen({ goMap }: { goMap: () => void }) {
   );
 
   const sensorLabel = sensor === "harm"
-    ? "Total FRP Terharmonisasi (Standar MODIS, MW)"
+    ? t("cal_sensor_harm")
     : sensor === "modis"
-    ? "Total Mentah MODIS (Resolusi 1 km, MW)"
-    : "Total Mentah VIIRS (Resolusi 375 m, MW)";
+    ? t("cal_sensor_modis")
+    : t("cal_sensor_viirs");
 
   const readyPresets = presets.filter(p => p.artifact_status === "available");
 
@@ -160,41 +160,41 @@ export default function CalendarScreen({ goMap }: { goMap: () => void }) {
           </label>
 
           <label style={{ display: "flex", flexDirection: "column", gap: 4 }}>
-            <span>Pilihan Sensor</span>
+            <span>{lang === "id" ? "Pilihan Sensor" : "Sensor Selection"}</span>
             <select
               className="glass-select"
               value={sensor}
               onChange={e => { setSensor(e.target.value as any); setSel(null); }}
             >
-              <option value="harm">Terharmonisasi (Standar MODIS Aqua, MW)</option>
-              <option value="modis">Mentah MODIS (Resolusi 1 km Aqua, MW)</option>
-              <option value="viirs">Mentah VIIRS (Resolusi 375 m S-NPP, MW)</option>
+              <option value="harm">{lang === "id" ? "Terharmonisasi (Standar MODIS Aqua, MW)" : "Harmonized (MODIS Aqua Standard, MW)"}</option>
+              <option value="modis">{lang === "id" ? "Mentah MODIS (Resolusi 1 km Aqua, MW)" : "Raw MODIS (1 km Aqua resolution, MW)"}</option>
+              <option value="viirs">{lang === "id" ? "Mentah VIIRS (Resolusi 375 m S-NPP, MW)" : "Raw VIIRS (375 m S-NPP resolution, MW)"}</option>
             </select>
           </label>
 
           <label style={{ display: "flex", flexDirection: "column", gap: 4 }}>
-            <span>Periode Tampilan</span>
+            <span>{lang === "id" ? "Periode Tampilan" : "View Mode"}</span>
             <select
               className="glass-select"
               value={view}
               onChange={e => { setView(e.target.value as any); setSel(null); }}
             >
-              <option value="yearly">Perbandingan Tahunan</option>
-              <option value="monthly">Perbandingan Bulanan</option>
+              <option value="yearly">{t("cal_view_yearly")}</option>
+              <option value="monthly">{t("cal_view_monthly")}</option>
             </select>
           </label>
 
           {view === "monthly" && (
             <label style={{ display: "flex", flexDirection: "column", gap: 4 }}>
-              <span>Pilihan Tahun</span>
+              <span>{t("cal_year_choice")}</span>
               <select
                 className="glass-select"
                 value={yearSel}
                 onChange={e => { setYearSel(e.target.value); setSel(null); }}
               >
-                <option value="all">Semua Tahun (Rata-rata 2012–2026)</option>
+                <option value="all">{t("cal_all_years")}</option>
                 {yearsAll.map(y => (
-                  <option key={y.year} value={String(y.year)}>Tahun {y.year}</option>
+                  <option key={y.year} value={String(y.year)}>{lang === "id" ? `Tahun ${y.year}` : `Year ${y.year}`}</option>
                 ))}
               </select>
             </label>
@@ -202,15 +202,15 @@ export default function CalendarScreen({ goMap }: { goMap: () => void }) {
 
           {view === "yearly" && (
             <label style={{ display: "flex", flexDirection: "column", gap: 4 }}>
-              <span>Pilihan Bulan</span>
+              <span>{t("cal_month_choice")}</span>
               <select
                 className="glass-select"
                 value={monthSel}
                 onChange={e => { setMonthSel(e.target.value); setSel(null); }}
               >
-                <option value="all">Sepanjang Tahun (12 Bulan)</option>
+                <option value="all">{t("cal_all_months")}</option>
                 {MONTH_ABBR.map((m, i) => (
-                  <option key={m} value={String(i + 1).padStart(2, "0")}>Bulan {m}</option>
+                  <option key={m} value={String(i + 1).padStart(2, "0")}>{lang === "id" ? `Bulan ${m}` : `Month ${m}`}</option>
                 ))}
               </select>
             </label>
@@ -220,17 +220,19 @@ export default function CalendarScreen({ goMap }: { goMap: () => void }) {
 
       {sensor !== "harm" && cal && (
         <div className="boundary" style={{ marginTop: 18 }}>
-          <b>Catatan Skala Sensor: Data Mentah {sensor === "modis" ? "MODIS" : "VIIRS"}.</b>
+          <b>{lang === "id" ? `Catatan Skala Sensor: Data Mentah ${sensor === "modis" ? "MODIS" : "VIIRS"}.` : `Sensor Scale Note: Raw ${sensor === "modis" ? "MODIS" : "VIIRS"} Data.`}</b>
           <p className="sub" style={{ marginTop: 2 }}>
-            Sensor satelit MODIS (1 km) dan VIIRS (375 m) memiliki resolusi spasial dan sensitivitas deteksi yang berbeda. Nilai mentah tidak dapat dibandingkan secara langsung antar tahun transisi 2012 tanpa proses harmonisasi EmberLine.
+            {lang === "id"
+              ? "Sensor satelit MODIS (1 km) dan VIIRS (375 m) memiliki resolusi spasial dan sensitivitas deteksi yang berbeda. Nilai mentah tidak dapat dibandingkan secara langsung antar tahun transisi 2012 tanpa proses harmonisasi EmberLine."
+              : "MODIS (1 km) and VIIRS (375 m) satellite sensors differ in spatial resolution and detection sensitivity. Raw values cannot be directly compared across the 2012 transition without EmberLine cross-sensor harmonization."}
           </p>
         </div>
       )}
 
       {loading && (
         <div className="status-panel loading" style={{ marginTop: 20 }}>
-          <div className="status-title">Memuat data kalender kebakaran…</div>
-          <p className="status-desc">Menyusun matriks observasi satelit multi-tahun untuk wilayah terpilih.</p>
+          <div className="status-title">{lang === "id" ? "Memuat data kalender kebakaran…" : "Loading fire calendar telemetry…"}</div>
+          <p className="status-desc">{lang === "id" ? "Menyusun matriks observasi satelit multi-tahun untuk wilayah terpilih." : "Compiling multi-year satellite observation matrix for selected region."}</p>
           <div className="skel" style={{ height: 28, marginTop: 8 }} />
         </div>
       )}
@@ -238,15 +240,16 @@ export default function CalendarScreen({ goMap }: { goMap: () => void }) {
       {err && (
         <div className="status-panel failed" style={{ marginTop: 20, padding: "18px 22px", borderRadius: 12 }}>
           <div className="status-title" style={{ fontSize: 16, fontWeight: 700 }}>
-            Data Kalender Belum Tersedia untuk Wilayah Ini
+            {t("err_not_available")}
           </div>
           <p className="status-desc" style={{ marginTop: 6, fontSize: 13.5, color: "var(--ink2)", lineHeight: 1.6 }}>
-            Data observasi satelit untuk wilayah ini sedang dalam tahap pemrosesan awal.
-            Silakan pilih salah satu wilayah Nusantara yang datanya sudah siap dipantau:
+            {t("err_not_available_desc")}
+            {" "}
+            {lang === "id" ? "Silakan pilih salah satu wilayah Nusantara yang datanya sudah siap dipantau:" : "Please choose one of the ready Indonesian regions:"}
           </p>
           {readyPresets.length > 0 && (
             <div style={{ display: "flex", gap: 10, flexWrap: "wrap", alignItems: "center", marginTop: 14 }}>
-              <span style={{ fontSize: 12.5, fontWeight: 600, color: "var(--ink)" }}>Wilayah yang Siap:</span>
+              <span style={{ fontSize: 12.5, fontWeight: 600, color: "var(--ink)" }}>{t("cal_ready_regions")}</span>
               {readyPresets.map(p => (
                 <button
                   key={p.id}
@@ -254,7 +257,7 @@ export default function CalendarScreen({ goMap }: { goMap: () => void }) {
                   style={{ padding: "6px 14px", fontSize: 12.5, borderRadius: 8, fontWeight: 600 }}
                   onClick={() => setAoi(p.id)}
                 >
-                  Buka {PRESET_NAMES[p.id] ?? p.name}
+                  {t("cal_open_region")} {PRESET_NAMES[p.id] ?? p.name}
                 </button>
               ))}
             </div>

@@ -5,7 +5,7 @@ import { useAoi } from "../App";
 import ScrollyActs, { RiskGaugeCard } from "../components/ScrollyActs";
 
 export default function Overview({ goCalendar, goMethod }: { goCalendar: () => void; goMethod: () => void }) {
-  const { aoi, series } = useAoi();
+  const { aoi, series, lang, t } = useAoi();
   const [presets, setPresets] = useState<Preset[]>([]);
   useEffect(() => {
     api.presets().then(r => setPresets(r.presets)).catch(() => {});
@@ -16,49 +16,51 @@ export default function Overview({ goCalendar, goMethod }: { goCalendar: () => v
   const span = series && series.days.length
     ? `${series.days[0].date.slice(0, 4)}–${series.days[series.days.length - 1].date.slice(0, 4)}`
     : null;
-  const status = preset ? (preset.artifact_status === "available" ? "data siap" : "dalam antrean") : null;
+  const status = preset ? (preset.artifact_status === "available" ? t("overview_data_ready") : t("overview_queued")) : null;
 
   return (
     <div className="overview-page">
       <section className="overview-hero" aria-labelledby="overview-title">
         <div className="overview-hero-copy">
-          <p className="overview-eyebrow"><i /> EMBERLINE · MISSION CONTROL</p>
+          <p className="overview-eyebrow"><i /> {t("overview_eyebrow")}</p>
           <h1 id="overview-title">
-            Membaca jejak api.
+            {t("overview_title_1")}
             <br />
-            <span>Memahami pola bumi.</span>
+            <span>{t("overview_title_2")}</span>
           </h1>
           <p className="overview-description">
-            Eksplorasi observasi kebakaran MODIS dan VIIRS—disajikan sebagai rekam historis yang transparan, lengkap dengan ketidakpastian dan celah data.
+            {t("overview_desc")}
           </p>
           <div className="overview-actions">
-            <button className="btn" onClick={goCalendar}>Jelajahi kalender <span aria-hidden="true">↗</span></button>
-            <button className="btn secondary" onClick={goMethod}>Lihat metodologi</button>
+            <button className="btn" onClick={goCalendar}>{t("overview_btn_calendar")} <span aria-hidden="true">↗</span></button>
+            <button className="btn secondary" onClick={goMethod}>{t("overview_btn_method")}</button>
           </div>
-          <span className="overview-scroll-cue">Gulir untuk mengikuti perjalanan data <span aria-hidden="true">↓</span></span>
+          <span className="overview-scroll-cue">{t("overview_scroll_cue")} <span aria-hidden="true">↓</span></span>
         </div>
         <RiskGaugeCard />
-        <div className="overview-stats" aria-label="Ringkasan cakupan observasi">
-          <div><strong>38</strong><span>provinsi · konsep demo</span></div>
-          <div><strong>{series?.days.length.toLocaleString("id-ID") ?? "—"}</strong><span>observasi pada area terpilih</span></div>
-          <div><strong>{span ?? "MODIS + VIIRS"}</strong><span>rekam satelit historis</span></div>
+        <div className="overview-stats" aria-label={lang === "id" ? "Ringkasan cakupan observasi" : "Observation coverage summary"}>
+          <div><strong>38</strong><span>{t("overview_stat_provinces")}</span></div>
+          <div><strong>{series?.days.length.toLocaleString(lang === "id" ? "id-ID" : "en-US") ?? "—"}</strong><span>{t("overview_stat_obs")}</span></div>
+          <div><strong>{span ?? "MODIS + VIIRS"}</strong><span>{t("overview_stat_history")}</span></div>
         </div>
       </section>
 
       <ScrollyActs />
 
-      <section className="overview-details" aria-label="Tentang rekam observasi EmberLine">
+      <section className="overview-details" aria-label={lang === "id" ? "Tentang rekam observasi EmberLine" : "About EmberLine observation records"}>
         <div className="overview-copy">
-          <p className="overview-eyebrow">Jelajahi data</p>
-          <h2>Kenali pola, pahami batas datanya.</h2>
+          <p className="overview-eyebrow">{t("overview_details_eyebrow")}</p>
+          <h2>{t("overview_details_heading")}</h2>
           <p className="overview-description">
-            Aktivitas kebakaran berubah mengikuti musim, sementara cakupan satelit dapat meninggalkan celah pengamatan. Kalender menyatukan observasi agar Anda dapat membandingkan pola antarwaktu tanpa mengaburkan keterbatasan data.
+            {t("overview_details_desc")}
           </p>
           <p className="mono overview-meta">
-            Wilayah: {targetLabel}{span ? ` · ${span}` : ""}{status ? ` · ${status}` : ""}
+            {t("overview_region")}: {targetLabel}{span ? ` · ${span}` : ""}{status ? ` · ${status}` : ""}
           </p>
           <p className="overview-disclosure">
-            Observasi MODIS &amp; VIIRS yang diharmonisasi, dengan ketidakpastian dan celah data ditandai. Konteks historis, bukan prediksi.
+            {lang === "id"
+              ? "Observasi MODIS & VIIRS yang diharmonisasi, dengan ketidakpastian dan celah data ditandai. Konteks historis, bukan prediksi."
+              : "Harmonized MODIS & VIIRS observations, with flagged uncertainty intervals and retrieval gaps. Historical context, not prediction."}
           </p>
         </div>
 
@@ -69,9 +71,11 @@ export default function Overview({ goCalendar, goMethod }: { goCalendar: () => v
           whileTap={{ scale: 0.97 }}
           transition={{ type: "spring", stiffness: 300, damping: 24 }}
         >
-          Jelajahi kalender →
+          {t("overview_btn_calendar")} →
         </motion.button>
-        <button className="overview-method-link" onClick={goMethod}>Baca metodologi EmberLine →</button>
+        <button className="overview-method-link" onClick={goMethod}>
+          {lang === "id" ? "Baca metodologi EmberLine →" : "Read EmberLine methodology →"}
+        </button>
       </section>
     </div>
   );
