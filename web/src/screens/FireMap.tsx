@@ -384,9 +384,7 @@ export default function FireMap() {
   };
 
   const [q, setQ] = useState("");
-  const [selName, setSelName] = useState<string | null>(() => {
-    return PRESET_NAMES[aoi] ?? "Kalimantan Tengah";
-  });
+  const [selName, setSelName] = useState<string | null>(null);
   const [presets, setPresets] = useState<Preset[]>([]);
   const [grid, setGrid] = useState<Grid | null>(null);
   const [gridOn, setGridOn] = useState(true); // Default ON: full grid displayed directly across the whole map
@@ -538,13 +536,14 @@ export default function FireMap() {
     };
   }, [grokApiKey, selName, aoi, lang]);
 
-  // Sync selected region name when global AOI changes
+  // Sync selected region name only when global AOI actually changes from outside
+  const prevAoiRef = useRef(aoi);
   useEffect(() => {
-    if (selName && (PROVINCE_TO_PRESET[selName] === aoi || PROVINCE_TO_PRESET[selName.replace(/ \(.*\)/, "")] === aoi)) {
-      return;
-    }
-    if (PRESET_NAMES[aoi] && PRESET_NAMES[aoi] !== selName) {
-      setSelName(PRESET_NAMES[aoi]);
+    if (prevAoiRef.current !== aoi) {
+      prevAoiRef.current = aoi;
+      if (PRESET_NAMES[aoi] && selName !== null) {
+        setSelName(PRESET_NAMES[aoi]);
+      }
     }
   }, [aoi, selName]);
 
@@ -571,6 +570,7 @@ export default function FireMap() {
 
   // Determine initial coordinates: focused on active province or whole Indonesia
   const getInitialCoords = (): { center: [number, number]; zoom: number } => {
+    if (!selName) return { center: [-2.5, 118.0], zoom: 5 }; // Whole Indonesia center
     if (aoi === "central_kalimantan") return { center: [-1.8, 113.8], zoom: 7 };
     if (aoi === "south_sumatra") return { center: [-3.3, 104.6], zoom: 7 };
     if (aoi === "jambi") return { center: [-1.8, 103.0], zoom: 7 };
@@ -626,6 +626,9 @@ export default function FireMap() {
 
     tileLayerRef.current = tileLayer;
     mapRef.current = map;
+    if (!selName) {
+      map.fitBounds([[6.0, 95.0], [-11.0, 141.0]], { padding: [30, 30] });
+    }
     setMapReady(true);
 
     // Track mouse coordinates directly via DOM ref & requestAnimationFrame
@@ -1041,9 +1044,9 @@ export default function FireMap() {
 
     const rows = detRows;
 
-    // Limit to 2,500 highest FRP points when "all" years are selected for smooth GPU rendering
-    const cappedRows = rows.length > 2500
-      ? [...rows].sort((a, b) => b.frp - a.frp).slice(0, 2500)
+    // Limit to 10,000 highest FRP points when "all" years are selected for smooth GPU rendering
+    const cappedRows = rows.length > 10000
+      ? [...rows].sort((a, b) => b.frp - a.frp).slice(0, 10000)
       : rows;
 
     visibleRowsRef.current = cappedRows;
@@ -1089,8 +1092,15 @@ export default function FireMap() {
     }
   }, [aoi, presets]);
 
+  const resetToAllRegions = () => {
+    setSelName(null);
+    setSelectedCell(null);
+    mapRef.current?.fitBounds([[6.0, 95.0], [-11.0, 141.0]], { padding: [30, 30], duration: 0.8 });
+  };
+
   const flyTo = (r: (typeof REGIONS)[number]) => {
     setSelName(r.name);
+    setSelectedCell(null);
     const targetPreset = r.preset || PROVINCE_TO_PRESET[r.name] || PROVINCE_TO_PRESET[r.name.replace(/ \(.*\)/, "")];
     if (targetPreset) {
       lastAoiRef.current = targetPreset;
@@ -1456,29 +1466,15 @@ export default function FireMap() {
             <span style={{ fontSize: 11, fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.04em", color: "var(--ink2)" }}>
               {t("map_filter_title")}
             </span>
-            <div style={{ display: "flex", gap: 4 }}>
-              <button
-                type="button"
-                className={"seg-btn" + (selName === null ? " active" : "")}
-                style={{ fontSize: 10.5, padding: "2px 8px" }}
-                onClick={() => {
-                  setSelName(null);
-                  mapRef.current?.fitBounds([[6.0, 95.0], [-11.0, 141.0]], { padding: [30, 30] });
-                }}
-                title={lang === "id" ? "Fokus ke seluruh kepulauan Indonesia" : "Focus on all Indonesian archipelago"}
-              >
-                {t("map_all_regions")}
-              </button>
-              <button
-                type="button"
-                className="seg-btn"
-                style={{ fontSize: 10.5, padding: "2px 8px" }}
-                onClick={() => setSidebarOpen(false)}
-                title={lang === "id" ? "Sembunyikan panel ini" : "Hide this panel"}
-              >
-                {t("map_inspector_close")}
-              </button>
-            </div>
+            <button
+              type="button"
+              className="seg-btn"
+              style={{ fontSize: 10.5, padding: "2px 8px" }}
+              onClick={() => setSidebarOpen(false)}
+              title={lang === "id" ? "Sembunyikan panel ini" : "Hide this panel"}
+            >
+              ✕
+            </button>
           </div>
           <input
             type="text"
@@ -1667,6 +1663,20 @@ export default function FireMap() {
         </div>
 
         <div style={{ flex: 1, overflowY: "auto", overscrollBehavior: "contain", scrollBehavior: "smooth", padding: "0 8px 8px" }}>
+          {/* All Regions (Indonesia) button - always stays on the top of the province list, even when searching */}
+          <button
+            type="button"
+            className={"region-item" + (selName === null ? " active" : "")}
+            style={{ marginBottom: 4 }}
+            onClick={resetToAllRegions}
+            aria-pressed={selName === null}
+          >
+            <span style={{ fontWeight: 600 }}>
+              {lang === "id" ? "Seluruh Wilayah (Indonesia)" : "All Regions (Indonesia)"}
+            </span>
+            <span className="chip ready">{t("map_status_ready")}</span>
+          </button>
+
           {list.map(r => {
             const chip = chipFor(r);
             // Strict single selection: only one region can EVER be active at a time!
@@ -1776,10 +1786,10 @@ export default function FireMap() {
                   {aiResponse?.provider === "groq"
                     ? (lang === "id" ? "Groq Cloud (Aktif)" : "Groq Cloud (Active)")
                     : aiResponse?.provider === "grok"
-                    ? (lang === "id" ? "xAI Grok (Aktif)" : "xAI Grok (Active)")
-                    : grokApiKey
-                    ? (lang === "id" ? "API Key (Kustom)" : "API Key (Custom)")
-                    : (lang === "id" ? "Groq Cloud (.env)" : "Groq Cloud (.env)")}
+                      ? (lang === "id" ? "xAI Grok (Aktif)" : "xAI Grok (Active)")
+                      : grokApiKey
+                        ? (lang === "id" ? "API Key (Kustom)" : "API Key (Custom)")
+                        : (lang === "id" ? "Groq Cloud (.env)" : "Groq Cloud (.env)")}
                 </span>
               </button>
               <button
@@ -1973,8 +1983,8 @@ export default function FireMap() {
                     {aiResponse.provider === "groq"
                       ? `Groq Cloud (${aiResponse.model})`
                       : aiResponse.provider === "grok"
-                      ? `xAI Grok (${aiResponse.model})`
-                      : (lang === "id" ? "Ringkasan metadata satelit" : "Satellite metadata summary")}
+                        ? `xAI Grok (${aiResponse.model})`
+                        : (lang === "id" ? "Ringkasan metadata satelit" : "Satellite metadata summary")}
                   </span>
                   <span style={{ fontSize: 10, color: "var(--ink3)" }}>
                     {aiResponse.provider === "groq" || aiResponse.provider === "grok"

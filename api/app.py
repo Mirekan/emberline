@@ -430,10 +430,15 @@ def api_detections(
             data = json.loads(p.read_text(encoding="utf-8"))
         else:
             all_dets = []
+            seen = set()
             for d in sorted(ARTIFACTS.glob("*")):
                 if d.is_dir() and d.name != "all" and (d / "detections.json").exists():
                     try:
-                        all_dets.extend(json.loads((d / "detections.json").read_text(encoding="utf-8")).get("detections", []))
+                        for item in json.loads((d / "detections.json").read_text(encoding="utf-8")).get("detections", []):
+                            key = (item["date"], round(item["lat"], 4), round(item["lon"], 4), item["sensor"])
+                            if key not in seen:
+                                seen.add(key)
+                                all_dets.append(item)
                     except Exception:
                         pass
             data = {
