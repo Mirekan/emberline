@@ -149,7 +149,7 @@ export default function App() {
             </div>
           </header>
 
-          <main className={"content" + (tab === "firemap" ? " content-flush" : "")}>
+          <main className={"content" + (tab === "firemap" ? " content-flush" : "") + (tab === "overview" ? " content-overview" : "")}>
             <div key={tab} className="screen-fade">
               {error && tab === "analytics" && (
                 <div className="status-panel failed" style={{ marginBottom: 20 }}>
