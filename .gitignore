@@ -51,3 +51,7 @@ artifacts/**/*.db
 # tool artifacts
 .agent/
 .github/
+# Vercel CLI project link
+.vercel/
+.vercel
+.env*

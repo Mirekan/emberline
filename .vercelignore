@@ -1,0 +1,14 @@
+# Keep local build output and secrets out of the deployment bundle.
+.git
+.venv
+.vercel
+node_modules
+**/node_modules
+api/target
+web/dist
+**/__pycache__
+.pytest_cache
+data
+.env
+.env.*
+!.env.example

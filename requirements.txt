@@ -1,5 +1,9 @@
 # EmberLine runtime dependencies — D-01 PROPOSAL (D to confirm/pin versions)
 # Install: pip install -r requirements.txt
+# Server deps live here too: Vercel's entrypoint is root app.py -> api.app, and it
+# installs from the repo-root manifest only.
+fastapi>=0.110
+uvicorn>=0.29
 numpy>=2.0
 pandas>=2.2
 PyYAML>=6.0
