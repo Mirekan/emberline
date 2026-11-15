@@ -129,9 +129,17 @@ function RiskLevel({
 }
 
 function RiskScale({ progress, reduced }: { progress: MotionValue<number>; reduced: boolean }) {
+  const { t } = useAoi();
+  const riskLevels = [
+    { label: t("story_risk_safe"), color: "#81d5a3", range: [0.39, 0.45] as [number, number] },
+    { label: t("story_risk_advisory"), color: "#f0be68", range: [0.43, 0.49] as [number, number] },
+    { label: t("story_risk_warning"), color: "#fa773f", range: [0.47, 0.53] as [number, number] },
+    { label: t("story_risk_danger"), color: "#ff8b82", range: [0.51, 0.57] as [number, number] },
+  ];
+
   return (
-    <div className="story-risk-scale" aria-label="Skala ilustrasi: Aman, Waspada, Siaga, Bahaya">
-      {RISK_LEVELS.map(level => (
+    <div className="story-risk-scale" aria-label={t("story_risk_scale_aria")}>
+      {riskLevels.map(level => (
         <RiskLevel {...level} key={level.label} progress={progress} reduced={reduced} />
       ))}
     </div>
@@ -185,10 +193,11 @@ function ActPanel({
 }
 
 function StoryProgress({ progress }: { progress: MotionValue<number> }) {
+  const { t } = useAoi();
   const scaleY = useTransform(progress, [0.02, 0.98], [0.02, 1]);
   return (
     <div className="story-progress" aria-hidden="true">
-      <span>CERITA</span>
+      <span>{t("story_progress_label")}</span>
       <div className="story-progress-track">
         <motion.i style={{ scaleY, transformOrigin: "top" }} />
       </div>
@@ -198,6 +207,7 @@ function StoryProgress({ progress }: { progress: MotionValue<number> }) {
 }
 
 export default function ScrollyActs() {
+  const { t } = useAoi();
   const sectionRef = useRef<HTMLElement>(null);
   const prefersReducedMotion = useReducedMotion();
   const reduced = prefersReducedMotion ?? false;
@@ -222,7 +232,7 @@ export default function ScrollyActs() {
       id="cerita"
       ref={sectionRef}
       style={{ height: reduced ? "auto" : "800svh" }}
-      aria-label="Cerita observasi EmberLine dalam tiga tahap"
+      aria-label={t("story_aria_section")}
     >
       <StoryProgress progress={scrollYProgress} />
       <div className="overview-story-sticky">
@@ -230,10 +240,10 @@ export default function ScrollyActs() {
           progress={scrollYProgress}
           range={[0, 0.06, 0.27, 0.36]}
           index="01"
-          eyebrow="Deteksi"
-          title="Panas permukaan"
-          emphasis="terbaca dari orbit."
-          body="MODIS dan VIIRS menangkap anomali termal. EmberLine menyatukan observasi historis sambil mempertahankan perbedaan sensor dan celah pengamatan."
+          eyebrow={t("story_act1_eyebrow")}
+          title={t("story_act1_title")}
+          emphasis={t("story_act1_emphasis")}
+          body={t("story_act1_body")}
           align="left"
           reduced={reduced}
         >
@@ -243,10 +253,10 @@ export default function ScrollyActs() {
           progress={scrollYProgress}
           range={[0.32, 0.4, 0.6, 0.68]}
           index="02"
-          eyebrow="Analisa"
-          title="Dari sensor berbeda"
-          emphasis="ke rekam yang utuh."
-          body="Harmonisasi membantu membandingkan deret waktu. Ketidakpastian dan batas metodologi tetap ditampilkan agar pola historis tidak disalahartikan sebagai prediksi."
+          eyebrow={t("story_act2_eyebrow")}
+          title={t("story_act2_title")}
+          emphasis={t("story_act2_emphasis")}
+          body={t("story_act2_body")}
           align="right"
           reduced={reduced}
         >
@@ -256,14 +266,17 @@ export default function ScrollyActs() {
           progress={scrollYProgress}
           range={[0.64, 0.72, 0.95, 1]}
           index="03"
-          eyebrow="Kesiapsiagaan"
-          title="Pahami rekamnya."
-          emphasis="Siapkan langkah."
-          body="Saat bara visual mendingin menjadi hijau, ceritanya beralih dari deteksi ke pemahaman. Data EmberLine bersifat historis dan deskriptif—untuk kondisi terkini, ikuti informasi resmi BPBD setempat."
+          eyebrow={t("story_act3_eyebrow")}
+          title={t("story_act3_title")}
+          emphasis={t("story_act3_emphasis")}
+          body={t("story_act3_body")}
           align="left"
           reduced={reduced}
         >
-          <div className="story-chip-row"><span className="story-safe-chip"><i /> Historis, bukan prediksi</span><span>Informasi resmi BPBD</span></div>
+          <div className="story-chip-row">
+            <span className="story-safe-chip"><i /> {t("story_act3_chip_historical")}</span>
+            <span>{t("story_act3_chip_agency")}</span>
+          </div>
         </ActPanel>
       </div>
     </section>

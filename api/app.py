@@ -149,7 +149,7 @@ def _envelope(aoi: str):
 
 @app.get("/api/health")
 def health():
-    aois = sorted((p.name for p in ARTIFACTS.glob("*") if p.is_dir()), )
+    aois = sorted(p.name for p in ARTIFACTS.glob("*") if p.is_dir() and (p / "run_manifest.json").is_file() and (p / "accepted_series.csv").is_file())
     return {"status": "ok", "aois_with_artifacts": aois,
             "time_utc": datetime.now(timezone.utc).isoformat(timespec="seconds")}
 
@@ -181,9 +181,17 @@ def presets():
         if cur:
             out.append(cur)
     for p in out:
-        has = (ARTIFACTS / p["id"]).is_dir()
+        manifest_file = ARTIFACTS / p["id"] / "run_manifest.json"
+        accepted_file = ARTIFACTS / p["id"] / "accepted_series.csv"
+        has = manifest_file.is_file() and accepted_file.is_file()
         p["artifact_status"] = "available" if has else "queued"
-        p["mock"] = _load(p["id"], "run_manifest.json").get("fixture") if has else None
+        if has:
+            try:
+                p["mock"] = json.loads(manifest_file.read_text(encoding="utf-8")).get("fixture")
+            except Exception:
+                p["mock"] = None
+        else:
+            p["mock"] = None
     return {"presets": out}
 
 
