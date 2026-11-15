@@ -202,7 +202,7 @@ export default function FireMap() {
   const visibleRowsRef = useRef<Detection[]>([]);
 
   useEffect(() => {
-    api.presets().then(r => setPresets(r.presets)).catch(() => {});
+    api.presets().then(r => setPresets(r.presets)).catch(() => { });
   }, []);
 
   // Isolate UI controls from Leaflet wheel zoom & click propagation
@@ -242,9 +242,9 @@ export default function FireMap() {
 
   const toggleFullscreen = () => {
     if (!document.fullscreenElement) {
-      containerRef.current?.requestFullscreen().catch(() => {});
+      containerRef.current?.requestFullscreen().catch(() => { });
     } else {
-      document.exitFullscreen().catch(() => {});
+      document.exitFullscreen().catch(() => { });
     }
   };
 
@@ -436,19 +436,19 @@ export default function FireMap() {
     return () => { cancelled = true; };
   }, [aoi, selName]);
 
-function getCellRisk(count: number, maxCount: number): { label: "Aman" | "Waspada" | "Siaga" | "Bahaya"; color: string; bg: string } {
-  if (count === 0) {
-    return { label: "Aman", color: "#10B981", bg: "rgba(16, 185, 129, 0.15)" };
+  function getCellRisk(count: number, maxCount: number): { label: "Aman" | "Waspada" | "Siaga" | "Bahaya"; color: string; bg: string } {
+    if (count === 0) {
+      return { label: "Aman", color: "#10B981", bg: "rgba(16, 185, 129, 0.15)" };
+    }
+    const intensity = maxCount > 0 ? Math.log1p(count) / Math.log1p(maxCount) : 0;
+    if (intensity < 0.33) {
+      return { label: "Waspada", color: "#FACC15", bg: "rgba(250, 204, 21, 0.2)" };
+    }
+    if (intensity < 0.66) {
+      return { label: "Siaga", color: "#F97316", bg: "rgba(249, 115, 22, 0.25)" };
+    }
+    return { label: "Bahaya", color: "#EF4444", bg: "rgba(239, 68, 68, 0.32)" };
   }
-  const intensity = maxCount > 0 ? Math.log1p(count) / Math.log1p(maxCount) : 0;
-  if (intensity < 0.33) {
-    return { label: "Waspada", color: "#FACC15", bg: "rgba(250, 204, 21, 0.2)" };
-  }
-  if (intensity < 0.66) {
-    return { label: "Siaga", color: "#F97316", bg: "rgba(249, 115, 22, 0.25)" };
-  }
-  return { label: "Bahaya", color: "#EF4444", bg: "rgba(239, 68, 68, 0.32)" };
-}
 
   const maxCount = useMemo(() => {
     return grid && grid.cells.length > 0 ? Math.max(0, ...grid.cells.map(c => c.detection_count)) : 0;
@@ -671,25 +671,6 @@ function getCellRisk(count: number, maxCount: number): { label: "Aman" | "Waspad
           title={isFs ? t("map_exit_fullscreen") : t("map_fullscreen")}
         >
           {isFs ? t("map_exit_fullscreen") : t("map_fullscreen")}
-        </button>
-
-        <button
-          type="button"
-          onClick={() => setSidebarOpen(s => !s)}
-          className="seg-btn"
-          style={{
-            background: "var(--surface)",
-            boxShadow: "var(--shadow-sm)",
-            padding: "6px 10px",
-            fontSize: 11,
-            fontWeight: 600,
-            display: "inline-flex",
-            alignItems: "center",
-            gap: 6,
-          }}
-          title={sidebarOpen ? t("map_close_panel") : t("map_open_panel")}
-        >
-          {sidebarOpen ? t("map_close_panel") : t("map_open_panel")}
         </button>
 
         <button
