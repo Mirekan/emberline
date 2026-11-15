@@ -8,7 +8,7 @@ export default function Overview({ goCalendar, goMethod }: { goCalendar: () => v
   const { aoi, series, lang, t } = useAoi();
   const [presets, setPresets] = useState<Preset[]>([]);
   useEffect(() => {
-    api.presets().then(r => setPresets(r.presets)).catch(() => {});
+    api.presets().then(r => setPresets(r.presets)).catch(() => { });
   }, []);
 
   const preset = presets.find(p => p.id === aoi);

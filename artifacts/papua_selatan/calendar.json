@@ -1,0 +1,16 @@
+{
+  "run_id": "PROTO-C01-v0.9_f90f1f7_20261115T0958Z",
+  "model_version": null,
+  "fixture": null,
+  "metric": "insufficient_data (F-9b support gate)",
+  "index_denominator_p95_training_mw": 0.0,
+  "state_enum": [
+    "insufficient_data"
+  ],
+  "eligible_years": [],
+  "years": [],
+  "climatology": [],
+  "climatology_smoothed_median_mw": [],
+  "critical_windows": [],
+  "boundary": "Deferred: support gate F-9b triggered. Data insufficient for stable climatology."
+}

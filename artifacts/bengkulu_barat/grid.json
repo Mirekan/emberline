@@ -1,0 +1,39 @@
+{
+ "cell_deg": 0.1,
+ "years": [
+  "2013",
+  "2019",
+  "2025"
+ ],
+ "n_cells": 1,
+ "scale_note": "raw sensor scale \u2014 per-cell harmonized does not exist",
+ "cells": [
+  {
+   "cell_id": "R-0021C01029",
+   "south": -2.1,
+   "west": 102.9,
+   "north": -2.0,
+   "east": 103.0,
+   "years": {
+    "2025": {
+     "modis": 0.0,
+     "viirs": 27.16,
+     "n_days": 1
+    },
+    "2013": {
+     "modis": 0.0,
+     "viirs": 25.46,
+     "n_days": 1
+    },
+    "2019": {
+     "modis": 0.0,
+     "viirs": 15.65,
+     "n_days": 1
+    }
+   },
+   "n_days": 3,
+   "total_modis": 0.0,
+   "total_viirs": 68.27
+  }
+ ]
+}
