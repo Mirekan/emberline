@@ -524,17 +524,23 @@ def method(aoi: str | None = None):
     man = _load(aoi, "run_manifest.json")
     
     # Load model from model_manifest.json (new) or model.json (fallback)
+    status = "ok"
+    status_reason = None
     try:
         model = _load(aoi, "model_manifest.json")
-        fit_inputs = model.get("outcome", {}).get("model", {}).get("fit_inputs", {})
+        outcome = model.get("outcome", {})
+        if outcome.get("status") == "insufficient_data":
+            status = "insufficient_data"
+            status_reason = outcome.get("reason", "F-9b support gate triggered: insufficient signal support.")
+        fit_inputs = outcome.get("model", {}).get("fit_inputs", {})
         train_years = fit_inputs.get("train_years") or model.get("split", {}).get("train_years", [])
         test_years = fit_inputs.get("test_years_recorded_never_fitted") or model.get("split", {}).get("test_years", [])
         split = {
             "train_years": train_years,
             "test_years": test_years
         }
-        coefficients = model.get("outcome", {}).get("model", {}).get("coefficients") or model.get("coefficients", {})
-        interval = model.get("outcome", {}).get("intervals") or model.get("interval", {})
+        coefficients = outcome.get("model", {}).get("coefficients") or model.get("coefficients", {})
+        interval = outcome.get("intervals") or model.get("interval", {})
     except HTTPException:
         model = _load(aoi, "model.json")
         split = model.get("split", {"train_years": [], "test_years": []})
@@ -542,40 +548,56 @@ def method(aoi: str | None = None):
         interval = model.get("interval", {})
         
     # Load metrics from harmonization_metrics.json (new) or metrics.json (fallback)
+    metrics = None
     try:
         raw_m = _load(aoi, "harmonization_metrics.json")
         outcome_m = raw_m.get("outcome", {}).get("metrics", {})
-        b1 = outcome_m.get("b1", {})
-        b2 = outcome_m.get("b2", {})
-        b0 = outcome_m.get("b0", {})
-        metrics = {
-            "mean_log_ratio_bias": b1.get("mean_log_ratio_bias", {}).get("value"),
-            "smape": b1.get("smape", {}).get("value"),
-            "pearson_daily": b1.get("pearson_daily", {}).get("value"),
-            "pearson_weekly": b1.get("pearson_weekly", {}).get("value"),
-            "spearman_daily": b1.get("spearman_daily", {}).get("value"),
-            "spearman_weekly": b1.get("spearman_weekly", {}).get("value"),
-            "log_space_r2": b1.get("log_space_r2", {}).get("value"),
-            "ks_statistic": b1.get("ks_statistic", {}).get("value"),
-            "wasserstein_distance": b1.get("wasserstein_distance", {}).get("value"),
-            "calendar_pattern_correlation": b1.get("calendar_pattern_correlation", {}).get("value"),
-            "interval_coverage_empirical": b2.get("interval_coverage_empirical", {}).get("value"),
-            "b0_naive_splice_level_shift": b0.get("mean_log_ratio_bias", {}).get("value"),
-            "b1_naive_splice_level_shift": b1.get("mean_log_ratio_bias", {}).get("value"),
-            "b2_naive_splice_level_shift": b2.get("mean_log_ratio_bias", {}).get("value"),
-        }
+        if outcome_m:
+            b1 = outcome_m.get("b1", {})
+            b2 = outcome_m.get("b2", {})
+            b0 = outcome_m.get("b0", {})
+            metrics = {
+                "mean_log_ratio_bias": b1.get("mean_log_ratio_bias", {}).get("value"),
+                "smape": b1.get("smape", {}).get("value"),
+                "pearson_daily": b1.get("pearson_daily", {}).get("value"),
+                "pearson_weekly": b1.get("pearson_weekly", {}).get("value"),
+                "spearman_daily": b1.get("spearman_daily", {}).get("value"),
+                "spearman_weekly": b1.get("spearman_weekly", {}).get("value"),
+                "log_space_r2": b1.get("log_space_r2", {}).get("value"),
+                "ks_statistic": b1.get("ks_statistic", {}).get("value"),
+                "wasserstein_distance": b1.get("wasserstein_distance", {}).get("value"),
+                "calendar_pattern_correlation": b1.get("calendar_pattern_correlation", {}).get("value"),
+                "interval_coverage_empirical": b2.get("interval_coverage_empirical", {}).get("value"),
+                "b0_naive_splice_level_shift": b0.get("mean_log_ratio_bias", {}).get("value"),
+                "b1_naive_splice_level_shift": b1.get("mean_log_ratio_bias", {}).get("value"),
+                "b2_naive_splice_level_shift": b2.get("mean_log_ratio_bias", {}).get("value"),
+            }
     except HTTPException:
-        metrics = _load(aoi, "metrics.json").get("metrics", {})
+        pass
+
+    if metrics is None:
+        try:
+            metrics = _load(aoi, "metrics.json").get("metrics", {})
+        except HTTPException:
+            metrics = {}
 
     # Load stress tests
+    stress_tests = []
     try:
         stress_raw = _load(aoi, "splice_stress_test.json")
-        stress_tests = stress_raw.get("tests", stress_raw.get("results", []))
+        stress_tests = stress_raw.get("tests") or stress_raw.get("results") or []
     except HTTPException:
-        stress_tests = _load(aoi, "stress_test.json").get("results", [])
+        pass
+    if not stress_tests:
+        try:
+            stress_tests = _load(aoi, "stress_test.json").get("results", [])
+        except HTTPException:
+            stress_tests = []
 
     return {
         **_envelope(aoi),
+        "status": status,
+        "status_reason": status_reason,
         "protocol_id": man.get("protocol_version") or "PROTO-C01-v0.9",
         "split": split,
         "method_form": "log1p(S_modis) = a + b*log1p(S_viirs) + c*log1p(1+n_viirs) + d*I_night (monotone; B1 fallback = global ratio)",

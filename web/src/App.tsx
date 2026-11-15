@@ -86,10 +86,29 @@ export default function App() {
 
   const t = (k: TranslationKey, params?: Record<string, string | number>) => getTranslation(lang, k, params);
 
+  const seriesCacheRef = React.useRef<Map<string, Series>>(new Map());
+
   useEffect(() => {
-    if (tab === "firemap" || tab === "anomalies") return; // backlog / live map screens
-    setSeries(null); setError(null);
-    api.series(aoi).then(setSeries).catch(e => setError(e.message));
+    if (tab === "firemap" || tab === "anomalies") return;
+    const cached = seriesCacheRef.current.get(aoi);
+    if (cached) {
+      setSeries(cached);
+      setError(null);
+      return;
+    }
+    // Only clear series if the existing one is from a different aoi to prevent UI flash
+    setSeries(prev => (prev?.aoi_id === aoi ? prev : null));
+    setError(null);
+    let cancelled = false;
+    api.series(aoi)
+      .then(data => {
+        seriesCacheRef.current.set(aoi, data);
+        if (!cancelled) setSeries(data);
+      })
+      .catch(e => {
+        if (!cancelled) setError(e.message);
+      });
+    return () => { cancelled = true; };
   }, [aoi, tab]);
 
   return (
@@ -176,6 +195,7 @@ export default function App() {
                   <Overview
                     goCalendar={() => setTab("firecalendar")}
                     goMethod={() => setTab("methodology")}
+                    goMap={() => setTab("firemap")}
                   />
                 )}
                 {tab === "firemap" && <FireMap />}
