@@ -38,17 +38,20 @@ export default function MethodScreen() {
     return <span className="mono">{v}</span>;
   };
 
+  const trainYears = m?.split.train_years ?? [];
+  const testYears = m?.split.test_years ?? [];
+
   return (
     <div className="grid2">
       <div>
         <span className="state-chip chip-neutral" style={{ fontSize: 10, marginBottom: 4 }}>
-          {lang === "id" ? "STANDAR VALIDASI KETAT" : "RIGOROUS VALIDATION STANDARD"}
+          {lang === "id" ? "HASIL VALIDASI" : "VALIDATION RESULTS"}
         </span>
         <h1>{lang === "id" ? "Metodologi — Validasi Mandiri Lintas Sensor" : "Methodology — held-out cross-sensor validation"}</h1>
         <p className="sub">
           {lang === "id"
-            ? `Partisi pelatihan model: ${m?.split.train_years[0] ?? "2012"}–${m?.split.train_years[m.split.train_years.length - 1] ?? "2020"}, partisi evaluasi mandiri: ${m?.split.test_years[0] ?? "2020"}–${m?.split.test_years[m.split.test_years.length - 1] ?? "2026"}. Semua metode dinilai terhadap partisi uji independen yang identik. Di mana harmonisasi tidak menunjukkan peningkatan metrik, EmberLine menyatakannya secara terbuka dan jujur.`
-            : `Model training partition: ${m?.split.train_years[0] ?? "2012"}–${m?.split.train_years[m.split.train_years.length - 1] ?? "2020"}, independent evaluation partition: ${m?.split.test_years[0] ?? "2020"}–${m?.split.test_years[m.split.test_years.length - 1] ?? "2026"}. All competing baselines are scored against the identical held-out test partition. Where harmonization does not improve upon raw metrics, EmberLine discloses this honestly.`}
+            ? `Tahun pelatihan: ${trainYears[0] ?? "2012"}–${trainYears[trainYears.length - 1] ?? "2020"}; tahun uji: ${testYears[0] ?? "2020"}–${testYears[testYears.length - 1] ?? "2026"}. Semua metode dinilai pada baris uji yang sama. Hasil di bawah mencakup metode yang tidak memperbaiki baseline.`
+            : `Training years: ${trainYears[0] ?? "2012"}–${trainYears[trainYears.length - 1] ?? "2020"}; test years: ${testYears[0] ?? "2020"}–${testYears[testYears.length - 1] ?? "2026"}. All methods use the same test rows. Results include methods that did not improve on the baseline.`}
         </p>
 
         {loading && (
@@ -62,7 +65,7 @@ export default function MethodScreen() {
         {err && (
           <div className="status-panel failed" style={{ marginTop: 20 }}>
             <div className="status-title">{lang === "id" ? "Data Metodologi Belum Tersedia" : "Methodology Data Not Available"}</div>
-            <p className="status-desc">{lang === "id" ? "Data evaluasi metodologi untuk wilayah ini sedang dalam tahap pemrosesan." : "Methodology evaluation data for this region is currently being processed."}</p>
+            <p className="status-desc">{lang === "id" ? "Hasil validasi tidak tersedia untuk wilayah ini." : "Validation results are not available for this region."}</p>
             {aoi !== "riau" && (
               <div style={{ marginTop: 12 }}>
                 <button className="btn secondary" onClick={() => setAoi("riau")}>
@@ -191,8 +194,8 @@ export default function MethodScreen() {
               <b>{lang === "id" ? "Pengungkapan Ilmiah Wajib: Bersifat historis & deskriptif — bukan prediktif." : "Mandatory Scientific Disclosure: Historical & descriptive — not predictive."}</b>
               <p className="sub" style={{ marginTop: 2 }}>
                 {lang === "id"
-                  ? "EmberLine mengalibrasi observasi satelit retrospektif untuk memastikan kesinambungan rekam ilmiah tanpa putus. EmberLine tidak memprediksi kebakaran di masa depan atau menilai risiko darurat waktu nyata."
-                  : "EmberLine calibrates retrospective satellite observations to ensure unbroken scientific record continuity. It does not predict future fire ignitions or assess real-time emergency risks."}
+                  ? "EmberLine membandingkan observasi MODIS dan VIIRS pada periode yang didukung data. Estimasi VIIRS dipetakan ke skala acuan Aqua MODIS; celah data tetap ditandai. EmberLine tidak memprediksi kebakaran atau menilai risiko darurat waktu nyata."
+                  : "EmberLine compares MODIS and VIIRS observations where data are available. VIIRS estimates are mapped to the Aqua MODIS reference scale, and data gaps remain visible. EmberLine does not predict fires or assess real-time emergency risk."}
               </p>
             </div>
           </>
@@ -241,8 +244,8 @@ export default function MethodScreen() {
               >
                 <p className="sub" style={{ fontSize: 12 }}>
                   {lang === "id"
-                    ? "Definisi ilmiah terstandarisasi untuk setiap satuan pengukuran dan status dalam konsol ini."
-                    : "Standardized scientific definitions for every measurement unit and state in this console."}
+                    ? "Istilah yang digunakan pada halaman ini."
+                    : "Terms used on this page."}
                 </p>
                 <dl style={{ marginTop: 8 }}>
                   <dt>{lang === "id" ? "Titik Panas (Hotspot)" : "Hotspot"}</dt>
@@ -255,8 +258,8 @@ export default function MethodScreen() {
                   <dt>{lang === "id" ? "Daya Radiasi Api (FRP, MW)" : "FRP (MW)"}</dt>
                   <dd>
                     {lang === "id"
-                      ? "Fire Radiative Power (Megawatt) — laju sesaat pancaran energi radiasi termal yang diukur selama satelit melintas."
-                      : "Fire Radiative Power (Megawatts) — the instantaneous rate of emitted thermal radiative energy measured during a satellite overpass."}
+                      ? "Fire Radiative Power (MW) adalah laju daya radiasi termal yang terukur saat satelit melintas."
+                      : "Fire Radiative Power (MW) is the rate of thermal radiation measured during a satellite overpass."}
                   </dd>
 
                   <dt>{lang === "id" ? "Hari dalam Setahun (DOY 1–366)" : "DOY (Day of Year 1–366)"}</dt>
@@ -276,8 +279,8 @@ export default function MethodScreen() {
                   <dt>{lang === "id" ? "Setara MODIS (MW)" : "MODIS-equivalent (MW)"}</dt>
                   <dd>
                     {lang === "id"
-                      ? "Standar kalibrasi lintas sensor terpadu yang memastikan kesinambungan deret waktu melintasi transisi sensor 2012."
-                      : "The unified cross-sensor calibration standard that ensures unbroken time series continuity across the 2012 sensor transition."}
+                      ? "Skala untuk menyatakan estimasi VIIRS setelah dipetakan ke acuan Aqua MODIS; nilainya bukan observasi MODIS langsung."
+                      : "The scale used for VIIRS estimates mapped to Aqua MODIS; the value is not a direct MODIS observation."}
                   </dd>
 
                   <dt>{lang === "id" ? "Celah Pengamatan (Retrieval Gap)" : "Retrieval Gap"}</dt>
