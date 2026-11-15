@@ -5,17 +5,17 @@ import { api, Preset, Detections, Detection } from "../api";
 import { useAoi } from "../App";
 
 const REGIONS: { name: string; center: [number, number]; preset?: string }[] = [
-  { name: "Aceh", center: [4.1, 96.5], preset: "riau" },
-  { name: "Sumatera Utara", center: [2.2, 99.8], preset: "riau" },
-  { name: "Riau", center: [0.5, 102.0], preset: "riau" },
+  { name: "Aceh", center: [4.6, 96.7], preset: "riau" },
+  { name: "Sumatera Utara", center: [2.2, 98.7], preset: "riau" },
+  { name: "Riau", center: [0.5, 102.3], preset: "riau" },
   { name: "Kepulauan Riau", center: [0.9, 104.5], preset: "riau" },
-  { name: "Jambi", center: [-1.6, 103.5], preset: "jambi" },
-  { name: "Sumatera Selatan", center: [-3.4, 104.8], preset: "south_sumatra" },
+  { name: "Jambi", center: [-1.8, 103.0], preset: "jambi" },
+  { name: "Sumatera Selatan", center: [-3.3, 104.6], preset: "south_sumatra" },
   { name: "Bangka Belitung", center: [-2.5, 106.0], preset: "south_sumatra" },
-  { name: "Kalimantan Barat", center: [-1.2, 110.5], preset: "central_kalimantan" },
-  { name: "Kalimantan Tengah", center: [-2.2, 114.1], preset: "central_kalimantan" },
-  { name: "Kalimantan Selatan", center: [-3.2, 115.1], preset: "central_kalimantan" },
-  { name: "Kalimantan Timur", center: [-0.6, 116.8], preset: "central_kalimantan" },
+  { name: "Kalimantan Barat", center: [0.2, 109.5], preset: "central_kalimantan" },
+  { name: "Kalimantan Tengah", center: [-1.8, 113.8], preset: "central_kalimantan" },
+  { name: "Kalimantan Selatan", center: [-3.0, 115.5], preset: "central_kalimantan" },
+  { name: "Kalimantan Timur", center: [0.5, 116.5], preset: "central_kalimantan" },
   { name: "Kalimantan Utara", center: [2.5, 116.8], preset: "central_kalimantan" },
   { name: "Sulawesi Utara", center: [0.9, 124.2], preset: "central_kalimantan" },
   { name: "Gorontalo", center: [0.6, 122.4], preset: "central_kalimantan" },
@@ -23,7 +23,7 @@ const REGIONS: { name: string; center: [number, number]; preset?: string }[] = [
   { name: "Sulawesi Selatan", center: [-3.8, 119.9], preset: "central_kalimantan" },
   { name: "Maluku Utara", center: [1.6, 127.6], preset: "merauke" },
   { name: "Papua", center: [-4.0, 138.5], preset: "merauke" },
-  { name: "Papua Selatan (Merauke)", center: [-8.0, 140.0], preset: "merauke" },
+  { name: "Papua Selatan (Merauke)", center: [-8.0, 139.0], preset: "merauke" },
 ];
 
 export type IslandRegion = {
@@ -207,11 +207,13 @@ export default function FireMap() {
 
   // Sync selected region name when global AOI changes
   useEffect(() => {
+    const cur = REGIONS.find(r => r.name === selName);
+    if (cur?.preset === aoi) return;
     const match = REGIONS.find(r => r.preset === aoi);
     if (match) {
       setSelName(match.name);
     }
-  }, [aoi]);
+  }, [aoi, selName]);
 
   // Fullscreen event listener to dynamically resize the map
   useEffect(() => {
@@ -485,8 +487,11 @@ export default function FireMap() {
 
   const flyTo = (r: (typeof REGIONS)[number]) => {
     setSelName(r.name);
+    if (r.preset) {
+      lastAoiRef.current = r.preset;
+      setAoi(r.preset);
+    }
     mapRef.current?.flyTo(r.center, 7, { duration: 0.8 });
-    if (r.preset) setAoi(r.preset);
   };
 
   const list = useMemo(() => {

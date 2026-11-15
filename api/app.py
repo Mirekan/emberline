@@ -81,53 +81,25 @@ def _series(aoi: str):
     accepted_path = aoi_dir / "accepted_series.csv"
     if not accepted_path.exists():
         raise HTTPException(404, detail=f"Data deret waktu untuk wilayah '{aoi}' belum tersedia. Silakan pilih wilayah lain yang sudah siap.")
-
-    intervals: dict[str, dict[str, list]] = {}
-    harmonized_path = aoi_dir / "harmonized_daily.csv"
-    if harmonized_path.exists():
-        with harmonized_path.open(newline="", encoding="utf-8") as fh:
-            reader = csv.DictReader(fh)
-            required = {"date", "lo_mw", "hi_mw", "flags"}
-            missing = required.difference(reader.fieldnames or [])
-            if missing:
-                raise HTTPException(500, detail="Skema artefak deret waktu tidak didukung.")
-            for record in reader:
-                entry = intervals.setdefault(record["date"], {"lo": [], "hi": [], "flags": []})
-                entry["lo"].append(_number(record.get("lo_mw")))
-                entry["hi"].append(_number(record.get("hi_mw")))
-                entry["flags"].extend((record.get("flags") or "").split("|"))
-
     rows = []
-    with accepted_path.open(newline="", encoding="utf-8") as fh:
-        reader = csv.DictReader(fh)
-        required = {"date", "source_flag", "value_mw", "harmonized_mw", "observed_modis_mw"}
-        missing = required.difference(reader.fieldnames or [])
-        if missing:
-            raise HTTPException(500, detail="Skema artefak deret waktu tidak didukung.")
-        for record in reader:
-            source_flag = record["source_flag"]
-            interval = intervals.get(record["date"], {})
-            lo_values = interval.get("lo", [])
-            hi_values = interval.get("hi", [])
-            flags = list(dict.fromkeys(
-                flag for flag in (
-                    (record.get("flags") or "").split("|") +
-                    interval.get("flags", [])
-                ) if flag
-            ))
-            rows.append({
-                "date": record["date"],
-                "source_flag": source_flag,
-                "raw_modis_frp_mw": _number(record.get("observed_modis_mw")),
-                "raw_modis_n": None,
-                "raw_viirs_frp_mw": None,
-                "raw_viirs_n": None,
-                "harmonized_lo_mw": round(sum(lo_values), 6) if lo_values and all(v is not None for v in lo_values) else None,
-                "harmonized_estimate_mw": _number(record.get("harmonized_mw")),
-                "harmonized_hi_mw": round(sum(hi_values), 6) if hi_values and all(v is not None for v in hi_values) else None,
-                "flags": flags,
-                "gap_reason": record.get("reason") or None,
-            })
+    with p.open(newline="", encoding="utf-8") as fh:
+        for r in csv.DictReader(fh):
+            for k in ("raw_modis_frp_mw", "raw_modis_n", "raw_viirs_frp_mw",
+                      "raw_viirs_n", "harmonized_lo_mw", "harmonized_estimate_mw",
+                      "harmonized_hi_mw"):
+                if r.get(k) == "":
+                    r[k] = None
+                else:
+                    try:
+                        r[k] = float(r[k]) if k.endswith("mw") else int(r[k])
+                    except ValueError:
+                        pass
+            if r.get("flags"):
+                r["flags"] = r["flags"].split("|") if "|" in r["flags"] else (
+                    [r["flags"]] if r["flags"] else [])
+            else:
+                r["flags"] = []
+            rows.append(r)
     return rows
 
 
@@ -227,12 +199,14 @@ def api_grid(aoi: str):
 def api_detections(aoi: str):
     """Validated hotspot detections — one entry = one satellite pixel, not one fire."""
     if aoi in ("all", "indonesia"):
+        p = ARTIFACTS / "all" / "detections.json"
+        if p.exists():
+            return json.loads(p.read_text(encoding="utf-8"))
         all_dets = []
-        for p in sorted(ARTIFACTS.glob("*")):
-            if p.is_dir() and (p / "detections.json").exists():
+        for d in sorted(ARTIFACTS.glob("*")):
+            if d.is_dir() and d.name != "all" and (d / "detections.json").exists():
                 try:
-                    data = json.loads((p / "detections.json").read_text(encoding="utf-8"))
-                    all_dets.extend(data.get("detections", []))
+                    all_dets.extend(json.loads((d / "detections.json").read_text(encoding="utf-8")).get("detections", []))
                 except Exception:
                     pass
         return {
