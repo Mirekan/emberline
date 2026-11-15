@@ -51,10 +51,6 @@ export default function Anomalies() {
           lang={lang}
           label={lang === "id" ? "Wilayah Pantauan" : "Monitored Region"}
         />
-
-        <span className="state-chip chip-neutral mono" style={{ fontSize: 11 }}>
-          AOI: {aoi}
-        </span>
       </div>
 
       <p className="sub" style={{ marginTop: 6 }}>

@@ -85,15 +85,6 @@ export default function MethodScreen() {
             lang={lang}
             label={lang === "id" ? "Wilayah Pantauan" : "Monitored Region"}
           />
-
-          <div style={{ display: "flex", alignItems: "center", gap: 8, marginTop: "auto", marginBottom: 2 }}>
-            <span className="state-chip chip-neutral mono" style={{ fontSize: 11 }}>
-              AOI: {aoi}
-            </span>
-            <span className={"state-chip mono " + (m?.status === "insufficient_data" ? "chip-warn" : "chip-neutral")} style={{ fontSize: 11 }}>
-              {m?.status === "insufficient_data" ? (lang === "id" ? "Status: Sinyal Tipis" : "Status: Insufficient Data") : (lang === "id" ? "Status: Terkalibrasi" : "Status: Calibrated")}
-            </span>
-          </div>
         </div>
 
         {loading && (
