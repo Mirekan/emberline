@@ -92,8 +92,6 @@ export default function App() {
     api.series(aoi).then(setSeries).catch(e => setError(e.message));
   }, [aoi, tab]);
 
-  const isMock = Boolean(series?.mock || series?.fixture);
-
   return (
     <AoiContext.Provider value={{ aoi, setAoi, series, theme, calFilter, setCalFilter, lang, setLang, toggleLang, t }}>
       <MotionConfig reducedMotion="user">
