@@ -4,7 +4,11 @@ import { api, Calendar, Preset } from "../api";
 import { yearTiles, monthTiles, yearTilesFromDays, monthTilesFromDays, Tile, MONTHS_ID, MONTHS_EN, RawField } from "../calendarTiles";
 import { useAoi } from "../App";
 import { PRESET_NAMES } from "../presets";
+<<<<<<< HEAD
 import SearchableSelect from "../components/SearchableSelect";
+=======
+import SearchableRegionSelect from "../components/SearchableRegionSelect";
+>>>>>>> bf41c1514c46edb1630aec5fb27edb6c5f4397bc
 import Seasons from "./Seasons";
 
 type CalendarSensor = "harm" | "modis" | "viirs";
@@ -150,6 +154,7 @@ export default function CalendarScreen({ goMap }: { goMap: () => void }) {
 
       <div className="calendar-controls">
         <div className="calendar-filter-control">
+<<<<<<< HEAD
           <span className="calendar-filter-label">{t("cal_label_region")}</span>
           <SearchableSelect
             className="glass-select"
@@ -167,6 +172,14 @@ export default function CalendarScreen({ goMap }: { goMap: () => void }) {
             searchPlaceholder={t("select_search_placeholder")}
             noResultsMessage={t("select_no_results")}
             onChange={nextAoi => { setAoi(nextAoi); setSel(null); }}
+=======
+          <SearchableRegionSelect
+            value={aoi}
+            onChange={(newAoi) => { setAoi(newAoi); setSel(null); }}
+            presets={presets}
+            lang={lang}
+            label={t("cal_label_region")}
+>>>>>>> bf41c1514c46edb1630aec5fb27edb6c5f4397bc
           />
         </div>
 

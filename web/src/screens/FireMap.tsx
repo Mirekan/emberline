@@ -449,14 +449,9 @@ export default function FireMap() {
   const [aiResponse, setAiResponse] = useState<HotspotAnalysisResponse | null>(null);
   const [aiError, setAiError] = useState<string | null>(null);
   const [aiQuestion, setAiQuestion] = useState("");
-  const [grokApiKey, setGrokApiKey] = useState(() => {
+  const [grokApiKey] = useState(() => {
     return localStorage.getItem("emberline_grok_key") || "";
   });
-  const [apiKeySettingsOpen, setApiKeySettingsOpen] = useState(false);
-  const [apiKeyInput, setApiKeyInput] = useState(() => {
-    return localStorage.getItem("emberline_grok_key") || "";
-  });
-  const [keySavedStatus, setKeySavedStatus] = useState<string | null>(null);
   const lastClickedDetectionRef = useRef<Detection | null>(null);
   const aiDrawerRef = useRef<HTMLDivElement>(null);
   const aiAnswerRef = useRef<HTMLDivElement>(null);
@@ -1933,22 +1928,22 @@ export default function FireMap() {
               </div>
             </div>
             <div className="ai-header-actions">
-              <button
-                type="button"
-                className={"ai-btn-key active"}
-                onClick={() => setApiKeySettingsOpen(o => !o)}
-                title={lang === "id" ? "Konfigurasi API Key Groq / Grok" : "Configure Groq / Grok API Key"}
-              >
-                <span>
-                  {aiResponse?.provider === "groq"
-                    ? (lang === "id" ? "Groq Cloud (Aktif)" : "Groq Cloud (Active)")
-                    : aiResponse?.provider === "grok"
-                      ? (lang === "id" ? "xAI Grok (Aktif)" : "xAI Grok (Active)")
-                      : grokApiKey
-                        ? (lang === "id" ? "API Key (Kustom)" : "API Key (Custom)")
-                        : (lang === "id" ? "Groq Cloud (.env)" : "Groq Cloud (.env)")}
+              {aiResponse?.provider && aiResponse.provider !== "heuristic" && (
+                <span
+                  className="state-chip mono"
+                  style={{
+                    fontSize: 10.5,
+                    padding: "3px 8px",
+                    background: "rgba(16, 185, 129, 0.12)",
+                    color: "#059669",
+                    border: "1px solid rgba(16, 185, 129, 0.25)",
+                    borderRadius: 6,
+                    fontWeight: 600,
+                  }}
+                >
+                  {aiResponse.provider === "groq" ? "Groq Cloud" : "xAI Grok"}
                 </span>
-              </button>
+              )}
               <button
                 type="button"
                 className="ai-btn-close"
@@ -1959,65 +1954,6 @@ export default function FireMap() {
               </button>
             </div>
           </div>
-
-          {apiKeySettingsOpen && (
-            <div className="ai-settings-card">
-              <div style={{ fontWeight: 600, color: "var(--ink)", marginBottom: 4 }}>
-                {lang === "id" ? "Pengaturan API Key (Groq Cloud / xAI Grok)" : "API Key Settings (Groq Cloud / xAI Grok)"}
-              </div>
-              <div style={{ color: "var(--ink3)", fontSize: 11, lineHeight: 1.4 }}>
-                {lang === "id" ? (
-                  <>Mendukung <b>Groq</b> (<code>gsk_...</code>) dan <b>xAI Grok</b> (<code>xai-...</code>). Key tersimpan di peramban lokal (localStorage). Sistem juga membaca file <code>.env</code> (GROK_API_KEY / GROQ_API_KEY). Tanpa key, aplikasi menampilkan ringkasan metadata.</>
-                ) : (
-                  <>Supports <b>Groq</b> (<code>gsk_...</code>) and <b>xAI Grok</b> (<code>xai-...</code>). The key is stored in browser localStorage. The system also reads <code>.env</code> (GROK_API_KEY / GROQ_API_KEY). Without a key, the app shows a metadata summary.</>
-                )}
-              </div>
-              <div className="ai-settings-input-group">
-                <input
-                  type="password"
-                  className="ai-settings-input"
-                  placeholder={lang === "id" ? "gsk_... (Groq) atau xai-... (Grok)" : "gsk_... (Groq) or xai-... (Grok)"}
-                  value={apiKeyInput}
-                  onChange={(e) => setApiKeyInput(e.target.value)}
-                />
-                <button
-                  type="button"
-                  className="seg-btn"
-                  style={{ background: "var(--ember)", color: "#fff", border: "none", padding: "4px 10px", fontSize: 11, fontWeight: 600 }}
-                  onClick={() => {
-                    const cleanKey = apiKeyInput.trim();
-                    localStorage.setItem("emberline_grok_key", cleanKey);
-                    setGrokApiKey(cleanKey);
-                    setKeySavedStatus("Tersimpan!");
-                    setTimeout(() => setKeySavedStatus(null), 2500);
-                  }}
-                >
-                  {lang === "id" ? "Simpan" : "Save"}
-                </button>
-                {grokApiKey && (
-                  <button
-                    type="button"
-                    className="seg-btn"
-                    style={{ background: "var(--surface)", border: "1px solid var(--line)", padding: "4px 8px", fontSize: 11 }}
-                    onClick={() => {
-                      localStorage.removeItem("emberline_grok_key");
-                      setGrokApiKey("");
-                      setApiKeyInput("");
-                      setKeySavedStatus("Dihapus");
-                      setTimeout(() => setKeySavedStatus(null), 2500);
-                    }}
-                  >
-                    {lang === "id" ? "Hapus" : "Remove"}
-                  </button>
-                )}
-              </div>
-              {keySavedStatus && (
-                <div style={{ fontSize: 10.5, color: "#10B981", fontWeight: 600 }}>
-                  {keySavedStatus === "Tersimpan!" ? (lang === "id" ? "Tersimpan!" : "Saved!") : (lang === "id" ? "Dihapus" : "Removed")}
-                </div>
-              )}
-            </div>
-          )}
 
           <div className="ai-drawer-body">
             {/* Hotspot details badge card */}
