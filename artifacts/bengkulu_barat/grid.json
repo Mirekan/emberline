@@ -11,528 +11,222 @@
   "2025",
   "2026"
  ],
- "n_cells": 182,
+ "n_cells": 79,
  "scale_note": "raw sensor scale \u2014 per-cell harmonized does not exist",
  "cells": [
   {
-   "cell_id": "R-0042C01015",
-   "south": -4.2,
-   "west": 101.5,
-   "north": -4.1,
-   "east": 101.6,
+   "cell_id": "R-0044C01028",
+   "south": -4.4,
+   "west": 102.8,
+   "north": -4.3,
+   "east": 102.9,
    "years": {
-    "2022": {
+    "2026": {
      "modis": 0.0,
-     "viirs": 704.5,
-     "n_days": 6
-    },
-    "2018": {
-     "modis": 0.0,
-     "viirs": 213.21,
-     "n_days": 4
-    },
-    "2025": {
-     "modis": 0.0,
-     "viirs": 229.03,
-     "n_days": 2
-    },
-    "2023": {
-     "modis": 0.0,
-     "viirs": 100.19,
-     "n_days": 3
-    },
-    "2019": {
-     "modis": 0.0,
-     "viirs": 98.31,
-     "n_days": 3
-    },
-    "2021": {
-     "modis": 0.0,
-     "viirs": 30.8,
-     "n_days": 1
-    },
-    "2020": {
-     "modis": 0.0,
-     "viirs": 59.87,
-     "n_days": 3
-    },
-    "2024": {
-     "modis": 0.0,
-     "viirs": 20.54,
+     "viirs": 22.84,
      "n_days": 1
     }
    },
-   "n_days": 23,
+   "n_days": 1,
    "total_modis": 0.0,
-   "total_viirs": 1456.45
+   "total_viirs": 22.84
   },
   {
-   "cell_id": "R-0042C01016",
-   "south": -4.2,
-   "west": 101.6,
-   "north": -4.1,
-   "east": 101.7,
+   "cell_id": "R-0044C01029",
+   "south": -4.4,
+   "west": 102.9,
+   "north": -4.3,
+   "east": 103.0,
    "years": {
-    "2024": {
+    "2026": {
      "modis": 0.0,
-     "viirs": 280.01,
+     "viirs": 14.14,
      "n_days": 1
+    }
+   },
+   "n_days": 1,
+   "total_modis": 0.0,
+   "total_viirs": 14.14
+  },
+  {
+   "cell_id": "R-0043C01026",
+   "south": -4.3,
+   "west": 102.6,
+   "north": -4.2,
+   "east": 102.7,
+   "years": {
+    "2019": {
+     "modis": 0.0,
+     "viirs": 506.5,
+     "n_days": 2
     },
-    "2023": {
+    "2022": {
      "modis": 0.0,
-     "viirs": 124.12,
-     "n_days": 1
+     "viirs": 462.47,
+     "n_days": 3
     },
     "2025": {
      "modis": 0.0,
-     "viirs": 76.43,
-     "n_days": 1
+     "viirs": 363.32,
+     "n_days": 2
     },
-    "2020": {
+    "2024": {
      "modis": 0.0,
-     "viirs": 149.5,
+     "viirs": 368.26,
+     "n_days": 3
+    },
+    "2018": {
+     "modis": 0.0,
+     "viirs": 89.65,
+     "n_days": 3
+    },
+    "2023": {
+     "modis": 0.0,
+     "viirs": 41.23,
+     "n_days": 1
+    }
+   },
+   "n_days": 14,
+   "total_modis": 0.0,
+   "total_viirs": 1831.43
+  },
+  {
+   "cell_id": "R-0043C01027",
+   "south": -4.3,
+   "west": 102.7,
+   "north": -4.2,
+   "east": 102.8,
+   "years": {
+    "2018": {
+     "modis": 0.0,
+     "viirs": 458.17,
      "n_days": 5
     },
-    "2022": {
-     "modis": 0.0,
-     "viirs": 48.53,
-     "n_days": 1
-    },
-    "2018": {
-     "modis": 0.0,
-     "viirs": 44.12,
-     "n_days": 2
-    },
-    "2021": {
-     "modis": 0.0,
-     "viirs": 36.18,
-     "n_days": 2
-    }
-   },
-   "n_days": 13,
-   "total_modis": 0.0,
-   "total_viirs": 758.89
-  },
-  {
-   "cell_id": "R-0042C01017",
-   "south": -4.2,
-   "west": 101.7,
-   "north": -4.1,
-   "east": 101.8,
-   "years": {
-    "2023": {
-     "modis": 0.0,
-     "viirs": 295.57,
-     "n_days": 3
-    },
-    "2021": {
-     "modis": 0.0,
-     "viirs": 98.73,
-     "n_days": 2
-    },
-    "2025": {
-     "modis": 0.0,
-     "viirs": 185.02,
-     "n_days": 4
-    },
-    "2022": {
-     "modis": 0.0,
-     "viirs": 43.13,
-     "n_days": 1
-    },
-    "2018": {
-     "modis": 0.0,
-     "viirs": 32.59,
-     "n_days": 1
-    },
-    "2020": {
-     "modis": 0.0,
-     "viirs": 56.86,
-     "n_days": 2
-    },
     "2019": {
      "modis": 0.0,
-     "viirs": 61.52,
-     "n_days": 2
-    },
-    "2024": {
-     "modis": 0.0,
-     "viirs": 15.31,
-     "n_days": 1
-    }
-   },
-   "n_days": 16,
-   "total_modis": 0.0,
-   "total_viirs": 788.73
-  },
-  {
-   "cell_id": "R-0042C01018",
-   "south": -4.2,
-   "west": 101.8,
-   "north": -4.1,
-   "east": 101.9,
-   "years": {
-    "2022": {
-     "modis": 0.0,
-     "viirs": 344.83,
-     "n_days": 6
-    },
-    "2019": {
-     "modis": 0.0,
-     "viirs": 318.46,
+     "viirs": 489.93,
      "n_days": 7
     },
-    "2018": {
+    "2022": {
      "modis": 0.0,
-     "viirs": 224.6,
-     "n_days": 4
-    },
-    "2026": {
-     "modis": 0.0,
-     "viirs": 76.64,
-     "n_days": 1
-    },
-    "2021": {
-     "modis": 0.0,
-     "viirs": 99.84,
-     "n_days": 3
-    },
-    "2025": {
-     "modis": 0.0,
-     "viirs": 39.61,
-     "n_days": 2
-    },
-    "2024": {
-     "modis": 0.0,
-     "viirs": 36.82,
-     "n_days": 2
-    },
-    "2020": {
-     "modis": 0.0,
-     "viirs": 16.07,
-     "n_days": 1
-    }
-   },
-   "n_days": 26,
-   "total_modis": 0.0,
-   "total_viirs": 1156.87
-  },
-  {
-   "cell_id": "R-0042C01019",
-   "south": -4.2,
-   "west": 101.9,
-   "north": -4.1,
-   "east": 102.0,
-   "years": {
-    "2024": {
-     "modis": 0.0,
-     "viirs": 307.91,
-     "n_days": 2
-    },
-    "2025": {
-     "modis": 0.0,
-     "viirs": 145.98,
-     "n_days": 2
-    },
-    "2018": {
-     "modis": 0.0,
-     "viirs": 102.2,
-     "n_days": 3
-    },
-    "2019": {
-     "modis": 0.0,
-     "viirs": 177.84,
+     "viirs": 548.67,
      "n_days": 6
     },
-    "2021": {
-     "modis": 0.0,
-     "viirs": 21.93,
-     "n_days": 1
-    },
-    "2023": {
-     "modis": 0.0,
-     "viirs": 34.9,
-     "n_days": 2
-    },
-    "2020": {
-     "modis": 0.0,
-     "viirs": 33.29,
-     "n_days": 2
-    },
-    "2022": {
-     "modis": 0.0,
-     "viirs": 14.72,
-     "n_days": 1
-    }
-   },
-   "n_days": 19,
-   "total_modis": 0.0,
-   "total_viirs": 838.77
-  },
-  {
-   "cell_id": "R-0042C01020",
-   "south": -4.2,
-   "west": 102.0,
-   "north": -4.1,
-   "east": 102.1,
-   "years": {
-    "2025": {
-     "modis": 0.0,
-     "viirs": 285.96,
-     "n_days": 3
-    },
-    "2026": {
-     "modis": 0.0,
-     "viirs": 144.66,
-     "n_days": 2
-    },
-    "2023": {
-     "modis": 0.0,
-     "viirs": 63.76,
-     "n_days": 1
-    },
-    "2022": {
-     "modis": 0.0,
-     "viirs": 59.85,
-     "n_days": 1
-    },
-    "2020": {
-     "modis": 0.0,
-     "viirs": 53.15,
-     "n_days": 2
-    },
-    "2021": {
-     "modis": 0.0,
-     "viirs": 18.57,
-     "n_days": 1
-    },
-    "2019": {
-     "modis": 0.0,
-     "viirs": 14.64,
-     "n_days": 1
-    }
-   },
-   "n_days": 11,
-   "total_modis": 0.0,
-   "total_viirs": 640.59
-  },
-  {
-   "cell_id": "R-0042C01021",
-   "south": -4.2,
-   "west": 102.1,
-   "north": -4.1,
-   "east": 102.2,
-   "years": {
-    "2022": {
-     "modis": 0.0,
-     "viirs": 403.13,
-     "n_days": 1
-    },
     "2024": {
      "modis": 0.0,
-     "viirs": 95.68,
-     "n_days": 2
-    },
-    "2019": {
-     "modis": 0.0,
-     "viirs": 89.51,
-     "n_days": 2
+     "viirs": 552.29,
+     "n_days": 6
     },
     "2025": {
      "modis": 0.0,
-     "viirs": 95.77,
-     "n_days": 3
-    },
-    "2018": {
-     "modis": 0.0,
-     "viirs": 49.28,
-     "n_days": 2
-    },
-    "2023": {
-     "modis": 0.0,
-     "viirs": 14.68,
-     "n_days": 1
-    },
-    "2020": {
-     "modis": 0.0,
-     "viirs": 17.44,
-     "n_days": 1
+     "viirs": 287.08,
+     "n_days": 6
     },
     "2026": {
      "modis": 0.0,
-     "viirs": 15.33,
-     "n_days": 1
-    }
-   },
-   "n_days": 13,
-   "total_modis": 0.0,
-   "total_viirs": 780.82
-  },
-  {
-   "cell_id": "R-0042C01022",
-   "south": -4.2,
-   "west": 102.2,
-   "north": -4.1,
-   "east": 102.3,
-   "years": {
-    "2019": {
-     "modis": 0.0,
-     "viirs": 269.02,
-     "n_days": 3
-    },
-    "2023": {
-     "modis": 0.0,
-     "viirs": 104.72,
-     "n_days": 3
-    },
-    "2018": {
-     "modis": 0.0,
-     "viirs": 49.87,
-     "n_days": 1
-    },
-    "2022": {
-     "modis": 0.0,
-     "viirs": 117.82,
+     "viirs": 115.85,
      "n_days": 4
     },
-    "2026": {
-     "modis": 0.0,
-     "viirs": 43.63,
-     "n_days": 1
-    },
-    "2024": {
-     "modis": 0.0,
-     "viirs": 52.04,
-     "n_days": 2
-    },
     "2021": {
      "modis": 0.0,
-     "viirs": 56.01,
-     "n_days": 2
+     "viirs": 77.5,
+     "n_days": 3
     },
-    "2020": {
+    "2023": {
      "modis": 0.0,
-     "viirs": 41.04,
-     "n_days": 2
-    },
-    "2025": {
-     "modis": 0.0,
-     "viirs": 15.44,
-     "n_days": 1
-    }
-   },
-   "n_days": 19,
-   "total_modis": 0.0,
-   "total_viirs": 749.59
-  },
-  {
-   "cell_id": "R-0042C01023",
-   "south": -4.2,
-   "west": 102.3,
-   "north": -4.1,
-   "east": 102.4,
-   "years": {
-    "2022": {
-     "modis": 0.0,
-     "viirs": 479.53,
-     "n_days": 2
-    },
-    "2019": {
-     "modis": 0.0,
-     "viirs": 185.0,
+     "viirs": 110.58,
      "n_days": 5
     },
+    "2020": {
+     "modis": 0.0,
+     "viirs": 93.67,
+     "n_days": 5
+    }
+   },
+   "n_days": 47,
+   "total_modis": 0.0,
+   "total_viirs": 2733.74
+  },
+  {
+   "cell_id": "R-0043C01028",
+   "south": -4.3,
+   "west": 102.8,
+   "north": -4.2,
+   "east": 102.9,
+   "years": {
     "2025": {
      "modis": 0.0,
-     "viirs": 76.02,
+     "viirs": 164.08,
      "n_days": 1
-    },
-    "2026": {
-     "modis": 0.0,
-     "viirs": 90.18,
-     "n_days": 2
     },
     "2023": {
      "modis": 0.0,
-     "viirs": 47.47,
+     "viirs": 121.51,
      "n_days": 1
     },
     "2024": {
      "modis": 0.0,
-     "viirs": 80.4,
-     "n_days": 2
-    },
-    "2021": {
-     "modis": 0.0,
-     "viirs": 43.25,
-     "n_days": 1
-    },
-    "2018": {
-     "modis": 0.0,
-     "viirs": 52.88,
-     "n_days": 2
-    },
-    "2020": {
-     "modis": 0.0,
-     "viirs": 27.64,
-     "n_days": 2
-    }
-   },
-   "n_days": 18,
-   "total_modis": 0.0,
-   "total_viirs": 1082.37
-  },
-  {
-   "cell_id": "R-0042C01024",
-   "south": -4.2,
-   "west": 102.4,
-   "north": -4.1,
-   "east": 102.5,
-   "years": {
-    "2022": {
-     "modis": 0.0,
-     "viirs": 258.63,
-     "n_days": 2
-    },
-    "2023": {
-     "modis": 0.0,
-     "viirs": 272.84,
-     "n_days": 2
-    },
-    "2025": {
-     "modis": 0.0,
-     "viirs": 197.78,
+     "viirs": 109.34,
      "n_days": 3
     },
     "2019": {
      "modis": 0.0,
-     "viirs": 157.65,
-     "n_days": 4
+     "viirs": 66.16,
+     "n_days": 1
+    },
+    "2020": {
+     "modis": 0.0,
+     "viirs": 19.66,
+     "n_days": 1
+    }
+   },
+   "n_days": 7,
+   "total_modis": 0.0,
+   "total_viirs": 480.75
+  },
+  {
+   "cell_id": "R-0043C01029",
+   "south": -4.3,
+   "west": 102.9,
+   "north": -4.2,
+   "east": 103.0,
+   "years": {
+    "2019": {
+     "modis": 0.0,
+     "viirs": 66.68,
+     "n_days": 2
     },
     "2018": {
      "modis": 0.0,
-     "viirs": 230.2,
-     "n_days": 5
-    },
-    "2024": {
-     "modis": 0.0,
-     "viirs": 117.32,
-     "n_days": 3
-    },
-    "2026": {
-     "modis": 0.0,
-     "viirs": 67.06,
+     "viirs": 31.85,
      "n_days": 1
     },
     "2021": {
      "modis": 0.0,
-     "viirs": 31.94,
+     "viirs": 14.78,
      "n_days": 1
     }
    },
-   "n_days": 21,
+   "n_days": 4,
    "total_modis": 0.0,
-   "total_viirs": 1333.42
+   "total_viirs": 113.31
+  },
+  {
+   "cell_id": "R-0043C01030",
+   "south": -4.3,
+   "west": 103.0,
+   "north": -4.2,
+   "east": 103.1,
+   "years": {
+    "2019": {
+     "modis": 0.0,
+     "viirs": 20.63,
+     "n_days": 1
+    }
+   },
+   "n_days": 1,
+   "total_modis": 0.0,
+   "total_viirs": 20.63
   },
   {
    "cell_id": "R-0042C01025",
@@ -543,38 +237,33 @@
    "years": {
     "2023": {
      "modis": 0.0,
-     "viirs": 285.28,
-     "n_days": 5
-    },
-    "2024": {
-     "modis": 0.0,
-     "viirs": 79.63,
-     "n_days": 1
+     "viirs": 129.93,
+     "n_days": 3
     },
     "2022": {
      "modis": 0.0,
-     "viirs": 145.37,
-     "n_days": 3
+     "viirs": 39.29,
+     "n_days": 1
     },
-    "2018": {
+    "2021": {
      "modis": 0.0,
-     "viirs": 85.01,
-     "n_days": 3
+     "viirs": 21.93,
+     "n_days": 1
     },
     "2019": {
      "modis": 0.0,
-     "viirs": 56.37,
-     "n_days": 3
+     "viirs": 20.13,
+     "n_days": 1
     },
-    "2020": {
+    "2018": {
      "modis": 0.0,
-     "viirs": 24.47,
+     "viirs": 15.95,
      "n_days": 1
     }
    },
-   "n_days": 16,
+   "n_days": 7,
    "total_modis": 0.0,
-   "total_viirs": 676.13
+   "total_viirs": 227.23
   },
   {
    "cell_id": "R-0042C01026",
@@ -583,45 +272,55 @@
    "north": -4.1,
    "east": 102.7,
    "years": {
-    "2022": {
-     "modis": 0.0,
-     "viirs": 233.93,
-     "n_days": 1
-    },
-    "2025": {
-     "modis": 0.0,
-     "viirs": 156.5,
-     "n_days": 2
-    },
-    "2020": {
-     "modis": 0.0,
-     "viirs": 61.79,
-     "n_days": 2
-    },
     "2019": {
      "modis": 0.0,
-     "viirs": 47.17,
-     "n_days": 2
+     "viirs": 3442.54,
+     "n_days": 32
     },
     "2023": {
      "modis": 0.0,
-     "viirs": 29.58,
-     "n_days": 1
+     "viirs": 2497.02,
+     "n_days": 29
     },
-    "2018": {
+    "2022": {
      "modis": 0.0,
-     "viirs": 56.31,
-     "n_days": 3
+     "viirs": 2124.12,
+     "n_days": 22
+    },
+    "2025": {
+     "modis": 0.0,
+     "viirs": 1366.69,
+     "n_days": 20
     },
     "2024": {
      "modis": 0.0,
-     "viirs": 30.46,
-     "n_days": 2
+     "viirs": 1169.88,
+     "n_days": 26
+    },
+    "2026": {
+     "modis": 0.0,
+     "viirs": 603.07,
+     "n_days": 15
+    },
+    "2020": {
+     "modis": 0.0,
+     "viirs": 432.93,
+     "n_days": 17
+    },
+    "2018": {
+     "modis": 0.0,
+     "viirs": 790.38,
+     "n_days": 24
+    },
+    "2021": {
+     "modis": 0.0,
+     "viirs": 246.17,
+     "n_days": 10
     }
    },
-   "n_days": 13,
+   "n_days": 195,
    "total_modis": 0.0,
-   "total_viirs": 615.74
+   "total_viirs": 12672.8
   },
   {
    "cell_id": "R-0042C01027",
@@ -630,540 +329,129 @@
    "north": -4.1,
    "east": 102.8,
    "years": {
-    "2022": {
-     "modis": 0.0,
-     "viirs": 648.46,
-     "n_days": 2
-    },
     "2019": {
      "modis": 0.0,
-     "viirs": 538.27,
+     "viirs": 5044.72,
+     "n_days": 44
+    },
+    "2022": {
+     "modis": 0.0,
+     "viirs": 2930.38,
+     "n_days": 29
+    },
+    "2018": {
+     "modis": 0.0,
+     "viirs": 1657.57,
+     "n_days": 30
+    },
+    "2023": {
+     "modis": 0.0,
+     "viirs": 2545.1,
+     "n_days": 44
+    },
+    "2024": {
+     "modis": 0.0,
+     "viirs": 1675.81,
+     "n_days": 26
+    },
+    "2025": {
+     "modis": 0.0,
+     "viirs": 1038.65,
+     "n_days": 23
+    },
+    "2021": {
+     "modis": 0.0,
+     "viirs": 430.4,
+     "n_days": 16
+    },
+    "2020": {
+     "modis": 0.0,
+     "viirs": 524.41,
+     "n_days": 18
+    },
+    "2026": {
+     "modis": 0.0,
+     "viirs": 198.42,
      "n_days": 6
-    },
-    "2026": {
-     "modis": 0.0,
-     "viirs": 41.92,
-     "n_days": 1
-    },
-    "2025": {
-     "modis": 0.0,
-     "viirs": 116.67,
-     "n_days": 4
-    },
-    "2018": {
-     "modis": 0.0,
-     "viirs": 68.55,
-     "n_days": 2
-    },
-    "2024": {
-     "modis": 0.0,
-     "viirs": 61.2,
-     "n_days": 2
-    },
-    "2023": {
-     "modis": 0.0,
-     "viirs": 22.75,
-     "n_days": 1
-    },
-    "2021": {
-     "modis": 0.0,
-     "viirs": 22.58,
-     "n_days": 1
-    },
-    "2020": {
-     "modis": 0.0,
-     "viirs": 16.09,
-     "n_days": 1
     }
    },
-   "n_days": 20,
+   "n_days": 236,
    "total_modis": 0.0,
-   "total_viirs": 1536.49
+   "total_viirs": 16045.46
   },
   {
-   "cell_id": "R-0041C01015",
-   "south": -4.1,
-   "west": 101.5,
-   "north": -4.0,
-   "east": 101.6,
+   "cell_id": "R-0042C01028",
+   "south": -4.2,
+   "west": 102.8,
+   "north": -4.1,
+   "east": 102.9,
    "years": {
-    "2024": {
+    "2025": {
      "modis": 0.0,
-     "viirs": 584.15,
+     "viirs": 346.37,
      "n_days": 4
-    },
-    "2019": {
-     "modis": 0.0,
-     "viirs": 336.0,
-     "n_days": 8
     },
     "2023": {
      "modis": 0.0,
-     "viirs": 124.54,
-     "n_days": 3
-    },
-    "2025": {
-     "modis": 0.0,
-     "viirs": 108.35,
-     "n_days": 3
-    },
-    "2020": {
-     "modis": 0.0,
-     "viirs": 26.18,
-     "n_days": 1
-    },
-    "2018": {
-     "modis": 0.0,
-     "viirs": 20.6,
-     "n_days": 1
-    }
-   },
-   "n_days": 20,
-   "total_modis": 0.0,
-   "total_viirs": 1199.82
-  },
-  {
-   "cell_id": "R-0041C01016",
-   "south": -4.1,
-   "west": 101.6,
-   "north": -4.0,
-   "east": 101.7,
-   "years": {
-    "2023": {
-     "modis": 0.0,
-     "viirs": 449.51,
-     "n_days": 5
-    },
-    "2022": {
-     "modis": 0.0,
-     "viirs": 132.73,
-     "n_days": 4
-    },
-    "2025": {
-     "modis": 0.0,
-     "viirs": 74.09,
-     "n_days": 2
-    },
-    "2026": {
-     "modis": 0.0,
-     "viirs": 66.03,
-     "n_days": 2
-    },
-    "2020": {
-     "modis": 0.0,
-     "viirs": 36.89,
+     "viirs": 102.12,
      "n_days": 1
     },
     "2024": {
      "modis": 0.0,
-     "viirs": 60.79,
-     "n_days": 3
-    },
-    "2021": {
-     "modis": 0.0,
-     "viirs": 18.05,
-     "n_days": 1
-    },
-    "2019": {
-     "modis": 0.0,
-     "viirs": 17.59,
-     "n_days": 1
-    }
-   },
-   "n_days": 19,
-   "total_modis": 0.0,
-   "total_viirs": 855.68
-  },
-  {
-   "cell_id": "R-0041C01017",
-   "south": -4.1,
-   "west": 101.7,
-   "north": -4.0,
-   "east": 101.8,
-   "years": {
-    "2022": {
-     "modis": 0.0,
-     "viirs": 333.67,
-     "n_days": 2
-    },
-    "2025": {
-     "modis": 0.0,
-     "viirs": 195.87,
-     "n_days": 3
-    },
-    "2018": {
-     "modis": 0.0,
-     "viirs": 108.81,
-     "n_days": 2
-    },
-    "2023": {
-     "modis": 0.0,
-     "viirs": 61.0,
-     "n_days": 1
-    },
-    "2019": {
-     "modis": 0.0,
-     "viirs": 69.65,
-     "n_days": 2
-    },
-    "2021": {
-     "modis": 0.0,
-     "viirs": 31.93,
-     "n_days": 1
-    },
-    "2020": {
-     "modis": 0.0,
-     "viirs": 21.95,
-     "n_days": 1
-    },
-    "2024": {
-     "modis": 0.0,
-     "viirs": 16.9,
-     "n_days": 1
-    }
-   },
-   "n_days": 13,
-   "total_modis": 0.0,
-   "total_viirs": 839.78
-  },
-  {
-   "cell_id": "R-0041C01018",
-   "south": -4.1,
-   "west": 101.8,
-   "north": -4.0,
-   "east": 101.9,
-   "years": {
-    "2023": {
-     "modis": 0.0,
-     "viirs": 211.51,
-     "n_days": 4
-    },
-    "2019": {
-     "modis": 0.0,
-     "viirs": 310.68,
-     "n_days": 5
-    },
-    "2022": {
-     "modis": 0.0,
-     "viirs": 72.05,
-     "n_days": 1
-    },
-    "2026": {
-     "modis": 0.0,
-     "viirs": 70.88,
-     "n_days": 3
-    },
-    "2025": {
-     "modis": 0.0,
-     "viirs": 36.83,
-     "n_days": 1
-    },
-    "2021": {
-     "modis": 0.0,
-     "viirs": 32.86,
-     "n_days": 2
-    },
-    "2020": {
-     "modis": 0.0,
-     "viirs": 17.24,
-     "n_days": 1
-    },
-    "2018": {
-     "modis": 0.0,
-     "viirs": 13.56,
-     "n_days": 1
-    }
-   },
-   "n_days": 18,
-   "total_modis": 0.0,
-   "total_viirs": 765.61
-  },
-  {
-   "cell_id": "R-0041C01019",
-   "south": -4.1,
-   "west": 101.9,
-   "north": -4.0,
-   "east": 102.0,
-   "years": {
-    "2022": {
-     "modis": 0.0,
-     "viirs": 1027.62,
-     "n_days": 3
-    },
-    "2025": {
-     "modis": 0.0,
-     "viirs": 185.07,
-     "n_days": 2
-    },
-    "2023": {
-     "modis": 0.0,
-     "viirs": 88.92,
-     "n_days": 1
-    },
-    "2019": {
-     "modis": 0.0,
-     "viirs": 153.33,
-     "n_days": 4
-    },
-    "2020": {
-     "modis": 0.0,
-     "viirs": 22.6,
-     "n_days": 1
-    },
-    "2026": {
-     "modis": 0.0,
-     "viirs": 15.32,
-     "n_days": 1
-    }
-   },
-   "n_days": 12,
-   "total_modis": 0.0,
-   "total_viirs": 1492.86
-  },
-  {
-   "cell_id": "R-0041C01020",
-   "south": -4.1,
-   "west": 102.0,
-   "north": -4.0,
-   "east": 102.1,
-   "years": {
-    "2024": {
-     "modis": 0.0,
-     "viirs": 182.43,
-     "n_days": 3
-    },
-    "2022": {
-     "modis": 0.0,
-     "viirs": 90.92,
+     "viirs": 93.34,
      "n_days": 2
     },
     "2026": {
      "modis": 0.0,
-     "viirs": 63.01,
-     "n_days": 1
-    },
-    "2019": {
-     "modis": 0.0,
-     "viirs": 69.9,
-     "n_days": 2
+     "viirs": 152.49,
+     "n_days": 4
     },
     "2021": {
      "modis": 0.0,
-     "viirs": 44.55,
-     "n_days": 1
-    },
-    "2020": {
-     "modis": 0.0,
-     "viirs": 39.94,
-     "n_days": 2
-    },
-    "2018": {
-     "modis": 0.0,
-     "viirs": 20.98,
-     "n_days": 1
-    },
-    "2023": {
-     "modis": 0.0,
-     "viirs": 32.4,
-     "n_days": 2
-    },
-    "2025": {
-     "modis": 0.0,
-     "viirs": 17.0,
-     "n_days": 1
-    }
-   },
-   "n_days": 15,
-   "total_modis": 0.0,
-   "total_viirs": 561.13
-  },
-  {
-   "cell_id": "R-0041C01021",
-   "south": -4.1,
-   "west": 102.1,
-   "north": -4.0,
-   "east": 102.2,
-   "years": {
-    "2022": {
-     "modis": 0.0,
-     "viirs": 346.41,
-     "n_days": 3
-    },
-    "2023": {
-     "modis": 0.0,
-     "viirs": 261.62,
-     "n_days": 3
-    },
-    "2018": {
-     "modis": 0.0,
-     "viirs": 92.13,
+     "viirs": 90.36,
      "n_days": 4
     },
-    "2026": {
-     "modis": 0.0,
-     "viirs": 26.87,
-     "n_days": 1
-    },
     "2020": {
      "modis": 0.0,
-     "viirs": 35.52,
+     "viirs": 41.97,
+     "n_days": 2
+    },
+    "2018": {
+     "modis": 0.0,
+     "viirs": 32.93,
      "n_days": 2
     },
     "2019": {
      "modis": 0.0,
-     "viirs": 15.64,
-     "n_days": 1
-    }
-   },
-   "n_days": 14,
-   "total_modis": 0.0,
-   "total_viirs": 778.19
-  },
-  {
-   "cell_id": "R-0041C01022",
-   "south": -4.1,
-   "west": 102.2,
-   "north": -4.0,
-   "east": 102.3,
-   "years": {
-    "2024": {
-     "modis": 0.0,
-     "viirs": 424.28,
-     "n_days": 3
-    },
-    "2021": {
-     "modis": 0.0,
-     "viirs": 103.58,
+     "viirs": 33.54,
      "n_days": 2
-    },
-    "2025": {
-     "modis": 0.0,
-     "viirs": 75.26,
-     "n_days": 2
-    },
-    "2023": {
-     "modis": 0.0,
-     "viirs": 151.84,
-     "n_days": 4
-    },
-    "2018": {
-     "modis": 0.0,
-     "viirs": 33.76,
-     "n_days": 1
-    },
-    "2020": {
-     "modis": 0.0,
-     "viirs": 31.96,
-     "n_days": 1
-    },
-    "2019": {
-     "modis": 0.0,
-     "viirs": 31.04,
-     "n_days": 2
-    },
-    "2022": {
-     "modis": 0.0,
-     "viirs": 15.17,
-     "n_days": 1
-    }
-   },
-   "n_days": 16,
-   "total_modis": 0.0,
-   "total_viirs": 866.89
-  },
-  {
-   "cell_id": "R-0041C01023",
-   "south": -4.1,
-   "west": 102.3,
-   "north": -4.0,
-   "east": 102.4,
-   "years": {
-    "2023": {
-     "modis": 0.0,
-     "viirs": 622.36,
-     "n_days": 7
-    },
-    "2019": {
-     "modis": 0.0,
-     "viirs": 102.89,
-     "n_days": 2
-    },
-    "2021": {
-     "modis": 0.0,
-     "viirs": 91.07,
-     "n_days": 2
-    },
-    "2018": {
-     "modis": 0.0,
-     "viirs": 49.24,
-     "n_days": 1
-    },
-    "2026": {
-     "modis": 0.0,
-     "viirs": 70.23,
-     "n_days": 3
-    },
-    "2020": {
-     "modis": 0.0,
-     "viirs": 24.89,
-     "n_days": 1
-    }
-   },
-   "n_days": 16,
-   "total_modis": 0.0,
-   "total_viirs": 960.68
-  },
-  {
-   "cell_id": "R-0041C01024",
-   "south": -4.1,
-   "west": 102.4,
-   "north": -4.0,
-   "east": 102.5,
-   "years": {
-    "2022": {
-     "modis": 0.0,
-     "viirs": 435.43,
-     "n_days": 2
-    },
-    "2025": {
-     "modis": 0.0,
-     "viirs": 182.15,
-     "n_days": 4
-    },
-    "2024": {
-     "modis": 0.0,
-     "viirs": 109.89,
-     "n_days": 2
-    },
-    "2023": {
-     "modis": 0.0,
-     "viirs": 102.5,
-     "n_days": 3
-    },
-    "2019": {
-     "modis": 0.0,
-     "viirs": 128.31,
-     "n_days": 4
-    },
-    "2018": {
-     "modis": 0.0,
-     "viirs": 60.92,
-     "n_days": 3
-    },
-    "2020": {
-     "modis": 0.0,
-     "viirs": 46.53,
-     "n_days": 2
-    },
-    "2026": {
-     "modis": 0.0,
-     "viirs": 15.32,
-     "n_days": 1
     }
    },
    "n_days": 21,
    "total_modis": 0.0,
-   "total_viirs": 1081.05
+   "total_viirs": 893.12
+  },
+  {
+   "cell_id": "R-0042C01029",
+   "south": -4.2,
+   "west": 102.9,
+   "north": -4.1,
+   "east": 103.0,
+   "years": {
+    "2023": {
+     "modis": 0.0,
+     "viirs": 21.02,
+     "n_days": 1
+    },
+    "2024": {
+     "modis": 0.0,
+     "viirs": 21.01,
+     "n_days": 1
+    }
+   },
+   "n_days": 2,
+   "total_modis": 0.0,
+   "total_viirs": 42.03
   },
   {
    "cell_id": "R-0041C01025",
@@ -1172,40 +460,40 @@
    "north": -4.0,
    "east": 102.6,
    "years": {
+    "2025": {
+     "modis": 0.0,
+     "viirs": 79.03,
+     "n_days": 1
+    },
     "2023": {
      "modis": 0.0,
-     "viirs": 434.67,
-     "n_days": 3
+     "viirs": 60.09,
+     "n_days": 2
     },
-    "2022": {
+    "2021": {
      "modis": 0.0,
-     "viirs": 457.57,
+     "viirs": 31.94,
+     "n_days": 1
+    },
+    "2024": {
+     "modis": 0.0,
+     "viirs": 30.07,
+     "n_days": 1
+    },
+    "2018": {
+     "modis": 0.0,
+     "viirs": 44.55,
      "n_days": 2
     },
     "2019": {
      "modis": 0.0,
-     "viirs": 217.63,
-     "n_days": 3
-    },
-    "2024": {
-     "modis": 0.0,
-     "viirs": 229.14,
-     "n_days": 4
-    },
-    "2025": {
-     "modis": 0.0,
-     "viirs": 34.62,
-     "n_days": 2
-    },
-    "2026": {
-     "modis": 0.0,
-     "viirs": 32.81,
-     "n_days": 2
+     "viirs": 18.62,
+     "n_days": 1
     }
    },
-   "n_days": 16,
+   "n_days": 8,
    "total_modis": 0.0,
-   "total_viirs": 1406.44
+   "total_viirs": 264.3
   },
   {
    "cell_id": "R-0041C01026",
@@ -1216,43 +504,53 @@
    "years": {
     "2019": {
      "modis": 0.0,
-     "viirs": 345.93,
-     "n_days": 5
-    },
-    "2023": {
-     "modis": 0.0,
-     "viirs": 115.23,
-     "n_days": 2
-    },
-    "2024": {
-     "modis": 0.0,
-     "viirs": 114.1,
-     "n_days": 3
-    },
-    "2025": {
-     "modis": 0.0,
-     "viirs": 280.08,
-     "n_days": 6
-    },
-    "2018": {
-     "modis": 0.0,
-     "viirs": 49.41,
-     "n_days": 2
+     "viirs": 852.52,
+     "n_days": 9
     },
     "2022": {
      "modis": 0.0,
-     "viirs": 30.31,
-     "n_days": 1
+     "viirs": 1089.68,
+     "n_days": 4
+    },
+    "2023": {
+     "modis": 0.0,
+     "viirs": 571.04,
+     "n_days": 12
+    },
+    "2018": {
+     "modis": 0.0,
+     "viirs": 292.92,
+     "n_days": 5
+    },
+    "2024": {
+     "modis": 0.0,
+     "viirs": 327.65,
+     "n_days": 4
+    },
+    "2025": {
+     "modis": 0.0,
+     "viirs": 415.56,
+     "n_days": 8
+    },
+    "2026": {
+     "modis": 0.0,
+     "viirs": 75.08,
+     "n_days": 3
+    },
+    "2020": {
+     "modis": 0.0,
+     "viirs": 91.32,
+     "n_days": 4
     },
     "2021": {
      "modis": 0.0,
-     "viirs": 14.78,
-     "n_days": 1
+     "viirs": 34.7,
+     "n_days": 2
     }
    },
-   "n_days": 20,
+   "n_days": 51,
    "total_modis": 0.0,
-   "total_viirs": 949.84
+   "total_viirs": 3750.47
   },
   {
    "cell_id": "R-0041C01027",
@@ -1261,493 +559,107 @@
    "north": -4.0,
    "east": 102.8,
    "years": {
+    "2018": {
+     "modis": 0.0,
+     "viirs": 765.59,
+     "n_days": 7
+    },
     "2022": {
      "modis": 0.0,
-     "viirs": 408.29,
-     "n_days": 3
-    },
-    "2019": {
-     "modis": 0.0,
-     "viirs": 66.59,
-     "n_days": 2
+     "viirs": 501.74,
+     "n_days": 6
     },
     "2023": {
      "modis": 0.0,
-     "viirs": 60.42,
-     "n_days": 3
+     "viirs": 348.93,
+     "n_days": 6
     },
-    "2024": {
+    "2019": {
      "modis": 0.0,
-     "viirs": 52.76,
-     "n_days": 2
-    },
-    "2020": {
-     "modis": 0.0,
-     "viirs": 24.47,
-     "n_days": 1
-    },
-    "2018": {
-     "modis": 0.0,
-     "viirs": 40.76,
-     "n_days": 2
-    },
-    "2021": {
-     "modis": 0.0,
-     "viirs": 17.02,
-     "n_days": 1
-    }
-   },
-   "n_days": 14,
-   "total_modis": 0.0,
-   "total_viirs": 670.31
-  },
-  {
-   "cell_id": "R-0040C01015",
-   "south": -4.0,
-   "west": 101.5,
-   "north": -3.9,
-   "east": 101.6,
-   "years": {
-    "2024": {
-     "modis": 0.0,
-     "viirs": 265.32,
-     "n_days": 3
-    },
-    "2018": {
-     "modis": 0.0,
-     "viirs": 131.4,
-     "n_days": 2
-    },
-    "2025": {
-     "modis": 0.0,
-     "viirs": 132.51,
-     "n_days": 2
+     "viirs": 315.35,
+     "n_days": 6
     },
     "2026": {
      "modis": 0.0,
-     "viirs": 25.65,
-     "n_days": 1
+     "viirs": 92.48,
+     "n_days": 2
     },
     "2020": {
      "modis": 0.0,
-     "viirs": 52.79,
-     "n_days": 3
+     "viirs": 169.79,
+     "n_days": 6
     },
-    "2023": {
+    "2021": {
      "modis": 0.0,
-     "viirs": 21.36,
-     "n_days": 1
-    },
-    "2019": {
-     "modis": 0.0,
-     "viirs": 16.06,
-     "n_days": 1
-    }
-   },
-   "n_days": 13,
-   "total_modis": 0.0,
-   "total_viirs": 645.09
-  },
-  {
-   "cell_id": "R-0040C01016",
-   "south": -4.0,
-   "west": 101.6,
-   "north": -3.9,
-   "east": 101.7,
-   "years": {
-    "2019": {
-     "modis": 0.0,
-     "viirs": 380.18,
+     "viirs": 74.74,
      "n_days": 2
     },
-    "2023": {
+    "2024": {
      "modis": 0.0,
-     "viirs": 103.0,
-     "n_days": 1
+     "viirs": 47.71,
+     "n_days": 2
     },
     "2025": {
      "modis": 0.0,
-     "viirs": 99.91,
-     "n_days": 3
-    },
-    "2024": {
-     "modis": 0.0,
-     "viirs": 45.36,
-     "n_days": 1
-    },
-    "2018": {
-     "modis": 0.0,
-     "viirs": 44.08,
-     "n_days": 1
-    },
-    "2021": {
-     "modis": 0.0,
-     "viirs": 54.47,
-     "n_days": 2
-    },
-    "2020": {
-     "modis": 0.0,
-     "viirs": 24.9,
-     "n_days": 1
-    },
-    "2022": {
-     "modis": 0.0,
-     "viirs": 15.63,
-     "n_days": 1
+     "viirs": 117.77,
+     "n_days": 5
     }
    },
-   "n_days": 12,
+   "n_days": 42,
    "total_modis": 0.0,
-   "total_viirs": 767.53
+   "total_viirs": 2434.1
   },
   {
-   "cell_id": "R-0040C01017",
-   "south": -4.0,
-   "west": 101.7,
-   "north": -3.9,
-   "east": 101.8,
+   "cell_id": "R-0041C01028",
+   "south": -4.1,
+   "west": 102.8,
+   "north": -4.0,
+   "east": 102.9,
    "years": {
-    "2024": {
-     "modis": 0.0,
-     "viirs": 172.85,
-     "n_days": 1
-    },
-    "2025": {
-     "modis": 0.0,
-     "viirs": 412.82,
-     "n_days": 4
-    },
-    "2018": {
-     "modis": 0.0,
-     "viirs": 106.18,
-     "n_days": 2
-    },
-    "2020": {
-     "modis": 0.0,
-     "viirs": 74.45,
-     "n_days": 2
-    },
     "2022": {
      "modis": 0.0,
-     "viirs": 48.53,
+     "viirs": 200.24,
      "n_days": 1
     },
     "2023": {
      "modis": 0.0,
-     "viirs": 93.12,
-     "n_days": 4
-    },
-    "2019": {
-     "modis": 0.0,
-     "viirs": 82.64,
-     "n_days": 3
-    },
-    "2021": {
-     "modis": 0.0,
-     "viirs": 51.48,
-     "n_days": 3
-    }
-   },
-   "n_days": 20,
-   "total_modis": 0.0,
-   "total_viirs": 1042.07
-  },
-  {
-   "cell_id": "R-0040C01018",
-   "south": -4.0,
-   "west": 101.8,
-   "north": -3.9,
-   "east": 101.9,
-   "years": {
-    "2019": {
-     "modis": 0.0,
-     "viirs": 490.37,
-     "n_days": 3
-    },
-    "2023": {
-     "modis": 0.0,
-     "viirs": 322.83,
-     "n_days": 4
-    },
-    "2025": {
-     "modis": 0.0,
-     "viirs": 148.41,
-     "n_days": 3
-    },
-    "2021": {
-     "modis": 0.0,
-     "viirs": 85.16,
-     "n_days": 2
-    },
-    "2018": {
-     "modis": 0.0,
-     "viirs": 47.14,
-     "n_days": 1
-    },
-    "2024": {
-     "modis": 0.0,
-     "viirs": 25.87,
-     "n_days": 1
-    },
-    "2026": {
-     "modis": 0.0,
-     "viirs": 47.07,
-     "n_days": 2
-    },
-    "2020": {
-     "modis": 0.0,
-     "viirs": 39.72,
-     "n_days": 2
-    },
-    "2022": {
-     "modis": 0.0,
-     "viirs": 16.65,
-     "n_days": 1
-    }
-   },
-   "n_days": 19,
-   "total_modis": 0.0,
-   "total_viirs": 1223.22
-  },
-  {
-   "cell_id": "R-0040C01019",
-   "south": -4.0,
-   "west": 101.9,
-   "north": -3.9,
-   "east": 102.0,
-   "years": {
-    "2023": {
-     "modis": 0.0,
-     "viirs": 331.35,
-     "n_days": 4
-    },
-    "2024": {
-     "modis": 0.0,
-     "viirs": 76.9,
-     "n_days": 1
-    },
-    "2021": {
-     "modis": 0.0,
-     "viirs": 84.5,
-     "n_days": 2
-    },
-    "2020": {
-     "modis": 0.0,
-     "viirs": 77.44,
-     "n_days": 2
-    },
-    "2019": {
-     "modis": 0.0,
-     "viirs": 31.82,
-     "n_days": 1
-    },
-    "2025": {
-     "modis": 0.0,
-     "viirs": 28.52,
-     "n_days": 1
-    },
-    "2022": {
-     "modis": 0.0,
-     "viirs": 14.02,
-     "n_days": 1
-    }
-   },
-   "n_days": 12,
-   "total_modis": 0.0,
-   "total_viirs": 644.55
-  },
-  {
-   "cell_id": "R-0040C01020",
-   "south": -4.0,
-   "west": 102.0,
-   "north": -3.9,
-   "east": 102.1,
-   "years": {
-    "2019": {
-     "modis": 0.0,
-     "viirs": 845.25,
-     "n_days": 4
-    },
-    "2024": {
-     "modis": 0.0,
-     "viirs": 165.65,
-     "n_days": 3
-    },
-    "2023": {
-     "modis": 0.0,
-     "viirs": 140.69,
-     "n_days": 3
-    },
-    "2022": {
-     "modis": 0.0,
-     "viirs": 92.03,
-     "n_days": 2
-    },
-    "2018": {
-     "modis": 0.0,
-     "viirs": 128.74,
-     "n_days": 4
-    },
-    "2021": {
-     "modis": 0.0,
-     "viirs": 60.72,
-     "n_days": 2
-    },
-    "2020": {
-     "modis": 0.0,
-     "viirs": 17.36,
-     "n_days": 1
-    }
-   },
-   "n_days": 19,
-   "total_modis": 0.0,
-   "total_viirs": 1450.44
-  },
-  {
-   "cell_id": "R-0040C01021",
-   "south": -4.0,
-   "west": 102.1,
-   "north": -3.9,
-   "east": 102.2,
-   "years": {
-    "2022": {
-     "modis": 0.0,
-     "viirs": 444.75,
-     "n_days": 1
-    },
-    "2018": {
-     "modis": 0.0,
-     "viirs": 138.32,
-     "n_days": 2
-    },
-    "2019": {
-     "modis": 0.0,
-     "viirs": 170.2,
+     "viirs": 264.03,
      "n_days": 5
     },
-    "2023": {
+    "2019": {
      "modis": 0.0,
-     "viirs": 92.01,
-     "n_days": 3
+     "viirs": 318.32,
+     "n_days": 4
     },
     "2025": {
      "modis": 0.0,
-     "viirs": 55.45,
+     "viirs": 137.32,
      "n_days": 2
     },
     "2026": {
      "modis": 0.0,
-     "viirs": 25.65,
-     "n_days": 1
-    },
-    "2021": {
-     "modis": 0.0,
-     "viirs": 15.36,
-     "n_days": 1
-    }
-   },
-   "n_days": 15,
-   "total_modis": 0.0,
-   "total_viirs": 941.74
-  },
-  {
-   "cell_id": "R-0040C01022",
-   "south": -4.0,
-   "west": 102.2,
-   "north": -3.9,
-   "east": 102.3,
-   "years": {
-    "2022": {
-     "modis": 0.0,
-     "viirs": 146.21,
+     "viirs": 43.33,
      "n_days": 1
     },
     "2024": {
      "modis": 0.0,
-     "viirs": 114.37,
-     "n_days": 3
-    },
-    "2019": {
-     "modis": 0.0,
-     "viirs": 125.77,
-     "n_days": 3
-    },
-    "2026": {
-     "modis": 0.0,
-     "viirs": 53.53,
-     "n_days": 2
-    },
-    "2021": {
-     "modis": 0.0,
-     "viirs": 35.33,
-     "n_days": 1
-    },
-    "2025": {
-     "modis": 0.0,
-     "viirs": 32.51,
+     "viirs": 37.62,
      "n_days": 1
     },
     "2018": {
      "modis": 0.0,
-     "viirs": 14.81,
+     "viirs": 21.54,
      "n_days": 1
-    },
-    "2023": {
-     "modis": 0.0,
-     "viirs": 30.18,
-     "n_days": 2
-    }
-   },
-   "n_days": 14,
-   "total_modis": 0.0,
-   "total_viirs": 552.71
-  },
-  {
-   "cell_id": "R-0040C01023",
-   "south": -4.0,
-   "west": 102.3,
-   "north": -3.9,
-   "east": 102.4,
-   "years": {
-    "2019": {
-     "modis": 0.0,
-     "viirs": 397.31,
-     "n_days": 5
-    },
-    "2023": {
-     "modis": 0.0,
-     "viirs": 204.68,
-     "n_days": 4
     },
     "2021": {
      "modis": 0.0,
-     "viirs": 127.73,
+     "viirs": 33.58,
      "n_days": 2
-    },
-    "2026": {
-     "modis": 0.0,
-     "viirs": 92.46,
-     "n_days": 2
-    },
-    "2020": {
-     "modis": 0.0,
-     "viirs": 77.28,
-     "n_days": 2
-    },
-    "2025": {
-     "modis": 0.0,
-     "viirs": 83.09,
-     "n_days": 2
-    },
-    "2022": {
-     "modis": 0.0,
-     "viirs": 53.87,
-     "n_days": 1
     }
    },
-   "n_days": 18,
+   "n_days": 17,
    "total_modis": 0.0,
-   "total_viirs": 1036.42
+   "total_viirs": 1055.98
   },
   {
    "cell_id": "R-0040C01024",
@@ -1756,55 +668,15 @@
    "north": -3.9,
    "east": 102.5,
    "years": {
-    "2023": {
-     "modis": 0.0,
-     "viirs": 346.24,
-     "n_days": 4
-    },
-    "2025": {
-     "modis": 0.0,
-     "viirs": 115.83,
-     "n_days": 3
-    },
-    "2019": {
-     "modis": 0.0,
-     "viirs": 122.74,
-     "n_days": 2
-    },
-    "2024": {
-     "modis": 0.0,
-     "viirs": 102.17,
-     "n_days": 4
-    },
-    "2021": {
-     "modis": 0.0,
-     "viirs": 165.28,
-     "n_days": 6
-    },
-    "2022": {
-     "modis": 0.0,
-     "viirs": 39.29,
-     "n_days": 1
-    },
-    "2026": {
-     "modis": 0.0,
-     "viirs": 22.43,
-     "n_days": 1
-    },
-    "2020": {
-     "modis": 0.0,
-     "viirs": 32.7,
-     "n_days": 2
-    },
     "2018": {
      "modis": 0.0,
-     "viirs": 16.67,
+     "viirs": 14.83,
      "n_days": 1
     }
    },
-   "n_days": 24,
+   "n_days": 1,
    "total_modis": 0.0,
-   "total_viirs": 963.35
+   "total_viirs": 14.83
   },
   {
    "cell_id": "R-0040C01025",
@@ -1815,38 +687,13 @@
    "years": {
     "2023": {
      "modis": 0.0,
-     "viirs": 418.09,
-     "n_days": 4
-    },
-    "2020": {
-     "modis": 0.0,
-     "viirs": 59.62,
-     "n_days": 1
-    },
-    "2018": {
-     "modis": 0.0,
-     "viirs": 146.36,
-     "n_days": 4
-    },
-    "2022": {
-     "modis": 0.0,
-     "viirs": 72.32,
-     "n_days": 3
-    },
-    "2026": {
-     "modis": 0.0,
-     "viirs": 33.53,
-     "n_days": 1
-    },
-    "2025": {
-     "modis": 0.0,
-     "viirs": 51.51,
+     "viirs": 287.28,
      "n_days": 2
     }
    },
-   "n_days": 15,
+   "n_days": 2,
    "total_modis": 0.0,
-   "total_viirs": 781.43
+   "total_viirs": 287.28
   },
   {
    "cell_id": "R-0040C01026",
@@ -1855,45 +702,30 @@
    "north": -3.9,
    "east": 102.7,
    "years": {
-    "2019": {
+    "2026": {
      "modis": 0.0,
-     "viirs": 310.34,
-     "n_days": 2
+     "viirs": 76.64,
+     "n_days": 1
     },
     "2023": {
      "modis": 0.0,
-     "viirs": 506.05,
-     "n_days": 5
-    },
-    "2022": {
-     "modis": 0.0,
-     "viirs": 141.46,
-     "n_days": 1
+     "viirs": 69.14,
+     "n_days": 3
     },
     "2020": {
      "modis": 0.0,
-     "viirs": 80.26,
-     "n_days": 2
-    },
-    "2021": {
-     "modis": 0.0,
-     "viirs": 83.01,
-     "n_days": 3
+     "viirs": 31.96,
+     "n_days": 1
     },
     "2025": {
      "modis": 0.0,
-     "viirs": 36.83,
+     "viirs": 16.63,
      "n_days": 1
-    },
-    "2024": {
-     "modis": 0.0,
-     "viirs": 49.27,
-     "n_days": 2
     }
    },
-   "n_days": 16,
+   "n_days": 6,
    "total_modis": 0.0,
-   "total_viirs": 1207.22
+   "total_viirs": 194.37
   },
   {
    "cell_id": "R-0040C01027",
@@ -1904,600 +736,72 @@
    "years": {
     "2022": {
      "modis": 0.0,
-     "viirs": 2545.2,
+     "viirs": 70.52,
      "n_days": 2
-    },
-    "2023": {
-     "modis": 0.0,
-     "viirs": 228.8,
-     "n_days": 3
-    },
-    "2019": {
-     "modis": 0.0,
-     "viirs": 124.42,
-     "n_days": 1
     },
     "2024": {
      "modis": 0.0,
-     "viirs": 77.49,
-     "n_days": 2
-    },
-    "2025": {
-     "modis": 0.0,
-     "viirs": 53.92,
-     "n_days": 2
-    },
-    "2018": {
-     "modis": 0.0,
-     "viirs": 93.14,
-     "n_days": 4
+     "viirs": 34.71,
+     "n_days": 1
     },
     "2020": {
      "modis": 0.0,
-     "viirs": 26.18,
+     "viirs": 21.42,
      "n_days": 1
     },
     "2026": {
      "modis": 0.0,
-     "viirs": 15.05,
+     "viirs": 16.29,
      "n_days": 1
     }
    },
-   "n_days": 16,
+   "n_days": 5,
    "total_modis": 0.0,
-   "total_viirs": 3164.2
+   "total_viirs": 142.94
   },
   {
-   "cell_id": "R-0039C01015",
-   "south": -3.9,
-   "west": 101.5,
-   "north": -3.8,
-   "east": 101.6,
+   "cell_id": "R-0040C01028",
+   "south": -4.0,
+   "west": 102.8,
+   "north": -3.9,
+   "east": 102.9,
    "years": {
-    "2023": {
-     "modis": 0.0,
-     "viirs": 165.3,
-     "n_days": 2
-    },
-    "2019": {
-     "modis": 0.0,
-     "viirs": 75.06,
-     "n_days": 3
-    },
     "2024": {
      "modis": 0.0,
-     "viirs": 22.96,
-     "n_days": 1
-    },
-    "2022": {
-     "modis": 0.0,
-     "viirs": 34.2,
-     "n_days": 2
-    },
-    "2020": {
-     "modis": 0.0,
-     "viirs": 15.21,
-     "n_days": 1
-    },
-    "2018": {
-     "modis": 0.0,
-     "viirs": 14.63,
+     "viirs": 172.85,
      "n_days": 1
     },
     "2025": {
      "modis": 0.0,
-     "viirs": 16.01,
-     "n_days": 1
-    }
-   },
-   "n_days": 11,
-   "total_modis": 0.0,
-   "total_viirs": 343.37
-  },
-  {
-   "cell_id": "R-0039C01016",
-   "south": -3.9,
-   "west": 101.6,
-   "north": -3.8,
-   "east": 101.7,
-   "years": {
-    "2022": {
-     "modis": 0.0,
-     "viirs": 577.59,
-     "n_days": 2
-    },
-    "2025": {
-     "modis": 0.0,
-     "viirs": 384.13,
-     "n_days": 5
-    },
-    "2023": {
-     "modis": 0.0,
-     "viirs": 239.66,
-     "n_days": 6
-    },
-    "2021": {
-     "modis": 0.0,
-     "viirs": 191.0,
-     "n_days": 5
-    },
-    "2024": {
-     "modis": 0.0,
-     "viirs": 97.89,
-     "n_days": 2
-    },
-    "2018": {
-     "modis": 0.0,
-     "viirs": 74.27,
-     "n_days": 2
-    },
-    "2026": {
-     "modis": 0.0,
-     "viirs": 58.96,
-     "n_days": 2
-    },
-    "2019": {
-     "modis": 0.0,
-     "viirs": 15.11,
-     "n_days": 1
-    }
-   },
-   "n_days": 25,
-   "total_modis": 0.0,
-   "total_viirs": 1638.61
-  },
-  {
-   "cell_id": "R-0039C01017",
-   "south": -3.9,
-   "west": 101.7,
-   "north": -3.8,
-   "east": 101.8,
-   "years": {
-    "2022": {
-     "modis": 0.0,
-     "viirs": 245.85,
-     "n_days": 5
-    },
-    "2018": {
-     "modis": 0.0,
-     "viirs": 89.22,
-     "n_days": 2
-    },
-    "2023": {
-     "modis": 0.0,
-     "viirs": 100.27,
-     "n_days": 4
-    },
-    "2019": {
-     "modis": 0.0,
-     "viirs": 62.99,
-     "n_days": 3
-    },
-    "2021": {
-     "modis": 0.0,
-     "viirs": 45.72,
-     "n_days": 2
-    },
-    "2024": {
-     "modis": 0.0,
-     "viirs": 45.21,
-     "n_days": 2
-    },
-    "2025": {
-     "modis": 0.0,
-     "viirs": 21.2,
-     "n_days": 1
-    },
-    "2026": {
-     "modis": 0.0,
-     "viirs": 17.9,
+     "viirs": 58.52,
      "n_days": 1
     },
     "2020": {
      "modis": 0.0,
-     "viirs": 15.54,
+     "viirs": 50.51,
      "n_days": 1
     }
    },
-   "n_days": 21,
+   "n_days": 3,
    "total_modis": 0.0,
-   "total_viirs": 643.9
+   "total_viirs": 281.88
   },
   {
-   "cell_id": "R-0039C01018",
-   "south": -3.9,
-   "west": 101.8,
-   "north": -3.8,
-   "east": 101.9,
+   "cell_id": "R-0040C01029",
+   "south": -4.0,
+   "west": 102.9,
+   "north": -3.9,
+   "east": 103.0,
    "years": {
-    "2022": {
-     "modis": 0.0,
-     "viirs": 302.18,
-     "n_days": 3
-    },
     "2023": {
      "modis": 0.0,
-     "viirs": 124.2,
-     "n_days": 2
-    },
-    "2019": {
-     "modis": 0.0,
-     "viirs": 75.07,
-     "n_days": 1
-    },
-    "2024": {
-     "modis": 0.0,
-     "viirs": 37.9,
-     "n_days": 1
-    },
-    "2020": {
-     "modis": 0.0,
-     "viirs": 76.81,
-     "n_days": 3
-    },
-    "2021": {
-     "modis": 0.0,
-     "viirs": 25.08,
-     "n_days": 1
-    },
-    "2025": {
-     "modis": 0.0,
-     "viirs": 15.16,
-     "n_days": 1
-    },
-    "2018": {
-     "modis": 0.0,
-     "viirs": 13.56,
+     "viirs": 157.49,
      "n_days": 1
     }
    },
-   "n_days": 13,
+   "n_days": 1,
    "total_modis": 0.0,
-   "total_viirs": 669.96
-  },
-  {
-   "cell_id": "R-0039C01019",
-   "south": -3.9,
-   "west": 101.9,
-   "north": -3.8,
-   "east": 102.0,
-   "years": {
-    "2025": {
-     "modis": 0.0,
-     "viirs": 688.7,
-     "n_days": 5
-    },
-    "2024": {
-     "modis": 0.0,
-     "viirs": 171.07,
-     "n_days": 4
-    },
-    "2023": {
-     "modis": 0.0,
-     "viirs": 160.21,
-     "n_days": 4
-    },
-    "2026": {
-     "modis": 0.0,
-     "viirs": 123.47,
-     "n_days": 4
-    },
-    "2022": {
-     "modis": 0.0,
-     "viirs": 27.58,
-     "n_days": 1
-    },
-    "2021": {
-     "modis": 0.0,
-     "viirs": 27.13,
-     "n_days": 1
-    },
-    "2019": {
-     "modis": 0.0,
-     "viirs": 18.56,
-     "n_days": 1
-    }
-   },
-   "n_days": 20,
-   "total_modis": 0.0,
-   "total_viirs": 1216.72
-  },
-  {
-   "cell_id": "R-0039C01020",
-   "south": -3.9,
-   "west": 102.0,
-   "north": -3.8,
-   "east": 102.1,
-   "years": {
-    "2022": {
-     "modis": 0.0,
-     "viirs": 641.72,
-     "n_days": 3
-    },
-    "2018": {
-     "modis": 0.0,
-     "viirs": 236.09,
-     "n_days": 4
-    },
-    "2019": {
-     "modis": 0.0,
-     "viirs": 76.57,
-     "n_days": 2
-    },
-    "2023": {
-     "modis": 0.0,
-     "viirs": 84.25,
-     "n_days": 3
-    },
-    "2021": {
-     "modis": 0.0,
-     "viirs": 70.02,
-     "n_days": 3
-    },
-    "2025": {
-     "modis": 0.0,
-     "viirs": 25.76,
-     "n_days": 1
-    },
-    "2024": {
-     "modis": 0.0,
-     "viirs": 16.9,
-     "n_days": 1
-    }
-   },
-   "n_days": 17,
-   "total_modis": 0.0,
-   "total_viirs": 1151.31
-  },
-  {
-   "cell_id": "R-0039C01021",
-   "south": -3.9,
-   "west": 102.1,
-   "north": -3.8,
-   "east": 102.2,
-   "years": {
-    "2022": {
-     "modis": 0.0,
-     "viirs": 1282.71,
-     "n_days": 3
-    },
-    "2018": {
-     "modis": 0.0,
-     "viirs": 426.11,
-     "n_days": 5
-    },
-    "2019": {
-     "modis": 0.0,
-     "viirs": 346.71,
-     "n_days": 4
-    },
-    "2023": {
-     "modis": 0.0,
-     "viirs": 263.3,
-     "n_days": 4
-    },
-    "2025": {
-     "modis": 0.0,
-     "viirs": 230.95,
-     "n_days": 3
-    },
-    "2021": {
-     "modis": 0.0,
-     "viirs": 53.61,
-     "n_days": 2
-    },
-    "2020": {
-     "modis": 0.0,
-     "viirs": 17.77,
-     "n_days": 1
-    }
-   },
-   "n_days": 22,
-   "total_modis": 0.0,
-   "total_viirs": 2621.16
-  },
-  {
-   "cell_id": "R-0039C01022",
-   "south": -3.9,
-   "west": 102.2,
-   "north": -3.8,
-   "east": 102.3,
-   "years": {
-    "2022": {
-     "modis": 0.0,
-     "viirs": 273.42,
-     "n_days": 3
-    },
-    "2025": {
-     "modis": 0.0,
-     "viirs": 125.6,
-     "n_days": 1
-    },
-    "2026": {
-     "modis": 0.0,
-     "viirs": 135.97,
-     "n_days": 2
-    },
-    "2024": {
-     "modis": 0.0,
-     "viirs": 109.42,
-     "n_days": 2
-    },
-    "2019": {
-     "modis": 0.0,
-     "viirs": 125.37,
-     "n_days": 4
-    },
-    "2020": {
-     "modis": 0.0,
-     "viirs": 84.95,
-     "n_days": 2
-    },
-    "2023": {
-     "modis": 0.0,
-     "viirs": 19.26,
-     "n_days": 1
-    },
-    "2018": {
-     "modis": 0.0,
-     "viirs": 19.02,
-     "n_days": 1
-    }
-   },
-   "n_days": 16,
-   "total_modis": 0.0,
-   "total_viirs": 893.01
-  },
-  {
-   "cell_id": "R-0039C01023",
-   "south": -3.9,
-   "west": 102.3,
-   "north": -3.8,
-   "east": 102.4,
-   "years": {
-    "2024": {
-     "modis": 0.0,
-     "viirs": 305.72,
-     "n_days": 3
-    },
-    "2023": {
-     "modis": 0.0,
-     "viirs": 211.45,
-     "n_days": 2
-    },
-    "2022": {
-     "modis": 0.0,
-     "viirs": 54.1,
-     "n_days": 1
-    },
-    "2018": {
-     "modis": 0.0,
-     "viirs": 42.6,
-     "n_days": 1
-    },
-    "2026": {
-     "modis": 0.0,
-     "viirs": 41.92,
-     "n_days": 1
-    },
-    "2021": {
-     "modis": 0.0,
-     "viirs": 56.63,
-     "n_days": 2
-    },
-    "2025": {
-     "modis": 0.0,
-     "viirs": 54.54,
-     "n_days": 2
-    }
-   },
-   "n_days": 12,
-   "total_modis": 0.0,
-   "total_viirs": 766.96
-  },
-  {
-   "cell_id": "R-0039C01024",
-   "south": -3.9,
-   "west": 102.4,
-   "north": -3.8,
-   "east": 102.5,
-   "years": {
-    "2019": {
-     "modis": 0.0,
-     "viirs": 153.47,
-     "n_days": 2
-    },
-    "2023": {
-     "modis": 0.0,
-     "viirs": 157.77,
-     "n_days": 3
-    },
-    "2024": {
-     "modis": 0.0,
-     "viirs": 108.32,
-     "n_days": 4
-    },
-    "2021": {
-     "modis": 0.0,
-     "viirs": 90.09,
-     "n_days": 4
-    },
-    "2020": {
-     "modis": 0.0,
-     "viirs": 25.1,
-     "n_days": 1
-    },
-    "2018": {
-     "modis": 0.0,
-     "viirs": 20.02,
-     "n_days": 1
-    },
-    "2025": {
-     "modis": 0.0,
-     "viirs": 16.74,
-     "n_days": 1
-    },
-    "2022": {
-     "modis": 0.0,
-     "viirs": 14.68,
-     "n_days": 1
-    }
-   },
-   "n_days": 17,
-   "total_modis": 0.0,
-   "total_viirs": 586.19
-  },
-  {
-   "cell_id": "R-0039C01025",
-   "south": -3.9,
-   "west": 102.5,
-   "north": -3.8,
-   "east": 102.6,
-   "years": {
-    "2019": {
-     "modis": 0.0,
-     "viirs": 1303.74,
-     "n_days": 5
-    },
-    "2022": {
-     "modis": 0.0,
-     "viirs": 920.1,
-     "n_days": 5
-    },
-    "2018": {
-     "modis": 0.0,
-     "viirs": 121.99,
-     "n_days": 1
-    },
-    "2024": {
-     "modis": 0.0,
-     "viirs": 114.03,
-     "n_days": 2
-    },
-    "2023": {
-     "modis": 0.0,
-     "viirs": 68.48,
-     "n_days": 2
-    },
-    "2020": {
-     "modis": 0.0,
-     "viirs": 47.82,
-     "n_days": 2
-    },
-    "2021": {
-     "modis": 0.0,
-     "viirs": 21.93,
-     "n_days": 1
-    },
-    "2025": {
-     "modis": 0.0,
-     "viirs": 38.08,
-     "n_days": 2
-    }
-   },
-   "n_days": 20,
-   "total_modis": 0.0,
-   "total_viirs": 2636.17
+   "total_viirs": 157.49
   },
   {
    "cell_id": "R-0039C01026",
@@ -2506,1584 +810,15 @@
    "north": -3.8,
    "east": 102.7,
    "years": {
-    "2023": {
-     "modis": 0.0,
-     "viirs": 355.93,
-     "n_days": 3
-    },
-    "2021": {
-     "modis": 0.0,
-     "viirs": 64.29,
-     "n_days": 1
-    },
     "2018": {
      "modis": 0.0,
-     "viirs": 109.83,
-     "n_days": 4
-    },
-    "2026": {
-     "modis": 0.0,
-     "viirs": 49.72,
-     "n_days": 2
-    },
-    "2019": {
-     "modis": 0.0,
-     "viirs": 18.3,
+     "viirs": 21.54,
      "n_days": 1
     }
    },
-   "n_days": 11,
+   "n_days": 1,
    "total_modis": 0.0,
-   "total_viirs": 598.07
-  },
-  {
-   "cell_id": "R-0039C01027",
-   "south": -3.9,
-   "west": 102.7,
-   "north": -3.8,
-   "east": 102.8,
-   "years": {
-    "2024": {
-     "modis": 0.0,
-     "viirs": 81.98,
-     "n_days": 1
-    },
-    "2022": {
-     "modis": 0.0,
-     "viirs": 66.54,
-     "n_days": 1
-    },
-    "2025": {
-     "modis": 0.0,
-     "viirs": 95.92,
-     "n_days": 3
-    },
-    "2018": {
-     "modis": 0.0,
-     "viirs": 40.13,
-     "n_days": 2
-    },
-    "2021": {
-     "modis": 0.0,
-     "viirs": 35.77,
-     "n_days": 2
-    },
-    "2023": {
-     "modis": 0.0,
-     "viirs": 35.28,
-     "n_days": 2
-    }
-   },
-   "n_days": 11,
-   "total_modis": 0.0,
-   "total_viirs": 355.62
-  },
-  {
-   "cell_id": "R-0038C01015",
-   "south": -3.8,
-   "west": 101.5,
-   "north": -3.7,
-   "east": 101.6,
-   "years": {
-    "2023": {
-     "modis": 0.0,
-     "viirs": 282.34,
-     "n_days": 3
-    },
-    "2025": {
-     "modis": 0.0,
-     "viirs": 218.02,
-     "n_days": 4
-    },
-    "2018": {
-     "modis": 0.0,
-     "viirs": 173.52,
-     "n_days": 3
-    },
-    "2024": {
-     "modis": 0.0,
-     "viirs": 97.77,
-     "n_days": 2
-    },
-    "2022": {
-     "modis": 0.0,
-     "viirs": 117.71,
-     "n_days": 4
-    },
-    "2019": {
-     "modis": 0.0,
-     "viirs": 40.58,
-     "n_days": 1
-    },
-    "2020": {
-     "modis": 0.0,
-     "viirs": 43.51,
-     "n_days": 2
-    },
-    "2026": {
-     "modis": 0.0,
-     "viirs": 35.12,
-     "n_days": 2
-    },
-    "2021": {
-     "modis": 0.0,
-     "viirs": 45.02,
-     "n_days": 2
-    }
-   },
-   "n_days": 23,
-   "total_modis": 0.0,
-   "total_viirs": 1053.59
-  },
-  {
-   "cell_id": "R-0038C01016",
-   "south": -3.8,
-   "west": 101.6,
-   "north": -3.7,
-   "east": 101.7,
-   "years": {
-    "2022": {
-     "modis": 0.0,
-     "viirs": 183.06,
-     "n_days": 2
-    },
-    "2023": {
-     "modis": 0.0,
-     "viirs": 117.95,
-     "n_days": 1
-    },
-    "2025": {
-     "modis": 0.0,
-     "viirs": 161.7,
-     "n_days": 3
-    },
-    "2026": {
-     "modis": 0.0,
-     "viirs": 67.75,
-     "n_days": 1
-    },
-    "2019": {
-     "modis": 0.0,
-     "viirs": 36.99,
-     "n_days": 1
-    },
-    "2018": {
-     "modis": 0.0,
-     "viirs": 35.18,
-     "n_days": 2
-    },
-    "2021": {
-     "modis": 0.0,
-     "viirs": 16.64,
-     "n_days": 1
-    }
-   },
-   "n_days": 11,
-   "total_modis": 0.0,
-   "total_viirs": 619.27
-  },
-  {
-   "cell_id": "R-0038C01017",
-   "south": -3.8,
-   "west": 101.7,
-   "north": -3.7,
-   "east": 101.8,
-   "years": {
-    "2018": {
-     "modis": 0.0,
-     "viirs": 561.42,
-     "n_days": 2
-    },
-    "2025": {
-     "modis": 0.0,
-     "viirs": 463.51,
-     "n_days": 8
-    },
-    "2024": {
-     "modis": 0.0,
-     "viirs": 96.11,
-     "n_days": 2
-    },
-    "2019": {
-     "modis": 0.0,
-     "viirs": 55.57,
-     "n_days": 1
-    },
-    "2020": {
-     "modis": 0.0,
-     "viirs": 86.0,
-     "n_days": 3
-    },
-    "2023": {
-     "modis": 0.0,
-     "viirs": 42.45,
-     "n_days": 2
-    },
-    "2026": {
-     "modis": 0.0,
-     "viirs": 17.18,
-     "n_days": 1
-    },
-    "2022": {
-     "modis": 0.0,
-     "viirs": 17.0,
-     "n_days": 1
-    }
-   },
-   "n_days": 20,
-   "total_modis": 0.0,
-   "total_viirs": 1339.24
-  },
-  {
-   "cell_id": "R-0038C01018",
-   "south": -3.8,
-   "west": 101.8,
-   "north": -3.7,
-   "east": 101.9,
-   "years": {
-    "2022": {
-     "modis": 0.0,
-     "viirs": 200.24,
-     "n_days": 1
-    },
-    "2018": {
-     "modis": 0.0,
-     "viirs": 170.25,
-     "n_days": 4
-    },
-    "2024": {
-     "modis": 0.0,
-     "viirs": 103.18,
-     "n_days": 1
-    },
-    "2019": {
-     "modis": 0.0,
-     "viirs": 172.34,
-     "n_days": 4
-    },
-    "2020": {
-     "modis": 0.0,
-     "viirs": 108.89,
-     "n_days": 2
-    },
-    "2023": {
-     "modis": 0.0,
-     "viirs": 121.84,
-     "n_days": 4
-    },
-    "2026": {
-     "modis": 0.0,
-     "viirs": 43.63,
-     "n_days": 1
-    },
-    "2021": {
-     "modis": 0.0,
-     "viirs": 18.05,
-     "n_days": 1
-    }
-   },
-   "n_days": 18,
-   "total_modis": 0.0,
-   "total_viirs": 938.42
-  },
-  {
-   "cell_id": "R-0038C01019",
-   "south": -3.8,
-   "west": 101.9,
-   "north": -3.7,
-   "east": 102.0,
-   "years": {
-    "2023": {
-     "modis": 0.0,
-     "viirs": 663.69,
-     "n_days": 8
-    },
-    "2019": {
-     "modis": 0.0,
-     "viirs": 63.36,
-     "n_days": 1
-    },
-    "2025": {
-     "modis": 0.0,
-     "viirs": 76.07,
-     "n_days": 3
-    },
-    "2020": {
-     "modis": 0.0,
-     "viirs": 17.24,
-     "n_days": 1
-    },
-    "2021": {
-     "modis": 0.0,
-     "viirs": 16.64,
-     "n_days": 1
-    },
-    "2018": {
-     "modis": 0.0,
-     "viirs": 15.69,
-     "n_days": 1
-    }
-   },
-   "n_days": 15,
-   "total_modis": 0.0,
-   "total_viirs": 852.69
-  },
-  {
-   "cell_id": "R-0038C01020",
-   "south": -3.8,
-   "west": 102.0,
-   "north": -3.7,
-   "east": 102.1,
-   "years": {
-    "2022": {
-     "modis": 0.0,
-     "viirs": 222.95,
-     "n_days": 3
-    },
-    "2024": {
-     "modis": 0.0,
-     "viirs": 98.31,
-     "n_days": 1
-    },
-    "2020": {
-     "modis": 0.0,
-     "viirs": 58.38,
-     "n_days": 1
-    },
-    "2018": {
-     "modis": 0.0,
-     "viirs": 115.36,
-     "n_days": 3
-    },
-    "2025": {
-     "modis": 0.0,
-     "viirs": 44.19,
-     "n_days": 2
-    },
-    "2026": {
-     "modis": 0.0,
-     "viirs": 23.31,
-     "n_days": 1
-    },
-    "2021": {
-     "modis": 0.0,
-     "viirs": 22.58,
-     "n_days": 1
-    },
-    "2019": {
-     "modis": 0.0,
-     "viirs": 41.93,
-     "n_days": 2
-    },
-    "2023": {
-     "modis": 0.0,
-     "viirs": 17.5,
-     "n_days": 1
-    }
-   },
-   "n_days": 15,
-   "total_modis": 0.0,
-   "total_viirs": 644.51
-  },
-  {
-   "cell_id": "R-0038C01021",
-   "south": -3.8,
-   "west": 102.1,
-   "north": -3.7,
-   "east": 102.2,
-   "years": {
-    "2019": {
-     "modis": 0.0,
-     "viirs": 484.91,
-     "n_days": 5
-    },
-    "2022": {
-     "modis": 0.0,
-     "viirs": 281.29,
-     "n_days": 2
-    },
-    "2023": {
-     "modis": 0.0,
-     "viirs": 68.9,
-     "n_days": 1
-    },
-    "2026": {
-     "modis": 0.0,
-     "viirs": 40.73,
-     "n_days": 1
-    },
-    "2021": {
-     "modis": 0.0,
-     "viirs": 38.99,
-     "n_days": 1
-    },
-    "2025": {
-     "modis": 0.0,
-     "viirs": 76.63,
-     "n_days": 2
-    },
-    "2020": {
-     "modis": 0.0,
-     "viirs": 31.96,
-     "n_days": 1
-    },
-    "2018": {
-     "modis": 0.0,
-     "viirs": 20.96,
-     "n_days": 1
-    }
-   },
-   "n_days": 14,
-   "total_modis": 0.0,
-   "total_viirs": 1044.37
-  },
-  {
-   "cell_id": "R-0038C01022",
-   "south": -3.8,
-   "west": 102.2,
-   "north": -3.7,
-   "east": 102.3,
-   "years": {
-    "2022": {
-     "modis": 0.0,
-     "viirs": 161.33,
-     "n_days": 2
-    },
-    "2018": {
-     "modis": 0.0,
-     "viirs": 187.71,
-     "n_days": 4
-    },
-    "2021": {
-     "modis": 0.0,
-     "viirs": 133.97,
-     "n_days": 2
-    },
-    "2024": {
-     "modis": 0.0,
-     "viirs": 126.93,
-     "n_days": 2
-    },
-    "2020": {
-     "modis": 0.0,
-     "viirs": 67.83,
-     "n_days": 3
-    },
-    "2019": {
-     "modis": 0.0,
-     "viirs": 100.28,
-     "n_days": 4
-    },
-    "2023": {
-     "modis": 0.0,
-     "viirs": 39.94,
-     "n_days": 2
-    },
-    "2025": {
-     "modis": 0.0,
-     "viirs": 29.25,
-     "n_days": 2
-    }
-   },
-   "n_days": 21,
-   "total_modis": 0.0,
-   "total_viirs": 847.24
-  },
-  {
-   "cell_id": "R-0038C01023",
-   "south": -3.8,
-   "west": 102.3,
-   "north": -3.7,
-   "east": 102.4,
-   "years": {
-    "2019": {
-     "modis": 0.0,
-     "viirs": 1260.95,
-     "n_days": 3
-    },
-    "2025": {
-     "modis": 0.0,
-     "viirs": 223.97,
-     "n_days": 7
-    },
-    "2018": {
-     "modis": 0.0,
-     "viirs": 57.74,
-     "n_days": 2
-    },
-    "2020": {
-     "modis": 0.0,
-     "viirs": 80.99,
-     "n_days": 4
-    },
-    "2023": {
-     "modis": 0.0,
-     "viirs": 25.24,
-     "n_days": 1
-    },
-    "2026": {
-     "modis": 0.0,
-     "viirs": 17.94,
-     "n_days": 1
-    },
-    "2021": {
-     "modis": 0.0,
-     "viirs": 13.65,
-     "n_days": 1
-    },
-    "2022": {
-     "modis": 0.0,
-     "viirs": 15.17,
-     "n_days": 1
-    }
-   },
-   "n_days": 20,
-   "total_modis": 0.0,
-   "total_viirs": 1695.65
-  },
-  {
-   "cell_id": "R-0038C01024",
-   "south": -3.8,
-   "west": 102.4,
-   "north": -3.7,
-   "east": 102.5,
-   "years": {
-    "2022": {
-     "modis": 0.0,
-     "viirs": 242.33,
-     "n_days": 1
-    },
-    "2018": {
-     "modis": 0.0,
-     "viirs": 116.9,
-     "n_days": 1
-    },
-    "2023": {
-     "modis": 0.0,
-     "viirs": 53.16,
-     "n_days": 3
-    }
-   },
-   "n_days": 5,
-   "total_modis": 0.0,
-   "total_viirs": 412.39
-  },
-  {
-   "cell_id": "R-0038C01025",
-   "south": -3.8,
-   "west": 102.5,
-   "north": -3.7,
-   "east": 102.6,
-   "years": {
-    "2019": {
-     "modis": 0.0,
-     "viirs": 434.64,
-     "n_days": 3
-    },
-    "2023": {
-     "modis": 0.0,
-     "viirs": 144.15,
-     "n_days": 2
-    },
-    "2024": {
-     "modis": 0.0,
-     "viirs": 53.75,
-     "n_days": 1
-    },
-    "2025": {
-     "modis": 0.0,
-     "viirs": 126.08,
-     "n_days": 5
-    },
-    "2018": {
-     "modis": 0.0,
-     "viirs": 89.36,
-     "n_days": 3
-    },
-    "2026": {
-     "modis": 0.0,
-     "viirs": 74.56,
-     "n_days": 3
-    },
-    "2021": {
-     "modis": 0.0,
-     "viirs": 34.46,
-     "n_days": 2
-    },
-    "2020": {
-     "modis": 0.0,
-     "viirs": 17.25,
-     "n_days": 1
-    },
-    "2022": {
-     "modis": 0.0,
-     "viirs": 16.64,
-     "n_days": 1
-    }
-   },
-   "n_days": 21,
-   "total_modis": 0.0,
-   "total_viirs": 990.89
-  },
-  {
-   "cell_id": "R-0038C01026",
-   "south": -3.8,
-   "west": 102.6,
-   "north": -3.7,
-   "east": 102.7,
-   "years": {
-    "2019": {
-     "modis": 0.0,
-     "viirs": 591.86,
-     "n_days": 2
-    },
-    "2023": {
-     "modis": 0.0,
-     "viirs": 250.25,
-     "n_days": 2
-    },
-    "2026": {
-     "modis": 0.0,
-     "viirs": 120.92,
-     "n_days": 1
-    },
-    "2022": {
-     "modis": 0.0,
-     "viirs": 167.46,
-     "n_days": 4
-    },
-    "2020": {
-     "modis": 0.0,
-     "viirs": 79.94,
-     "n_days": 3
-    },
-    "2025": {
-     "modis": 0.0,
-     "viirs": 115.29,
-     "n_days": 4
-    },
-    "2024": {
-     "modis": 0.0,
-     "viirs": 27.76,
-     "n_days": 1
-    },
-    "2021": {
-     "modis": 0.0,
-     "viirs": 59.74,
-     "n_days": 2
-    }
-   },
-   "n_days": 19,
-   "total_modis": 0.0,
-   "total_viirs": 1413.22
-  },
-  {
-   "cell_id": "R-0038C01027",
-   "south": -3.8,
-   "west": 102.7,
-   "north": -3.7,
-   "east": 102.8,
-   "years": {
-    "2023": {
-     "modis": 0.0,
-     "viirs": 187.85,
-     "n_days": 4
-    },
-    "2025": {
-     "modis": 0.0,
-     "viirs": 116.8,
-     "n_days": 2
-    },
-    "2018": {
-     "modis": 0.0,
-     "viirs": 63.02,
-     "n_days": 1
-    },
-    "2019": {
-     "modis": 0.0,
-     "viirs": 92.93,
-     "n_days": 2
-    },
-    "2026": {
-     "modis": 0.0,
-     "viirs": 51.24,
-     "n_days": 1
-    },
-    "2021": {
-     "modis": 0.0,
-     "viirs": 72.95,
-     "n_days": 2
-    },
-    "2024": {
-     "modis": 0.0,
-     "viirs": 79.32,
-     "n_days": 3
-    },
-    "2022": {
-     "modis": 0.0,
-     "viirs": 16.1,
-     "n_days": 1
-    }
-   },
-   "n_days": 16,
-   "total_modis": 0.0,
-   "total_viirs": 680.21
-  },
-  {
-   "cell_id": "R-0037C01015",
-   "south": -3.7,
-   "west": 101.5,
-   "north": -3.6,
-   "east": 101.6,
-   "years": {
-    "2022": {
-     "modis": 0.0,
-     "viirs": 260.41,
-     "n_days": 2
-    },
-    "2023": {
-     "modis": 0.0,
-     "viirs": 175.87,
-     "n_days": 1
-    },
-    "2024": {
-     "modis": 0.0,
-     "viirs": 256.24,
-     "n_days": 3
-    },
-    "2019": {
-     "modis": 0.0,
-     "viirs": 46.93,
-     "n_days": 1
-    },
-    "2020": {
-     "modis": 0.0,
-     "viirs": 31.37,
-     "n_days": 1
-    },
-    "2018": {
-     "modis": 0.0,
-     "viirs": 47.62,
-     "n_days": 2
-    },
-    "2021": {
-     "modis": 0.0,
-     "viirs": 18.05,
-     "n_days": 1
-    },
-    "2025": {
-     "modis": 0.0,
-     "viirs": 31.33,
-     "n_days": 2
-    }
-   },
-   "n_days": 13,
-   "total_modis": 0.0,
-   "total_viirs": 867.82
-  },
-  {
-   "cell_id": "R-0037C01016",
-   "south": -3.7,
-   "west": 101.6,
-   "north": -3.6,
-   "east": 101.7,
-   "years": {
-    "2022": {
-     "modis": 0.0,
-     "viirs": 254.79,
-     "n_days": 1
-    },
-    "2025": {
-     "modis": 0.0,
-     "viirs": 143.31,
-     "n_days": 2
-    },
-    "2023": {
-     "modis": 0.0,
-     "viirs": 252.48,
-     "n_days": 6
-    },
-    "2024": {
-     "modis": 0.0,
-     "viirs": 70.37,
-     "n_days": 2
-    },
-    "2026": {
-     "modis": 0.0,
-     "viirs": 37.34,
-     "n_days": 1
-    },
-    "2020": {
-     "modis": 0.0,
-     "viirs": 66.15,
-     "n_days": 3
-    },
-    "2021": {
-     "modis": 0.0,
-     "viirs": 32.65,
-     "n_days": 2
-    }
-   },
-   "n_days": 17,
-   "total_modis": 0.0,
-   "total_viirs": 857.09
-  },
-  {
-   "cell_id": "R-0037C01017",
-   "south": -3.7,
-   "west": 101.7,
-   "north": -3.6,
-   "east": 101.8,
-   "years": {
-    "2023": {
-     "modis": 0.0,
-     "viirs": 269.67,
-     "n_days": 2
-    },
-    "2025": {
-     "modis": 0.0,
-     "viirs": 156.49,
-     "n_days": 3
-    },
-    "2020": {
-     "modis": 0.0,
-     "viirs": 161.27,
-     "n_days": 3
-    },
-    "2019": {
-     "modis": 0.0,
-     "viirs": 122.38,
-     "n_days": 4
-    },
-    "2018": {
-     "modis": 0.0,
-     "viirs": 35.63,
-     "n_days": 1
-    },
-    "2024": {
-     "modis": 0.0,
-     "viirs": 32.5,
-     "n_days": 1
-    },
-    "2026": {
-     "modis": 0.0,
-     "viirs": 23.7,
-     "n_days": 1
-    },
-    "2021": {
-     "modis": 0.0,
-     "viirs": 38.85,
-     "n_days": 2
-    }
-   },
-   "n_days": 17,
-   "total_modis": 0.0,
-   "total_viirs": 840.49
-  },
-  {
-   "cell_id": "R-0037C01018",
-   "south": -3.7,
-   "west": 101.8,
-   "north": -3.6,
-   "east": 101.9,
-   "years": {
-    "2022": {
-     "modis": 0.0,
-     "viirs": 233.93,
-     "n_days": 1
-    },
-    "2018": {
-     "modis": 0.0,
-     "viirs": 209.83,
-     "n_days": 5
-    },
-    "2019": {
-     "modis": 0.0,
-     "viirs": 223.75,
-     "n_days": 4
-    },
-    "2023": {
-     "modis": 0.0,
-     "viirs": 177.13,
-     "n_days": 4
-    },
-    "2025": {
-     "modis": 0.0,
-     "viirs": 54.18,
-     "n_days": 1
-    },
-    "2021": {
-     "modis": 0.0,
-     "viirs": 84.02,
-     "n_days": 3
-    },
-    "2024": {
-     "modis": 0.0,
-     "viirs": 46.88,
-     "n_days": 2
-    },
-    "2020": {
-     "modis": 0.0,
-     "viirs": 21.63,
-     "n_days": 1
-    }
-   },
-   "n_days": 21,
-   "total_modis": 0.0,
-   "total_viirs": 1051.35
-  },
-  {
-   "cell_id": "R-0037C01019",
-   "south": -3.7,
-   "west": 101.9,
-   "north": -3.6,
-   "east": 102.0,
-   "years": {
-    "2024": {
-     "modis": 0.0,
-     "viirs": 230.25,
-     "n_days": 1
-    },
-    "2019": {
-     "modis": 0.0,
-     "viirs": 49.82,
-     "n_days": 1
-    },
-    "2023": {
-     "modis": 0.0,
-     "viirs": 58.24,
-     "n_days": 2
-    },
-    "2022": {
-     "modis": 0.0,
-     "viirs": 46.5,
-     "n_days": 2
-    },
-    "2025": {
-     "modis": 0.0,
-     "viirs": 35.3,
-     "n_days": 2
-    },
-    "2026": {
-     "modis": 0.0,
-     "viirs": 17.79,
-     "n_days": 1
-    }
-   },
-   "n_days": 9,
-   "total_modis": 0.0,
-   "total_viirs": 437.9
-  },
-  {
-   "cell_id": "R-0037C01020",
-   "south": -3.7,
-   "west": 102.0,
-   "north": -3.6,
-   "east": 102.1,
-   "years": {
-    "2022": {
-     "modis": 0.0,
-     "viirs": 863.17,
-     "n_days": 2
-    },
-    "2023": {
-     "modis": 0.0,
-     "viirs": 297.59,
-     "n_days": 3
-    },
-    "2024": {
-     "modis": 0.0,
-     "viirs": 145.86,
-     "n_days": 5
-    },
-    "2026": {
-     "modis": 0.0,
-     "viirs": 115.17,
-     "n_days": 4
-    },
-    "2020": {
-     "modis": 0.0,
-     "viirs": 64.02,
-     "n_days": 2
-    },
-    "2019": {
-     "modis": 0.0,
-     "viirs": 71.37,
-     "n_days": 3
-    },
-    "2025": {
-     "modis": 0.0,
-     "viirs": 22.27,
-     "n_days": 1
-    },
-    "2018": {
-     "modis": 0.0,
-     "viirs": 15.27,
-     "n_days": 1
-    }
-   },
-   "n_days": 21,
-   "total_modis": 0.0,
-   "total_viirs": 1594.72
-  },
-  {
-   "cell_id": "R-0037C01021",
-   "south": -3.7,
-   "west": 102.1,
-   "north": -3.6,
-   "east": 102.2,
-   "years": {
-    "2023": {
-     "modis": 0.0,
-     "viirs": 290.59,
-     "n_days": 4
-    },
-    "2025": {
-     "modis": 0.0,
-     "viirs": 142.96,
-     "n_days": 2
-    },
-    "2024": {
-     "modis": 0.0,
-     "viirs": 94.76,
-     "n_days": 2
-    },
-    "2022": {
-     "modis": 0.0,
-     "viirs": 72.05,
-     "n_days": 1
-    },
-    "2018": {
-     "modis": 0.0,
-     "viirs": 50.68,
-     "n_days": 2
-    },
-    "2019": {
-     "modis": 0.0,
-     "viirs": 39.55,
-     "n_days": 2
-    }
-   },
-   "n_days": 13,
-   "total_modis": 0.0,
-   "total_viirs": 690.59
-  },
-  {
-   "cell_id": "R-0037C01022",
-   "south": -3.7,
-   "west": 102.2,
-   "north": -3.6,
-   "east": 102.3,
-   "years": {
-    "2025": {
-     "modis": 0.0,
-     "viirs": 162.84,
-     "n_days": 2
-    },
-    "2022": {
-     "modis": 0.0,
-     "viirs": 150.0,
-     "n_days": 3
-    },
-    "2019": {
-     "modis": 0.0,
-     "viirs": 93.55,
-     "n_days": 3
-    },
-    "2026": {
-     "modis": 0.0,
-     "viirs": 45.88,
-     "n_days": 1
-    },
-    "2024": {
-     "modis": 0.0,
-     "viirs": 28.82,
-     "n_days": 1
-    },
-    "2020": {
-     "modis": 0.0,
-     "viirs": 51.84,
-     "n_days": 1
-    },
-    "2018": {
-     "modis": 0.0,
-     "viirs": 37.01,
-     "n_days": 2
-    },
-    "2021": {
-     "modis": 0.0,
-     "viirs": 54.19,
-     "n_days": 3
-    },
-    "2023": {
-     "modis": 0.0,
-     "viirs": 31.56,
-     "n_days": 2
-    }
-   },
-   "n_days": 18,
-   "total_modis": 0.0,
-   "total_viirs": 655.69
-  },
-  {
-   "cell_id": "R-0037C01023",
-   "south": -3.7,
-   "west": 102.3,
-   "north": -3.6,
-   "east": 102.4,
-   "years": {
-    "2019": {
-     "modis": 0.0,
-     "viirs": 788.35,
-     "n_days": 2
-    },
-    "2023": {
-     "modis": 0.0,
-     "viirs": 127.02,
-     "n_days": 2
-    },
-    "2021": {
-     "modis": 0.0,
-     "viirs": 86.62,
-     "n_days": 2
-    },
-    "2022": {
-     "modis": 0.0,
-     "viirs": 66.54,
-     "n_days": 1
-    },
-    "2018": {
-     "modis": 0.0,
-     "viirs": 116.27,
-     "n_days": 3
-    },
-    "2025": {
-     "modis": 0.0,
-     "viirs": 69.51,
-     "n_days": 3
-    }
-   },
-   "n_days": 13,
-   "total_modis": 0.0,
-   "total_viirs": 1254.31
-  },
-  {
-   "cell_id": "R-0037C01024",
-   "south": -3.7,
-   "west": 102.4,
-   "north": -3.6,
-   "east": 102.5,
-   "years": {
-    "2019": {
-     "modis": 0.0,
-     "viirs": 785.49,
-     "n_days": 2
-    },
-    "2023": {
-     "modis": 0.0,
-     "viirs": 494.9,
-     "n_days": 6
-    },
-    "2018": {
-     "modis": 0.0,
-     "viirs": 141.77,
-     "n_days": 3
-    },
-    "2024": {
-     "modis": 0.0,
-     "viirs": 31.73,
-     "n_days": 1
-    },
-    "2020": {
-     "modis": 0.0,
-     "viirs": 60.88,
-     "n_days": 3
-    },
-    "2021": {
-     "modis": 0.0,
-     "viirs": 25.08,
-     "n_days": 1
-    },
-    "2025": {
-     "modis": 0.0,
-     "viirs": 14.97,
-     "n_days": 1
-    }
-   },
-   "n_days": 17,
-   "total_modis": 0.0,
-   "total_viirs": 1554.82
-  },
-  {
-   "cell_id": "R-0037C01025",
-   "south": -3.7,
-   "west": 102.5,
-   "north": -3.6,
-   "east": 102.6,
-   "years": {
-    "2022": {
-     "modis": 0.0,
-     "viirs": 293.05,
-     "n_days": 4
-    },
-    "2024": {
-     "modis": 0.0,
-     "viirs": 98.79,
-     "n_days": 2
-    },
-    "2025": {
-     "modis": 0.0,
-     "viirs": 93.67,
-     "n_days": 2
-    },
-    "2021": {
-     "modis": 0.0,
-     "viirs": 36.06,
-     "n_days": 1
-    },
-    "2019": {
-     "modis": 0.0,
-     "viirs": 43.83,
-     "n_days": 2
-    },
-    "2020": {
-     "modis": 0.0,
-     "viirs": 26.05,
-     "n_days": 1
-    },
-    "2023": {
-     "modis": 0.0,
-     "viirs": 53.15,
-     "n_days": 3
-    },
-    "2018": {
-     "modis": 0.0,
-     "viirs": 33.66,
-     "n_days": 2
-    }
-   },
-   "n_days": 17,
-   "total_modis": 0.0,
-   "total_viirs": 678.26
-  },
-  {
-   "cell_id": "R-0037C01026",
-   "south": -3.7,
-   "west": 102.6,
-   "north": -3.6,
-   "east": 102.7,
-   "years": {
-    "2019": {
-     "modis": 0.0,
-     "viirs": 745.45,
-     "n_days": 2
-    },
-    "2021": {
-     "modis": 0.0,
-     "viirs": 31.93,
-     "n_days": 1
-    },
-    "2020": {
-     "modis": 0.0,
-     "viirs": 27.1,
-     "n_days": 1
-    },
-    "2023": {
-     "modis": 0.0,
-     "viirs": 62.92,
-     "n_days": 3
-    },
-    "2026": {
-     "modis": 0.0,
-     "viirs": 60.22,
-     "n_days": 3
-    },
-    "2018": {
-     "modis": 0.0,
-     "viirs": 52.0,
-     "n_days": 3
-    },
-    "2024": {
-     "modis": 0.0,
-     "viirs": 48.88,
-     "n_days": 3
-    }
-   },
-   "n_days": 16,
-   "total_modis": 0.0,
-   "total_viirs": 1028.5
-  },
-  {
-   "cell_id": "R-0037C01027",
-   "south": -3.7,
-   "west": 102.7,
-   "north": -3.6,
-   "east": 102.8,
-   "years": {
-    "2019": {
-     "modis": 0.0,
-     "viirs": 531.95,
-     "n_days": 4
-    },
-    "2023": {
-     "modis": 0.0,
-     "viirs": 256.7,
-     "n_days": 3
-    },
-    "2024": {
-     "modis": 0.0,
-     "viirs": 203.99,
-     "n_days": 3
-    },
-    "2021": {
-     "modis": 0.0,
-     "viirs": 61.77,
-     "n_days": 2
-    },
-    "2022": {
-     "modis": 0.0,
-     "viirs": 34.14,
-     "n_days": 1
-    },
-    "2020": {
-     "modis": 0.0,
-     "viirs": 21.95,
-     "n_days": 1
-    },
-    "2018": {
-     "modis": 0.0,
-     "viirs": 18.2,
-     "n_days": 1
-    }
-   },
-   "n_days": 15,
-   "total_modis": 0.0,
-   "total_viirs": 1128.7
-  },
-  {
-   "cell_id": "R-0036C01015",
-   "south": -3.6,
-   "west": 101.5,
-   "north": -3.5,
-   "east": 101.6,
-   "years": {
-    "2022": {
-     "modis": 0.0,
-     "viirs": 256.2,
-     "n_days": 2
-    },
-    "2023": {
-     "modis": 0.0,
-     "viirs": 159.88,
-     "n_days": 2
-    },
-    "2021": {
-     "modis": 0.0,
-     "viirs": 115.4,
-     "n_days": 1
-    },
-    "2018": {
-     "modis": 0.0,
-     "viirs": 71.67,
-     "n_days": 2
-    },
-    "2026": {
-     "modis": 0.0,
-     "viirs": 58.4,
-     "n_days": 2
-    },
-    "2020": {
-     "modis": 0.0,
-     "viirs": 47.46,
-     "n_days": 2
-    },
-    "2024": {
-     "modis": 0.0,
-     "viirs": 32.44,
-     "n_days": 2
-    }
-   },
-   "n_days": 13,
-   "total_modis": 0.0,
-   "total_viirs": 741.45
-  },
-  {
-   "cell_id": "R-0036C01016",
-   "south": -3.6,
-   "west": 101.6,
-   "north": -3.5,
-   "east": 101.7,
-   "years": {
-    "2025": {
-     "modis": 0.0,
-     "viirs": 510.54,
-     "n_days": 4
-    },
-    "2019": {
-     "modis": 0.0,
-     "viirs": 130.54,
-     "n_days": 4
-    },
-    "2024": {
-     "modis": 0.0,
-     "viirs": 92.77,
-     "n_days": 3
-    },
-    "2022": {
-     "modis": 0.0,
-     "viirs": 33.66,
-     "n_days": 1
-    },
-    "2023": {
-     "modis": 0.0,
-     "viirs": 29.33,
-     "n_days": 1
-    },
-    "2018": {
-     "modis": 0.0,
-     "viirs": 59.87,
-     "n_days": 3
-    },
-    "2020": {
-     "modis": 0.0,
-     "viirs": 26.05,
-     "n_days": 1
-    }
-   },
-   "n_days": 17,
-   "total_modis": 0.0,
-   "total_viirs": 882.76
-  },
-  {
-   "cell_id": "R-0036C01017",
-   "south": -3.6,
-   "west": 101.7,
-   "north": -3.5,
-   "east": 101.8,
-   "years": {
-    "2018": {
-     "modis": 0.0,
-     "viirs": 306.35,
-     "n_days": 1
-    },
-    "2022": {
-     "modis": 0.0,
-     "viirs": 181.82,
-     "n_days": 3
-    },
-    "2025": {
-     "modis": 0.0,
-     "viirs": 250.76,
-     "n_days": 2
-    },
-    "2019": {
-     "modis": 0.0,
-     "viirs": 134.55,
-     "n_days": 2
-    },
-    "2026": {
-     "modis": 0.0,
-     "viirs": 77.15,
-     "n_days": 2
-    },
-    "2023": {
-     "modis": 0.0,
-     "viirs": 47.3,
-     "n_days": 1
-    },
-    "2021": {
-     "modis": 0.0,
-     "viirs": 17.57,
-     "n_days": 1
-    }
-   },
-   "n_days": 12,
-   "total_modis": 0.0,
-   "total_viirs": 1015.5
-  },
-  {
-   "cell_id": "R-0036C01018",
-   "south": -3.6,
-   "west": 101.8,
-   "north": -3.5,
-   "east": 101.9,
-   "years": {
-    "2024": {
-     "modis": 0.0,
-     "viirs": 309.39,
-     "n_days": 4
-    },
-    "2019": {
-     "modis": 0.0,
-     "viirs": 159.1,
-     "n_days": 4
-    },
-    "2023": {
-     "modis": 0.0,
-     "viirs": 185.48,
-     "n_days": 6
-    },
-    "2022": {
-     "modis": 0.0,
-     "viirs": 55.0,
-     "n_days": 1
-    },
-    "2021": {
-     "modis": 0.0,
-     "viirs": 36.06,
-     "n_days": 1
-    },
-    "2020": {
-     "modis": 0.0,
-     "viirs": 34.44,
-     "n_days": 1
-    },
-    "2018": {
-     "modis": 0.0,
-     "viirs": 42.26,
-     "n_days": 2
-    }
-   },
-   "n_days": 19,
-   "total_modis": 0.0,
-   "total_viirs": 821.73
-  },
-  {
-   "cell_id": "R-0036C01019",
-   "south": -3.6,
-   "west": 101.9,
-   "north": -3.5,
-   "east": 102.0,
-   "years": {
-    "2024": {
-     "modis": 0.0,
-     "viirs": 636.11,
-     "n_days": 3
-    },
-    "2022": {
-     "modis": 0.0,
-     "viirs": 154.08,
-     "n_days": 1
-    },
-    "2019": {
-     "modis": 0.0,
-     "viirs": 39.87,
-     "n_days": 1
-    },
-    "2023": {
-     "modis": 0.0,
-     "viirs": 80.93,
-     "n_days": 4
-    },
-    "2018": {
-     "modis": 0.0,
-     "viirs": 15.06,
-     "n_days": 1
-    }
-   },
-   "n_days": 10,
-   "total_modis": 0.0,
-   "total_viirs": 926.05
+   "total_viirs": 21.54
   },
   {
    "cell_id": "R-0036C01020",
@@ -4092,50 +827,35 @@
    "north": -3.5,
    "east": 102.1,
    "years": {
-    "2019": {
+    "2024": {
      "modis": 0.0,
-     "viirs": 770.85,
-     "n_days": 1
+     "viirs": 207.81,
+     "n_days": 2
     },
     "2022": {
      "modis": 0.0,
-     "viirs": 201.3,
-     "n_days": 4
-    },
-    "2020": {
-     "modis": 0.0,
-     "viirs": 182.0,
-     "n_days": 5
-    },
-    "2025": {
-     "modis": 0.0,
-     "viirs": 199.04,
-     "n_days": 6
-    },
-    "2024": {
-     "modis": 0.0,
-     "viirs": 82.11,
-     "n_days": 3
+     "viirs": 111.37,
+     "n_days": 2
     },
     "2018": {
      "modis": 0.0,
-     "viirs": 77.11,
-     "n_days": 3
+     "viirs": 49.8,
+     "n_days": 2
+    },
+    "2020": {
+     "modis": 0.0,
+     "viirs": 21.9,
+     "n_days": 1
     },
     "2021": {
      "modis": 0.0,
-     "viirs": 13.62,
-     "n_days": 1
-    },
-    "2026": {
-     "modis": 0.0,
-     "viirs": 17.79,
+     "viirs": 13.88,
      "n_days": 1
     }
    },
-   "n_days": 24,
+   "n_days": 8,
    "total_modis": 0.0,
-   "total_viirs": 1543.82
+   "total_viirs": 404.76
   },
   {
    "cell_id": "R-0036C01021",
@@ -4144,55 +864,50 @@
    "north": -3.5,
    "east": 102.2,
    "years": {
-    "2022": {
-     "modis": 0.0,
-     "viirs": 620.87,
-     "n_days": 5
-    },
-    "2019": {
-     "modis": 0.0,
-     "viirs": 413.94,
-     "n_days": 4
-    },
-    "2024": {
-     "modis": 0.0,
-     "viirs": 173.23,
-     "n_days": 1
-    },
     "2025": {
      "modis": 0.0,
-     "viirs": 168.26,
-     "n_days": 4
+     "viirs": 73.26,
+     "n_days": 1
+    },
+    "2022": {
+     "modis": 0.0,
+     "viirs": 88.74,
+     "n_days": 2
     },
     "2023": {
      "modis": 0.0,
-     "viirs": 121.04,
-     "n_days": 3
-    },
-    "2026": {
-     "modis": 0.0,
-     "viirs": 43.33,
-     "n_days": 1
-    },
-    "2018": {
-     "modis": 0.0,
-     "viirs": 40.03,
+     "viirs": 112.7,
      "n_days": 2
     },
-    "2020": {
+    "2019": {
      "modis": 0.0,
-     "viirs": 21.63,
+     "viirs": 66.16,
      "n_days": 1
     },
     "2021": {
      "modis": 0.0,
-     "viirs": 17.84,
+     "viirs": 43.25,
+     "n_days": 1
+    },
+    "2020": {
+     "modis": 0.0,
+     "viirs": 24.9,
+     "n_days": 1
+    },
+    "2026": {
+     "modis": 0.0,
+     "viirs": 23.81,
+     "n_days": 1
+    },
+    "2024": {
+     "modis": 0.0,
+     "viirs": 16.25,
      "n_days": 1
     }
    },
-   "n_days": 22,
+   "n_days": 10,
    "total_modis": 0.0,
-   "total_viirs": 1620.17
+   "total_viirs": 449.07
   },
   {
    "cell_id": "R-0036C01022",
@@ -4201,441 +916,25 @@
    "north": -3.5,
    "east": 102.3,
    "years": {
-    "2019": {
-     "modis": 0.0,
-     "viirs": 388.99,
-     "n_days": 3
-    },
     "2022": {
      "modis": 0.0,
-     "viirs": 376.28,
-     "n_days": 4
-    },
-    "2023": {
-     "modis": 0.0,
-     "viirs": 416.7,
-     "n_days": 5
-    },
-    "2018": {
-     "modis": 0.0,
-     "viirs": 197.55,
-     "n_days": 4
-    },
-    "2021": {
-     "modis": 0.0,
-     "viirs": 37.47,
-     "n_days": 2
-    },
-    "2020": {
-     "modis": 0.0,
-     "viirs": 19.14,
-     "n_days": 1
-    },
-    "2025": {
-     "modis": 0.0,
-     "viirs": 17.4,
-     "n_days": 1
-    },
-    "2026": {
-     "modis": 0.0,
-     "viirs": 16.36,
-     "n_days": 1
-    }
-   },
-   "n_days": 21,
-   "total_modis": 0.0,
-   "total_viirs": 1469.89
-  },
-  {
-   "cell_id": "R-0036C01023",
-   "south": -3.6,
-   "west": 102.3,
-   "north": -3.5,
-   "east": 102.4,
-   "years": {
-    "2022": {
-     "modis": 0.0,
-     "viirs": 498.21,
-     "n_days": 3
-    },
-    "2025": {
-     "modis": 0.0,
-     "viirs": 161.0,
-     "n_days": 2
-    },
-    "2024": {
-     "modis": 0.0,
-     "viirs": 91.73,
-     "n_days": 4
-    },
-    "2018": {
-     "modis": 0.0,
-     "viirs": 141.59,
-     "n_days": 5
-    },
-    "2026": {
-     "modis": 0.0,
-     "viirs": 17.18,
-     "n_days": 1
-    },
-    "2023": {
-     "modis": 0.0,
-     "viirs": 16.71,
-     "n_days": 1
-    },
-    "2019": {
-     "modis": 0.0,
-     "viirs": 13.84,
-     "n_days": 1
-    },
-    "2020": {
-     "modis": 0.0,
-     "viirs": 17.04,
-     "n_days": 1
-    }
-   },
-   "n_days": 18,
-   "total_modis": 0.0,
-   "total_viirs": 957.3
-  },
-  {
-   "cell_id": "R-0036C01024",
-   "south": -3.6,
-   "west": 102.4,
-   "north": -3.5,
-   "east": 102.5,
-   "years": {
-    "2024": {
-     "modis": 0.0,
-     "viirs": 402.23,
-     "n_days": 4
-    },
-    "2019": {
-     "modis": 0.0,
-     "viirs": 201.48,
-     "n_days": 2
-    },
-    "2025": {
-     "modis": 0.0,
-     "viirs": 192.96,
-     "n_days": 5
-    },
-    "2018": {
-     "modis": 0.0,
-     "viirs": 105.72,
-     "n_days": 4
-    },
-    "2023": {
-     "modis": 0.0,
-     "viirs": 137.53,
-     "n_days": 4
-    },
-    "2022": {
-     "modis": 0.0,
-     "viirs": 33.66,
-     "n_days": 1
-    },
-    "2021": {
-     "modis": 0.0,
-     "viirs": 15.82,
-     "n_days": 1
-    },
-    "2026": {
-     "modis": 0.0,
-     "viirs": 16.36,
-     "n_days": 1
-    }
-   },
-   "n_days": 22,
-   "total_modis": 0.0,
-   "total_viirs": 1105.76
-  },
-  {
-   "cell_id": "R-0036C01025",
-   "south": -3.6,
-   "west": 102.5,
-   "north": -3.5,
-   "east": 102.6,
-   "years": {
-    "2023": {
-     "modis": 0.0,
-     "viirs": 84.53,
-     "n_days": 2
-    },
-    "2021": {
-     "modis": 0.0,
-     "viirs": 43.45,
-     "n_days": 1
-    },
-    "2025": {
-     "modis": 0.0,
-     "viirs": 24.37,
-     "n_days": 1
-    },
-    "2020": {
-     "modis": 0.0,
-     "viirs": 23.34,
+     "viirs": 34.14,
      "n_days": 1
     },
     "2018": {
      "modis": 0.0,
-     "viirs": 39.84,
-     "n_days": 2
-    },
-    "2024": {
-     "modis": 0.0,
-     "viirs": 36.1,
-     "n_days": 2
-    },
-    "2022": {
-     "modis": 0.0,
-     "viirs": 15.99,
+     "viirs": 23.11,
      "n_days": 1
-    }
-   },
-   "n_days": 10,
-   "total_modis": 0.0,
-   "total_viirs": 267.62
-  },
-  {
-   "cell_id": "R-0036C01026",
-   "south": -3.6,
-   "west": 102.6,
-   "north": -3.5,
-   "east": 102.7,
-   "years": {
-    "2022": {
-     "modis": 0.0,
-     "viirs": 271.06,
-     "n_days": 2
-    },
-    "2023": {
-     "modis": 0.0,
-     "viirs": 247.79,
-     "n_days": 4
-    },
-    "2019": {
-     "modis": 0.0,
-     "viirs": 246.35,
-     "n_days": 3
-    },
-    "2024": {
-     "modis": 0.0,
-     "viirs": 297.18,
-     "n_days": 7
-    },
-    "2018": {
-     "modis": 0.0,
-     "viirs": 72.23,
-     "n_days": 2
     },
     "2025": {
      "modis": 0.0,
-     "viirs": 24.37,
+     "viirs": 15.67,
      "n_days": 1
     }
    },
-   "n_days": 19,
+   "n_days": 3,
    "total_modis": 0.0,
-   "total_viirs": 1158.98
-  },
-  {
-   "cell_id": "R-0036C01027",
-   "south": -3.6,
-   "west": 102.7,
-   "north": -3.5,
-   "east": 102.8,
-   "years": {
-    "2024": {
-     "modis": 0.0,
-     "viirs": 333.61,
-     "n_days": 6
-    },
-    "2021": {
-     "modis": 0.0,
-     "viirs": 111.17,
-     "n_days": 2
-    },
-    "2023": {
-     "modis": 0.0,
-     "viirs": 203.34,
-     "n_days": 5
-    },
-    "2025": {
-     "modis": 0.0,
-     "viirs": 154.83,
-     "n_days": 4
-    },
-    "2018": {
-     "modis": 0.0,
-     "viirs": 92.09,
-     "n_days": 3
-    },
-    "2022": {
-     "modis": 0.0,
-     "viirs": 88.36,
-     "n_days": 2
-    },
-    "2019": {
-     "modis": 0.0,
-     "viirs": 61.55,
-     "n_days": 2
-    },
-    "2020": {
-     "modis": 0.0,
-     "viirs": 27.61,
-     "n_days": 1
-    }
-   },
-   "n_days": 25,
-   "total_modis": 0.0,
-   "total_viirs": 1072.56
-  },
-  {
-   "cell_id": "R-0035C01015",
-   "south": -3.5,
-   "west": 101.5,
-   "north": -3.4,
-   "east": 101.6,
-   "years": {
-    "2025": {
-     "modis": 0.0,
-     "viirs": 160.15,
-     "n_days": 2
-    },
-    "2023": {
-     "modis": 0.0,
-     "viirs": 251.15,
-     "n_days": 4
-    },
-    "2024": {
-     "modis": 0.0,
-     "viirs": 118.39,
-     "n_days": 3
-    },
-    "2020": {
-     "modis": 0.0,
-     "viirs": 47.0,
-     "n_days": 2
-    },
-    "2026": {
-     "modis": 0.0,
-     "viirs": 41.95,
-     "n_days": 2
-    },
-    "2018": {
-     "modis": 0.0,
-     "viirs": 36.29,
-     "n_days": 2
-    },
-    "2021": {
-     "modis": 0.0,
-     "viirs": 15.85,
-     "n_days": 1
-    }
-   },
-   "n_days": 16,
-   "total_modis": 0.0,
-   "total_viirs": 670.78
-  },
-  {
-   "cell_id": "R-0035C01016",
-   "south": -3.5,
-   "west": 101.6,
-   "north": -3.4,
-   "east": 101.7,
-   "years": {
-    "2023": {
-     "modis": 0.0,
-     "viirs": 305.46,
-     "n_days": 4
-    },
-    "2025": {
-     "modis": 0.0,
-     "viirs": 135.62,
-     "n_days": 3
-    },
-    "2019": {
-     "modis": 0.0,
-     "viirs": 242.09,
-     "n_days": 5
-    },
-    "2020": {
-     "modis": 0.0,
-     "viirs": 65.07,
-     "n_days": 2
-    },
-    "2022": {
-     "modis": 0.0,
-     "viirs": 47.33,
-     "n_days": 2
-    },
-    "2021": {
-     "modis": 0.0,
-     "viirs": 65.73,
-     "n_days": 3
-    },
-    "2026": {
-     "modis": 0.0,
-     "viirs": 41.71,
-     "n_days": 2
-    },
-    "2018": {
-     "modis": 0.0,
-     "viirs": 23.31,
-     "n_days": 1
-    }
-   },
-   "n_days": 22,
-   "total_modis": 0.0,
-   "total_viirs": 926.32
-  },
-  {
-   "cell_id": "R-0035C01017",
-   "south": -3.5,
-   "west": 101.7,
-   "north": -3.4,
-   "east": 101.8,
-   "years": {
-    "2023": {
-     "modis": 0.0,
-     "viirs": 339.84,
-     "n_days": 2
-    },
-    "2024": {
-     "modis": 0.0,
-     "viirs": 192.92,
-     "n_days": 2
-    },
-    "2025": {
-     "modis": 0.0,
-     "viirs": 129.84,
-     "n_days": 3
-    },
-    "2019": {
-     "modis": 0.0,
-     "viirs": 135.84,
-     "n_days": 4
-    },
-    "2022": {
-     "modis": 0.0,
-     "viirs": 145.14,
-     "n_days": 2
-    },
-    "2026": {
-     "modis": 0.0,
-     "viirs": 17.18,
-     "n_days": 1
-    },
-    "2020": {
-     "modis": 0.0,
-     "viirs": 17.13,
-     "n_days": 1
-    }
-   },
-   "n_days": 15,
-   "total_modis": 0.0,
-   "total_viirs": 977.89
+   "total_viirs": 72.92
   },
   {
    "cell_id": "R-0035C01018",
@@ -4644,40 +943,15 @@
    "north": -3.4,
    "east": 101.9,
    "years": {
-    "2022": {
+    "2025": {
      "modis": 0.0,
-     "viirs": 862.46,
-     "n_days": 2
-    },
-    "2019": {
-     "modis": 0.0,
-     "viirs": 194.99,
-     "n_days": 2
-    },
-    "2021": {
-     "modis": 0.0,
-     "viirs": 115.4,
-     "n_days": 1
-    },
-    "2020": {
-     "modis": 0.0,
-     "viirs": 106.02,
-     "n_days": 3
-    },
-    "2026": {
-     "modis": 0.0,
-     "viirs": 57.91,
-     "n_days": 2
-    },
-    "2018": {
-     "modis": 0.0,
-     "viirs": 19.22,
+     "viirs": 48.55,
      "n_days": 1
     }
    },
-   "n_days": 11,
+   "n_days": 1,
    "total_modis": 0.0,
-   "total_viirs": 1356.0
+   "total_viirs": 48.55
   },
   {
    "cell_id": "R-0035C01019",
@@ -4686,40 +960,55 @@
    "north": -3.4,
    "east": 102.0,
    "years": {
+    "2022": {
+     "modis": 0.0,
+     "viirs": 842.53,
+     "n_days": 8
+    },
+    "2019": {
+     "modis": 0.0,
+     "viirs": 582.14,
+     "n_days": 5
+    },
+    "2024": {
+     "modis": 0.0,
+     "viirs": 505.17,
+     "n_days": 6
+    },
     "2023": {
      "modis": 0.0,
-     "viirs": 150.63,
+     "viirs": 744.59,
+     "n_days": 11
+    },
+    "2026": {
+     "modis": 0.0,
+     "viirs": 195.47,
+     "n_days": 3
+    },
+    "2025": {
+     "modis": 0.0,
+     "viirs": 222.73,
+     "n_days": 5
+    },
+    "2020": {
+     "modis": 0.0,
+     "viirs": 103.56,
      "n_days": 3
     },
     "2021": {
      "modis": 0.0,
-     "viirs": 64.29,
-     "n_days": 1
-    },
-    "2025": {
-     "modis": 0.0,
-     "viirs": 74.01,
-     "n_days": 2
+     "viirs": 108.46,
+     "n_days": 4
     },
     "2018": {
      "modis": 0.0,
-     "viirs": 83.37,
-     "n_days": 3
-    },
-    "2020": {
-     "modis": 0.0,
-     "viirs": 27.1,
-     "n_days": 1
-    },
-    "2019": {
-     "modis": 0.0,
-     "viirs": 29.09,
-     "n_days": 2
+     "viirs": 106.09,
+     "n_days": 5
     }
    },
-   "n_days": 12,
+   "n_days": 50,
    "total_modis": 0.0,
-   "total_viirs": 428.49
+   "total_viirs": 3410.74
   },
   {
    "cell_id": "R-0035C01020",
@@ -4728,50 +1017,55 @@
    "north": -3.4,
    "east": 102.1,
    "years": {
+    "2022": {
+     "modis": 0.0,
+     "viirs": 3582.13,
+     "n_days": 20
+    },
     "2023": {
      "modis": 0.0,
-     "viirs": 180.92,
-     "n_days": 4
-    },
-    "2019": {
-     "modis": 0.0,
-     "viirs": 187.36,
-     "n_days": 6
-    },
-    "2025": {
-     "modis": 0.0,
-     "viirs": 99.19,
-     "n_days": 2
-    },
-    "2026": {
-     "modis": 0.0,
-     "viirs": 74.46,
-     "n_days": 2
+     "viirs": 2392.26,
+     "n_days": 30
     },
     "2018": {
      "modis": 0.0,
-     "viirs": 49.88,
-     "n_days": 1
+     "viirs": 1257.06,
+     "n_days": 21
     },
-    "2022": {
+    "2019": {
      "modis": 0.0,
-     "viirs": 64.45,
-     "n_days": 2
+     "viirs": 919.7,
+     "n_days": 22
     },
-    "2020": {
+    "2025": {
      "modis": 0.0,
-     "viirs": 54.71,
-     "n_days": 2
+     "viirs": 718.11,
+     "n_days": 15
     },
     "2021": {
      "modis": 0.0,
-     "viirs": 30.38,
-     "n_days": 2
+     "viirs": 383.91,
+     "n_days": 11
+    },
+    "2024": {
+     "modis": 0.0,
+     "viirs": 838.67,
+     "n_days": 19
+    },
+    "2020": {
+     "modis": 0.0,
+     "viirs": 555.6,
+     "n_days": 16
+    },
+    "2026": {
+     "modis": 0.0,
+     "viirs": 260.48,
+     "n_days": 8
     }
    },
-   "n_days": 21,
+   "n_days": 162,
    "total_modis": 0.0,
-   "total_viirs": 741.35
+   "total_viirs": 10907.92
   },
   {
    "cell_id": "R-0035C01021",
@@ -4780,50 +1074,55 @@
    "north": -3.4,
    "east": 102.2,
    "years": {
-    "2019": {
+    "2022": {
      "modis": 0.0,
-     "viirs": 450.2,
+     "viirs": 419.68,
      "n_days": 5
+    },
+    "2025": {
+     "modis": 0.0,
+     "viirs": 485.37,
+     "n_days": 9
     },
     "2023": {
      "modis": 0.0,
-     "viirs": 155.0,
-     "n_days": 5
+     "viirs": 403.44,
+     "n_days": 6
     },
     "2026": {
      "modis": 0.0,
-     "viirs": 53.1,
-     "n_days": 1
+     "viirs": 170.02,
+     "n_days": 4
+    },
+    "2021": {
+     "modis": 0.0,
+     "viirs": 146.38,
+     "n_days": 2
+    },
+    "2019": {
+     "modis": 0.0,
+     "viirs": 334.02,
+     "n_days": 7
     },
     "2018": {
      "modis": 0.0,
-     "viirs": 101.19,
-     "n_days": 3
+     "viirs": 122.58,
+     "n_days": 4
     },
-    "2022": {
+    "2024": {
      "modis": 0.0,
-     "viirs": 121.93,
+     "viirs": 103.05,
      "n_days": 3
     },
     "2020": {
      "modis": 0.0,
-     "viirs": 26.18,
-     "n_days": 1
-    },
-    "2025": {
-     "modis": 0.0,
-     "viirs": 20.69,
-     "n_days": 1
-    },
-    "2021": {
-     "modis": 0.0,
-     "viirs": 17.48,
-     "n_days": 1
+     "viirs": 61.13,
+     "n_days": 3
     }
    },
-   "n_days": 20,
+   "n_days": 43,
    "total_modis": 0.0,
-   "total_viirs": 945.77
+   "total_viirs": 2245.67
   },
   {
    "cell_id": "R-0035C01022",
@@ -4834,38 +1133,38 @@
    "years": {
     "2022": {
      "modis": 0.0,
-     "viirs": 651.13,
-     "n_days": 4
-    },
-    "2023": {
-     "modis": 0.0,
-     "viirs": 368.2,
-     "n_days": 6
-    },
-    "2018": {
-     "modis": 0.0,
-     "viirs": 143.57,
-     "n_days": 2
-    },
-    "2019": {
-     "modis": 0.0,
-     "viirs": 103.54,
-     "n_days": 2
-    },
-    "2026": {
-     "modis": 0.0,
-     "viirs": 22.4,
+     "viirs": 403.13,
      "n_days": 1
     },
     "2021": {
      "modis": 0.0,
-     "viirs": 16.64,
+     "viirs": 34.44,
+     "n_days": 1
+    },
+    "2023": {
+     "modis": 0.0,
+     "viirs": 22.75,
+     "n_days": 1
+    },
+    "2018": {
+     "modis": 0.0,
+     "viirs": 18.2,
+     "n_days": 1
+    },
+    "2024": {
+     "modis": 0.0,
+     "viirs": 17.98,
+     "n_days": 1
+    },
+    "2026": {
+     "modis": 0.0,
+     "viirs": 17.18,
      "n_days": 1
     }
    },
-   "n_days": 16,
+   "n_days": 6,
    "total_modis": 0.0,
-   "total_viirs": 1305.48
+   "total_viirs": 513.68
   },
   {
    "cell_id": "R-0035C01023",
@@ -4874,82 +1173,10 @@
    "north": -3.4,
    "east": 102.4,
    "years": {
-    "2018": {
-     "modis": 0.0,
-     "viirs": 626.28,
-     "n_days": 3
-    },
-    "2023": {
-     "modis": 0.0,
-     "viirs": 503.25,
-     "n_days": 5
-    },
-    "2022": {
-     "modis": 0.0,
-     "viirs": 400.43,
-     "n_days": 3
-    },
-    "2024": {
-     "modis": 0.0,
-     "viirs": 143.96,
-     "n_days": 4
-    },
-    "2025": {
-     "modis": 0.0,
-     "viirs": 88.52,
-     "n_days": 3
-    },
-    "2020": {
-     "modis": 0.0,
-     "viirs": 97.91,
-     "n_days": 4
-    },
-    "2021": {
-     "modis": 0.0,
-     "viirs": 30.98,
-     "n_days": 1
-    },
-    "2026": {
-     "modis": 0.0,
-     "viirs": 44.81,
-     "n_days": 2
-    }
-   },
-   "n_days": 25,
-   "total_modis": 0.0,
-   "total_viirs": 1936.14
-  },
-  {
-   "cell_id": "R-0035C01024",
-   "south": -3.5,
-   "west": 102.4,
-   "north": -3.4,
-   "east": 102.5,
-   "years": {
-    "2022": {
-     "modis": 0.0,
-     "viirs": 247.91,
-     "n_days": 2
-    },
     "2019": {
      "modis": 0.0,
-     "viirs": 259.44,
-     "n_days": 6
-    },
-    "2018": {
-     "modis": 0.0,
-     "viirs": 57.87,
-     "n_days": 2
-    },
-    "2020": {
-     "modis": 0.0,
-     "viirs": 34.44,
+     "viirs": 40.58,
      "n_days": 1
-    },
-    "2025": {
-     "modis": 0.0,
-     "viirs": 49.72,
-     "n_days": 2
     },
     "2021": {
      "modis": 0.0,
@@ -4957,271 +1184,9 @@
      "n_days": 1
     }
    },
-   "n_days": 14,
+   "n_days": 2,
    "total_modis": 0.0,
-   "total_viirs": 671.96
-  },
-  {
-   "cell_id": "R-0035C01025",
-   "south": -3.5,
-   "west": 102.5,
-   "north": -3.4,
-   "east": 102.6,
-   "years": {
-    "2025": {
-     "modis": 0.0,
-     "viirs": 404.6,
-     "n_days": 1
-    },
-    "2022": {
-     "modis": 0.0,
-     "viirs": 406.04,
-     "n_days": 4
-    },
-    "2019": {
-     "modis": 0.0,
-     "viirs": 83.95,
-     "n_days": 2
-    },
-    "2023": {
-     "modis": 0.0,
-     "viirs": 170.76,
-     "n_days": 5
-    },
-    "2018": {
-     "modis": 0.0,
-     "viirs": 34.76,
-     "n_days": 1
-    },
-    "2024": {
-     "modis": 0.0,
-     "viirs": 15.87,
-     "n_days": 1
-    },
-    "2020": {
-     "modis": 0.0,
-     "viirs": 16.26,
-     "n_days": 1
-    }
-   },
-   "n_days": 15,
-   "total_modis": 0.0,
-   "total_viirs": 1132.24
-  },
-  {
-   "cell_id": "R-0035C01026",
-   "south": -3.5,
-   "west": 102.6,
-   "north": -3.4,
-   "east": 102.7,
-   "years": {
-    "2023": {
-     "modis": 0.0,
-     "viirs": 163.7,
-     "n_days": 2
-    },
-    "2025": {
-     "modis": 0.0,
-     "viirs": 132.98,
-     "n_days": 4
-    },
-    "2022": {
-     "modis": 0.0,
-     "viirs": 81.83,
-     "n_days": 3
-    },
-    "2019": {
-     "modis": 0.0,
-     "viirs": 56.46,
-     "n_days": 2
-    },
-    "2018": {
-     "modis": 0.0,
-     "viirs": 48.25,
-     "n_days": 2
-    },
-    "2026": {
-     "modis": 0.0,
-     "viirs": 75.54,
-     "n_days": 3
-    },
-    "2024": {
-     "modis": 0.0,
-     "viirs": 36.87,
-     "n_days": 2
-    },
-    "2021": {
-     "modis": 0.0,
-     "viirs": 19.09,
-     "n_days": 1
-    }
-   },
-   "n_days": 19,
-   "total_modis": 0.0,
-   "total_viirs": 614.72
-  },
-  {
-   "cell_id": "R-0035C01027",
-   "south": -3.5,
-   "west": 102.7,
-   "north": -3.4,
-   "east": 102.8,
-   "years": {
-    "2018": {
-     "modis": 0.0,
-     "viirs": 615.51,
-     "n_days": 3
-    },
-    "2019": {
-     "modis": 0.0,
-     "viirs": 291.72,
-     "n_days": 1
-    },
-    "2024": {
-     "modis": 0.0,
-     "viirs": 200.54,
-     "n_days": 4
-    },
-    "2023": {
-     "modis": 0.0,
-     "viirs": 139.63,
-     "n_days": 2
-    },
-    "2025": {
-     "modis": 0.0,
-     "viirs": 133.83,
-     "n_days": 4
-    },
-    "2021": {
-     "modis": 0.0,
-     "viirs": 16.69,
-     "n_days": 1
-    }
-   },
-   "n_days": 15,
-   "total_modis": 0.0,
-   "total_viirs": 1397.92
-  },
-  {
-   "cell_id": "R-0034C01015",
-   "south": -3.4,
-   "west": 101.5,
-   "north": -3.3,
-   "east": 101.6,
-   "years": {
-    "2022": {
-     "modis": 0.0,
-     "viirs": 315.18,
-     "n_days": 4
-    },
-    "2021": {
-     "modis": 0.0,
-     "viirs": 123.4,
-     "n_days": 2
-    },
-    "2023": {
-     "modis": 0.0,
-     "viirs": 118.81,
-     "n_days": 3
-    },
-    "2024": {
-     "modis": 0.0,
-     "viirs": 54.51,
-     "n_days": 2
-    },
-    "2026": {
-     "modis": 0.0,
-     "viirs": 56.26,
-     "n_days": 2
-    },
-    "2018": {
-     "modis": 0.0,
-     "viirs": 20.6,
-     "n_days": 1
-    }
-   },
-   "n_days": 14,
-   "total_modis": 0.0,
-   "total_viirs": 688.76
-  },
-  {
-   "cell_id": "R-0034C01016",
-   "south": -3.4,
-   "west": 101.6,
-   "north": -3.3,
-   "east": 101.7,
-   "years": {
-    "2018": {
-     "modis": 0.0,
-     "viirs": 399.36,
-     "n_days": 4
-    },
-    "2022": {
-     "modis": 0.0,
-     "viirs": 367.14,
-     "n_days": 4
-    },
-    "2024": {
-     "modis": 0.0,
-     "viirs": 221.12,
-     "n_days": 3
-    },
-    "2019": {
-     "modis": 0.0,
-     "viirs": 179.45,
-     "n_days": 3
-    },
-    "2023": {
-     "modis": 0.0,
-     "viirs": 130.9,
-     "n_days": 5
-    },
-    "2021": {
-     "modis": 0.0,
-     "viirs": 73.51,
-     "n_days": 3
-    },
-    "2020": {
-     "modis": 0.0,
-     "viirs": 40.61,
-     "n_days": 2
-    }
-   },
-   "n_days": 24,
-   "total_modis": 0.0,
-   "total_viirs": 1412.09
-  },
-  {
-   "cell_id": "R-0034C01017",
-   "south": -3.4,
-   "west": 101.7,
-   "north": -3.3,
-   "east": 101.8,
-   "years": {
-    "2024": {
-     "modis": 0.0,
-     "viirs": 606.78,
-     "n_days": 5
-    },
-    "2019": {
-     "modis": 0.0,
-     "viirs": 358.24,
-     "n_days": 4
-    },
-    "2025": {
-     "modis": 0.0,
-     "viirs": 194.53,
-     "n_days": 3
-    },
-    "2026": {
-     "modis": 0.0,
-     "viirs": 68.95,
-     "n_days": 1
-    }
-   },
-   "n_days": 13,
-   "total_modis": 0.0,
-   "total_viirs": 1228.5
+   "total_viirs": 63.16
   },
   {
    "cell_id": "R-0034C01018",
@@ -5230,55 +1195,45 @@
    "north": -3.3,
    "east": 101.9,
    "years": {
-    "2023": {
+    "2018": {
      "modis": 0.0,
-     "viirs": 1055.67,
-     "n_days": 7
-    },
-    "2025": {
-     "modis": 0.0,
-     "viirs": 397.43,
-     "n_days": 4
+     "viirs": 607.52,
+     "n_days": 3
     },
     "2019": {
      "modis": 0.0,
-     "viirs": 245.94,
-     "n_days": 4
+     "viirs": 354.59,
+     "n_days": 3
     },
-    "2024": {
+    "2023": {
      "modis": 0.0,
-     "viirs": 125.5,
-     "n_days": 2
+     "viirs": 103.74,
+     "n_days": 1
+    },
+    "2025": {
+     "modis": 0.0,
+     "viirs": 73.26,
+     "n_days": 1
     },
     "2021": {
      "modis": 0.0,
-     "viirs": 100.5,
-     "n_days": 3
+     "viirs": 88.0,
+     "n_days": 2
+    },
+    "2024": {
+     "modis": 0.0,
+     "viirs": 50.6,
+     "n_days": 2
     },
     "2026": {
      "modis": 0.0,
-     "viirs": 63.99,
+     "viirs": 48.64,
      "n_days": 2
-    },
-    "2018": {
-     "modis": 0.0,
-     "viirs": 36.34,
-     "n_days": 1
-    },
-    "2022": {
-     "modis": 0.0,
-     "viirs": 25.51,
-     "n_days": 1
-    },
-    "2020": {
-     "modis": 0.0,
-     "viirs": 14.03,
-     "n_days": 1
     }
    },
-   "n_days": 25,
+   "n_days": 14,
    "total_modis": 0.0,
-   "total_viirs": 2064.91
+   "total_viirs": 1326.35
   },
   {
    "cell_id": "R-0034C01019",
@@ -5287,55 +1242,55 @@
    "north": -3.3,
    "east": 102.0,
    "years": {
-    "2022": {
-     "modis": 0.0,
-     "viirs": 174.46,
-     "n_days": 2
-    },
     "2019": {
      "modis": 0.0,
-     "viirs": 197.31,
-     "n_days": 5
-    },
-    "2025": {
-     "modis": 0.0,
-     "viirs": 51.05,
-     "n_days": 2
-    },
-    "2018": {
-     "modis": 0.0,
-     "viirs": 31.85,
-     "n_days": 1
+     "viirs": 1450.16,
+     "n_days": 15
     },
     "2024": {
      "modis": 0.0,
-     "viirs": 30.07,
-     "n_days": 1
-    },
-    "2026": {
-     "modis": 0.0,
-     "viirs": 21.5,
-     "n_days": 1
+     "viirs": 829.97,
+     "n_days": 10
     },
     "2023": {
      "modis": 0.0,
-     "viirs": 18.92,
-     "n_days": 1
+     "viirs": 855.28,
+     "n_days": 13
+    },
+    "2025": {
+     "modis": 0.0,
+     "viirs": 776.3,
+     "n_days": 13
+    },
+    "2022": {
+     "modis": 0.0,
+     "viirs": 909.49,
+     "n_days": 15
+    },
+    "2018": {
+     "modis": 0.0,
+     "viirs": 467.32,
+     "n_days": 14
+    },
+    "2026": {
+     "modis": 0.0,
+     "viirs": 157.92,
+     "n_days": 5
     },
     "2020": {
      "modis": 0.0,
-     "viirs": 31.85,
-     "n_days": 2
+     "viirs": 279.03,
+     "n_days": 9
     },
     "2021": {
      "modis": 0.0,
-     "viirs": 16.37,
-     "n_days": 1
+     "viirs": 142.46,
+     "n_days": 6
     }
    },
-   "n_days": 16,
+   "n_days": 100,
    "total_modis": 0.0,
-   "total_viirs": 573.38
+   "total_viirs": 5867.93
   },
   {
    "cell_id": "R-0034C01020",
@@ -5344,45 +1299,55 @@
    "north": -3.3,
    "east": 102.1,
    "years": {
-    "2018": {
-     "modis": 0.0,
-     "viirs": 162.84,
-     "n_days": 1
-    },
     "2019": {
      "modis": 0.0,
-     "viirs": 203.34,
-     "n_days": 6
-    },
-    "2023": {
-     "modis": 0.0,
-     "viirs": 85.42,
-     "n_days": 2
-    },
-    "2025": {
-     "modis": 0.0,
-     "viirs": 36.64,
-     "n_days": 2
-    },
-    "2021": {
-     "modis": 0.0,
-     "viirs": 18.57,
-     "n_days": 1
-    },
-    "2024": {
-     "modis": 0.0,
-     "viirs": 16.25,
-     "n_days": 1
+     "viirs": 4697.32,
+     "n_days": 50
     },
     "2022": {
      "modis": 0.0,
-     "viirs": 15.63,
-     "n_days": 1
+     "viirs": 5393.65,
+     "n_days": 43
+    },
+    "2023": {
+     "modis": 0.0,
+     "viirs": 5490.07,
+     "n_days": 56
+    },
+    "2024": {
+     "modis": 0.0,
+     "viirs": 2068.76,
+     "n_days": 30
+    },
+    "2025": {
+     "modis": 0.0,
+     "viirs": 3288.08,
+     "n_days": 49
+    },
+    "2021": {
+     "modis": 0.0,
+     "viirs": 1245.15,
+     "n_days": 29
+    },
+    "2018": {
+     "modis": 0.0,
+     "viirs": 1677.29,
+     "n_days": 42
+    },
+    "2026": {
+     "modis": 0.0,
+     "viirs": 673.35,
+     "n_days": 15
+    },
+    "2020": {
+     "modis": 0.0,
+     "viirs": 915.72,
+     "n_days": 25
     }
    },
-   "n_days": 14,
+   "n_days": 339,
    "total_modis": 0.0,
-   "total_viirs": 538.69
+   "total_viirs": 25449.39
   },
   {
    "cell_id": "R-0034C01021",
@@ -5393,43 +1358,53 @@
    "years": {
     "2025": {
      "modis": 0.0,
-     "viirs": 220.55,
-     "n_days": 2
-    },
-    "2023": {
-     "modis": 0.0,
-     "viirs": 196.79,
-     "n_days": 3
+     "viirs": 1017.08,
+     "n_days": 13
     },
     "2019": {
      "modis": 0.0,
-     "viirs": 206.62,
-     "n_days": 5
-    },
-    "2024": {
-     "modis": 0.0,
-     "viirs": 128.53,
-     "n_days": 2
+     "viirs": 782.23,
+     "n_days": 10
     },
     "2022": {
      "modis": 0.0,
-     "viirs": 127.82,
+     "viirs": 1114.5,
+     "n_days": 13
+    },
+    "2023": {
+     "modis": 0.0,
+     "viirs": 1183.83,
+     "n_days": 17
+    },
+    "2018": {
+     "modis": 0.0,
+     "viirs": 750.45,
+     "n_days": 18
+    },
+    "2024": {
+     "modis": 0.0,
+     "viirs": 309.51,
+     "n_days": 6
+    },
+    "2021": {
+     "modis": 0.0,
+     "viirs": 143.21,
+     "n_days": 6
+    },
+    "2026": {
+     "modis": 0.0,
+     "viirs": 70.23,
      "n_days": 3
     },
     "2020": {
      "modis": 0.0,
-     "viirs": 24.47,
-     "n_days": 1
-    },
-    "2018": {
-     "modis": 0.0,
-     "viirs": 55.11,
-     "n_days": 3
+     "viirs": 76.55,
+     "n_days": 4
     }
    },
-   "n_days": 19,
+   "n_days": 90,
    "total_modis": 0.0,
-   "total_viirs": 959.89
+   "total_viirs": 5447.59
   },
   {
    "cell_id": "R-0034C01022",
@@ -5438,35 +1413,45 @@
    "north": -3.3,
    "east": 102.3,
    "years": {
-    "2024": {
+    "2022": {
      "modis": 0.0,
-     "viirs": 356.26,
-     "n_days": 3
+     "viirs": 421.56,
+     "n_days": 1
     },
-    "2023": {
+    "2019": {
      "modis": 0.0,
-     "viirs": 234.89,
-     "n_days": 3
+     "viirs": 285.75,
+     "n_days": 5
     },
     "2025": {
      "modis": 0.0,
-     "viirs": 354.14,
-     "n_days": 7
+     "viirs": 57.16,
+     "n_days": 1
     },
-    "2020": {
+    "2023": {
      "modis": 0.0,
-     "viirs": 100.68,
-     "n_days": 3
+     "viirs": 43.6,
+     "n_days": 1
     },
-    "2022": {
+    "2024": {
      "modis": 0.0,
-     "viirs": 48.53,
+     "viirs": 34.71,
+     "n_days": 1
+    },
+    "2018": {
+     "modis": 0.0,
+     "viirs": 13.56,
+     "n_days": 1
+    },
+    "2021": {
+     "modis": 0.0,
+     "viirs": 17.84,
      "n_days": 1
     }
    },
-   "n_days": 17,
+   "n_days": 11,
    "total_modis": 0.0,
-   "total_viirs": 1094.5
+   "total_viirs": 874.18
   },
   {
    "cell_id": "R-0034C01023",
@@ -5475,35 +1460,20 @@
    "north": -3.3,
    "east": 102.4,
    "years": {
-    "2025": {
-     "modis": 0.0,
-     "viirs": 256.83,
-     "n_days": 2
-    },
-    "2024": {
-     "modis": 0.0,
-     "viirs": 259.8,
-     "n_days": 3
-    },
-    "2023": {
-     "modis": 0.0,
-     "viirs": 268.27,
-     "n_days": 4
-    },
-    "2020": {
-     "modis": 0.0,
-     "viirs": 104.72,
-     "n_days": 2
-    },
     "2019": {
      "modis": 0.0,
-     "viirs": 21.35,
+     "viirs": 33.94,
+     "n_days": 1
+    },
+    "2025": {
+     "modis": 0.0,
+     "viirs": 15.67,
      "n_days": 1
     }
    },
-   "n_days": 12,
+   "n_days": 2,
    "total_modis": 0.0,
-   "total_viirs": 910.97
+   "total_viirs": 49.61
   },
   {
    "cell_id": "R-0034C01024",
@@ -5514,288 +1484,13 @@
    "years": {
     "2019": {
      "modis": 0.0,
-     "viirs": 191.57,
-     "n_days": 3
-    },
-    "2023": {
-     "modis": 0.0,
-     "viirs": 150.94,
-     "n_days": 3
-    },
-    "2025": {
-     "modis": 0.0,
-     "viirs": 129.17,
-     "n_days": 2
-    },
-    "2021": {
-     "modis": 0.0,
-     "viirs": 104.67,
-     "n_days": 2
-    },
-    "2024": {
-     "modis": 0.0,
-     "viirs": 52.11,
-     "n_days": 1
-    },
-    "2018": {
-     "modis": 0.0,
-     "viirs": 95.95,
-     "n_days": 3
-    },
-    "2026": {
-     "modis": 0.0,
-     "viirs": 23.91,
+     "viirs": 107.84,
      "n_days": 1
     }
    },
-   "n_days": 15,
+   "n_days": 1,
    "total_modis": 0.0,
-   "total_viirs": 748.32
-  },
-  {
-   "cell_id": "R-0034C01025",
-   "south": -3.4,
-   "west": 102.5,
-   "north": -3.3,
-   "east": 102.6,
-   "years": {
-    "2025": {
-     "modis": 0.0,
-     "viirs": 184.85,
-     "n_days": 3
-    },
-    "2023": {
-     "modis": 0.0,
-     "viirs": 162.66,
-     "n_days": 2
-    },
-    "2022": {
-     "modis": 0.0,
-     "viirs": 117.59,
-     "n_days": 2
-    },
-    "2018": {
-     "modis": 0.0,
-     "viirs": 98.59,
-     "n_days": 4
-    },
-    "2021": {
-     "modis": 0.0,
-     "viirs": 55.79,
-     "n_days": 2
-    },
-    "2024": {
-     "modis": 0.0,
-     "viirs": 62.47,
-     "n_days": 2
-    },
-    "2020": {
-     "modis": 0.0,
-     "viirs": 21.42,
-     "n_days": 1
-    }
-   },
-   "n_days": 16,
-   "total_modis": 0.0,
-   "total_viirs": 703.37
-  },
-  {
-   "cell_id": "R-0034C01026",
-   "south": -3.4,
-   "west": 102.6,
-   "north": -3.3,
-   "east": 102.7,
-   "years": {
-    "2022": {
-     "modis": 0.0,
-     "viirs": 384.62,
-     "n_days": 7
-    },
-    "2018": {
-     "modis": 0.0,
-     "viirs": 147.98,
-     "n_days": 2
-    },
-    "2024": {
-     "modis": 0.0,
-     "viirs": 181.65,
-     "n_days": 3
-    },
-    "2023": {
-     "modis": 0.0,
-     "viirs": 105.1,
-     "n_days": 2
-    },
-    "2019": {
-     "modis": 0.0,
-     "viirs": 119.3,
-     "n_days": 4
-    },
-    "2026": {
-     "modis": 0.0,
-     "viirs": 37.34,
-     "n_days": 1
-    },
-    "2021": {
-     "modis": 0.0,
-     "viirs": 30.98,
-     "n_days": 1
-    }
-   },
-   "n_days": 20,
-   "total_modis": 0.0,
-   "total_viirs": 1006.97
-  },
-  {
-   "cell_id": "R-0034C01027",
-   "south": -3.4,
-   "west": 102.7,
-   "north": -3.3,
-   "east": 102.8,
-   "years": {
-    "2019": {
-     "modis": 0.0,
-     "viirs": 124.42,
-     "n_days": 1
-    },
-    "2025": {
-     "modis": 0.0,
-     "viirs": 198.52,
-     "n_days": 2
-    },
-    "2023": {
-     "modis": 0.0,
-     "viirs": 71.13,
-     "n_days": 2
-    },
-    "2022": {
-     "modis": 0.0,
-     "viirs": 85.33,
-     "n_days": 3
-    },
-    "2024": {
-     "modis": 0.0,
-     "viirs": 34.71,
-     "n_days": 1
-    },
-    "2018": {
-     "modis": 0.0,
-     "viirs": 46.41,
-     "n_days": 2
-    },
-    "2026": {
-     "modis": 0.0,
-     "viirs": 23.31,
-     "n_days": 1
-    }
-   },
-   "n_days": 12,
-   "total_modis": 0.0,
-   "total_viirs": 583.83
-  },
-  {
-   "cell_id": "R-0033C01015",
-   "south": -3.3,
-   "west": 101.5,
-   "north": -3.2,
-   "east": 101.6,
-   "years": {
-    "2023": {
-     "modis": 0.0,
-     "viirs": 298.7,
-     "n_days": 5
-    },
-    "2019": {
-     "modis": 0.0,
-     "viirs": 233.02,
-     "n_days": 3
-    },
-    "2018": {
-     "modis": 0.0,
-     "viirs": 36.34,
-     "n_days": 1
-    },
-    "2025": {
-     "modis": 0.0,
-     "viirs": 35.14,
-     "n_days": 1
-    },
-    "2022": {
-     "modis": 0.0,
-     "viirs": 28.88,
-     "n_days": 1
-    },
-    "2026": {
-     "modis": 0.0,
-     "viirs": 55.25,
-     "n_days": 3
-    },
-    "2021": {
-     "modis": 0.0,
-     "viirs": 22.12,
-     "n_days": 1
-    },
-    "2020": {
-     "modis": 0.0,
-     "viirs": 31.53,
-     "n_days": 2
-    },
-    "2024": {
-     "modis": 0.0,
-     "viirs": 15.33,
-     "n_days": 1
-    }
-   },
-   "n_days": 18,
-   "total_modis": 0.0,
-   "total_viirs": 756.31
-  },
-  {
-   "cell_id": "R-0033C01016",
-   "south": -3.3,
-   "west": 101.6,
-   "north": -3.2,
-   "east": 101.7,
-   "years": {
-    "2022": {
-     "modis": 0.0,
-     "viirs": 344.6,
-     "n_days": 2
-    },
-    "2019": {
-     "modis": 0.0,
-     "viirs": 181.67,
-     "n_days": 5
-    },
-    "2024": {
-     "modis": 0.0,
-     "viirs": 72.51,
-     "n_days": 2
-    },
-    "2026": {
-     "modis": 0.0,
-     "viirs": 43.33,
-     "n_days": 1
-    },
-    "2023": {
-     "modis": 0.0,
-     "viirs": 50.45,
-     "n_days": 2
-    },
-    "2020": {
-     "modis": 0.0,
-     "viirs": 21.88,
-     "n_days": 1
-    },
-    "2021": {
-     "modis": 0.0,
-     "viirs": 21.05,
-     "n_days": 1
-    }
-   },
-   "n_days": 14,
-   "total_modis": 0.0,
-   "total_viirs": 735.49
+   "total_viirs": 107.84
   },
   {
    "cell_id": "R-0033C01017",
@@ -5804,50 +1499,20 @@
    "north": -3.2,
    "east": 101.8,
    "years": {
-    "2023": {
+    "2022": {
      "modis": 0.0,
-     "viirs": 241.66,
-     "n_days": 2
-    },
-    "2025": {
-     "modis": 0.0,
-     "viirs": 413.36,
-     "n_days": 4
-    },
-    "2026": {
-     "modis": 0.0,
-     "viirs": 115.78,
-     "n_days": 3
-    },
-    "2024": {
-     "modis": 0.0,
-     "viirs": 128.24,
-     "n_days": 3
-    },
-    "2019": {
-     "modis": 0.0,
-     "viirs": 76.18,
-     "n_days": 2
-    },
-    "2018": {
-     "modis": 0.0,
-     "viirs": 20.11,
+     "viirs": 16.65,
      "n_days": 1
     },
     "2020": {
      "modis": 0.0,
-     "viirs": 34.38,
-     "n_days": 2
-    },
-    "2022": {
-     "modis": 0.0,
-     "viirs": 14.68,
+     "viirs": 15.92,
      "n_days": 1
     }
    },
-   "n_days": 18,
+   "n_days": 2,
    "total_modis": 0.0,
-   "total_viirs": 1044.39
+   "total_viirs": 32.57
   },
   {
    "cell_id": "R-0033C01018",
@@ -5856,45 +1521,20 @@
    "north": -3.2,
    "east": 101.9,
    "years": {
-    "2023": {
+    "2019": {
      "modis": 0.0,
-     "viirs": 459.25,
-     "n_days": 5
-    },
-    "2024": {
-     "modis": 0.0,
-     "viirs": 70.7,
-     "n_days": 1
-    },
-    "2025": {
-     "modis": 0.0,
-     "viirs": 50.81,
-     "n_days": 2
-    },
-    "2020": {
-     "modis": 0.0,
-     "viirs": 67.29,
+     "viirs": 91.3,
      "n_days": 3
-    },
-    "2026": {
-     "modis": 0.0,
-     "viirs": 18.44,
-     "n_days": 1
     },
     "2018": {
      "modis": 0.0,
-     "viirs": 31.14,
-     "n_days": 2
-    },
-    "2021": {
-     "modis": 0.0,
-     "viirs": 17.57,
+     "viirs": 31.47,
      "n_days": 1
     }
    },
-   "n_days": 15,
+   "n_days": 4,
    "total_modis": 0.0,
-   "total_viirs": 715.2
+   "total_viirs": 122.77
   },
   {
    "cell_id": "R-0033C01019",
@@ -5905,48 +1545,33 @@
    "years": {
     "2022": {
      "modis": 0.0,
-     "viirs": 112.37,
+     "viirs": 254.79,
      "n_days": 1
     },
     "2023": {
      "modis": 0.0,
-     "viirs": 226.57,
+     "viirs": 167.47,
+     "n_days": 2
+    },
+    "2024": {
+     "modis": 0.0,
+     "viirs": 79.63,
+     "n_days": 1
+    },
+    "2020": {
+     "modis": 0.0,
+     "viirs": 104.91,
      "n_days": 3
     },
     "2019": {
      "modis": 0.0,
-     "viirs": 72.66,
-     "n_days": 1
-    },
-    "2018": {
-     "modis": 0.0,
-     "viirs": 49.88,
-     "n_days": 1
-    },
-    "2024": {
-     "modis": 0.0,
-     "viirs": 33.24,
-     "n_days": 1
-    },
-    "2026": {
-     "modis": 0.0,
-     "viirs": 50.57,
-     "n_days": 2
-    },
-    "2021": {
-     "modis": 0.0,
-     "viirs": 22.58,
-     "n_days": 1
-    },
-    "2025": {
-     "modis": 0.0,
-     "viirs": 17.8,
-     "n_days": 1
+     "viirs": 45.38,
+     "n_days": 3
     }
    },
-   "n_days": 11,
+   "n_days": 10,
    "total_modis": 0.0,
-   "total_viirs": 585.67
+   "total_viirs": 652.18
   },
   {
    "cell_id": "R-0033C01020",
@@ -5955,35 +1580,45 @@
    "north": -3.2,
    "east": 102.1,
    "years": {
-    "2018": {
-     "modis": 0.0,
-     "viirs": 166.27,
-     "n_days": 2
-    },
-    "2025": {
-     "modis": 0.0,
-     "viirs": 80.61,
-     "n_days": 2
-    },
     "2023": {
      "modis": 0.0,
-     "viirs": 67.76,
-     "n_days": 2
-    },
-    "2019": {
-     "modis": 0.0,
-     "viirs": 54.66,
-     "n_days": 3
+     "viirs": 838.06,
+     "n_days": 11
     },
     "2022": {
      "modis": 0.0,
-     "viirs": 16.65,
+     "viirs": 558.56,
+     "n_days": 7
+    },
+    "2019": {
+     "modis": 0.0,
+     "viirs": 388.23,
+     "n_days": 3
+    },
+    "2024": {
+     "modis": 0.0,
+     "viirs": 424.58,
+     "n_days": 6
+    },
+    "2025": {
+     "modis": 0.0,
+     "viirs": 263.74,
+     "n_days": 5
+    },
+    "2018": {
+     "modis": 0.0,
+     "viirs": 102.22,
+     "n_days": 4
+    },
+    "2020": {
+     "modis": 0.0,
+     "viirs": 35.86,
      "n_days": 1
     }
    },
-   "n_days": 10,
+   "n_days": 37,
    "total_modis": 0.0,
-   "total_viirs": 385.95
+   "total_viirs": 2611.25
   },
   {
    "cell_id": "R-0033C01021",
@@ -5992,45 +1627,55 @@
    "north": -3.2,
    "east": 102.2,
    "years": {
-    "2022": {
-     "modis": 0.0,
-     "viirs": 285.33,
-     "n_days": 4
-    },
     "2019": {
      "modis": 0.0,
-     "viirs": 358.86,
+     "viirs": 1229.83,
      "n_days": 4
+    },
+    "2018": {
+     "modis": 0.0,
+     "viirs": 163.92,
+     "n_days": 4
+    },
+    "2025": {
+     "modis": 0.0,
+     "viirs": 77.47,
+     "n_days": 1
+    },
+    "2024": {
+     "modis": 0.0,
+     "viirs": 96.11,
+     "n_days": 3
     },
     "2023": {
      "modis": 0.0,
-     "viirs": 69.08,
+     "viirs": 99.97,
+     "n_days": 3
+    },
+    "2026": {
+     "modis": 0.0,
+     "viirs": 51.62,
+     "n_days": 1
+    },
+    "2021": {
+     "modis": 0.0,
+     "viirs": 31.94,
      "n_days": 1
     },
     "2020": {
      "modis": 0.0,
-     "viirs": 84.02,
-     "n_days": 2
+     "viirs": 24.47,
+     "n_days": 1
     },
-    "2024": {
+    "2022": {
      "modis": 0.0,
-     "viirs": 81.09,
-     "n_days": 3
-    },
-    "2018": {
-     "modis": 0.0,
-     "viirs": 46.17,
-     "n_days": 2
-    },
-    "2025": {
-     "modis": 0.0,
-     "viirs": 36.17,
-     "n_days": 2
+     "viirs": 15.99,
+     "n_days": 1
     }
    },
-   "n_days": 18,
+   "n_days": 19,
    "total_modis": 0.0,
-   "total_viirs": 960.72
+   "total_viirs": 1791.32
   },
   {
    "cell_id": "R-0033C01022",
@@ -6039,45 +1684,25 @@
    "north": -3.2,
    "east": 102.3,
    "years": {
-    "2019": {
+    "2025": {
      "modis": 0.0,
-     "viirs": 105.38,
+     "viirs": 404.6,
      "n_days": 1
+    },
+    "2024": {
+     "modis": 0.0,
+     "viirs": 46.96,
+     "n_days": 2
     },
     "2018": {
      "modis": 0.0,
-     "viirs": 131.69,
-     "n_days": 3
-    },
-    "2020": {
-     "modis": 0.0,
-     "viirs": 54.98,
-     "n_days": 2
-    },
-    "2023": {
-     "modis": 0.0,
-     "viirs": 82.04,
-     "n_days": 3
-    },
-    "2021": {
-     "modis": 0.0,
-     "viirs": 30.98,
-     "n_days": 1
-    },
-    "2025": {
-     "modis": 0.0,
-     "viirs": 17.11,
-     "n_days": 1
-    },
-    "2022": {
-     "modis": 0.0,
-     "viirs": 16.3,
+     "viirs": 16.04,
      "n_days": 1
     }
    },
-   "n_days": 12,
+   "n_days": 4,
    "total_modis": 0.0,
-   "total_viirs": 438.48
+   "total_viirs": 467.6
   },
   {
    "cell_id": "R-0033C01023",
@@ -6086,379 +1711,15 @@
    "north": -3.2,
    "east": 102.4,
    "years": {
-    "2023": {
-     "modis": 0.0,
-     "viirs": 729.73,
-     "n_days": 7
-    },
-    "2022": {
-     "modis": 0.0,
-     "viirs": 219.55,
-     "n_days": 3
-    },
-    "2019": {
-     "modis": 0.0,
-     "viirs": 370.58,
-     "n_days": 4
-    },
-    "2025": {
-     "modis": 0.0,
-     "viirs": 79.97,
-     "n_days": 1
-    },
-    "2026": {
-     "modis": 0.0,
-     "viirs": 51.24,
-     "n_days": 1
-    },
-    "2021": {
-     "modis": 0.0,
-     "viirs": 41.01,
-     "n_days": 2
-    },
     "2018": {
      "modis": 0.0,
-     "viirs": 17.54,
-     "n_days": 1
-    },
-    "2020": {
-     "modis": 0.0,
-     "viirs": 16.01,
+     "viirs": 15.79,
      "n_days": 1
     }
    },
-   "n_days": 20,
+   "n_days": 1,
    "total_modis": 0.0,
-   "total_viirs": 1525.63
-  },
-  {
-   "cell_id": "R-0033C01024",
-   "south": -3.3,
-   "west": 102.4,
-   "north": -3.2,
-   "east": 102.5,
-   "years": {
-    "2025": {
-     "modis": 0.0,
-     "viirs": 500.46,
-     "n_days": 4
-    },
-    "2023": {
-     "modis": 0.0,
-     "viirs": 693.09,
-     "n_days": 4
-    },
-    "2026": {
-     "modis": 0.0,
-     "viirs": 53.1,
-     "n_days": 1
-    },
-    "2018": {
-     "modis": 0.0,
-     "viirs": 115.87,
-     "n_days": 3
-    },
-    "2019": {
-     "modis": 0.0,
-     "viirs": 42.81,
-     "n_days": 2
-    },
-    "2021": {
-     "modis": 0.0,
-     "viirs": 19.48,
-     "n_days": 1
-    },
-    "2020": {
-     "modis": 0.0,
-     "viirs": 16.01,
-     "n_days": 1
-    }
-   },
-   "n_days": 16,
-   "total_modis": 0.0,
-   "total_viirs": 1440.82
-  },
-  {
-   "cell_id": "R-0033C01025",
-   "south": -3.3,
-   "west": 102.5,
-   "north": -3.2,
-   "east": 102.6,
-   "years": {
-    "2023": {
-     "modis": 0.0,
-     "viirs": 210.67,
-     "n_days": 4
-    },
-    "2025": {
-     "modis": 0.0,
-     "viirs": 125.6,
-     "n_days": 1
-    },
-    "2022": {
-     "modis": 0.0,
-     "viirs": 127.26,
-     "n_days": 3
-    },
-    "2024": {
-     "modis": 0.0,
-     "viirs": 44.95,
-     "n_days": 1
-    },
-    "2018": {
-     "modis": 0.0,
-     "viirs": 28.21,
-     "n_days": 1
-    },
-    "2019": {
-     "modis": 0.0,
-     "viirs": 17.59,
-     "n_days": 1
-    }
-   },
-   "n_days": 11,
-   "total_modis": 0.0,
-   "total_viirs": 554.28
-  },
-  {
-   "cell_id": "R-0033C01026",
-   "south": -3.3,
-   "west": 102.6,
-   "north": -3.2,
-   "east": 102.7,
-   "years": {
-    "2019": {
-     "modis": 0.0,
-     "viirs": 268.54,
-     "n_days": 3
-    },
-    "2025": {
-     "modis": 0.0,
-     "viirs": 292.88,
-     "n_days": 4
-    },
-    "2024": {
-     "modis": 0.0,
-     "viirs": 86.91,
-     "n_days": 2
-    },
-    "2022": {
-     "modis": 0.0,
-     "viirs": 95.4,
-     "n_days": 3
-    },
-    "2018": {
-     "modis": 0.0,
-     "viirs": 34.76,
-     "n_days": 1
-    },
-    "2026": {
-     "modis": 0.0,
-     "viirs": 46.1,
-     "n_days": 2
-    },
-    "2020": {
-     "modis": 0.0,
-     "viirs": 15.21,
-     "n_days": 1
-    },
-    "2023": {
-     "modis": 0.0,
-     "viirs": 30.77,
-     "n_days": 2
-    }
-   },
-   "n_days": 18,
-   "total_modis": 0.0,
-   "total_viirs": 870.57
-  },
-  {
-   "cell_id": "R-0033C01027",
-   "south": -3.3,
-   "west": 102.7,
-   "north": -3.2,
-   "east": 102.8,
-   "years": {
-    "2025": {
-     "modis": 0.0,
-     "viirs": 99.45,
-     "n_days": 2
-    },
-    "2022": {
-     "modis": 0.0,
-     "viirs": 85.78,
-     "n_days": 2
-    },
-    "2018": {
-     "modis": 0.0,
-     "viirs": 81.57,
-     "n_days": 4
-    },
-    "2024": {
-     "modis": 0.0,
-     "viirs": 33.24,
-     "n_days": 1
-    },
-    "2020": {
-     "modis": 0.0,
-     "viirs": 43.9,
-     "n_days": 2
-    },
-    "2026": {
-     "modis": 0.0,
-     "viirs": 23.51,
-     "n_days": 1
-    },
-    "2023": {
-     "modis": 0.0,
-     "viirs": 53.69,
-     "n_days": 3
-    },
-    "2019": {
-     "modis": 0.0,
-     "viirs": 13.79,
-     "n_days": 1
-    }
-   },
-   "n_days": 16,
-   "total_modis": 0.0,
-   "total_viirs": 434.93
-  },
-  {
-   "cell_id": "R-0032C01015",
-   "south": -3.2,
-   "west": 101.5,
-   "north": -3.1,
-   "east": 101.6,
-   "years": {
-    "2019": {
-     "modis": 0.0,
-     "viirs": 283.75,
-     "n_days": 5
-    },
-    "2022": {
-     "modis": 0.0,
-     "viirs": 139.54,
-     "n_days": 2
-    },
-    "2024": {
-     "modis": 0.0,
-     "viirs": 150.2,
-     "n_days": 3
-    },
-    "2026": {
-     "modis": 0.0,
-     "viirs": 86.89,
-     "n_days": 2
-    },
-    "2025": {
-     "modis": 0.0,
-     "viirs": 30.5,
-     "n_days": 1
-    },
-    "2021": {
-     "modis": 0.0,
-     "viirs": 21.93,
-     "n_days": 1
-    },
-    "2018": {
-     "modis": 0.0,
-     "viirs": 19.47,
-     "n_days": 1
-    },
-    "2023": {
-     "modis": 0.0,
-     "viirs": 19.14,
-     "n_days": 1
-    }
-   },
-   "n_days": 16,
-   "total_modis": 0.0,
-   "total_viirs": 751.42
-  },
-  {
-   "cell_id": "R-0032C01016",
-   "south": -3.2,
-   "west": 101.6,
-   "north": -3.1,
-   "east": 101.7,
-   "years": {
-    "2019": {
-     "modis": 0.0,
-     "viirs": 150.18,
-     "n_days": 2
-    },
-    "2023": {
-     "modis": 0.0,
-     "viirs": 129.35,
-     "n_days": 2
-    },
-    "2024": {
-     "modis": 0.0,
-     "viirs": 89.9,
-     "n_days": 2
-    },
-    "2025": {
-     "modis": 0.0,
-     "viirs": 56.44,
-     "n_days": 1
-    },
-    "2020": {
-     "modis": 0.0,
-     "viirs": 97.57,
-     "n_days": 3
-    },
-    "2018": {
-     "modis": 0.0,
-     "viirs": 71.52,
-     "n_days": 4
-    }
-   },
-   "n_days": 14,
-   "total_modis": 0.0,
-   "total_viirs": 594.96
-  },
-  {
-   "cell_id": "R-0032C01017",
-   "south": -3.2,
-   "west": 101.7,
-   "north": -3.1,
-   "east": 101.8,
-   "years": {
-    "2022": {
-     "modis": 0.0,
-     "viirs": 809.03,
-     "n_days": 6
-    },
-    "2019": {
-     "modis": 0.0,
-     "viirs": 521.65,
-     "n_days": 7
-    },
-    "2021": {
-     "modis": 0.0,
-     "viirs": 119.11,
-     "n_days": 4
-    },
-    "2024": {
-     "modis": 0.0,
-     "viirs": 75.14,
-     "n_days": 2
-    },
-    "2025": {
-     "modis": 0.0,
-     "viirs": 54.77,
-     "n_days": 2
-    },
-    "2018": {
-     "modis": 0.0,
-     "viirs": 14.83,
-     "n_days": 1
-    }
-   },
-   "n_days": 22,
-   "total_modis": 0.0,
-   "total_viirs": 1594.53
+   "total_viirs": 15.79
   },
   {
    "cell_id": "R-0032C01018",
@@ -6469,33 +1730,23 @@
    "years": {
     "2025": {
      "modis": 0.0,
-     "viirs": 77.98,
+     "viirs": 143.33,
      "n_days": 2
-    },
-    "2019": {
-     "modis": 0.0,
-     "viirs": 52.14,
-     "n_days": 1
-    },
-    "2026": {
-     "modis": 0.0,
-     "viirs": 40.73,
-     "n_days": 1
     },
     "2022": {
      "modis": 0.0,
-     "viirs": 17.0,
+     "viirs": 73.73,
      "n_days": 1
     },
-    "2021": {
+    "2019": {
      "modis": 0.0,
-     "viirs": 16.69,
+     "viirs": 17.5,
      "n_days": 1
     }
    },
-   "n_days": 6,
+   "n_days": 4,
    "total_modis": 0.0,
-   "total_viirs": 204.54
+   "total_viirs": 234.56
   },
   {
    "cell_id": "R-0032C01019",
@@ -6504,45 +1755,15 @@
    "north": -3.1,
    "east": 102.0,
    "years": {
-    "2025": {
-     "modis": 0.0,
-     "viirs": 164.08,
-     "n_days": 1
-    },
-    "2023": {
-     "modis": 0.0,
-     "viirs": 71.05,
-     "n_days": 2
-    },
-    "2018": {
-     "modis": 0.0,
-     "viirs": 84.19,
-     "n_days": 3
-    },
-    "2021": {
-     "modis": 0.0,
-     "viirs": 88.79,
-     "n_days": 3
-    },
-    "2019": {
-     "modis": 0.0,
-     "viirs": 45.41,
-     "n_days": 2
-    },
     "2024": {
      "modis": 0.0,
-     "viirs": 25.87,
-     "n_days": 1
-    },
-    "2026": {
-     "modis": 0.0,
-     "viirs": 23.81,
+     "viirs": 37.9,
      "n_days": 1
     }
    },
-   "n_days": 13,
+   "n_days": 1,
    "total_modis": 0.0,
-   "total_viirs": 503.2
+   "total_viirs": 37.9
   },
   {
    "cell_id": "R-0032C01020",
@@ -6551,50 +1772,30 @@
    "north": -3.1,
    "east": 102.1,
    "years": {
-    "2022": {
-     "modis": 0.0,
-     "viirs": 274.65,
-     "n_days": 2
-    },
     "2019": {
      "modis": 0.0,
-     "viirs": 327.25,
-     "n_days": 3
-    },
-    "2020": {
-     "modis": 0.0,
-     "viirs": 68.27,
+     "viirs": 158.72,
      "n_days": 1
-    },
-    "2026": {
-     "modis": 0.0,
-     "viirs": 86.19,
-     "n_days": 2
-    },
-    "2024": {
-     "modis": 0.0,
-     "viirs": 73.55,
-     "n_days": 3
-    },
-    "2018": {
-     "modis": 0.0,
-     "viirs": 120.96,
-     "n_days": 5
     },
     "2023": {
      "modis": 0.0,
-     "viirs": 33.14,
+     "viirs": 47.3,
      "n_days": 1
     },
-    "2021": {
+    "2018": {
      "modis": 0.0,
-     "viirs": 33.77,
+     "viirs": 58.55,
      "n_days": 2
+    },
+    "2025": {
+     "modis": 0.0,
+     "viirs": 17.4,
+     "n_days": 1
     }
    },
-   "n_days": 19,
+   "n_days": 5,
    "total_modis": 0.0,
-   "total_viirs": 1017.78
+   "total_viirs": 281.97
   },
   {
    "cell_id": "R-0032C01021",
@@ -6603,55 +1804,15 @@
    "north": -3.1,
    "east": 102.2,
    "years": {
-    "2022": {
-     "modis": 0.0,
-     "viirs": 875.25,
-     "n_days": 3
-    },
-    "2018": {
-     "modis": 0.0,
-     "viirs": 337.71,
-     "n_days": 5
-    },
-    "2023": {
-     "modis": 0.0,
-     "viirs": 305.33,
-     "n_days": 3
-    },
-    "2020": {
-     "modis": 0.0,
-     "viirs": 100.84,
-     "n_days": 3
-    },
-    "2026": {
-     "modis": 0.0,
-     "viirs": 41.92,
-     "n_days": 1
-    },
     "2025": {
      "modis": 0.0,
-     "viirs": 35.83,
-     "n_days": 1
-    },
-    "2024": {
-     "modis": 0.0,
-     "viirs": 32.5,
-     "n_days": 1
-    },
-    "2021": {
-     "modis": 0.0,
-     "viirs": 50.19,
-     "n_days": 2
-    },
-    "2019": {
-     "modis": 0.0,
-     "viirs": 32.71,
+     "viirs": 48.09,
      "n_days": 2
     }
    },
-   "n_days": 21,
+   "n_days": 2,
    "total_modis": 0.0,
-   "total_viirs": 1812.28
+   "total_viirs": 48.09
   },
   {
    "cell_id": "R-0032C01022",
@@ -6660,441 +1821,15 @@
    "north": -3.1,
    "east": 102.3,
    "years": {
-    "2022": {
-     "modis": 0.0,
-     "viirs": 377.08,
-     "n_days": 3
-    },
-    "2025": {
-     "modis": 0.0,
-     "viirs": 264.53,
-     "n_days": 3
-    },
-    "2019": {
-     "modis": 0.0,
-     "viirs": 105.36,
-     "n_days": 2
-    },
     "2018": {
      "modis": 0.0,
-     "viirs": 131.12,
-     "n_days": 5
-    },
-    "2021": {
-     "modis": 0.0,
-     "viirs": 27.13,
-     "n_days": 1
-    },
-    "2026": {
-     "modis": 0.0,
-     "viirs": 50.78,
+     "viirs": 43.51,
      "n_days": 2
-    },
-    "2020": {
-     "modis": 0.0,
-     "viirs": 19.14,
-     "n_days": 1
-    },
-    "2024": {
-     "modis": 0.0,
-     "viirs": 14.46,
-     "n_days": 1
     }
    },
-   "n_days": 18,
+   "n_days": 2,
    "total_modis": 0.0,
-   "total_viirs": 989.6
-  },
-  {
-   "cell_id": "R-0032C01023",
-   "south": -3.2,
-   "west": 102.3,
-   "north": -3.1,
-   "east": 102.4,
-   "years": {
-    "2022": {
-     "modis": 0.0,
-     "viirs": 339.74,
-     "n_days": 3
-    },
-    "2023": {
-     "modis": 0.0,
-     "viirs": 120.98,
-     "n_days": 3
-    },
-    "2019": {
-     "modis": 0.0,
-     "viirs": 56.59,
-     "n_days": 2
-    },
-    "2018": {
-     "modis": 0.0,
-     "viirs": 28.28,
-     "n_days": 1
-    },
-    "2025": {
-     "modis": 0.0,
-     "viirs": 41.68,
-     "n_days": 2
-    },
-    "2021": {
-     "modis": 0.0,
-     "viirs": 27.13,
-     "n_days": 1
-    },
-    "2026": {
-     "modis": 0.0,
-     "viirs": 22.84,
-     "n_days": 1
-    },
-    "2024": {
-     "modis": 0.0,
-     "viirs": 36.65,
-     "n_days": 2
-    },
-    "2020": {
-     "modis": 0.0,
-     "viirs": 17.25,
-     "n_days": 1
-    }
-   },
-   "n_days": 16,
-   "total_modis": 0.0,
-   "total_viirs": 691.14
-  },
-  {
-   "cell_id": "R-0032C01024",
-   "south": -3.2,
-   "west": 102.4,
-   "north": -3.1,
-   "east": 102.5,
-   "years": {
-    "2023": {
-     "modis": 0.0,
-     "viirs": 302.26,
-     "n_days": 4
-    },
-    "2025": {
-     "modis": 0.0,
-     "viirs": 203.02,
-     "n_days": 3
-    },
-    "2022": {
-     "modis": 0.0,
-     "viirs": 80.84,
-     "n_days": 2
-    },
-    "2018": {
-     "modis": 0.0,
-     "viirs": 88.87,
-     "n_days": 3
-    },
-    "2021": {
-     "modis": 0.0,
-     "viirs": 43.45,
-     "n_days": 1
-    },
-    "2024": {
-     "modis": 0.0,
-     "viirs": 52.36,
-     "n_days": 2
-    },
-    "2019": {
-     "modis": 0.0,
-     "viirs": 64.63,
-     "n_days": 2
-    },
-    "2026": {
-     "modis": 0.0,
-     "viirs": 23.26,
-     "n_days": 1
-    }
-   },
-   "n_days": 18,
-   "total_modis": 0.0,
-   "total_viirs": 858.69
-  },
-  {
-   "cell_id": "R-0032C01025",
-   "south": -3.2,
-   "west": 102.5,
-   "north": -3.1,
-   "east": 102.6,
-   "years": {
-    "2025": {
-     "modis": 0.0,
-     "viirs": 174.0,
-     "n_days": 2
-    },
-    "2023": {
-     "modis": 0.0,
-     "viirs": 194.61,
-     "n_days": 3
-    },
-    "2022": {
-     "modis": 0.0,
-     "viirs": 88.82,
-     "n_days": 2
-    },
-    "2020": {
-     "modis": 0.0,
-     "viirs": 147.48,
-     "n_days": 3
-    },
-    "2024": {
-     "modis": 0.0,
-     "viirs": 91.65,
-     "n_days": 2
-    },
-    "2019": {
-     "modis": 0.0,
-     "viirs": 73.55,
-     "n_days": 2
-    },
-    "2018": {
-     "modis": 0.0,
-     "viirs": 95.68,
-     "n_days": 4
-    },
-    "2026": {
-     "modis": 0.0,
-     "viirs": 17.94,
-     "n_days": 1
-    }
-   },
-   "n_days": 19,
-   "total_modis": 0.0,
-   "total_viirs": 883.73
-  },
-  {
-   "cell_id": "R-0032C01026",
-   "south": -3.2,
-   "west": 102.6,
-   "north": -3.1,
-   "east": 102.7,
-   "years": {
-    "2019": {
-     "modis": 0.0,
-     "viirs": 1256.86,
-     "n_days": 4
-    },
-    "2022": {
-     "modis": 0.0,
-     "viirs": 812.21,
-     "n_days": 3
-    },
-    "2024": {
-     "modis": 0.0,
-     "viirs": 201.37,
-     "n_days": 2
-    },
-    "2023": {
-     "modis": 0.0,
-     "viirs": 153.87,
-     "n_days": 4
-    },
-    "2018": {
-     "modis": 0.0,
-     "viirs": 119.37,
-     "n_days": 2
-    },
-    "2025": {
-     "modis": 0.0,
-     "viirs": 58.52,
-     "n_days": 1
-    },
-    "2026": {
-     "modis": 0.0,
-     "viirs": 14.14,
-     "n_days": 1
-    }
-   },
-   "n_days": 17,
-   "total_modis": 0.0,
-   "total_viirs": 2616.34
-  },
-  {
-   "cell_id": "R-0032C01027",
-   "south": -3.2,
-   "west": 102.7,
-   "north": -3.1,
-   "east": 102.8,
-   "years": {
-    "2023": {
-     "modis": 0.0,
-     "viirs": 598.74,
-     "n_days": 4
-    },
-    "2025": {
-     "modis": 0.0,
-     "viirs": 144.77,
-     "n_days": 2
-    },
-    "2021": {
-     "modis": 0.0,
-     "viirs": 31.49,
-     "n_days": 1
-    },
-    "2019": {
-     "modis": 0.0,
-     "viirs": 47.03,
-     "n_days": 2
-    },
-    "2020": {
-     "modis": 0.0,
-     "viirs": 57.94,
-     "n_days": 3
-    },
-    "2022": {
-     "modis": 0.0,
-     "viirs": 16.43,
-     "n_days": 1
-    }
-   },
-   "n_days": 13,
-   "total_modis": 0.0,
-   "total_viirs": 896.4
-  },
-  {
-   "cell_id": "R-0031C01015",
-   "south": -3.1,
-   "west": 101.5,
-   "north": -3.0,
-   "east": 101.6,
-   "years": {
-    "2026": {
-     "modis": 0.0,
-     "viirs": 109.39,
-     "n_days": 2
-    },
-    "2023": {
-     "modis": 0.0,
-     "viirs": 107.46,
-     "n_days": 3
-    },
-    "2022": {
-     "modis": 0.0,
-     "viirs": 53.87,
-     "n_days": 1
-    },
-    "2024": {
-     "modis": 0.0,
-     "viirs": 30.19,
-     "n_days": 1
-    },
-    "2020": {
-     "modis": 0.0,
-     "viirs": 44.55,
-     "n_days": 2
-    },
-    "2018": {
-     "modis": 0.0,
-     "viirs": 83.11,
-     "n_days": 4
-    },
-    "2025": {
-     "modis": 0.0,
-     "viirs": 13.8,
-     "n_days": 1
-    },
-    "2019": {
-     "modis": 0.0,
-     "viirs": 17.36,
-     "n_days": 1
-    }
-   },
-   "n_days": 15,
-   "total_modis": 0.0,
-   "total_viirs": 459.73
-  },
-  {
-   "cell_id": "R-0031C01016",
-   "south": -3.1,
-   "west": 101.6,
-   "north": -3.0,
-   "east": 101.7,
-   "years": {
-    "2022": {
-     "modis": 0.0,
-     "viirs": 404.43,
-     "n_days": 5
-    },
-    "2026": {
-     "modis": 0.0,
-     "viirs": 45.88,
-     "n_days": 1
-    },
-    "2018": {
-     "modis": 0.0,
-     "viirs": 27.72,
-     "n_days": 1
-    },
-    "2023": {
-     "modis": 0.0,
-     "viirs": 46.6,
-     "n_days": 2
-    },
-    "2019": {
-     "modis": 0.0,
-     "viirs": 33.1,
-     "n_days": 2
-    },
-    "2025": {
-     "modis": 0.0,
-     "viirs": 18.67,
-     "n_days": 1
-    },
-    "2020": {
-     "modis": 0.0,
-     "viirs": 51.14,
-     "n_days": 3
-    },
-    "2024": {
-     "modis": 0.0,
-     "viirs": 14.59,
-     "n_days": 1
-    }
-   },
-   "n_days": 16,
-   "total_modis": 0.0,
-   "total_viirs": 642.13
-  },
-  {
-   "cell_id": "R-0031C01017",
-   "south": -3.1,
-   "west": 101.7,
-   "north": -3.0,
-   "east": 101.8,
-   "years": {
-    "2019": {
-     "modis": 0.0,
-     "viirs": 220.5,
-     "n_days": 3
-    },
-    "2022": {
-     "modis": 0.0,
-     "viirs": 354.57,
-     "n_days": 4
-    },
-    "2023": {
-     "modis": 0.0,
-     "viirs": 130.14,
-     "n_days": 4
-    },
-    "2021": {
-     "modis": 0.0,
-     "viirs": 35.33,
-     "n_days": 1
-    },
-    "2025": {
-     "modis": 0.0,
-     "viirs": 96.36,
-     "n_days": 4
-    }
-   },
-   "n_days": 16,
-   "total_modis": 0.0,
-   "total_viirs": 836.9
+   "total_viirs": 43.51
   },
   {
    "cell_id": "R-0031C01018",
@@ -7103,92 +1838,15 @@
    "north": -3.0,
    "east": 101.9,
    "years": {
-    "2023": {
-     "modis": 0.0,
-     "viirs": 229.63,
-     "n_days": 3
-    },
-    "2022": {
-     "modis": 0.0,
-     "viirs": 66.48,
-     "n_days": 2
-    },
-    "2025": {
-     "modis": 0.0,
-     "viirs": 100.77,
-     "n_days": 3
-    },
-    "2019": {
-     "modis": 0.0,
-     "viirs": 74.5,
-     "n_days": 2
-    },
-    "2018": {
-     "modis": 0.0,
-     "viirs": 33.94,
-     "n_days": 1
-    },
-    "2024": {
-     "modis": 0.0,
-     "viirs": 25.87,
-     "n_days": 1
-    },
     "2021": {
      "modis": 0.0,
-     "viirs": 16.37,
+     "viirs": 31.93,
      "n_days": 1
     }
    },
-   "n_days": 13,
+   "n_days": 1,
    "total_modis": 0.0,
-   "total_viirs": 547.56
-  },
-  {
-   "cell_id": "R-0031C01019",
-   "south": -3.1,
-   "west": 101.9,
-   "north": -3.0,
-   "east": 102.0,
-   "years": {
-    "2025": {
-     "modis": 0.0,
-     "viirs": 435.92,
-     "n_days": 5
-    },
-    "2024": {
-     "modis": 0.0,
-     "viirs": 184.45,
-     "n_days": 4
-    },
-    "2026": {
-     "modis": 0.0,
-     "viirs": 218.23,
-     "n_days": 3
-    },
-    "2019": {
-     "modis": 0.0,
-     "viirs": 95.25,
-     "n_days": 2
-    },
-    "2023": {
-     "modis": 0.0,
-     "viirs": 39.8,
-     "n_days": 2
-    },
-    "2020": {
-     "modis": 0.0,
-     "viirs": 60.36,
-     "n_days": 3
-    },
-    "2022": {
-     "modis": 0.0,
-     "viirs": 30.98,
-     "n_days": 2
-    }
-   },
-   "n_days": 21,
-   "total_modis": 0.0,
-   "total_viirs": 1064.99
+   "total_viirs": 31.93
   },
   {
    "cell_id": "R-0031C01020",
@@ -7197,77 +1855,15 @@
    "north": -3.0,
    "east": 102.1,
    "years": {
-    "2019": {
-     "modis": 0.0,
-     "viirs": 320.71,
-     "n_days": 2
-    },
-    "2026": {
-     "modis": 0.0,
-     "viirs": 51.62,
-     "n_days": 1
-    },
-    "2022": {
-     "modis": 0.0,
-     "viirs": 81.56,
-     "n_days": 3
-    },
-    "2020": {
-     "modis": 0.0,
-     "viirs": 55.41,
-     "n_days": 2
-    },
-    "2018": {
-     "modis": 0.0,
-     "viirs": 32.21,
-     "n_days": 1
-    },
-    "2024": {
-     "modis": 0.0,
-     "viirs": 14.33,
-     "n_days": 1
-    }
-   },
-   "n_days": 10,
-   "total_modis": 0.0,
-   "total_viirs": 555.84
-  },
-  {
-   "cell_id": "R-0031C01021",
-   "south": -3.1,
-   "west": 102.1,
-   "north": -3.0,
-   "east": 102.2,
-   "years": {
-    "2019": {
-     "modis": 0.0,
-     "viirs": 790.22,
-     "n_days": 5
-    },
-    "2022": {
-     "modis": 0.0,
-     "viirs": 351.22,
-     "n_days": 1
-    },
-    "2025": {
-     "modis": 0.0,
-     "viirs": 164.08,
-     "n_days": 1
-    },
     "2023": {
      "modis": 0.0,
-     "viirs": 201.88,
-     "n_days": 6
-    },
-    "2020": {
-     "modis": 0.0,
-     "viirs": 30.0,
-     "n_days": 2
+     "viirs": 15.22,
+     "n_days": 1
     }
    },
-   "n_days": 15,
+   "n_days": 1,
    "total_modis": 0.0,
-   "total_viirs": 1537.4
+   "total_viirs": 15.22
   },
   {
    "cell_id": "R-0031C01022",
@@ -7278,899 +1874,62 @@
    "years": {
     "2022": {
      "modis": 0.0,
-     "viirs": 250.26,
-     "n_days": 5
-    },
-    "2025": {
-     "modis": 0.0,
-     "viirs": 174.94,
-     "n_days": 3
-    },
-    "2018": {
-     "modis": 0.0,
-     "viirs": 56.61,
-     "n_days": 2
-    },
-    "2023": {
-     "modis": 0.0,
-     "viirs": 27.09,
-     "n_days": 1
-    },
-    "2021": {
-     "modis": 0.0,
-     "viirs": 13.62,
+     "viirs": 25.51,
      "n_days": 1
     }
    },
-   "n_days": 12,
+   "n_days": 1,
    "total_modis": 0.0,
-   "total_viirs": 522.52
+   "total_viirs": 25.51
   },
   {
-   "cell_id": "R-0031C01023",
-   "south": -3.1,
-   "west": 102.3,
-   "north": -3.0,
-   "east": 102.4,
-   "years": {
-    "2023": {
-     "modis": 0.0,
-     "viirs": 109.91,
-     "n_days": 3
-    },
-    "2021": {
-     "modis": 0.0,
-     "viirs": 107.78,
-     "n_days": 4
-    },
-    "2026": {
-     "modis": 0.0,
-     "viirs": 29.39,
-     "n_days": 1
-    },
-    "2019": {
-     "modis": 0.0,
-     "viirs": 33.66,
-     "n_days": 2
-    }
-   },
-   "n_days": 10,
-   "total_modis": 0.0,
-   "total_viirs": 280.74
-  },
-  {
-   "cell_id": "R-0031C01024",
-   "south": -3.1,
-   "west": 102.4,
-   "north": -3.0,
-   "east": 102.5,
-   "years": {
-    "2023": {
-     "modis": 0.0,
-     "viirs": 235.84,
-     "n_days": 3
-    },
-    "2019": {
-     "modis": 0.0,
-     "viirs": 153.25,
-     "n_days": 2
-    },
-    "2024": {
-     "modis": 0.0,
-     "viirs": 111.22,
-     "n_days": 3
-    },
-    "2025": {
-     "modis": 0.0,
-     "viirs": 76.02,
-     "n_days": 1
-    },
-    "2018": {
-     "modis": 0.0,
-     "viirs": 97.15,
-     "n_days": 2
-    },
-    "2022": {
-     "modis": 0.0,
-     "viirs": 57.47,
-     "n_days": 2
-    },
-    "2026": {
-     "modis": 0.0,
-     "viirs": 24.73,
-     "n_days": 1
-    },
-    "2020": {
-     "modis": 0.0,
-     "viirs": 37.43,
-     "n_days": 2
-    }
-   },
-   "n_days": 16,
-   "total_modis": 0.0,
-   "total_viirs": 793.11
-  },
-  {
-   "cell_id": "R-0031C01025",
-   "south": -3.1,
-   "west": 102.5,
-   "north": -3.0,
-   "east": 102.6,
-   "years": {
-    "2019": {
-     "modis": 0.0,
-     "viirs": 233.26,
-     "n_days": 4
-    },
-    "2022": {
-     "modis": 0.0,
-     "viirs": 243.98,
-     "n_days": 5
-    },
-    "2023": {
-     "modis": 0.0,
-     "viirs": 47.47,
-     "n_days": 1
-    },
-    "2021": {
-     "modis": 0.0,
-     "viirs": 77.12,
-     "n_days": 2
-    },
-    "2025": {
-     "modis": 0.0,
-     "viirs": 34.83,
-     "n_days": 1
-    },
-    "2024": {
-     "modis": 0.0,
-     "viirs": 34.71,
-     "n_days": 1
-    },
-    "2020": {
-     "modis": 0.0,
-     "viirs": 19.66,
-     "n_days": 1
-    },
-    "2018": {
-     "modis": 0.0,
-     "viirs": 17.54,
-     "n_days": 1
-    }
-   },
-   "n_days": 16,
-   "total_modis": 0.0,
-   "total_viirs": 708.57
-  },
-  {
-   "cell_id": "R-0031C01026",
-   "south": -3.1,
-   "west": 102.6,
-   "north": -3.0,
-   "east": 102.7,
-   "years": {
-    "2019": {
-     "modis": 0.0,
-     "viirs": 1474.91,
-     "n_days": 6
-    },
-    "2018": {
-     "modis": 0.0,
-     "viirs": 212.85,
-     "n_days": 4
-    },
-    "2023": {
-     "modis": 0.0,
-     "viirs": 145.71,
-     "n_days": 2
-    },
-    "2024": {
-     "modis": 0.0,
-     "viirs": 52.11,
-     "n_days": 1
-    },
-    "2022": {
-     "modis": 0.0,
-     "viirs": 33.13,
-     "n_days": 1
-    },
-    "2025": {
-     "modis": 0.0,
-     "viirs": 50.93,
-     "n_days": 2
-    },
-    "2020": {
-     "modis": 0.0,
-     "viirs": 51.88,
-     "n_days": 2
-    },
-    "2021": {
-     "modis": 0.0,
-     "viirs": 16.8,
-     "n_days": 1
-    }
-   },
-   "n_days": 19,
-   "total_modis": 0.0,
-   "total_viirs": 2038.32
-  },
-  {
-   "cell_id": "R-0031C01027",
-   "south": -3.1,
-   "west": 102.7,
-   "north": -3.0,
-   "east": 102.8,
-   "years": {
-    "2022": {
-     "modis": 0.0,
-     "viirs": 470.26,
-     "n_days": 2
-    },
-    "2019": {
-     "modis": 0.0,
-     "viirs": 440.34,
-     "n_days": 1
-    },
-    "2023": {
-     "modis": 0.0,
-     "viirs": 379.43,
-     "n_days": 3
-    },
-    "2026": {
-     "modis": 0.0,
-     "viirs": 166.8,
-     "n_days": 2
-    },
-    "2024": {
-     "modis": 0.0,
-     "viirs": 132.49,
-     "n_days": 2
-    },
-    "2018": {
-     "modis": 0.0,
-     "viirs": 83.71,
-     "n_days": 3
-    },
-    "2020": {
-     "modis": 0.0,
-     "viirs": 31.96,
-     "n_days": 1
-    },
-    "2021": {
-     "modis": 0.0,
-     "viirs": 51.86,
-     "n_days": 3
-    },
-    "2025": {
-     "modis": 0.0,
-     "viirs": 34.03,
-     "n_days": 2
-    }
-   },
-   "n_days": 19,
-   "total_modis": 0.0,
-   "total_viirs": 1790.88
-  },
-  {
-   "cell_id": "R-0030C01015",
+   "cell_id": "R-0030C01014",
    "south": -3.0,
-   "west": 101.5,
+   "west": 101.4,
    "north": -2.9,
-   "east": 101.6,
+   "east": 101.5,
    "years": {
-    "2022": {
-     "modis": 0.0,
-     "viirs": 437.59,
-     "n_days": 6
-    },
-    "2023": {
-     "modis": 0.0,
-     "viirs": 491.16,
-     "n_days": 7
-    },
     "2025": {
      "modis": 0.0,
-     "viirs": 100.5,
-     "n_days": 2
-    },
-    "2024": {
-     "modis": 0.0,
-     "viirs": 68.92,
-     "n_days": 2
-    },
-    "2018": {
-     "modis": 0.0,
-     "viirs": 67.51,
-     "n_days": 2
-    },
-    "2019": {
-     "modis": 0.0,
-     "viirs": 50.06,
-     "n_days": 3
-    },
-    "2020": {
-     "modis": 0.0,
-     "viirs": 39.34,
-     "n_days": 2
-    }
-   },
-   "n_days": 24,
-   "total_modis": 0.0,
-   "total_viirs": 1255.08
-  },
-  {
-   "cell_id": "R-0030C01016",
-   "south": -3.0,
-   "west": 101.6,
-   "north": -2.9,
-   "east": 101.7,
-   "years": {
-    "2023": {
-     "modis": 0.0,
-     "viirs": 41.93,
-     "n_days": 1
-    },
-    "2019": {
-     "modis": 0.0,
-     "viirs": 51.49,
-     "n_days": 2
-    },
-    "2021": {
-     "modis": 0.0,
-     "viirs": 31.94,
-     "n_days": 1
-    },
-    "2025": {
-     "modis": 0.0,
-     "viirs": 35.85,
-     "n_days": 2
-    }
-   },
-   "n_days": 6,
-   "total_modis": 0.0,
-   "total_viirs": 161.21
-  },
-  {
-   "cell_id": "R-0030C01017",
-   "south": -3.0,
-   "west": 101.7,
-   "north": -2.9,
-   "east": 101.8,
-   "years": {
-    "2019": {
-     "modis": 0.0,
-     "viirs": 1083.05,
-     "n_days": 2
-    },
-    "2018": {
-     "modis": 0.0,
-     "viirs": 177.31,
-     "n_days": 2
-    },
-    "2024": {
-     "modis": 0.0,
-     "viirs": 72.29,
-     "n_days": 1
-    },
-    "2026": {
-     "modis": 0.0,
-     "viirs": 91.82,
-     "n_days": 3
-    },
-    "2023": {
-     "modis": 0.0,
-     "viirs": 114.95,
-     "n_days": 4
-    },
-    "2025": {
-     "modis": 0.0,
-     "viirs": 36.24,
-     "n_days": 1
-    },
-    "2021": {
-     "modis": 0.0,
-     "viirs": 62.45,
-     "n_days": 3
-    },
-    "2020": {
-     "modis": 0.0,
-     "viirs": 25.79,
-     "n_days": 1
-    },
-    "2022": {
-     "modis": 0.0,
-     "viirs": 36.44,
-     "n_days": 2
-    }
-   },
-   "n_days": 19,
-   "total_modis": 0.0,
-   "total_viirs": 1700.34
-  },
-  {
-   "cell_id": "R-0030C01018",
-   "south": -3.0,
-   "west": 101.8,
-   "north": -2.9,
-   "east": 101.9,
-   "years": {
-    "2024": {
-     "modis": 0.0,
-     "viirs": 114.79,
-     "n_days": 1
-    },
-    "2023": {
-     "modis": 0.0,
-     "viirs": 126.3,
-     "n_days": 4
-    },
-    "2019": {
-     "modis": 0.0,
-     "viirs": 107.09,
-     "n_days": 3
-    },
-    "2021": {
-     "modis": 0.0,
-     "viirs": 34.44,
-     "n_days": 1
-    },
-    "2018": {
-     "modis": 0.0,
-     "viirs": 63.59,
-     "n_days": 3
-    },
-    "2022": {
-     "modis": 0.0,
-     "viirs": 13.87,
-     "n_days": 1
-    },
-    "2020": {
-     "modis": 0.0,
-     "viirs": 15.46,
+     "viirs": 53.02,
      "n_days": 1
     }
    },
-   "n_days": 14,
+   "n_days": 1,
    "total_modis": 0.0,
-   "total_viirs": 475.54
+   "total_viirs": 53.02
   },
   {
-   "cell_id": "R-0030C01019",
-   "south": -3.0,
-   "west": 101.9,
-   "north": -2.9,
-   "east": 102.0,
+   "cell_id": "R-0029C01013",
+   "south": -2.9,
+   "west": 101.3,
+   "north": -2.8,
+   "east": 101.4,
    "years": {
-    "2022": {
-     "modis": 0.0,
-     "viirs": 889.93,
-     "n_days": 3
-    },
-    "2023": {
-     "modis": 0.0,
-     "viirs": 88.55,
-     "n_days": 2
-    },
-    "2018": {
-     "modis": 0.0,
-     "viirs": 94.13,
-     "n_days": 4
-    },
-    "2019": {
-     "modis": 0.0,
-     "viirs": 62.52,
-     "n_days": 3
-    },
-    "2020": {
-     "modis": 0.0,
-     "viirs": 17.24,
-     "n_days": 1
-    },
-    "2024": {
-     "modis": 0.0,
-     "viirs": 14.5,
-     "n_days": 1
-    },
-    "2021": {
-     "modis": 0.0,
-     "viirs": 17.84,
-     "n_days": 1
-    }
-   },
-   "n_days": 15,
-   "total_modis": 0.0,
-   "total_viirs": 1184.71
-  },
-  {
-   "cell_id": "R-0030C01020",
-   "south": -3.0,
-   "west": 102.0,
-   "north": -2.9,
-   "east": 102.1,
-   "years": {
-    "2018": {
-     "modis": 0.0,
-     "viirs": 448.75,
-     "n_days": 4
-    },
-    "2025": {
-     "modis": 0.0,
-     "viirs": 204.99,
-     "n_days": 4
-    },
-    "2024": {
-     "modis": 0.0,
-     "viirs": 64.28,
-     "n_days": 2
-    },
-    "2019": {
-     "modis": 0.0,
-     "viirs": 62.57,
-     "n_days": 2
-    },
-    "2022": {
-     "modis": 0.0,
-     "viirs": 14.2,
-     "n_days": 1
-    },
-    "2020": {
-     "modis": 0.0,
-     "viirs": 17.44,
-     "n_days": 1
-    }
-   },
-   "n_days": 14,
-   "total_modis": 0.0,
-   "total_viirs": 812.23
-  },
-  {
-   "cell_id": "R-0030C01021",
-   "south": -3.0,
-   "west": 102.1,
-   "north": -2.9,
-   "east": 102.2,
-   "years": {
-    "2023": {
-     "modis": 0.0,
-     "viirs": 88.92,
-     "n_days": 1
-    },
-    "2019": {
-     "modis": 0.0,
-     "viirs": 107.0,
-     "n_days": 2
-    },
     "2021": {
      "modis": 0.0,
      "viirs": 69.34,
      "n_days": 1
     },
-    "2018": {
-     "modis": 0.0,
-     "viirs": 87.82,
-     "n_days": 2
-    },
-    "2025": {
-     "modis": 0.0,
-     "viirs": 32.61,
-     "n_days": 1
-    },
-    "2022": {
-     "modis": 0.0,
-     "viirs": 28.88,
-     "n_days": 1
-    },
-    "2026": {
-     "modis": 0.0,
-     "viirs": 24.73,
-     "n_days": 1
-    },
-    "2024": {
-     "modis": 0.0,
-     "viirs": 16.9,
-     "n_days": 1
-    }
-   },
-   "n_days": 10,
-   "total_modis": 0.0,
-   "total_viirs": 456.2
-  },
-  {
-   "cell_id": "R-0030C01022",
-   "south": -3.0,
-   "west": 102.2,
-   "north": -2.9,
-   "east": 102.3,
-   "years": {
-    "2018": {
-     "modis": 0.0,
-     "viirs": 159.73,
-     "n_days": 2
-    },
     "2023": {
      "modis": 0.0,
-     "viirs": 240.69,
-     "n_days": 4
+     "viirs": 59.01,
+     "n_days": 1
     },
-    "2022": {
+    "2019": {
      "modis": 0.0,
-     "viirs": 169.14,
-     "n_days": 3
-    },
-    "2024": {
-     "modis": 0.0,
-     "viirs": 35.45,
+     "viirs": 18.3,
      "n_days": 1
     },
     "2020": {
      "modis": 0.0,
-     "viirs": 26.92,
-     "n_days": 1
-    },
-    "2026": {
-     "modis": 0.0,
-     "viirs": 15.63,
-     "n_days": 1
-    },
-    "2019": {
-     "modis": 0.0,
-     "viirs": 13.49,
+     "viirs": 17.04,
      "n_days": 1
     }
    },
-   "n_days": 13,
+   "n_days": 4,
    "total_modis": 0.0,
-   "total_viirs": 661.05
-  },
-  {
-   "cell_id": "R-0030C01023",
-   "south": -3.0,
-   "west": 102.3,
-   "north": -2.9,
-   "east": 102.4,
-   "years": {
-    "2023": {
-     "modis": 0.0,
-     "viirs": 132.0,
-     "n_days": 3
-    },
-    "2019": {
-     "modis": 0.0,
-     "viirs": 170.17,
-     "n_days": 5
-    },
-    "2024": {
-     "modis": 0.0,
-     "viirs": 71.63,
-     "n_days": 3
-    },
-    "2018": {
-     "modis": 0.0,
-     "viirs": 45.84,
-     "n_days": 2
-    },
-    "2026": {
-     "modis": 0.0,
-     "viirs": 23.81,
-     "n_days": 1
-    },
-    "2022": {
-     "modis": 0.0,
-     "viirs": 15.99,
-     "n_days": 1
-    },
-    "2021": {
-     "modis": 0.0,
-     "viirs": 15.36,
-     "n_days": 1
-    },
-    "2025": {
-     "modis": 0.0,
-     "viirs": 14.97,
-     "n_days": 1
-    }
-   },
-   "n_days": 17,
-   "total_modis": 0.0,
-   "total_viirs": 489.77
-  },
-  {
-   "cell_id": "R-0030C01024",
-   "south": -3.0,
-   "west": 102.4,
-   "north": -2.9,
-   "east": 102.5,
-   "years": {
-    "2023": {
-     "modis": 0.0,
-     "viirs": 65.08,
-     "n_days": 1
-    },
-    "2024": {
-     "modis": 0.0,
-     "viirs": 64.74,
-     "n_days": 2
-    },
-    "2025": {
-     "modis": 0.0,
-     "viirs": 52.46,
-     "n_days": 2
-    },
-    "2022": {
-     "modis": 0.0,
-     "viirs": 34.14,
-     "n_days": 1
-    },
-    "2018": {
-     "modis": 0.0,
-     "viirs": 39.61,
-     "n_days": 2
-    },
-    "2021": {
-     "modis": 0.0,
-     "viirs": 19.48,
-     "n_days": 1
-    },
-    "2019": {
-     "modis": 0.0,
-     "viirs": 15.35,
-     "n_days": 1
-    }
-   },
-   "n_days": 10,
-   "total_modis": 0.0,
-   "total_viirs": 290.86
-  },
-  {
-   "cell_id": "R-0030C01025",
-   "south": -3.0,
-   "west": 102.5,
-   "north": -2.9,
-   "east": 102.6,
-   "years": {
-    "2023": {
-     "modis": 0.0,
-     "viirs": 188.49,
-     "n_days": 3
-    },
-    "2022": {
-     "modis": 0.0,
-     "viirs": 53.87,
-     "n_days": 1
-    },
-    "2026": {
-     "modis": 0.0,
-     "viirs": 53.1,
-     "n_days": 1
-    },
-    "2024": {
-     "modis": 0.0,
-     "viirs": 30.19,
-     "n_days": 1
-    },
-    "2018": {
-     "modis": 0.0,
-     "viirs": 43.9,
-     "n_days": 2
-    },
-    "2025": {
-     "modis": 0.0,
-     "viirs": 57.97,
-     "n_days": 3
-    },
-    "2019": {
-     "modis": 0.0,
-     "viirs": 49.08,
-     "n_days": 3
-    },
-    "2021": {
-     "modis": 0.0,
-     "viirs": 30.81,
-     "n_days": 2
-    }
-   },
-   "n_days": 16,
-   "total_modis": 0.0,
-   "total_viirs": 507.41
-  },
-  {
-   "cell_id": "R-0030C01026",
-   "south": -3.0,
-   "west": 102.6,
-   "north": -2.9,
-   "east": 102.7,
-   "years": {
-    "2025": {
-     "modis": 0.0,
-     "viirs": 142.99,
-     "n_days": 2
-    },
-    "2018": {
-     "modis": 0.0,
-     "viirs": 95.42,
-     "n_days": 2
-    },
-    "2023": {
-     "modis": 0.0,
-     "viirs": 136.88,
-     "n_days": 5
-    },
-    "2021": {
-     "modis": 0.0,
-     "viirs": 31.94,
-     "n_days": 1
-    },
-    "2020": {
-     "modis": 0.0,
-     "viirs": 81.77,
-     "n_days": 3
-    },
-    "2022": {
-     "modis": 0.0,
-     "viirs": 16.1,
-     "n_days": 1
-    }
-   },
-   "n_days": 14,
-   "total_modis": 0.0,
-   "total_viirs": 505.1
-  },
-  {
-   "cell_id": "R-0030C01027",
-   "south": -3.0,
-   "west": 102.7,
-   "north": -2.9,
-   "east": 102.8,
-   "years": {
-    "2018": {
-     "modis": 0.0,
-     "viirs": 583.85,
-     "n_days": 2
-    },
-    "2023": {
-     "modis": 0.0,
-     "viirs": 506.83,
-     "n_days": 3
-    },
-    "2025": {
-     "modis": 0.0,
-     "viirs": 141.48,
-     "n_days": 1
-    },
-    "2026": {
-     "modis": 0.0,
-     "viirs": 110.17,
-     "n_days": 3
-    },
-    "2019": {
-     "modis": 0.0,
-     "viirs": 137.32,
-     "n_days": 4
-    },
-    "2024": {
-     "modis": 0.0,
-     "viirs": 100.99,
-     "n_days": 3
-    },
-    "2022": {
-     "modis": 0.0,
-     "viirs": 27.69,
-     "n_days": 1
-    },
-    "2020": {
-     "modis": 0.0,
-     "viirs": 62.54,
-     "n_days": 3
-    },
-    "2021": {
-     "modis": 0.0,
-     "viirs": 22.12,
-     "n_days": 1
-    }
-   },
-   "n_days": 21,
-   "total_modis": 0.0,
-   "total_viirs": 1692.99
+   "total_viirs": 163.69
   },
   {
    "cell_id": "R-0029C01015",
@@ -8179,520 +1938,448 @@
    "north": -2.8,
    "east": 101.6,
    "years": {
+    "2018": {
+     "modis": 0.0,
+     "viirs": 19.02,
+     "n_days": 1
+    }
+   },
+   "n_days": 1,
+   "total_modis": 0.0,
+   "total_viirs": 19.02
+  },
+  {
+   "cell_id": "R-0028C01012",
+   "south": -2.8,
+   "west": 101.2,
+   "north": -2.7,
+   "east": 101.3,
+   "years": {
     "2023": {
      "modis": 0.0,
-     "viirs": 102.12,
-     "n_days": 1
-    },
-    "2022": {
-     "modis": 0.0,
-     "viirs": 114.21,
-     "n_days": 3
+     "viirs": 134.13,
+     "n_days": 2
     },
     "2024": {
      "modis": 0.0,
-     "viirs": 52.0,
-     "n_days": 2
+     "viirs": 237.72,
+     "n_days": 4
     },
-    "2021": {
+    "2022": {
      "modis": 0.0,
-     "viirs": 49.5,
-     "n_days": 2
+     "viirs": 39.29,
+     "n_days": 1
     },
     "2020": {
      "modis": 0.0,
-     "viirs": 17.2,
-     "n_days": 1
+     "viirs": 56.03,
+     "n_days": 2
     },
+    "2019": {
+     "modis": 0.0,
+     "viirs": 21.09,
+     "n_days": 1
+    }
+   },
+   "n_days": 10,
+   "total_modis": 0.0,
+   "total_viirs": 488.26
+  },
+  {
+   "cell_id": "R-0028C01013",
+   "south": -2.8,
+   "west": 101.3,
+   "north": -2.7,
+   "east": 101.4,
+   "years": {
     "2025": {
      "modis": 0.0,
-     "viirs": 17.0,
-     "n_days": 1
+     "viirs": 641.12,
+     "n_days": 10
     },
-    "2018": {
+    "2022": {
      "modis": 0.0,
-     "viirs": 14.54,
-     "n_days": 1
-    }
-   },
-   "n_days": 11,
-   "total_modis": 0.0,
-   "total_viirs": 366.57
-  },
-  {
-   "cell_id": "R-0029C01016",
-   "south": -2.9,
-   "west": 101.6,
-   "north": -2.8,
-   "east": 101.7,
-   "years": {
-    "2019": {
-     "modis": 0.0,
-     "viirs": 592.05,
-     "n_days": 3
+     "viirs": 644.39,
+     "n_days": 11
     },
-    "2023": {
+    "2026": {
      "modis": 0.0,
-     "viirs": 239.51,
+     "viirs": 264.83,
      "n_days": 5
     },
-    "2026": {
-     "modis": 0.0,
-     "viirs": 97.5,
-     "n_days": 2
-    },
-    "2021": {
-     "modis": 0.0,
-     "viirs": 45.35,
-     "n_days": 1
-    },
-    "2020": {
-     "modis": 0.0,
-     "viirs": 27.61,
-     "n_days": 1
-    },
-    "2024": {
-     "modis": 0.0,
-     "viirs": 33.13,
-     "n_days": 2
-    }
-   },
-   "n_days": 14,
-   "total_modis": 0.0,
-   "total_viirs": 1035.15
-  },
-  {
-   "cell_id": "R-0029C01017",
-   "south": -2.9,
-   "west": 101.7,
-   "north": -2.8,
-   "east": 101.8,
-   "years": {
-    "2024": {
-     "modis": 0.0,
-     "viirs": 173.23,
-     "n_days": 1
-    },
-    "2018": {
-     "modis": 0.0,
-     "viirs": 95.94,
-     "n_days": 3
-    },
-    "2021": {
-     "modis": 0.0,
-     "viirs": 59.79,
-     "n_days": 2
-    },
-    "2022": {
-     "modis": 0.0,
-     "viirs": 53.09,
-     "n_days": 2
-    },
     "2023": {
      "modis": 0.0,
-     "viirs": 92.95,
-     "n_days": 4
+     "viirs": 536.37,
+     "n_days": 13
     },
-    "2020": {
+    "2021": {
      "modis": 0.0,
-     "viirs": 40.69,
-     "n_days": 2
+     "viirs": 155.42,
+     "n_days": 3
     },
     "2019": {
      "modis": 0.0,
-     "viirs": 32.59,
-     "n_days": 2
-    }
-   },
-   "n_days": 16,
-   "total_modis": 0.0,
-   "total_viirs": 548.28
-  },
-  {
-   "cell_id": "R-0029C01018",
-   "south": -2.9,
-   "west": 101.8,
-   "north": -2.8,
-   "east": 101.9,
-   "years": {
-    "2022": {
-     "modis": 0.0,
-     "viirs": 303.33,
-     "n_days": 4
-    },
-    "2019": {
-     "modis": 0.0,
-     "viirs": 250.35,
-     "n_days": 4
-    },
-    "2023": {
-     "modis": 0.0,
-     "viirs": 169.4,
-     "n_days": 3
+     "viirs": 451.66,
+     "n_days": 15
     },
     "2024": {
      "modis": 0.0,
-     "viirs": 72.33,
-     "n_days": 1
-    },
-    "2021": {
-     "modis": 0.0,
-     "viirs": 58.17,
-     "n_days": 2
-    },
-    "2026": {
-     "modis": 0.0,
-     "viirs": 29.39,
-     "n_days": 1
-    },
-    "2018": {
-     "modis": 0.0,
-     "viirs": 68.32,
-     "n_days": 3
-    }
-   },
-   "n_days": 18,
-   "total_modis": 0.0,
-   "total_viirs": 951.29
-  },
-  {
-   "cell_id": "R-0029C01019",
-   "south": -2.9,
-   "west": 101.9,
-   "north": -2.8,
-   "east": 102.0,
-   "years": {
-    "2024": {
-     "modis": 0.0,
-     "viirs": 264.63,
+     "viirs": 278.48,
      "n_days": 6
     },
     "2018": {
      "modis": 0.0,
-     "viirs": 82.74,
+     "viirs": 117.7,
+     "n_days": 5
+    },
+    "2020": {
+     "modis": 0.0,
+     "viirs": 40.63,
+     "n_days": 2
+    }
+   },
+   "n_days": 70,
+   "total_modis": 0.0,
+   "total_viirs": 3130.6
+  },
+  {
+   "cell_id": "R-0028C01014",
+   "south": -2.8,
+   "west": 101.4,
+   "north": -2.7,
+   "east": 101.5,
+   "years": {
+    "2024": {
+     "modis": 0.0,
+     "viirs": 820.28,
+     "n_days": 6
+    },
+    "2025": {
+     "modis": 0.0,
+     "viirs": 285.68,
      "n_days": 3
     },
-    "2026": {
+    "2023": {
      "modis": 0.0,
-     "viirs": 60.36,
-     "n_days": 2
+     "viirs": 330.52,
+     "n_days": 6
+    },
+    "2018": {
+     "modis": 0.0,
+     "viirs": 185.42,
+     "n_days": 4
+    },
+    "2021": {
+     "modis": 0.0,
+     "viirs": 140.13,
+     "n_days": 3
+    },
+    "2020": {
+     "modis": 0.0,
+     "viirs": 120.16,
+     "n_days": 4
     },
     "2022": {
      "modis": 0.0,
-     "viirs": 33.13,
-     "n_days": 1
+     "viirs": 143.76,
+     "n_days": 4
     },
-    "2019": {
+    "2026": {
      "modis": 0.0,
-     "viirs": 46.12,
+     "viirs": 47.15,
      "n_days": 2
     },
-    "2023": {
-     "modis": 0.0,
-     "viirs": 24.79,
-     "n_days": 1
-    }
-   },
-   "n_days": 15,
-   "total_modis": 0.0,
-   "total_viirs": 511.77
-  },
-  {
-   "cell_id": "R-0029C01020",
-   "south": -2.9,
-   "west": 102.0,
-   "north": -2.8,
-   "east": 102.1,
-   "years": {
     "2019": {
      "modis": 0.0,
-     "viirs": 636.07,
-     "n_days": 3
-    },
-    "2023": {
+     "viirs": 30.24,
+     "n_days": 2
+    }
+   },
+   "n_days": 34,
+   "total_modis": 0.0,
+   "total_viirs": 2103.34
+  },
+  {
+   "cell_id": "R-0028C01015",
+   "south": -2.8,
+   "west": 101.5,
+   "north": -2.7,
+   "east": 101.6,
+   "years": {
+    "2022": {
      "modis": 0.0,
-     "viirs": 307.94,
+     "viirs": 814.1,
+     "n_days": 1
+    },
+    "2019": {
+     "modis": 0.0,
+     "viirs": 317.74,
+     "n_days": 5
+    },
+    "2024": {
+     "modis": 0.0,
+     "viirs": 44.95,
+     "n_days": 1
+    },
+    "2018": {
+     "modis": 0.0,
+     "viirs": 106.44,
      "n_days": 4
     },
     "2025": {
      "modis": 0.0,
-     "viirs": 251.55,
-     "n_days": 3
-    },
-    "2024": {
-     "modis": 0.0,
-     "viirs": 114.79,
-     "n_days": 1
-    },
-    "2018": {
-     "modis": 0.0,
-     "viirs": 97.13,
-     "n_days": 3
-    },
-    "2026": {
-     "modis": 0.0,
-     "viirs": 23.7,
-     "n_days": 1
-    },
-    "2022": {
-     "modis": 0.0,
-     "viirs": 16.69,
-     "n_days": 1
-    }
-   },
-   "n_days": 16,
-   "total_modis": 0.0,
-   "total_viirs": 1447.87
-  },
-  {
-   "cell_id": "R-0029C01021",
-   "south": -2.9,
-   "west": 102.1,
-   "north": -2.8,
-   "east": 102.2,
-   "years": {
-    "2023": {
-     "modis": 0.0,
-     "viirs": 167.06,
-     "n_days": 2
-    },
-    "2022": {
-     "modis": 0.0,
-     "viirs": 111.37,
-     "n_days": 2
-    },
-    "2026": {
-     "modis": 0.0,
-     "viirs": 106.62,
-     "n_days": 3
-    },
-    "2024": {
-     "modis": 0.0,
-     "viirs": 62.0,
+     "viirs": 33.49,
      "n_days": 1
     },
     "2021": {
      "modis": 0.0,
-     "viirs": 91.92,
-     "n_days": 3
-    },
-    "2019": {
-     "modis": 0.0,
-     "viirs": 60.5,
-     "n_days": 2
-    },
-    "2020": {
-     "modis": 0.0,
-     "viirs": 27.27,
-     "n_days": 1
-    },
-    "2025": {
-     "modis": 0.0,
-     "viirs": 24.37,
+     "viirs": 17.16,
      "n_days": 1
     }
    },
-   "n_days": 15,
+   "n_days": 13,
    "total_modis": 0.0,
-   "total_viirs": 651.11
+   "total_viirs": 1333.88
   },
   {
-   "cell_id": "R-0029C01022",
-   "south": -2.9,
-   "west": 102.2,
-   "north": -2.8,
-   "east": 102.3,
+   "cell_id": "R-0027C01012",
+   "south": -2.7,
+   "west": 101.2,
+   "north": -2.6,
+   "east": 101.3,
    "years": {
-    "2023": {
+    "2022": {
      "modis": 0.0,
-     "viirs": 160.01,
-     "n_days": 2
+     "viirs": 2780.78,
+     "n_days": 15
     },
     "2024": {
      "modis": 0.0,
-     "viirs": 230.59,
+     "viirs": 645.9,
+     "n_days": 7
+    },
+    "2023": {
+     "modis": 0.0,
+     "viirs": 1239.98,
+     "n_days": 21
+    },
+    "2025": {
+     "modis": 0.0,
+     "viirs": 956.35,
+     "n_days": 16
+    },
+    "2019": {
+     "modis": 0.0,
+     "viirs": 753.95,
+     "n_days": 18
+    },
+    "2026": {
+     "modis": 0.0,
+     "viirs": 343.66,
+     "n_days": 10
+    },
+    "2018": {
+     "modis": 0.0,
+     "viirs": 459.58,
+     "n_days": 16
+    },
+    "2021": {
+     "modis": 0.0,
+     "viirs": 316.4,
+     "n_days": 12
+    },
+    "2020": {
+     "modis": 0.0,
+     "viirs": 227.46,
+     "n_days": 10
+    }
+   },
+   "n_days": 125,
+   "total_modis": 0.0,
+   "total_viirs": 7724.06
+  },
+  {
+   "cell_id": "R-0027C01013",
+   "south": -2.7,
+   "west": 101.3,
+   "north": -2.6,
+   "east": 101.4,
+   "years": {
+    "2019": {
+     "modis": 0.0,
+     "viirs": 5138.64,
+     "n_days": 66
+    },
+    "2022": {
+     "modis": 0.0,
+     "viirs": 4960.97,
+     "n_days": 46
+    },
+    "2024": {
+     "modis": 0.0,
+     "viirs": 3624.0,
+     "n_days": 50
+    },
+    "2023": {
+     "modis": 0.0,
+     "viirs": 6286.99,
+     "n_days": 80
+    },
+    "2025": {
+     "modis": 0.0,
+     "viirs": 3161.96,
+     "n_days": 52
+    },
+    "2018": {
+     "modis": 0.0,
+     "viirs": 2573.87,
+     "n_days": 49
+    },
+    "2021": {
+     "modis": 0.0,
+     "viirs": 1346.13,
+     "n_days": 34
+    },
+    "2026": {
+     "modis": 0.0,
+     "viirs": 1145.62,
+     "n_days": 28
+    },
+    "2020": {
+     "modis": 0.0,
+     "viirs": 1129.37,
+     "n_days": 39
+    }
+   },
+   "n_days": 444,
+   "total_modis": 0.0,
+   "total_viirs": 29367.55
+  },
+  {
+   "cell_id": "R-0027C01014",
+   "south": -2.7,
+   "west": 101.4,
+   "north": -2.6,
+   "east": 101.5,
+   "years": {
+    "2019": {
+     "modis": 0.0,
+     "viirs": 2346.86,
+     "n_days": 22
+    },
+    "2022": {
+     "modis": 0.0,
+     "viirs": 1540.37,
+     "n_days": 14
+    },
+    "2018": {
+     "modis": 0.0,
+     "viirs": 1216.17,
+     "n_days": 16
+    },
+    "2023": {
+     "modis": 0.0,
+     "viirs": 1058.57,
+     "n_days": 24
+    },
+    "2025": {
+     "modis": 0.0,
+     "viirs": 861.69,
+     "n_days": 15
+    },
+    "2024": {
+     "modis": 0.0,
+     "viirs": 412.31,
+     "n_days": 9
+    },
+    "2021": {
+     "modis": 0.0,
+     "viirs": 244.96,
+     "n_days": 10
+    },
+    "2020": {
+     "modis": 0.0,
+     "viirs": 247.76,
+     "n_days": 10
+    },
+    "2026": {
+     "modis": 0.0,
+     "viirs": 204.32,
+     "n_days": 9
+    }
+   },
+   "n_days": 129,
+   "total_modis": 0.0,
+   "total_viirs": 8133.01
+  },
+  {
+   "cell_id": "R-0027C01015",
+   "south": -2.7,
+   "west": 101.5,
+   "north": -2.6,
+   "east": 101.6,
+   "years": {
+    "2021": {
+     "modis": 0.0,
+     "viirs": 89.29,
+     "n_days": 2
+    },
+    "2023": {
+     "modis": 0.0,
+     "viirs": 106.27,
      "n_days": 4
     },
-    "2018": {
+    "2020": {
      "modis": 0.0,
-     "viirs": 100.58,
+     "viirs": 67.64,
      "n_days": 2
-    },
-    "2019": {
-     "modis": 0.0,
-     "viirs": 161.24,
-     "n_days": 3
-    },
-    "2022": {
-     "modis": 0.0,
-     "viirs": 34.78,
-     "n_days": 1
     },
     "2025": {
      "modis": 0.0,
-     "viirs": 33.37,
+     "viirs": 36.83,
      "n_days": 1
-    },
-    "2020": {
-     "modis": 0.0,
-     "viirs": 106.85,
-     "n_days": 5
-    },
-    "2026": {
-     "modis": 0.0,
-     "viirs": 21.5,
-     "n_days": 1
-    }
-   },
-   "n_days": 19,
-   "total_modis": 0.0,
-   "total_viirs": 848.92
-  },
-  {
-   "cell_id": "R-0029C01023",
-   "south": -2.9,
-   "west": 102.3,
-   "north": -2.8,
-   "east": 102.4,
-   "years": {
-    "2024": {
-     "modis": 0.0,
-     "viirs": 231.37,
-     "n_days": 5
-    },
-    "2022": {
-     "modis": 0.0,
-     "viirs": 73.73,
-     "n_days": 1
-    },
-    "2025": {
-     "modis": 0.0,
-     "viirs": 60.43,
-     "n_days": 2
     },
     "2019": {
      "modis": 0.0,
-     "viirs": 50.41,
-     "n_days": 2
-    },
-    "2023": {
-     "modis": 0.0,
-     "viirs": 29.26,
-     "n_days": 1
-    },
-    "2020": {
-     "modis": 0.0,
-     "viirs": 25.79,
-     "n_days": 1
-    },
-    "2018": {
-     "modis": 0.0,
-     "viirs": 60.33,
-     "n_days": 3
-    },
-    "2021": {
-     "modis": 0.0,
-     "viirs": 42.56,
+     "viirs": 94.55,
      "n_days": 3
     },
     "2026": {
      "modis": 0.0,
-     "viirs": 15.33,
+     "viirs": 18.44,
      "n_days": 1
     }
    },
-   "n_days": 19,
+   "n_days": 13,
    "total_modis": 0.0,
-   "total_viirs": 589.21
+   "total_viirs": 413.02
   },
   {
-   "cell_id": "R-0029C01024",
-   "south": -2.9,
-   "west": 102.4,
-   "north": -2.8,
-   "east": 102.5,
+   "cell_id": "R-0027C01016",
+   "south": -2.7,
+   "west": 101.6,
+   "north": -2.6,
+   "east": 101.7,
    "years": {
-    "2024": {
-     "modis": 0.0,
-     "viirs": 462.36,
-     "n_days": 2
-    },
-    "2021": {
-     "modis": 0.0,
-     "viirs": 115.4,
-     "n_days": 1
-    },
-    "2019": {
-     "modis": 0.0,
-     "viirs": 125.2,
-     "n_days": 2
-    },
     "2023": {
      "modis": 0.0,
-     "viirs": 167.76,
-     "n_days": 3
-    },
-    "2018": {
-     "modis": 0.0,
-     "viirs": 153.97,
-     "n_days": 5
+     "viirs": 175.87,
+     "n_days": 1
     },
     "2026": {
      "modis": 0.0,
-     "viirs": 53.1,
+     "viirs": 68.95,
      "n_days": 1
     },
-    "2025": {
+    "2019": {
      "modis": 0.0,
-     "viirs": 52.98,
+     "viirs": 104.12,
      "n_days": 2
     },
     "2022": {
      "modis": 0.0,
-     "viirs": 20.02,
+     "viirs": 37.64,
      "n_days": 1
-    },
-    "2020": {
-     "modis": 0.0,
-     "viirs": 14.13,
-     "n_days": 1
-    }
-   },
-   "n_days": 18,
-   "total_modis": 0.0,
-   "total_viirs": 1164.92
-  },
-  {
-   "cell_id": "R-0029C01025",
-   "south": -2.9,
-   "west": 102.5,
-   "north": -2.8,
-   "east": 102.6,
-   "years": {
-    "2024": {
-     "modis": 0.0,
-     "viirs": 230.25,
-     "n_days": 1
-    },
-    "2022": {
-     "modis": 0.0,
-     "viirs": 271.36,
-     "n_days": 3
-    },
-    "2023": {
-     "modis": 0.0,
-     "viirs": 145.68,
-     "n_days": 3
-    },
-    "2019": {
-     "modis": 0.0,
-     "viirs": 106.8,
-     "n_days": 3
-    },
-    "2021": {
-     "modis": 0.0,
-     "viirs": 101.88,
-     "n_days": 3
     },
     "2018": {
      "modis": 0.0,
@@ -8701,49 +2388,333 @@
     },
     "2020": {
      "modis": 0.0,
-     "viirs": 46.98,
-     "n_days": 2
-    },
-    "2026": {
-     "modis": 0.0,
-     "viirs": 24.73,
+     "viirs": 15.46,
      "n_days": 1
     }
    },
-   "n_days": 17,
+   "n_days": 7,
    "total_modis": 0.0,
-   "total_viirs": 955.96
+   "total_viirs": 430.32
   },
   {
-   "cell_id": "R-0029C01026",
-   "south": -2.9,
-   "west": 102.6,
-   "north": -2.8,
-   "east": 102.7,
+   "cell_id": "R-0026C01011",
+   "south": -2.6,
+   "west": 101.1,
+   "north": -2.5,
+   "east": 101.2,
    "years": {
+    "2026": {
+     "modis": 0.0,
+     "viirs": 63.01,
+     "n_days": 1
+    },
+    "2020": {
+     "modis": 0.0,
+     "viirs": 59.62,
+     "n_days": 1
+    },
     "2023": {
      "modis": 0.0,
-     "viirs": 202.45,
+     "viirs": 71.88,
      "n_days": 2
     },
     "2019": {
      "modis": 0.0,
-     "viirs": 197.19,
+     "viirs": 37.2,
+     "n_days": 1
+    },
+    "2018": {
+     "modis": 0.0,
+     "viirs": 52.05,
+     "n_days": 2
+    },
+    "2022": {
+     "modis": 0.0,
+     "viirs": 34.14,
+     "n_days": 1
+    },
+    "2025": {
+     "modis": 0.0,
+     "viirs": 28.48,
+     "n_days": 1
+    }
+   },
+   "n_days": 9,
+   "total_modis": 0.0,
+   "total_viirs": 346.38
+  },
+  {
+   "cell_id": "R-0026C01012",
+   "south": -2.6,
+   "west": 101.2,
+   "north": -2.5,
+   "east": 101.3,
+   "years": {
+    "2022": {
+     "modis": 0.0,
+     "viirs": 927.91,
+     "n_days": 4
+    },
+    "2019": {
+     "modis": 0.0,
+     "viirs": 1889.28,
+     "n_days": 8
+    },
+    "2025": {
+     "modis": 0.0,
+     "viirs": 337.88,
+     "n_days": 5
+    },
+    "2023": {
+     "modis": 0.0,
+     "viirs": 196.08,
+     "n_days": 6
+    },
+    "2026": {
+     "modis": 0.0,
+     "viirs": 172.29,
+     "n_days": 5
+    },
+    "2018": {
+     "modis": 0.0,
+     "viirs": 79.09,
+     "n_days": 3
+    },
+    "2021": {
+     "modis": 0.0,
+     "viirs": 124.13,
+     "n_days": 6
+    },
+    "2024": {
+     "modis": 0.0,
+     "viirs": 51.38,
+     "n_days": 3
+    },
+    "2020": {
+     "modis": 0.0,
+     "viirs": 48.3,
+     "n_days": 3
+    }
+   },
+   "n_days": 43,
+   "total_modis": 0.0,
+   "total_viirs": 3826.34
+  },
+  {
+   "cell_id": "R-0026C01013",
+   "south": -2.6,
+   "west": 101.3,
+   "north": -2.5,
+   "east": 101.4,
+   "years": {
+    "2018": {
+     "modis": 0.0,
+     "viirs": 463.65,
+     "n_days": 5
+    },
+    "2019": {
+     "modis": 0.0,
+     "viirs": 776.06,
+     "n_days": 10
+    },
+    "2022": {
+     "modis": 0.0,
+     "viirs": 1059.84,
+     "n_days": 14
+    },
+    "2023": {
+     "modis": 0.0,
+     "viirs": 219.63,
+     "n_days": 6
+    },
+    "2024": {
+     "modis": 0.0,
+     "viirs": 418.3,
+     "n_days": 9
+    },
+    "2025": {
+     "modis": 0.0,
+     "viirs": 326.54,
+     "n_days": 7
+    },
+    "2021": {
+     "modis": 0.0,
+     "viirs": 332.11,
+     "n_days": 7
+    },
+    "2026": {
+     "modis": 0.0,
+     "viirs": 83.08,
+     "n_days": 2
+    },
+    "2020": {
+     "modis": 0.0,
+     "viirs": 130.91,
+     "n_days": 6
+    }
+   },
+   "n_days": 66,
+   "total_modis": 0.0,
+   "total_viirs": 3810.12
+  },
+  {
+   "cell_id": "R-0026C01014",
+   "south": -2.6,
+   "west": 101.4,
+   "north": -2.5,
+   "east": 101.5,
+   "years": {
+    "2022": {
+     "modis": 0.0,
+     "viirs": 348.86,
      "n_days": 3
     },
     "2024": {
      "modis": 0.0,
-     "viirs": 79.63,
+     "viirs": 417.42,
+     "n_days": 6
+    },
+    "2023": {
+     "modis": 0.0,
+     "viirs": 582.88,
+     "n_days": 5
+    },
+    "2018": {
+     "modis": 0.0,
+     "viirs": 393.4,
+     "n_days": 8
+    },
+    "2019": {
+     "modis": 0.0,
+     "viirs": 239.01,
+     "n_days": 6
+    },
+    "2026": {
+     "modis": 0.0,
+     "viirs": 94.83,
+     "n_days": 3
+    },
+    "2025": {
+     "modis": 0.0,
+     "viirs": 129.99,
+     "n_days": 4
+    },
+    "2020": {
+     "modis": 0.0,
+     "viirs": 44.34,
+     "n_days": 2
+    }
+   },
+   "n_days": 37,
+   "total_modis": 0.0,
+   "total_viirs": 2250.73
+  },
+  {
+   "cell_id": "R-0026C01015",
+   "south": -2.6,
+   "west": 101.5,
+   "north": -2.5,
+   "east": 101.6,
+   "years": {
+    "2019": {
+     "modis": 0.0,
+     "viirs": 453.83,
+     "n_days": 2
+    },
+    "2022": {
+     "modis": 0.0,
+     "viirs": 266.41,
+     "n_days": 2
+    },
+    "2023": {
+     "modis": 0.0,
+     "viirs": 158.0,
+     "n_days": 3
+    },
+    "2020": {
+     "modis": 0.0,
+     "viirs": 46.98,
+     "n_days": 1
+    },
+    "2025": {
+     "modis": 0.0,
+     "viirs": 32.61,
+     "n_days": 1
+    },
+    "2021": {
+     "modis": 0.0,
+     "viirs": 32.54,
+     "n_days": 2
+    }
+   },
+   "n_days": 11,
+   "total_modis": 0.0,
+   "total_viirs": 990.37
+  },
+  {
+   "cell_id": "R-0026C01016",
+   "south": -2.6,
+   "west": 101.6,
+   "north": -2.5,
+   "east": 101.7,
+   "years": {
+    "2018": {
+     "modis": 0.0,
+     "viirs": 28.28,
      "n_days": 1
     },
     "2026": {
      "modis": 0.0,
-     "viirs": 59.62,
+     "viirs": 23.91,
+     "n_days": 1
+    }
+   },
+   "n_days": 2,
+   "total_modis": 0.0,
+   "total_viirs": 52.19
+  },
+  {
+   "cell_id": "R-0025C01011",
+   "south": -2.5,
+   "west": 101.1,
+   "north": -2.4,
+   "east": 101.2,
+   "years": {
+    "2026": {
+     "modis": 0.0,
+     "viirs": 57.55,
      "n_days": 2
     },
-    "2025": {
+    "2024": {
      "modis": 0.0,
-     "viirs": 29.22,
+     "viirs": 19.06,
+     "n_days": 1
+    }
+   },
+   "n_days": 3,
+   "total_modis": 0.0,
+   "total_viirs": 76.61
+  },
+  {
+   "cell_id": "R-0025C01012",
+   "south": -2.5,
+   "west": 101.2,
+   "north": -2.4,
+   "east": 101.3,
+   "years": {
+    "2023": {
+     "modis": 0.0,
+     "viirs": 260.48,
+     "n_days": 4
+    },
+    "2026": {
+     "modis": 0.0,
+     "viirs": 45.88,
+     "n_days": 1
+    },
+    "2021": {
+     "modis": 0.0,
+     "viirs": 34.44,
      "n_days": 1
     },
     "2020": {
@@ -8751,77 +2722,160 @@
      "viirs": 25.79,
      "n_days": 1
     },
-    "2018": {
+    "2024": {
      "modis": 0.0,
-     "viirs": 23.31,
+     "viirs": 22.32,
      "n_days": 1
     },
-    "2021": {
+    "2018": {
      "modis": 0.0,
-     "viirs": 17.02,
+     "viirs": 17.05,
      "n_days": 1
     }
    },
-   "n_days": 12,
+   "n_days": 9,
    "total_modis": 0.0,
-   "total_viirs": 634.23
+   "total_viirs": 405.96
   },
   {
-   "cell_id": "R-0029C01027",
-   "south": -2.9,
-   "west": 102.7,
-   "north": -2.8,
-   "east": 102.8,
+   "cell_id": "R-0025C01013",
+   "south": -2.5,
+   "west": 101.3,
+   "north": -2.4,
+   "east": 101.4,
    "years": {
-    "2024": {
+    "2022": {
      "modis": 0.0,
-     "viirs": 245.13,
-     "n_days": 4
+     "viirs": 444.75,
+     "n_days": 1
     },
-    "2019": {
+    "2025": {
      "modis": 0.0,
-     "viirs": 144.87,
-     "n_days": 4
-    },
-    "2026": {
-     "modis": 0.0,
-     "viirs": 43.33,
+     "viirs": 38.38,
      "n_days": 1
     },
     "2023": {
      "modis": 0.0,
-     "viirs": 74.44,
-     "n_days": 3
-    },
-    "2025": {
-     "modis": 0.0,
-     "viirs": 38.24,
-     "n_days": 1
-    },
-    "2022": {
-     "modis": 0.0,
-     "viirs": 62.37,
-     "n_days": 3
-    },
-    "2018": {
-     "modis": 0.0,
-     "viirs": 69.43,
-     "n_days": 3
-    },
-    "2020": {
-     "modis": 0.0,
-     "viirs": 33.85,
+     "viirs": 45.71,
      "n_days": 2
     },
     "2021": {
      "modis": 0.0,
-     "viirs": 14.78,
+     "viirs": 21.05,
+     "n_days": 1
+    },
+    "2020": {
+     "modis": 0.0,
+     "viirs": 16.01,
      "n_days": 1
     }
    },
-   "n_days": 22,
+   "n_days": 6,
    "total_modis": 0.0,
-   "total_viirs": 726.44
+   "total_viirs": 565.9
+  },
+  {
+   "cell_id": "R-0025C01014",
+   "south": -2.5,
+   "west": 101.4,
+   "north": -2.4,
+   "east": 101.5,
+   "years": {
+    "2022": {
+     "modis": 0.0,
+     "viirs": 256.68,
+     "n_days": 1
+    },
+    "2019": {
+     "modis": 0.0,
+     "viirs": 167.96,
+     "n_days": 2
+    },
+    "2023": {
+     "modis": 0.0,
+     "viirs": 109.71,
+     "n_days": 2
+    },
+    "2025": {
+     "modis": 0.0,
+     "viirs": 30.5,
+     "n_days": 1
+    },
+    "2020": {
+     "modis": 0.0,
+     "viirs": 21.9,
+     "n_days": 1
+    },
+    "2018": {
+     "modis": 0.0,
+     "viirs": 34.1,
+     "n_days": 2
+    },
+    "2024": {
+     "modis": 0.0,
+     "viirs": 19.2,
+     "n_days": 1
+    }
+   },
+   "n_days": 10,
+   "total_modis": 0.0,
+   "total_viirs": 640.05
+  },
+  {
+   "cell_id": "R-0025C01015",
+   "south": -2.5,
+   "west": 101.5,
+   "north": -2.4,
+   "east": 101.6,
+   "years": {
+    "2023": {
+     "modis": 0.0,
+     "viirs": 86.99,
+     "n_days": 1
+    },
+    "2024": {
+     "modis": 0.0,
+     "viirs": 52.24,
+     "n_days": 2
+    }
+   },
+   "n_days": 3,
+   "total_modis": 0.0,
+   "total_viirs": 139.23
+  },
+  {
+   "cell_id": "R-0024C01012",
+   "south": -2.4,
+   "west": 101.2,
+   "north": -2.3,
+   "east": 101.3,
+   "years": {
+    "2022": {
+     "modis": 0.0,
+     "viirs": 190.41,
+     "n_days": 1
+    }
+   },
+   "n_days": 1,
+   "total_modis": 0.0,
+   "total_viirs": 190.41
+  },
+  {
+   "cell_id": "R-0024C01014",
+   "south": -2.4,
+   "west": 101.4,
+   "north": -2.3,
+   "east": 101.5,
+   "years": {
+    "2018": {
+     "modis": 0.0,
+     "viirs": 16.62,
+     "n_days": 1
+    }
+   },
+   "n_days": 1,
+   "total_modis": 0.0,
+   "total_viirs": 16.62
   }
  ]
 }
