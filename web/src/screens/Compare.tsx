@@ -152,10 +152,10 @@ export default function Compare() {
           </div>
           <p className="sub" style={{ marginTop: 12, fontSize: 12 }}>
             {lang === "id"
-              ? "Metrik dihitung dari partisi validasi mandiri (held-out) — dihitung secara ilmiah, bukan estimasi dekoratif."
+              ? "Metrik berasal dari partisi validasi yang tidak digunakan saat pelatihan (held-out)."
               : (computed
-                ? "Metrics calculated from held-out validation split in /api/method — computed rigorously, never decorative."
-                : "Stress-test metrics served from frozen benchmark artifacts — computed, never synthetic.")}
+                ? "Metrics use the held-out validation split returned by /api/method."
+                : "Metrics come from the frozen benchmark artifacts.")}
           </p>
         </div>
 

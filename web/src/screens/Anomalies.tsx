@@ -1,6 +1,6 @@
 import { useAoi } from "../App";
 
-// Anomalies — unusual-activity markers.
+// Planned view for historical anomaly markers.
 export default function Anomalies() {
   const { series, lang } = useAoi();
   return (
@@ -8,38 +8,38 @@ export default function Anomalies() {
       <div style={{ display: "flex", alignItems: "baseline", justifyContent: "space-between", gap: 20, flexWrap: "wrap" }}>
         <div>
           <span className="state-chip chip-neutral" style={{ fontSize: 10, marginBottom: 4 }}>
-            {lang === "id" ? "PEMANTAUAN DEVIASI KLIMATOLOGI" : "CLIMATOLOGICAL DEVIATION MONITOR"}
+            {lang === "id" ? "DEVIASI HISTORIS" : "HISTORICAL DEVIATIONS"}
           </span>
-          <h1>{lang === "id" ? "Anomali — Penanda Deviasi Statistik Historis" : "Anomalies — statistical unusual-activity markers"}</h1>
+          <h1>{lang === "id" ? "Anomali historis" : "Historical anomalies"}</h1>
         </div>
         <span className="state-chip chip-neutral mono" style={{ fontSize: 11 }}>
-          {lang === "id" ? "MODUL PENGEMBANGAN LANJUTAN" : "PLANNED ENHANCEMENT MODULE"}
+          {lang === "id" ? "DIRENCANAKAN" : "PLANNED"}
         </span>
       </div>
 
       <p className="sub" style={{ marginTop: 6 }}>
         {lang === "id"
-          ? "Pratinjau modul pemantauan anomali: menandai hari observasi dengan nilai deviasi |z| ≥ 2,5 terhadap basis klimatologi hari dalam setahun (DOY 1–366) menggunakan median kokoh dan Median Absolute Deviation (MAD). Bersifat statistik deskriptif historis — bukan sistem peringatan dini atau peramalan bahaya."
-          : "Preview of anomaly monitoring module: flags observation days where |z| ≥ 2.5 against the day-of-year (DOY 1–366) climatological baseline (robust median / Median Absolute Deviation). Marked as unusual historical deviations — descriptive statistics only, never predictive alerts or danger warnings."}
+          ? "Modul yang direncanakan akan membandingkan FRP-sum harian dengan median dan MAD untuk hari yang sama dalam setahun (DOY 1–366). Hasilnya akan merangkum deviasi historis, bukan memberi peringatan atau prediksi."
+          : "The planned module will compare daily FRP-sum with the median and MAD for the same day of year (DOY 1–366). It will summarize historical deviations, not issue warnings or forecasts."}
       </p>
 
       <div className="card" style={{ marginTop: 20, padding: 0, overflow: "hidden" }}>
         <div style={{ padding: "16px 20px", borderBottom: "1px solid var(--line)" }}>
           <h2 style={{ margin: 0 }}>
-            {lang === "id" ? "Struktur Telemetri Data Anomali" : "Planned anomaly telemetry structure"}
+            {lang === "id" ? "Kolom yang direncanakan" : "Planned fields"}
           </h2>
           <p className="sub" style={{ fontSize: 12, marginTop: 4 }}>
             {lang === "id"
-              ? "Sepenuhnya jujur terhadap kontrak data: seluruh kolom diturunkan langsung dari artefak observasi terhitung tanpa interpolasi sintetis."
-              : "Strictly contract-honest: all columns will derive from computed baseline artifacts without synthetic interpolation."}
+              ? "Halaman ini menjelaskan kolom yang akan digunakan. Hasil anomali belum dihitung."
+              : "This page describes the planned fields. Anomaly results are not calculated yet."}
           </p>
         </div>
         <table>
           <thead>
             <tr>
-              <th>{lang === "id" ? "Kolom Telemetri" : "Telemetry Column"}</th>
-              <th>{lang === "id" ? "Satuan / Standar Pengukuran" : "Measurement Unit / Standard"}</th>
-              <th>{lang === "id" ? "Definisi & Makna Ilmiah" : "Scientific Definition & Meaning"}</th>
+              <th>{lang === "id" ? "Kolom" : "Field"}</th>
+              <th>{lang === "id" ? "Satuan / Format" : "Unit / Format"}</th>
+              <th>{lang === "id" ? "Keterangan" : "Description"}</th>
             </tr>
           </thead>
           <tbody>
@@ -56,7 +56,7 @@ export default function Anomalies() {
             <tr>
               <td style={{ fontWeight: 600 }}>{lang === "id" ? "Arah Deviasi" : "Deviation Direction"}</td>
               <td className="mono">above_normal | below_normal</td>
-              <td>{lang === "id" ? "Aktivitas pembakaran yang tertekan maupun melonjak keduanya merupakan anomali klimatologis signifikan." : "Suppressed burning and elevated burning are both significant climatological anomalies."}</td>
+              <td>{lang === "id" ? "Menunjukkan apakah FRP-sum berada di bawah atau di atas median klimatologi." : "Indicates whether FRP-sum is below or above the climatological median."}</td>
             </tr>
             <tr>
               <td style={{ fontWeight: 600 }}>{lang === "id" ? "Observasi vs Klimatologi" : "Observed vs Climatology"}</td>
@@ -72,21 +72,21 @@ export default function Anomalies() {
         </table>
         <div style={{ padding: "12px 18px", borderTop: "1px solid var(--line)", fontSize: 12, color: "var(--ink2)", background: "var(--sunken)" }}>
           {lang === "id"
-            ? "Baris data terhubung langsung dengan tampilan kalender kebakaran dan grafik deret waktu. Pada kondisi data minim, hari dilabeli dukungan tidak cukup dan tidak pernah dianggap normal."
-            : "Rows will link directly to the corresponding fire calendar day and time-series analytical views. Under sparse baseline conditions, days are labeled insufficient_support rather than assumed nominal."}
+            ? "Saat data dasar tidak cukup, hasil akan ditandai insufficient_support dan tidak dianggap normal."
+            : "If the baseline has too little data, the result will be marked insufficient_support, not treated as normal."}
         </div>
       </div>
 
       <div className="boundary" style={{ marginTop: 18 }}>
         <b>
           {lang === "id"
-            ? "Pemberitahuan Batasan Ilmiah: Penanda anomali adalah statistik deskriptif — bukan peringatan bahaya atau peramalan."
-            : "Mandatory Guardrail Notice: Anomaly flags are descriptive statistics — not warning alerts, not forecasts."}
+            ? "Batasan: penanda anomali bersifat deskriptif, bukan peringatan atau prediksi."
+            : "Limit: anomaly flags are descriptive, not warnings or forecasts."}
         </b>
         <p className="sub" style={{ marginTop: 4 }}>
           {lang === "id"
-            ? "Implementasi telemetri dijadwalkan pada rilis lanjutan. Keterbukaan status ini memastikan tidak ada data anomali rekayasa atau sintetis yang ditampilkan secara palsu."
-            : "Telemetry implementation scheduled for future release. Until formal deployment, this honest status disclosure ensures zero fabricated or synthetic anomaly flags."}
+            ? "Fitur ini belum menghitung atau menampilkan penanda anomali."
+            : "This feature does not calculate or display anomaly flags yet."}
         </p>
       </div>
 

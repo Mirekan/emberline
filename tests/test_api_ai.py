@@ -9,7 +9,7 @@ class TestAIHotspotAnalyzer(unittest.TestCase):
     def setUp(self):
         self.client = TestClient(app)
 
-    def test_heuristic_generator_riau_peatland(self):
+    def test_heuristic_reports_metadata_without_inferencing_local_conditions(self):
         res = _analyze_hotspot_heuristic(
             lat=0.73494,
             lon=102.88028,
@@ -18,15 +18,18 @@ class TestAIHotspotAnalyzer(unittest.TestCase):
             sensor="viirs",
             conf="h",
             daynight="N",
-            question="kenapa kebakarannya?",
+            region="Riau",
         )
         self.assertEqual(res["status"], "success")
         self.assertEqual(res["provider"], "heuristic")
-        self.assertIn("Pesisir Timur Sumatra", res["analysis"])
-        self.assertIn("FRP", res["analysis"])
-        self.assertIn("telemetry_context", res)
-        self.assertIn("biome", res["telemetry_context"])
-        self.assertIn("Gambut", res["telemetry_context"]["biome"])
+        self.assertIn("0.73494", res["analysis"])
+        self.assertIn("102.88028", res["analysis"])
+        self.assertIn("Riau", res["analysis"])
+        self.assertIn("belum diverifikasi", res["analysis"])
+        self.assertIn("tidak menentukan penyebab", res["analysis"])
+        self.assertEqual(res["telemetry_context"]["biome"], "Tidak dinilai dari rekaman ini.")
+        self.assertEqual(res["telemetry_context"]["peatland_susceptibility"], "Tidak dinilai dari rekaman ini.")
+        self.assertIn("69.52 MW", res["telemetry_context"]["frp_interpretation"])
 
     def test_api_endpoint_success_heuristic_fallback(self):
         from unittest.mock import patch
@@ -45,7 +48,10 @@ class TestAIHotspotAnalyzer(unittest.TestCase):
             data = resp.json()
             self.assertEqual(data["status"], "success")
             self.assertEqual(data["provider"], "heuristic")
-            self.assertIn("Kalimantan Tengah", data["analysis"])
+            self.assertIn("-1.80000", data["analysis"])
+            self.assertIn("113.80000", data["analysis"])
+            self.assertNotIn("Kalimantan Tengah", data["analysis"])
+            self.assertIn("Tidak dinilai dari rekaman ini.", data["telemetry_context"]["biome"])
             self.assertIn("telemetry_context", data)
 
     def test_api_endpoint_bad_coordinates(self):
@@ -73,7 +79,7 @@ class TestAIHotspotAnalyzer(unittest.TestCase):
         data = resp.json()
         # Should gracefully fall back to heuristic
         self.assertEqual(data["provider"], "heuristic")
-        self.assertIn("dialihkan ke telemetri satelit", data["note"])
+        self.assertIn("ringkasan metadata", data["note"])
 
     def test_api_endpoint_english_language_support(self):
         from unittest.mock import patch
@@ -93,9 +99,10 @@ class TestAIHotspotAnalyzer(unittest.TestCase):
             data = resp.json()
             self.assertEqual(data["status"], "success")
             self.assertEqual(data["provider"], "heuristic")
-            self.assertIn("Eastern Coast of Sumatra", data["analysis"])
-            self.assertIn("Tropical Deep Peatland", data["telemetry_context"]["biome"])
-            self.assertIn("NASA FIRMS Satellite Telemetry Report", data["analysis"])
+            self.assertIn("Coordinates: 0.73494°, 102.88028°", data["analysis"])
+            self.assertIn("establish its cause", data["analysis"])
+            self.assertEqual(data["telemetry_context"]["biome"], "Not assessed from this record.")
+            self.assertEqual(data["telemetry_context"]["seasonal_climate"], "No climate data supplied.")
 
     def test_api_endpoint_indonesian_language_default(self):
         from unittest.mock import patch
@@ -114,8 +121,10 @@ class TestAIHotspotAnalyzer(unittest.TestCase):
             data = resp.json()
             self.assertEqual(data["status"], "success")
             self.assertEqual(data["provider"], "heuristic")
-            self.assertIn("Pesisir Timur Sumatra", data["analysis"])
-            self.assertIn("Lahan Gambut Tropis", data["telemetry_context"]["biome"])
+            self.assertIn("0.73494", data["analysis"])
+            self.assertIn("102.88028", data["analysis"])
+            self.assertIn("tidak menentukan penyebab", data["analysis"])
+            self.assertEqual(data["telemetry_context"]["biome"], "Tidak dinilai dari rekaman ini.")
 
 
 if __name__ == "__main__":
