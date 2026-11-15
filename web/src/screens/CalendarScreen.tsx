@@ -5,6 +5,8 @@ import { yearTiles, monthTiles, yearTilesFromDays, monthTilesFromDays, Tile, MON
 import { useAoi } from "../App";
 import Seasons from "./Seasons";
 
+type CalendarSensor = "harm" | "modis" | "viirs";
+
 const PRESET_NAMES: Record<"id" | "en", Record<string, string>> = {
   id: {
     riau: "Riau (Lahan Gambut Sumatera)",
@@ -31,7 +33,7 @@ export default function CalendarScreen({ goMap }: { goMap: () => void }) {
   const [view, setView] = useState<"yearly" | "monthly">("yearly");
   const [yearSel, setYearSel] = useState("all");
   const [monthSel, setMonthSel] = useState("all");
-  const [sensor, setSensor] = useState<"harm" | "modis" | "viirs">("harm");
+  const [sensor, setSensor] = useState<CalendarSensor>("harm");
   const [sel, setSel] = useState<{ key: string; title: string; sub: string; value: string; notes: string[] } | null>(null);
 
   const monthNames = lang === "en" ? MONTHS_EN : MONTHS_ID;
@@ -159,79 +161,104 @@ export default function CalendarScreen({ goMap }: { goMap: () => void }) {
             {t("cal_btn_view_map", { filter: calFilterDesc })}
           </button>
         </div>
+      </div>
 
-        <div style={{ display: "flex", gap: 10, alignItems: "flex-end", flexWrap: "wrap" }}>
-          <label style={{ display: "flex", flexDirection: "column", gap: 4 }}>
-            <span>{t("cal_label_region")}</span>
+      <div className="calendar-controls">
+        <label className="calendar-filter-control">
+          <span className="calendar-filter-label">{t("cal_label_region")}</span>
+          <select
+            className="glass-select"
+            value={aoi}
+            aria-label={t("cal_label_region")}
+            onChange={e => { setAoi(e.target.value); setSel(null); }}
+          >
+            {presets.map(p => (
+              <option key={p.id} value={p.id}>
+                {PRESET_NAMES[lang]?.[p.id] ?? p.name}
+              </option>
+            ))}
+          </select>
+        </label>
+
+        <div className="calendar-filter-control">
+          <span className="calendar-filter-label" id="calendar-sensor-label">{t("cal_label_sensor")}</span>
+          <div className="calendar-segmented calendar-segmented-sensor" role="group" aria-labelledby="calendar-sensor-label">
+            {([
+              { value: "harm", label: t("cal_sensor_short_harm"), description: t("cal_sensor_opt_harm") },
+              { value: "modis", label: t("cal_sensor_short_modis"), description: t("cal_sensor_opt_modis") },
+              { value: "viirs", label: t("cal_sensor_short_viirs"), description: t("cal_sensor_opt_viirs") },
+            ] satisfies { value: CalendarSensor; label: string; description: string }[]).map(option => (
+              <button
+                key={option.value}
+                type="button"
+                className={sensor === option.value ? "active" : ""}
+                aria-pressed={sensor === option.value}
+                aria-label={option.description}
+                title={option.description}
+                onClick={() => { setSensor(option.value); setSel(null); }}
+              >
+                {option.label}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        <div className="calendar-filter-control">
+          <span className="calendar-filter-label" id="calendar-view-label">{t("cal_label_view")}</span>
+          <div className="calendar-segmented" role="group" aria-labelledby="calendar-view-label">
+            <button
+              type="button"
+              className={view === "yearly" ? "active" : ""}
+              aria-pressed={view === "yearly"}
+              onClick={() => { setView("yearly"); setSel(null); }}
+            >
+              {t("cal_view_short_yearly")}
+            </button>
+            <button
+              type="button"
+              className={view === "monthly" ? "active" : ""}
+              aria-pressed={view === "monthly"}
+              onClick={() => { setView("monthly"); setSel(null); }}
+            >
+              {t("cal_view_short_monthly")}
+            </button>
+          </div>
+        </div>
+
+        {view === "monthly" ? (
+          <label className="calendar-filter-control">
+            <span className="calendar-filter-label">{t("cal_year_choice")}</span>
             <select
               className="glass-select"
-              value={aoi}
-              onChange={e => { setAoi(e.target.value); setSel(null); }}
+              value={yearSel}
+              aria-label={t("cal_year_choice")}
+              onChange={e => { setYearSel(e.target.value); setSel(null); }}
             >
-              {presets.map(p => (
-                <option key={p.id} value={p.id}>
-                  {PRESET_NAMES[lang]?.[p.id] ?? p.name}
-                </option>
+              <option value="all">{t("cal_all_years")}</option>
+              {yearsAll.map(y => (
+                <option key={y.year} value={String(y.year)}>{t("cal_year_opt", { year: y.year })}</option>
               ))}
             </select>
           </label>
-
-          <label style={{ display: "flex", flexDirection: "column", gap: 4 }}>
-            <span>{t("cal_label_sensor")}</span>
+        ) : (
+          <label className="calendar-filter-control">
+            <span className="calendar-filter-label">{t("cal_month_choice")}</span>
             <select
               className="glass-select"
-              value={sensor}
-              onChange={e => { setSensor(e.target.value as any); setSel(null); }}
+              value={monthSel}
+              aria-label={t("cal_month_choice")}
+              onChange={e => { setMonthSel(e.target.value); setSel(null); }}
             >
-              <option value="harm">{t("cal_sensor_opt_harm")}</option>
-              <option value="modis">{t("cal_sensor_opt_modis")}</option>
-              <option value="viirs">{t("cal_sensor_opt_viirs")}</option>
+              <option value="all">{t("cal_all_months")}</option>
+              {monthNames.map((m, i) => (
+                <option key={m} value={String(i + 1).padStart(2, "0")}>{t("cal_month_opt", { month: m })}</option>
+              ))}
             </select>
           </label>
+        )}
 
-          <label style={{ display: "flex", flexDirection: "column", gap: 4 }}>
-            <span>{t("cal_label_view")}</span>
-            <select
-              className="glass-select"
-              value={view}
-              onChange={e => { setView(e.target.value as any); setSel(null); }}
-            >
-              <option value="yearly">{t("cal_view_yearly")}</option>
-              <option value="monthly">{t("cal_view_monthly")}</option>
-            </select>
-          </label>
-
-          {view === "monthly" && (
-            <label style={{ display: "flex", flexDirection: "column", gap: 4 }}>
-              <span>{t("cal_year_choice")}</span>
-              <select
-                className="glass-select"
-                value={yearSel}
-                onChange={e => { setYearSel(e.target.value); setSel(null); }}
-              >
-                <option value="all">{t("cal_all_years")}</option>
-                {yearsAll.map(y => (
-                  <option key={y.year} value={String(y.year)}>{t("cal_year_opt", { year: y.year })}</option>
-                ))}
-              </select>
-            </label>
-          )}
-
-          {view === "yearly" && (
-            <label style={{ display: "flex", flexDirection: "column", gap: 4 }}>
-              <span>{t("cal_month_choice")}</span>
-              <select
-                className="glass-select"
-                value={monthSel}
-                onChange={e => { setMonthSel(e.target.value); setSel(null); }}
-              >
-                <option value="all">{t("cal_all_months")}</option>
-                {monthNames.map((m, i) => (
-                  <option key={m} value={String(i + 1).padStart(2, "0")}>{t("cal_month_opt", { month: m })}</option>
-                ))}
-              </select>
-            </label>
-          )}
+        <div className="calendar-filter-summary" aria-live="polite">
+          {calFilterDesc}
         </div>
       </div>
 

@@ -31,6 +31,7 @@ precision highp float;
 uniform float uHeat;
 uniform float uCool;
 uniform float uOpacity;
+uniform float uFogDensity;
 uniform vec3 uBase;
 uniform vec3 uEmber;
 uniform vec3 uCalm;
@@ -49,7 +50,7 @@ void main() {
   color += hot * peak * (0.42 + uHeat * 0.9);
   color += vec3(0.16, 0.19, 0.17) * line * (0.28 + level * 0.45);
   float distanceToCamera = length(vWorld - cameraPosition);
-  float fog = clamp(1.0 - exp(-distanceToCamera * 0.026), 0.0, 1.0);
+  float fog = clamp(1.0 - exp(-distanceToCamera * uFogDensity), 0.0, 1.0);
   color = mix(color, uFog, fog);
   gl_FragColor = vec4(color, uOpacity);
 }
@@ -115,11 +116,12 @@ function SceneContent({ theme }: { theme: "light" | "dark" }) {
           uTime: { value: 0 },
           uHeat: { value: 0.42 },
           uCool: { value: 0 },
-          uOpacity: { value: theme === "dark" ? 0.78 : 0.18 },
-          uBase: { value: new THREE.Color("#0b100e") },
+          uOpacity: { value: theme === "dark" ? 0.78 : 0.48 },
+          uFogDensity: { value: theme === "dark" ? 0.026 : 0.018 },
+          uBase: { value: new THREE.Color(theme === "dark" ? "#0b100e" : "#65503f") },
           uEmber: { value: new THREE.Color("#fa773f") },
           uCalm: { value: new THREE.Color("#6fc496") },
-          uFog: { value: new THREE.Color("#0a0d0c") },
+          uFog: { value: new THREE.Color(theme === "dark" ? "#0a0d0c" : "#f4f3ee") },
         },
       }),
     [],
@@ -131,14 +133,14 @@ function SceneContent({ theme }: { theme: "light" | "dark" }) {
         fragmentShader: EMBER_FRAGMENT,
         transparent: true,
         depthWrite: false,
-        blending: THREE.AdditiveBlending,
+        blending: theme === "dark" ? THREE.AdditiveBlending : THREE.NormalBlending,
         uniforms: {
           uTime: { value: 0 },
           uHeat: { value: 0.42 },
           uCool: { value: 0 },
           uHeight: { value: 12 },
           uPixelRatio: { value: Math.min(window.devicePixelRatio || 1, 1.5) },
-          uIntensity: { value: theme === "dark" ? 1 : 0.34 },
+          uIntensity: { value: 1 },
         },
       }),
     [],
@@ -167,8 +169,14 @@ function SceneContent({ theme }: { theme: "light" | "dark" }) {
   const lookTarget = useRef(new THREE.Vector3(0, 1.6, -6));
 
   useEffect(() => {
-    terrainMaterial.uniforms.uOpacity.value = theme === "dark" ? 0.78 : 0.18;
-    emberMaterial.uniforms.uIntensity.value = theme === "dark" ? 1 : 0.34;
+    const isDark = theme === "dark";
+    terrainMaterial.uniforms.uOpacity.value = isDark ? 0.78 : 0.48;
+    terrainMaterial.uniforms.uFogDensity.value = isDark ? 0.026 : 0.018;
+    terrainMaterial.uniforms.uBase.value.set(isDark ? "#0b100e" : "#65503f");
+    terrainMaterial.uniforms.uFog.value.set(isDark ? "#0a0d0c" : "#f4f3ee");
+    emberMaterial.uniforms.uIntensity.value = 1;
+    emberMaterial.blending = isDark ? THREE.AdditiveBlending : THREE.NormalBlending;
+    emberMaterial.needsUpdate = true;
   }, [emberMaterial, terrainMaterial, theme]);
 
   useEffect(
