@@ -64,10 +64,13 @@ def _aoi_config(aoi_id: str) -> dict:
 
 
 def _slug(bbox: dict) -> str:
+    # B's convention (matches validate.py + fetch ledger): integers without
+    # trailing zeros, non-integers keep decimals — w100_s-2_e105_n1,
+    # w102_s-3_e104.5_n-1. MUST match B-04's slug or artifact paths diverge.
     def fmt(v):
-        return str(int(v)) if float(v) == int(v) else str(v).replace("-", "n")
-    # B's convention: w100_s-2_e105_n1 (minus kept for south/north)
-    return f"w{int(bbox['west'])}_s{int(bbox['south'])}_e{int(bbox['east'])}_n{int(bbox['north'])}"
+        f = float(v)
+        return str(int(f)) if f == int(f) else str(f)
+    return f"w{fmt(bbox['west'])}_s{fmt(bbox['south'])}_e{fmt(bbox['east'])}_n{fmt(bbox['north'])}"
 
 
 def discover_inputs(aoi_id: str) -> dict:

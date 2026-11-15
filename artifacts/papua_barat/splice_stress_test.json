@@ -1,116 +1,116 @@
 {
- "aoi_id": "papua_barat",
- "changepoint_significance": "not_implemented (no p-values manufactured)",
- "heldout_span": [
-  "2020-10-09",
-  "2026-07-31"
- ],
- "method": "B2",
- "n_heldout_days": 2122,
- "negative_results_note": "error_ratio >= 1 or N/A entries stay visible in the demo and method page \u2014 valid negative results are evidence",
- "protocol_version": "PROTO-C01-v0.9",
- "selection_rule": "T_i = peak observed-MODIS FRP-sum day of each equal third of the held-out span (predetermined, no peeking at predictions)",
- "status": "ok",
- "task": "C-05 stress",
- "tests": [
-  {
-   "error_harmonized": 0.202496,
-   "error_naive": 0.153658,
-   "error_ratio": 1.317836,
-   "interpretation": "NEGATIVE RESULT: harmonization does not reduce the artifact here",
-   "shift_harmonized": {
-    "n": 29,
-    "n_excluded": 0,
-    "reason": "",
-    "value": 0.57554
-   },
-   "shift_naive": {
-    "n": 29,
-    "n_excluded": 0,
-    "reason": "",
-    "value": 0.526702
-   },
-   "shift_truth_continued_modis": {
-    "n": 29,
-    "n_excluded": 0,
-    "reason": "",
-    "value": 0.373044
-   },
-   "status": "ok",
-   "transition_date": "2021-08-14",
-   "truth_note": "continued MODIS is the reference measurement, not fire ground truth",
-   "window": [
-    "2021-07-31",
-    "2021-08-28"
-   ],
-   "window_days_present": 29,
-   "window_fraction": 1.0
-  },
-  {
-   "error_harmonized": 0.906299,
-   "error_naive": 0.919677,
-   "error_ratio": 0.985454,
-   "interpretation": "harmonization reduces the splice artifact",
-   "shift_harmonized": {
-    "n": 29,
-    "n_excluded": 0,
-    "reason": "",
-    "value": 0.123398
-   },
-   "shift_naive": {
-    "n": 29,
-    "n_excluded": 0,
-    "reason": "",
-    "value": 0.136776
-   },
-   "shift_truth_continued_modis": {
-    "n": 29,
-    "n_excluded": 0,
-    "reason": "",
-    "value": -0.782901
-   },
-   "status": "ok",
-   "transition_date": "2023-10-02",
-   "truth_note": "continued MODIS is the reference measurement, not fire ground truth",
-   "window": [
-    "2023-09-18",
-    "2023-10-16"
-   ],
-   "window_days_present": 29,
-   "window_fraction": 1.0
-  },
-  {
-   "error_harmonized": -0.994116,
-   "error_naive": -1.032117,
-   "error_ratio": 0.963181,
-   "interpretation": "harmonization reduces the splice artifact",
-   "shift_harmonized": {
-    "n": 29,
-    "n_excluded": 0,
-    "reason": "",
-    "value": -0.338867
-   },
-   "shift_naive": {
-    "n": 29,
-    "n_excluded": 0,
-    "reason": "",
-    "value": -0.376868
-   },
-   "shift_truth_continued_modis": {
-    "n": 29,
-    "n_excluded": 0,
-    "reason": "",
-    "value": 0.655249
-   },
-   "status": "ok",
-   "transition_date": "2024-09-05",
-   "truth_note": "continued MODIS is the reference measurement, not fire ground truth",
-   "window": [
-    "2024-08-22",
-    "2024-09-19"
-   ],
-   "window_days_present": 29,
-   "window_fraction": 1.0
-  }
- ]
+  "aoi_id": "papua_barat",
+  "changepoint_significance": "not_implemented (no p-values manufactured)",
+  "heldout_span": [
+    "2020-10-09",
+    "2026-07-31"
+  ],
+  "method": "B1 (accepted)",
+  "n_heldout_days": 1026,
+  "negative_results_note": "error_ratio >= 1 or N/A entries stay visible in the demo and method page \u2014 valid negative results are evidence",
+  "protocol_version": "PROTO-C01-v0.9",
+  "selection_rule": "T_i = peak observed-MODIS FRP-sum day of each equal third of the held-out span (predetermined, no peeking at predictions)",
+  "status": "ok",
+  "task": "C-05 stress",
+  "tests": [
+    {
+      "error_harmonized": -0.107162,
+      "error_naive": -0.162376,
+      "error_ratio": 0.659962,
+      "interpretation": "harmonization reduces the splice artifact",
+      "shift_harmonized": {
+        "n": 29,
+        "n_excluded": 0,
+        "reason": "",
+        "value": -0.075706
+      },
+      "shift_naive": {
+        "n": 29,
+        "n_excluded": 0,
+        "reason": "",
+        "value": -0.13092
+      },
+      "shift_truth_continued_modis": {
+        "n": 29,
+        "n_excluded": 0,
+        "reason": "",
+        "value": 0.031456
+      },
+      "status": "ok",
+      "transition_date": "2022-06-11",
+      "truth_note": "continued MODIS is the reference measurement, not fire ground truth",
+      "window": [
+        "2022-05-28",
+        "2022-06-25"
+      ],
+      "window_days_present": 29,
+      "window_fraction": 1.0
+    },
+    {
+      "error_harmonized": -0.734812,
+      "error_naive": -0.868786,
+      "error_ratio": 0.845792,
+      "interpretation": "harmonization reduces the splice artifact",
+      "shift_harmonized": {
+        "n": 29,
+        "n_excluded": 0,
+        "reason": "",
+        "value": -0.992268
+      },
+      "shift_naive": {
+        "n": 29,
+        "n_excluded": 0,
+        "reason": "",
+        "value": -1.126242
+      },
+      "shift_truth_continued_modis": {
+        "n": 29,
+        "n_excluded": 0,
+        "reason": "",
+        "value": -0.257456
+      },
+      "status": "ok",
+      "transition_date": "2023-08-17",
+      "truth_note": "continued MODIS is the reference measurement, not fire ground truth",
+      "window": [
+        "2023-08-03",
+        "2023-08-31"
+      ],
+      "window_days_present": 29,
+      "window_fraction": 1.0
+    },
+    {
+      "error_harmonized": 0.830872,
+      "error_naive": 1.118446,
+      "error_ratio": 0.742881,
+      "interpretation": "harmonization reduces the splice artifact",
+      "shift_harmonized": {
+        "n": 29,
+        "n_excluded": 0,
+        "reason": "",
+        "value": 2.052261
+      },
+      "shift_naive": {
+        "n": 29,
+        "n_excluded": 0,
+        "reason": "",
+        "value": 2.339835
+      },
+      "shift_truth_continued_modis": {
+        "n": 29,
+        "n_excluded": 0,
+        "reason": "",
+        "value": 1.221389
+      },
+      "status": "ok",
+      "transition_date": "2026-07-16",
+      "truth_note": "continued MODIS is the reference measurement, not fire ground truth",
+      "window": [
+        "2026-07-02",
+        "2026-07-30"
+      ],
+      "window_days_present": 29,
+      "window_fraction": 1.0
+    }
+  ]
 }

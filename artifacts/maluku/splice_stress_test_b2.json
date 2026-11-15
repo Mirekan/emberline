@@ -1,0 +1,92 @@
+{
+  "aoi_id": "maluku",
+  "changepoint_significance": "not_implemented (no p-values manufactured)",
+  "heldout_span": [
+    "2020-10-09",
+    "2026-07-31"
+  ],
+  "method": "B2",
+  "n_heldout_days": 2122,
+  "negative_results_note": "error_ratio >= 1 or N/A entries stay visible in the demo and method page \u2014 valid negative results are evidence",
+  "protocol_version": "PROTO-C01-v0.9",
+  "selection_rule": "T_i = peak observed-MODIS FRP-sum day of each equal third of the held-out span (predetermined, no peeking at predictions)",
+  "status": "ok",
+  "task": "C-05 stress",
+  "tests": [
+    {
+      "reason": "window 2020-09-25..2020-10-23 exceeds held-out span",
+      "status": "deferred",
+      "transition_date": "2020-10-09",
+      "window": [
+        "2020-09-25",
+        "2020-10-23"
+      ]
+    },
+    {
+      "error_harmonized": 0.014966,
+      "error_naive": 0.024653,
+      "error_ratio": 0.607066,
+      "interpretation": "harmonization reduces the splice artifact",
+      "shift_harmonized": {
+        "n": 29,
+        "n_excluded": 0,
+        "reason": "",
+        "value": -0.282756
+      },
+      "shift_naive": {
+        "n": 29,
+        "n_excluded": 0,
+        "reason": "",
+        "value": -0.273069
+      },
+      "shift_truth_continued_modis": {
+        "n": 29,
+        "n_excluded": 0,
+        "reason": "",
+        "value": -0.297722
+      },
+      "status": "ok",
+      "transition_date": "2023-10-27",
+      "truth_note": "continued MODIS is the reference measurement, not fire ground truth",
+      "window": [
+        "2023-10-13",
+        "2023-11-10"
+      ],
+      "window_days_present": 29,
+      "window_fraction": 1.0
+    },
+    {
+      "error_harmonized": -0.986294,
+      "error_naive": -1.022586,
+      "error_ratio": 0.96451,
+      "interpretation": "harmonization reduces the splice artifact",
+      "shift_harmonized": {
+        "n": 29,
+        "n_excluded": 0,
+        "reason": "",
+        "value": -1.914429
+      },
+      "shift_naive": {
+        "n": 29,
+        "n_excluded": 0,
+        "reason": "",
+        "value": -1.950721
+      },
+      "shift_truth_continued_modis": {
+        "n": 29,
+        "n_excluded": 0,
+        "reason": "",
+        "value": -0.928135
+      },
+      "status": "ok",
+      "transition_date": "2025-11-03",
+      "truth_note": "continued MODIS is the reference measurement, not fire ground truth",
+      "window": [
+        "2025-10-20",
+        "2025-11-17"
+      ],
+      "window_days_present": 29,
+      "window_fraction": 1.0
+    }
+  ]
+}

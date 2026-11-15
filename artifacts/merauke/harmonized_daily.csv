@@ -1,9 +1,4 @@
 aoi_id,date,daynight,role,source_flag,n_cells_predicted,observed_modis_mw,predicted_b2_mw,lo_mw,hi_mw,flags
-merauke,2012-01-24,night,train,harmonized_viirs,1,0.0,0.16,0.15,0.17,
-merauke,2012-02-16,day,train,harmonized_viirs,1,0.0,1.67,1.61,1.74,
-merauke,2012-02-20,day,train,harmonized_viirs,1,0.0,0.97,0.93,1.01,
-merauke,2012-02-26,day,train,harmonized_viirs,1,0.0,38.4,36.93,40.03,
-merauke,2012-03-01,night,train,harmonized_viirs,1,0.0,0.83,0.8,0.87,
 merauke,2012-04-03,day,train,harmonized_viirs,800,5.5,0.0,0.0,0.0,
 merauke,2012-04-03,night,train,harmonized_viirs,800,0.0,0.978749,0.0,0.978749,
 merauke,2012-04-04,day,train,harmonized_viirs,800,0.0,48.40453,0.0,48.40453,

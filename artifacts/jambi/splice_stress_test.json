@@ -1,103 +1,116 @@
 {
   "aoi_id": "jambi",
-  "protocol_version": "PROTO-C01-v0.9",
-  "task": "C-05 stress",
-  "status": "ok",
-  "method": "B1 (accepted)",
-  "selection_rule": "T_i = peak observed-MODIS FRP-sum day of each equal third of the held-out span",
+  "changepoint_significance": "not_implemented (no p-values manufactured)",
   "heldout_span": [
-    "2021-01-01",
+    "2020-10-09",
     "2026-07-31"
   ],
-  "n_heldout_days": 2038,
+  "method": "B1 (accepted)",
+  "n_heldout_days": 2122,
+  "negative_results_note": "error_ratio >= 1 or N/A entries stay visible in the demo and method page \u2014 valid negative results are evidence",
+  "protocol_version": "PROTO-C01-v0.9",
+  "selection_rule": "T_i = peak observed-MODIS FRP-sum day of each equal third of the held-out span (predetermined, no peeking at predictions)",
+  "status": "ok",
+  "task": "C-05 stress",
   "tests": [
     {
-      "status": "ok",
-      "transition_date": "2022-09-14",
-      "window": [
-        "2022-08-31",
-        "2022-09-28"
-      ],
-      "window_days_present": 29,
-      "window_fraction": 1.0,
-      "shift_naive": {
-        "value": 5.467,
-        "n": 29,
-        "reason": ""
-      },
+      "error_harmonized": -0.509607,
+      "error_naive": -0.571586,
+      "error_ratio": 0.891567,
+      "interpretation": "harmonization reduces the splice artifact",
       "shift_harmonized": {
-        "value": 1.127,
         "n": 29,
-        "reason": ""
+        "n_excluded": 0,
+        "reason": "",
+        "value": -0.69171
+      },
+      "shift_naive": {
+        "n": 29,
+        "n_excluded": 0,
+        "reason": "",
+        "value": -0.753689
       },
       "shift_truth_continued_modis": {
-        "value": 1.411,
         "n": 29,
-        "reason": ""
+        "n_excluded": 0,
+        "reason": "",
+        "value": -0.182103
       },
-      "error_naive": 4.056,
-      "error_harmonized": -0.284,
-      "error_ratio": 0.799,
-      "interpretation": "harmonization reduces the splice artifact"
+      "status": "ok",
+      "transition_date": "2021-12-02",
+      "truth_note": "continued MODIS is the reference measurement, not fire ground truth",
+      "window": [
+        "2021-11-18",
+        "2021-12-16"
+      ],
+      "window_days_present": 29,
+      "window_fraction": 1.0
     },
     {
-      "status": "ok",
-      "transition_date": "2024-09-20",
-      "window": [
-        "2024-09-06",
-        "2024-10-04"
-      ],
-      "window_days_present": 29,
-      "window_fraction": 1.0,
-      "shift_naive": {
-        "value": 4.417,
-        "n": 29,
-        "reason": ""
-      },
+      "error_harmonized": -0.45116,
+      "error_naive": -0.472497,
+      "error_ratio": 0.954842,
+      "interpretation": "harmonization reduces the splice artifact",
       "shift_harmonized": {
-        "value": 0.91,
         "n": 29,
-        "reason": ""
+        "n_excluded": 0,
+        "reason": "",
+        "value": -1.820188
+      },
+      "shift_naive": {
+        "n": 29,
+        "n_excluded": 0,
+        "reason": "",
+        "value": -1.841525
       },
       "shift_truth_continued_modis": {
-        "value": 1.425,
         "n": 29,
-        "reason": ""
+        "n_excluded": 0,
+        "reason": "",
+        "value": -1.369028
       },
-      "error_naive": 2.992,
-      "error_harmonized": -0.515,
-      "error_ratio": 0.639,
-      "interpretation": "harmonization reduces the splice artifact"
+      "status": "ok",
+      "transition_date": "2023-10-17",
+      "truth_note": "continued MODIS is the reference measurement, not fire ground truth",
+      "window": [
+        "2023-10-03",
+        "2023-10-31"
+      ],
+      "window_days_present": 29,
+      "window_fraction": 1.0
     },
     {
-      "status": "ok",
-      "transition_date": "2025-09-08",
-      "window": [
-        "2025-08-25",
-        "2025-09-22"
-      ],
-      "window_days_present": 29,
-      "window_fraction": 1.0,
-      "shift_naive": {
-        "value": 4.334,
-        "n": 29,
-        "reason": ""
-      },
+      "error_harmonized": 0.294564,
+      "error_naive": 0.394245,
+      "error_ratio": 0.74716,
+      "interpretation": "harmonization reduces the splice artifact",
       "shift_harmonized": {
-        "value": 0.893,
         "n": 29,
-        "reason": ""
+        "n_excluded": 0,
+        "reason": "",
+        "value": 1.522759
+      },
+      "shift_naive": {
+        "n": 29,
+        "n_excluded": 0,
+        "reason": "",
+        "value": 1.62244
       },
       "shift_truth_continued_modis": {
-        "value": 0.849,
         "n": 29,
-        "reason": ""
+        "n_excluded": 0,
+        "reason": "",
+        "value": 1.228195
       },
-      "error_naive": 3.485,
-      "error_harmonized": 0.044,
-      "error_ratio": 1.052,
-      "interpretation": "harmonization reduces the splice artifact"
+      "status": "ok",
+      "transition_date": "2025-07-20",
+      "truth_note": "continued MODIS is the reference measurement, not fire ground truth",
+      "window": [
+        "2025-07-06",
+        "2025-08-03"
+      ],
+      "window_days_present": 29,
+      "window_fraction": 1.0
     }
-  ],
-  "changepoint_significance": "not_implemented (no p-values manufactured)"
+  ]
 }

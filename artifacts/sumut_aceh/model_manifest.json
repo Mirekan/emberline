@@ -15,7 +15,7 @@
     "test_start": "2020-10-09",
     "train_end": "2020-10-08"
   },
-  "git_sha": "f90f1f7",
+  "git_sha": "ef37674",
   "model_version": "b2-primary",
   "outcome": {
     "extrapolation_flagged_days": 1315,
@@ -80,7 +80,7 @@
   },
   "protocol_version": "PROTO-C01-v0.9",
   "quantile_correction": "omitted in v1 (DEV-S03)",
-  "run_id": "PROTO-C01-v0.9_b2-primary_20261115T0959Z",
+  "run_id": "PROTO-C01-v0.9_b2-primary_20261115T1341Z",
   "scope_note": "FRP-sum is an aggregate of sampled radiative-power observations; MODIS is the reference measurement, not fire ground truth",
   "source_policy": "F-14: MODIS reference before VIIRS support, mapped VIIRS in validated coverage, explicit gaps otherwise; sensors never blended",
   "task": "C-04",

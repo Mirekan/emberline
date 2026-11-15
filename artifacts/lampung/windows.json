@@ -2,12 +2,13 @@
   "activity": {
     "active_days_per_year": {
       "2018": 84,
-      "2019": 88,
-      "2020": 41,
-      "2021": 41,
-      "2022": 21,
-      "2023": 84,
-      "2024": 55
+      "2019": 87,
+      "2020": 44,
+      "2021": 44,
+      "2022": 28,
+      "2023": 87,
+      "2024": 61,
+      "2025": 1
     },
     "missing_years_note": "years absent from the accepted series are never counted inactive",
     "rule": "years_active = year's daily index >= window threshold on >= 3 era days (DEC-3 PROVISIONAL; frozen with this artifact)",
@@ -23,32 +24,22 @@
     ]
   },
   "aoi_id": "lampung",
-  "n_windows": 2,
+  "n_windows": 1,
   "protocol_version": "PROTO-C01-v0.9",
   "status": "ok",
   "task": "C-06 windows",
   "threshold": {
     "meaning": "descriptive seasonal percentile \u2014 NOT a safety threshold; stated in UI and exports",
     "percentile_of_smoothed_curve": 75,
-    "value": 0.828331
+    "value": 0.798256
   },
   "windows": [
     {
-      "end_month_day": "07-26",
-      "end_position": 208,
-      "length_days": 4,
-      "max_index_in_window": 0.836116,
-      "median_index_in_window": 0.829993,
-      "start_month_day": "07-23",
-      "start_position": 205,
-      "wraps_dec_jan": false
-    },
-    {
-      "end_month_day": "10-25",
-      "end_position": 299,
-      "length_days": 88,
-      "max_index_in_window": 0.973357,
-      "median_index_in_window": 0.927262,
+      "end_month_day": "10-27",
+      "end_position": 301,
+      "length_days": 90,
+      "max_index_in_window": 0.965559,
+      "median_index_in_window": 0.918585,
       "start_month_day": "07-30",
       "start_position": 212,
       "wraps_dec_jan": false

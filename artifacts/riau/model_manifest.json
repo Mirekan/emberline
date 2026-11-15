@@ -21,7 +21,7 @@
     "test_start": "2020-10-09",
     "train_end": "2020-10-08"
   },
-  "git_sha": "b23f037",
+  "git_sha": "ef37674",
   "model_version": "b2-primary",
   "outcome": {
     "extrapolation_flagged_days": 1901,
@@ -32,7 +32,7 @@
         "nominal_target": 0.8,
         "note": "nominal 80% target calibrated on training AOI-day residuals (day-level bootstrap); actual held-out coverage is MEASURED at C-05, not promised",
         "q10_mw": -193.379054,
-        "q90_mw": 19.580811,
+        "q90_mw": 19.580812,
         "seed": 42
       },
       {
@@ -41,7 +41,7 @@
         "nominal_target": 0.8,
         "note": "nominal 80% target calibrated on training AOI-day residuals (day-level bootstrap); actual held-out coverage is MEASURED at C-05, not promised",
         "q10_mw": -193.379054,
-        "q90_mw": 19.580811,
+        "q90_mw": 19.580812,
         "seed": 42
       }
     ],
@@ -92,7 +92,7 @@
   },
   "protocol_version": "PROTO-C01-v0.9",
   "quantile_correction": "omitted in v1 (DEV-S03)",
-  "run_id": "PROTO-C01-v0.9_b2-primary_20261115T1318Z",
+  "run_id": "PROTO-C01-v0.9_b2-primary_20261115T1403Z",
   "scope_note": "FRP-sum is an aggregate of sampled radiative-power observations; MODIS is the reference measurement, not fire ground truth",
   "source_policy": "F-14: MODIS reference before VIIRS support, mapped VIIRS in validated coverage, explicit gaps otherwise; sensors never blended",
   "task": "C-04",

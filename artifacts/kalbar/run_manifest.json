@@ -1,26 +1,118 @@
 {
-  "protocol_version": "PROTO-C01-v0.9",
-  "task": "C-07",
-  "run_id": "PROTO-C01-v0.9_published_kalbar",
-  "git_sha": "published",
+  "aoi_bbox_date_range": {
+    "bbox": "109,-3,114,2",
+    "end": "2026-07-31",
+    "start": "2018-01-01"
+  },
   "aoi_id": "kalbar",
+  "created_utc": "2026-11-15T13:40:40+00:00",
+  "git_sha": "ef37674",
+  "honesty_note": "stage statuses are recorded verbatim \u2014 insufficient_data/deferred stages are NOT failures or passes, they are the actual state",
+  "input_sha256": {
+    "data/manifests/retrieval_mask_kalbar.csv": "ce81aa905d802e94819d9e173871b438e4b08a5411e54e2143479b30692fa48f",
+    "data/processed/MODIS_SP/w109_s-3_e114_n2/normalized.csv": "466e5751fad8b9afaec5150e89967ed67ebd199340a93265d8cc8e7ea269a616",
+    "data/processed/VIIRS_SNPP_SP/w109_s-3_e114_n2/normalized.csv": "02dffcf04cfb458aa8c545ea173e228221d364fa523e10bbc783b4ffd5189f5b"
+  },
+  "library_versions": {
+    "numpy": "2.5.4",
+    "pandas": "3.1.1",
+    "python": "3.14.8"
+  },
+  "metrics_path": "/home/ade/project/nasa/science_analytics/emberline/artifacts/kalbar/harmonization_metrics.json",
+  "params_hash": "0d6ea05a5d7d73122aff09c5fb006b62586c4c6f0a1f49790fb83ae4fe02bcce",
+  "protocol_version": "PROTO-C01-v0.9",
+  "run_id": "PROTO-C01-v0.9_ef37674_20261115T1340Z",
+  "seeds": {
+    "interval_bootstrap": 42
+  },
+  "serving_db_sha256": "085ca0c0e3a8c361f60556b1b2a9312c1d158f75990a25bd6928dcf7239f2be1",
   "sources": [
     "MODIS_SP",
     "VIIRS_SNPP_SP"
   ],
   "stage_statuses": {
+    "c02_match": {
+      "outputs": {
+        "matched_pairs": "/home/ade/project/nasa/science_analytics/emberline/data/processed/kalbar/c02/matched_pairs.csv",
+        "summary": "/home/ade/project/nasa/science_analytics/emberline/data/processed/kalbar/c02/match_summary.json",
+        "units_per_sensor": "/home/ade/project/nasa/science_analytics/emberline/data/processed/kalbar/c02/units_per_sensor.csv",
+        "zero_fill_days": "/home/ade/project/nasa/science_analytics/emberline/data/processed/kalbar/c02/zero_fill_days.csv"
+      },
+      "pair_states": {
+        "matched_signal": 13270,
+        "matched_zero": 15522471,
+        "missing_retrieval": 3,
+        "one_sided": 79259
+      },
+      "status": "ok"
+    },
+    "c03_baselines": {
+      "outputs": {
+        "manifest": "/home/ade/project/nasa/science_analytics/emberline/artifacts/kalbar/baselines.json",
+        "series": "/home/ade/project/nasa/science_analytics/emberline/artifacts/kalbar/baseline_series.csv"
+      },
+      "status": "ok"
+    },
     "c04_harmonize": {
+      "outputs": {
+        "manifest": "/home/ade/project/nasa/science_analytics/emberline/artifacts/kalbar/model_manifest.json",
+        "series": "/home/ade/project/nasa/science_analytics/emberline/artifacts/kalbar/harmonized_daily.csv"
+      },
+      "status": "ok"
+    },
+    "c05_metrics": {
+      "error": "C-03/C-04 series row sets differ \u2014 held-out rows must be IDENTICAL across B0/B1/B2 (F-15)",
+      "note": "F-15 violation recorded honestly \u2014 rebuild via make reproduce",
+      "status": "mismatch"
+    },
+    "c05_splice_stress": {
       "status": "ok"
     },
     "c06_calendar": {
+      "outputs": {
+        "calendar": "/home/ade/project/nasa/science_analytics/emberline/artifacts/kalbar/calendar.csv",
+        "climatology": "/home/ade/project/nasa/science_analytics/emberline/artifacts/kalbar/climatology.json",
+        "series": "/home/ade/project/nasa/science_analytics/emberline/artifacts/kalbar/accepted_series.csv"
+      },
       "status": "ok"
     },
     "c06_windows": {
       "status": "ok"
     },
     "c07_serving_db": {
-      "status": "ok"
+      "missing_sources": [
+        "harmonization_metrics.json"
+      ],
+      "outputs": {
+        "db": "/home/ade/project/nasa/science_analytics/emberline/artifacts/kalbar/serving.db"
+      },
+      "sha256": "085ca0c0e3a8c361f60556b1b2a9312c1d158f75990a25bd6928dcf7239f2be1",
+      "status": "ok",
+      "tables": {
+        "accepted_series": 3123,
+        "baselines": 6248,
+        "calendar": 366,
+        "harmonized_daily": 6246,
+        "metrics": 0,
+        "splice_stress": 6,
+        "windows": 1,
+        "years": 9
+      }
     }
   },
-  "honesty_note": "Derived from peer-reviewed harmonized daily FIRMS observations."
+  "task": "C-07",
+  "test_years": [
+    "2020",
+    "2021",
+    "2022",
+    "2023",
+    "2024",
+    "2025",
+    "2026"
+  ],
+  "train_years": [
+    "2018",
+    "2019",
+    "2020"
+  ]
 }

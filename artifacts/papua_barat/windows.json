@@ -2,10 +2,13 @@
   "activity": {
     "active_days_per_year": {
       "2018": 66,
-      "2019": 70,
-      "2020": 42,
-      "2022": 38,
-      "2023": 70
+      "2019": 68,
+      "2020": 40,
+      "2021": 7,
+      "2022": 35,
+      "2023": 71,
+      "2024": 12,
+      "2025": 12
     },
     "missing_years_note": "years absent from the accepted series are never counted inactive",
     "rule": "years_active = year's daily index >= window threshold on >= 3 era days (DEC-3 PROVISIONAL; frozen with this artifact)",
@@ -14,8 +17,11 @@
       "2018",
       "2019",
       "2020",
+      "2021",
       "2022",
-      "2023"
+      "2023",
+      "2024",
+      "2025"
     ]
   },
   "aoi_id": "papua_barat",
@@ -26,25 +32,25 @@
   "threshold": {
     "meaning": "descriptive seasonal percentile \u2014 NOT a safety threshold; stated in UI and exports",
     "percentile_of_smoothed_curve": 75,
-    "value": 0.368616
+    "value": 0.395099
   },
   "windows": [
     {
-      "end_month_day": "08-16",
-      "end_position": 229,
-      "length_days": 4,
-      "max_index_in_window": 0.473444,
-      "median_index_in_window": 0.439846,
-      "start_month_day": "08-13",
-      "start_position": 226,
+      "end_month_day": "08-18",
+      "end_position": 231,
+      "length_days": 8,
+      "max_index_in_window": 0.523841,
+      "median_index_in_window": 0.434224,
+      "start_month_day": "08-11",
+      "start_position": 224,
       "wraps_dec_jan": false
     },
     {
-      "end_month_day": "08-27",
-      "end_position": 240,
-      "length_days": 7,
-      "max_index_in_window": 0.416246,
-      "median_index_in_window": 0.41079,
+      "end_month_day": "08-25",
+      "end_position": 238,
+      "length_days": 5,
+      "max_index_in_window": 0.426925,
+      "median_index_in_window": 0.420624,
       "start_month_day": "08-21",
       "start_position": 234,
       "wraps_dec_jan": false
@@ -52,11 +58,11 @@
     {
       "end_month_day": "11-18",
       "end_position": 323,
-      "length_days": 80,
-      "max_index_in_window": 0.859113,
-      "median_index_in_window": 0.585804,
-      "start_month_day": "08-31",
-      "start_position": 244,
+      "length_days": 79,
+      "max_index_in_window": 0.850766,
+      "median_index_in_window": 0.60112,
+      "start_month_day": "09-01",
+      "start_position": 245,
       "wraps_dec_jan": false
     }
   ],

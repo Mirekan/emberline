@@ -5,7 +5,7 @@
     "2020-10-09",
     "2026-07-31"
   ],
-  "method": "B2",
+  "method": "B1 (accepted)",
   "n_heldout_days": 2122,
   "negative_results_note": "error_ratio >= 1 or N/A entries stay visible in the demo and method page \u2014 valid negative results are evidence",
   "protocol_version": "PROTO-C01-v0.9",
@@ -14,15 +14,15 @@
   "task": "C-05 stress",
   "tests": [
     {
-      "error_harmonized": 0.202496,
+      "error_harmonized": 0.005868,
       "error_naive": 0.153658,
-      "error_ratio": 1.317836,
-      "interpretation": "NEGATIVE RESULT: harmonization does not reduce the artifact here",
+      "error_ratio": 0.038189,
+      "interpretation": "harmonization reduces the splice artifact",
       "shift_harmonized": {
         "n": 29,
         "n_excluded": 0,
         "reason": "",
-        "value": 0.57554
+        "value": 0.378912
       },
       "shift_naive": {
         "n": 29,
@@ -47,15 +47,15 @@
       "window_fraction": 1.0
     },
     {
-      "error_harmonized": 0.906299,
+      "error_harmonized": 0.91927,
       "error_naive": 0.919677,
-      "error_ratio": 0.985454,
+      "error_ratio": 0.999557,
       "interpretation": "harmonization reduces the splice artifact",
       "shift_harmonized": {
         "n": 29,
         "n_excluded": 0,
         "reason": "",
-        "value": 0.123398
+        "value": 0.136369
       },
       "shift_naive": {
         "n": 29,
@@ -80,15 +80,15 @@
       "window_fraction": 1.0
     },
     {
-      "error_harmonized": -0.994116,
+      "error_harmonized": -1.024064,
       "error_naive": -1.032117,
-      "error_ratio": 0.963181,
+      "error_ratio": 0.992198,
       "interpretation": "harmonization reduces the splice artifact",
       "shift_harmonized": {
         "n": 29,
         "n_excluded": 0,
         "reason": "",
-        "value": -0.338867
+        "value": -0.368815
       },
       "shift_naive": {
         "n": 29,

@@ -1,0 +1,92 @@
+{
+  "aoi_id": "sumut_aceh",
+  "changepoint_significance": "not_implemented (no p-values manufactured)",
+  "heldout_span": [
+    "2020-10-09",
+    "2026-07-31"
+  ],
+  "method": "B2",
+  "n_heldout_days": 2122,
+  "negative_results_note": "error_ratio >= 1 or N/A entries stay visible in the demo and method page \u2014 valid negative results are evidence",
+  "protocol_version": "PROTO-C01-v0.9",
+  "selection_rule": "T_i = peak observed-MODIS FRP-sum day of each equal third of the held-out span (predetermined, no peeking at predictions)",
+  "status": "ok",
+  "task": "C-05 stress",
+  "tests": [
+    {
+      "reason": "window 2020-10-02..2020-10-30 exceeds held-out span",
+      "status": "deferred",
+      "transition_date": "2020-10-16",
+      "window": [
+        "2020-10-02",
+        "2020-10-30"
+      ]
+    },
+    {
+      "error_harmonized": -0.936741,
+      "error_naive": -0.882967,
+      "error_ratio": 1.060901,
+      "interpretation": "NEGATIVE RESULT: harmonization does not reduce the artifact here",
+      "shift_harmonized": {
+        "n": 29,
+        "n_excluded": 0,
+        "reason": "",
+        "value": 0.00223
+      },
+      "shift_naive": {
+        "n": 29,
+        "n_excluded": 0,
+        "reason": "",
+        "value": 0.056004
+      },
+      "shift_truth_continued_modis": {
+        "n": 29,
+        "n_excluded": 0,
+        "reason": "",
+        "value": 0.938971
+      },
+      "status": "ok",
+      "transition_date": "2023-06-01",
+      "truth_note": "continued MODIS is the reference measurement, not fire ground truth",
+      "window": [
+        "2023-05-18",
+        "2023-06-15"
+      ],
+      "window_days_present": 29,
+      "window_fraction": 1.0
+    },
+    {
+      "error_harmonized": 0.574752,
+      "error_naive": 0.526807,
+      "error_ratio": 1.091011,
+      "interpretation": "NEGATIVE RESULT: harmonization does not reduce the artifact here",
+      "shift_harmonized": {
+        "n": 29,
+        "n_excluded": 0,
+        "reason": "",
+        "value": 1.156911
+      },
+      "shift_naive": {
+        "n": 29,
+        "n_excluded": 0,
+        "reason": "",
+        "value": 1.108966
+      },
+      "shift_truth_continued_modis": {
+        "n": 29,
+        "n_excluded": 0,
+        "reason": "",
+        "value": 0.582159
+      },
+      "status": "ok",
+      "transition_date": "2025-07-19",
+      "truth_note": "continued MODIS is the reference measurement, not fire ground truth",
+      "window": [
+        "2025-07-05",
+        "2025-08-02"
+      ],
+      "window_days_present": 29,
+      "window_fraction": 1.0
+    }
+  ]
+}

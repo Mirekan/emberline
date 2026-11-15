@@ -5,8 +5,8 @@
     "start": "2018-01-01"
   },
   "aoi_id": "papua_selatan",
-  "created_utc": "2026-11-15T09:58:26+00:00",
-  "git_sha": "f90f1f7",
+  "created_utc": "2026-11-15T13:40:48+00:00",
+  "git_sha": "ef37674",
   "honesty_note": "stage statuses are recorded verbatim \u2014 insufficient_data/deferred stages are NOT failures or passes, they are the actual state",
   "input_sha256": {
     "data/manifests/retrieval_mask_papua_selatan.csv": "7c96d9e4f4e9f55e14338e40e0f366116b826817109b7bfc281436052593515d",
@@ -21,11 +21,11 @@
   "metrics_path": "/home/ade/project/nasa/science_analytics/emberline/artifacts/papua_selatan/harmonization_metrics.json",
   "params_hash": "0d6ea05a5d7d73122aff09c5fb006b62586c4c6f0a1f49790fb83ae4fe02bcce",
   "protocol_version": "PROTO-C01-v0.9",
-  "run_id": "PROTO-C01-v0.9_f90f1f7_20261115T0958Z",
+  "run_id": "PROTO-C01-v0.9_ef37674_20261115T1340Z",
   "seeds": {
     "interval_bootstrap": 42
   },
-  "serving_db_sha256": "9fe60a56390cc4d83d8673aed2a288ab933e1bf2747960e57aac9554090fc3ef",
+  "serving_db_sha256": "4c4307fe989849c187ed52056209212a0d54d7c560219c49a21c4109e77c31fa",
   "sources": [
     "MODIS_SP",
     "VIIRS_SNPP_SP"
@@ -84,13 +84,12 @@
         "windows.json",
         "harmonized_daily.csv",
         "harmonization_metrics.json",
-        "splice_stress manifests",
         "years (no accepted series)"
       ],
       "outputs": {
         "db": "/home/ade/project/nasa/science_analytics/emberline/artifacts/papua_selatan/serving.db"
       },
-      "sha256": "9fe60a56390cc4d83d8673aed2a288ab933e1bf2747960e57aac9554090fc3ef",
+      "sha256": "4c4307fe989849c187ed52056209212a0d54d7c560219c49a21c4109e77c31fa",
       "status": "ok",
       "tables": {
         "accepted_series": 0,
@@ -98,7 +97,7 @@
         "calendar": 0,
         "harmonized_daily": 0,
         "metrics": 0,
-        "splice_stress": 0,
+        "splice_stress": 3,
         "windows": 0,
         "years": 0
       }

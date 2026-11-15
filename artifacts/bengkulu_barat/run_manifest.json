@@ -1,26 +1,118 @@
 {
-  "protocol_version": "PROTO-C01-v0.9",
-  "task": "C-07",
-  "run_id": "PROTO-C01-v0.9_published_bengkulu_barat",
-  "git_sha": "published",
+  "aoi_bbox_date_range": {
+    "bbox": "100,-5,103,-2",
+    "end": "2026-07-31",
+    "start": "2018-01-01"
+  },
   "aoi_id": "bengkulu_barat",
+  "created_utc": "2026-11-15T13:41:43+00:00",
+  "git_sha": "ef37674",
+  "honesty_note": "stage statuses are recorded verbatim \u2014 insufficient_data/deferred stages are NOT failures or passes, they are the actual state",
+  "input_sha256": {
+    "data/manifests/retrieval_mask_bengkulu_barat.csv": "c1b44fd5dbf178e11ebaa21484ea913105e35966edd60af087410cb8ae20b16e",
+    "data/processed/MODIS_SP/w100_s-5_e103_n-2/normalized.csv": "51873a054a35f6ef2ca28337dd1f1ec75a7761aaf7a6a04308166f2e03ff5d00",
+    "data/processed/VIIRS_SNPP_SP/w100_s-5_e103_n-2/normalized.csv": "b3401b7f51ff957a0880cebde185c090f0ad2e4611cc316c085710bc54ec8f58"
+  },
+  "library_versions": {
+    "numpy": "2.5.4",
+    "pandas": "3.1.1",
+    "python": "3.14.8"
+  },
+  "metrics_path": "/home/ade/project/nasa/science_analytics/emberline/artifacts/bengkulu_barat/harmonization_metrics.json",
+  "params_hash": "0d6ea05a5d7d73122aff09c5fb006b62586c4c6f0a1f49790fb83ae4fe02bcce",
+  "protocol_version": "PROTO-C01-v0.9",
+  "run_id": "PROTO-C01-v0.9_ef37674_20261115T1341Z",
+  "seeds": {
+    "interval_bootstrap": 42
+  },
+  "serving_db_sha256": "af7a88f2e1dd53789ab0e16fff13d029ee48488b290e75ee27316bf68ade327f",
   "sources": [
     "MODIS_SP",
     "VIIRS_SNPP_SP"
   ],
   "stage_statuses": {
+    "c02_match": {
+      "outputs": {
+        "matched_pairs": "/home/ade/project/nasa/science_analytics/emberline/data/processed/bengkulu_barat/c02/matched_pairs.csv",
+        "summary": "/home/ade/project/nasa/science_analytics/emberline/data/processed/bengkulu_barat/c02/match_summary.json",
+        "units_per_sensor": "/home/ade/project/nasa/science_analytics/emberline/data/processed/bengkulu_barat/c02/units_per_sensor.csv",
+        "zero_fill_days": "/home/ade/project/nasa/science_analytics/emberline/data/processed/bengkulu_barat/c02/zero_fill_days.csv"
+      },
+      "pair_states": {
+        "matched_signal": 1083,
+        "matched_zero": 5602496,
+        "missing_retrieval": 1,
+        "one_sided": 12421
+      },
+      "status": "ok"
+    },
+    "c03_baselines": {
+      "outputs": {
+        "manifest": "/home/ade/project/nasa/science_analytics/emberline/artifacts/bengkulu_barat/baselines.json",
+        "series": "/home/ade/project/nasa/science_analytics/emberline/artifacts/bengkulu_barat/baseline_series.csv"
+      },
+      "status": "ok"
+    },
     "c04_harmonize": {
+      "outputs": {
+        "manifest": "/home/ade/project/nasa/science_analytics/emberline/artifacts/bengkulu_barat/model_manifest.json",
+        "series": "/home/ade/project/nasa/science_analytics/emberline/artifacts/bengkulu_barat/harmonized_daily.csv"
+      },
+      "status": "ok"
+    },
+    "c05_metrics": {
+      "error": "C-03/C-04 series row sets differ \u2014 held-out rows must be IDENTICAL across B0/B1/B2 (F-15)",
+      "note": "F-15 violation recorded honestly \u2014 rebuild via make reproduce",
+      "status": "mismatch"
+    },
+    "c05_splice_stress": {
       "status": "ok"
     },
     "c06_calendar": {
+      "outputs": {
+        "calendar": "/home/ade/project/nasa/science_analytics/emberline/artifacts/bengkulu_barat/calendar.csv",
+        "climatology": "/home/ade/project/nasa/science_analytics/emberline/artifacts/bengkulu_barat/climatology.json",
+        "series": "/home/ade/project/nasa/science_analytics/emberline/artifacts/bengkulu_barat/accepted_series.csv"
+      },
       "status": "ok"
     },
     "c06_windows": {
       "status": "ok"
     },
     "c07_serving_db": {
-      "status": "ok"
+      "missing_sources": [
+        "harmonization_metrics.json"
+      ],
+      "outputs": {
+        "db": "/home/ade/project/nasa/science_analytics/emberline/artifacts/bengkulu_barat/serving.db"
+      },
+      "sha256": "af7a88f2e1dd53789ab0e16fff13d029ee48488b290e75ee27316bf68ade327f",
+      "status": "ok",
+      "tables": {
+        "accepted_series": 3120,
+        "baselines": 6241,
+        "calendar": 366,
+        "harmonized_daily": 6240,
+        "metrics": 0,
+        "splice_stress": 6,
+        "windows": 2,
+        "years": 9
+      }
     }
   },
-  "honesty_note": "Derived from peer-reviewed harmonized daily FIRMS observations."
+  "task": "C-07",
+  "test_years": [
+    "2020",
+    "2021",
+    "2022",
+    "2023",
+    "2024",
+    "2025",
+    "2026"
+  ],
+  "train_years": [
+    "2018",
+    "2019",
+    "2020"
+  ]
 }

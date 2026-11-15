@@ -1,26 +1,117 @@
 {
-  "protocol_version": "PROTO-C01-v0.9",
-  "task": "C-07",
-  "run_id": "PROTO-C01-v0.9_published_papua_barat",
-  "git_sha": "published",
+  "aoi_bbox_date_range": {
+    "bbox": "130,-6,135,-1",
+    "end": "2026-07-31",
+    "start": "2018-01-01"
+  },
   "aoi_id": "papua_barat",
+  "created_utc": "2026-11-15T13:41:39+00:00",
+  "git_sha": "ef37674",
+  "honesty_note": "stage statuses are recorded verbatim \u2014 insufficient_data/deferred stages are NOT failures or passes, they are the actual state",
+  "input_sha256": {
+    "data/manifests/retrieval_mask_papua_barat.csv": "9f1ed45f89da5aef863c325cf0f1fd287ac7a4521a03b39b40830128ca718d95",
+    "data/processed/MODIS_SP/w130_s-6_e135_n-1/normalized.csv": "e80644d3dccdbb92515cfdfdfb5b9241d023d38bad07e2f4d9ebea86fa4f0db8",
+    "data/processed/VIIRS_SNPP_SP/w130_s-6_e135_n-1/normalized.csv": "345239bde4d1f6655ee99317fde0cda5ec16bb45eea717ca0ec1bbbeb427062e"
+  },
+  "library_versions": {
+    "numpy": "2.5.4",
+    "pandas": "3.1.1",
+    "python": "3.14.8"
+  },
+  "metrics_path": "/home/ade/project/nasa/science_analytics/emberline/artifacts/papua_barat/harmonization_metrics.json",
+  "params_hash": "0d6ea05a5d7d73122aff09c5fb006b62586c4c6f0a1f49790fb83ae4fe02bcce",
+  "protocol_version": "PROTO-C01-v0.9",
+  "run_id": "PROTO-C01-v0.9_ef37674_20261115T1341Z",
+  "seeds": {
+    "interval_bootstrap": 42
+  },
+  "serving_db_sha256": "e97b44eee73410a7d13f93c5faf027d2eb8153d1e7058c0faea4872ea7c43601",
   "sources": [
     "MODIS_SP",
     "VIIRS_SNPP_SP"
   ],
   "stage_statuses": {
-    "c04_harmonize": {
+    "c02_match": {
+      "outputs": {
+        "matched_pairs": "/home/ade/project/nasa/science_analytics/emberline/data/processed/papua_barat/c02/matched_pairs.csv",
+        "summary": "/home/ade/project/nasa/science_analytics/emberline/data/processed/papua_barat/c02/match_summary.json",
+        "units_per_sensor": "/home/ade/project/nasa/science_analytics/emberline/data/processed/papua_barat/c02/units_per_sensor.csv",
+        "zero_fill_days": "/home/ade/project/nasa/science_analytics/emberline/data/processed/papua_barat/c02/zero_fill_days.csv"
+      },
+      "pair_states": {
+        "matched_signal": 212,
+        "matched_zero": 15636650,
+        "missing_retrieval": 25,
+        "one_sided": 3138
+      },
       "status": "ok"
     },
+    "c03_baselines": {
+      "outputs": {
+        "manifest": "/home/ade/project/nasa/science_analytics/emberline/artifacts/papua_barat/baselines.json",
+        "series": "/home/ade/project/nasa/science_analytics/emberline/artifacts/papua_barat/baseline_series.csv"
+      },
+      "status": "ok"
+    },
+    "c04_harmonize": {
+      "outputs": {
+        "manifest": "/home/ade/project/nasa/science_analytics/emberline/artifacts/papua_barat/model_manifest.json",
+        "series": "/home/ade/project/nasa/science_analytics/emberline/artifacts/papua_barat/harmonized_daily.csv"
+      },
+      "status": "ok"
+    },
+    "c05_metrics": {
+      "error": "C-03/C-04 series row sets differ \u2014 held-out rows must be IDENTICAL across B0/B1/B2 (F-15)",
+      "note": "F-15 violation recorded honestly \u2014 rebuild via make reproduce",
+      "status": "mismatch"
+    },
+    "c05_splice_stress": {
+      "error": "harmonized series missing held-out day 2026-07-31/day",
+      "note": "recorded honestly \u2014 rebuild via make reproduce",
+      "status": "mismatch"
+    },
     "c06_calendar": {
+      "outputs": {
+        "calendar": "/home/ade/project/nasa/science_analytics/emberline/artifacts/papua_barat/calendar.csv",
+        "climatology": "/home/ade/project/nasa/science_analytics/emberline/artifacts/papua_barat/climatology.json",
+        "series": "/home/ade/project/nasa/science_analytics/emberline/artifacts/papua_barat/accepted_series.csv"
+      },
       "status": "ok"
     },
     "c06_windows": {
       "status": "ok"
     },
     "c07_serving_db": {
-      "status": "ok"
+      "missing_sources": [
+        "harmonization_metrics.json"
+      ],
+      "outputs": {
+        "db": "/home/ade/project/nasa/science_analytics/emberline/artifacts/papua_barat/serving.db"
+      },
+      "sha256": "e97b44eee73410a7d13f93c5faf027d2eb8153d1e7058c0faea4872ea7c43601",
+      "status": "ok",
+      "tables": {
+        "accepted_series": 2090,
+        "baselines": 6261,
+        "calendar": 366,
+        "harmonized_daily": 4064,
+        "metrics": 0,
+        "splice_stress": 3,
+        "windows": 3,
+        "years": 9
+      }
     }
   },
-  "honesty_note": "Derived from peer-reviewed harmonized daily FIRMS observations."
+  "task": "C-07",
+  "test_years": [
+    "2020",
+    "2022",
+    "2023",
+    "2026"
+  ],
+  "train_years": [
+    "2018",
+    "2019",
+    "2020"
+  ]
 }

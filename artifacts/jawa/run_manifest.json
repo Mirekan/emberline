@@ -5,8 +5,8 @@
     "start": "2018-01-01"
   },
   "aoi_id": "jawa",
-  "created_utc": "2026-11-15T09:59:05+00:00",
-  "git_sha": "f90f1f7",
+  "created_utc": "2026-11-15T13:41:43+00:00",
+  "git_sha": "ef37674",
   "honesty_note": "stage statuses are recorded verbatim \u2014 insufficient_data/deferred stages are NOT failures or passes, they are the actual state",
   "input_sha256": {
     "data/manifests/retrieval_mask_jawa.csv": "2c37b8403a8e72b040b7ba788ed19537725f12de744c616605e510f8967f32a8",
@@ -21,11 +21,11 @@
   "metrics_path": "/home/ade/project/nasa/science_analytics/emberline/artifacts/jawa/harmonization_metrics.json",
   "params_hash": "0d6ea05a5d7d73122aff09c5fb006b62586c4c6f0a1f49790fb83ae4fe02bcce",
   "protocol_version": "PROTO-C01-v0.9",
-  "run_id": "PROTO-C01-v0.9_f90f1f7_20261115T0959Z",
+  "run_id": "PROTO-C01-v0.9_ef37674_20261115T1341Z",
   "seeds": {
     "interval_bootstrap": 42
   },
-  "serving_db_sha256": "1e07771b8fc4fdff5c33265e12eaae5314367a77e0ab26480e77058015248b2b",
+  "serving_db_sha256": "1a38ebf631ee7ae0ab60d08760dae721f4295b1054f08bcb27ddf0d6be2db623",
   "sources": [
     "MODIS_SP",
     "VIIRS_SNPP_SP"
@@ -84,7 +84,7 @@
       "outputs": {
         "db": "/home/ade/project/nasa/science_analytics/emberline/artifacts/jawa/serving.db"
       },
-      "sha256": "1e07771b8fc4fdff5c33265e12eaae5314367a77e0ab26480e77058015248b2b",
+      "sha256": "1a38ebf631ee7ae0ab60d08760dae721f4295b1054f08bcb27ddf0d6be2db623",
       "status": "ok",
       "tables": {
         "accepted_series": 3134,
@@ -92,7 +92,7 @@
         "calendar": 366,
         "harmonized_daily": 6268,
         "metrics": 36,
-        "splice_stress": 3,
+        "splice_stress": 6,
         "windows": 1,
         "years": 9
       }

@@ -5,7 +5,7 @@
     "2020-10-09",
     "2026-07-31"
   ],
-  "method": "B2",
+  "method": "B1 (accepted)",
   "n_heldout_days": 2122,
   "negative_results_note": "error_ratio >= 1 or N/A entries stay visible in the demo and method page \u2014 valid negative results are evidence",
   "protocol_version": "PROTO-C01-v0.9",
@@ -14,15 +14,15 @@
   "task": "C-05 stress",
   "tests": [
     {
-      "error_harmonized": -0.39579,
+      "error_harmonized": -0.264239,
       "error_naive": -0.400945,
-      "error_ratio": 0.987143,
+      "error_ratio": 0.659041,
       "interpretation": "harmonization reduces the splice artifact",
       "shift_harmonized": {
         "n": 29,
         "n_excluded": 0,
         "reason": "",
-        "value": -0.521831
+        "value": -0.39028
       },
       "shift_naive": {
         "n": 29,
@@ -47,15 +47,15 @@
       "window_fraction": 1.0
     },
     {
-      "error_harmonized": -0.429584,
+      "error_harmonized": -0.434051,
       "error_naive": -0.445724,
-      "error_ratio": 0.963789,
+      "error_ratio": 0.973811,
       "interpretation": "harmonization reduces the splice artifact",
       "shift_harmonized": {
         "n": 29,
         "n_excluded": 0,
         "reason": "",
-        "value": -1.823732
+        "value": -1.828199
       },
       "shift_naive": {
         "n": 29,

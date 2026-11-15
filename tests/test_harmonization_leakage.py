@@ -158,10 +158,15 @@ def run_all_checks() -> list[tuple[str, bool, str]]:
 
     # -- 4. bounds finite, ordered, nonnegative; estimate contained --------------
     days = result["days"]
-    heldout = [d for d in days if d["role"] == "test"]
-    check("every AOI-day has finite ordered nonnegative bounds containing the estimate",
-          all(0 <= d["lo_mw"] <= d["predicted_b2_mw"] <= d["hi_mw"] for d in days),
-          f"violation: {[d for d in days if not (0 <= d['lo_mw'] <= d['predicted_b2_mw'] <= d['hi_mw'])][:2]}")
+    real_days = [d for d in days if d["observed_modis_mw"] is not None]
+    gap_days = [d for d in days if d["observed_modis_mw"] is None]
+    check("real AOI-days: finite ordered nonnegative bounds containing the estimate",
+          all(0 <= d["lo_mw"] <= d["predicted_b2_mw"] <= d["hi_mw"] for d in real_days),
+          f"violation: {[d for d in real_days if not (0 <= d['lo_mw'] <= d['predicted_b2_mw'] <= d['hi_mw'])][:2]}")
+    check("gap days (missing side): NULL bounds + missing_retrieval_side flag — never silent 0",
+          all(d["lo_mw"] is None and d["hi_mw"] is None
+              and "missing_retrieval_side" in d["flags"] for d in gap_days),
+          f"gap days: {len(gap_days)}, violation: {[d for d in gap_days if d['lo_mw'] is not None or d['hi_mw'] is not None][:2]}")
     check("held-out days carry the nominal-80% note in manifest intervals",
           all(iv["nominal_target"] == 0.80 and "MEASURED at C-05" in iv["note"]
               for iv in outcome["intervals"]))

@@ -5,7 +5,7 @@
     "2020-10-09",
     "2026-07-31"
   ],
-  "method": "B2",
+  "method": "B1 (accepted)",
   "n_heldout_days": 2122,
   "negative_results_note": "error_ratio >= 1 or N/A entries stay visible in the demo and method page \u2014 valid negative results are evidence",
   "protocol_version": "PROTO-C01-v0.9",
@@ -14,15 +14,15 @@
   "task": "C-05 stress",
   "tests": [
     {
-      "error_harmonized": 2.23533,
+      "error_harmonized": 2.092361,
       "error_naive": 2.22304,
-      "error_ratio": 1.005528,
-      "interpretation": "NEGATIVE RESULT: harmonization does not reduce the artifact here",
+      "error_ratio": 0.941216,
+      "interpretation": "harmonization reduces the splice artifact",
       "shift_harmonized": {
         "n": 29,
         "n_excluded": 0,
         "reason": "",
-        "value": 1.104215
+        "value": 0.961246
       },
       "shift_naive": {
         "n": 29,
@@ -47,15 +47,15 @@
       "window_fraction": 1.0
     },
     {
-      "error_harmonized": 0.403849,
+      "error_harmonized": 0.395367,
       "error_naive": 0.400065,
-      "error_ratio": 1.009458,
-      "interpretation": "NEGATIVE RESULT: harmonization does not reduce the artifact here",
+      "error_ratio": 0.988257,
+      "interpretation": "harmonization reduces the splice artifact",
       "shift_harmonized": {
         "n": 29,
         "n_excluded": 0,
         "reason": "",
-        "value": 0.362355
+        "value": 0.353873
       },
       "shift_naive": {
         "n": 29,
@@ -80,15 +80,15 @@
       "window_fraction": 1.0
     },
     {
-      "error_harmonized": 0.070071,
+      "error_harmonized": 0.115655,
       "error_naive": 0.10836,
-      "error_ratio": 0.64665,
-      "interpretation": "harmonization reduces the splice artifact",
+      "error_ratio": 1.067322,
+      "interpretation": "NEGATIVE RESULT: harmonization does not reduce the artifact here",
       "shift_harmonized": {
         "n": 29,
         "n_excluded": 0,
         "reason": "",
-        "value": 0.191323
+        "value": 0.236907
       },
       "shift_naive": {
         "n": 29,

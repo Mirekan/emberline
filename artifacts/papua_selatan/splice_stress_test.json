@@ -1,8 +1,86 @@
 {
   "aoi_id": "papua_selatan",
   "changepoint_significance": "not_implemented (no p-values manufactured)",
+  "heldout_span": [
+    "2023-01-01",
+    "2026-07-31"
+  ],
+  "method": "B1 (accepted)",
+  "n_heldout_days": 577,
+  "negative_results_note": "error_ratio >= 1 or N/A entries stay visible in the demo and method page \u2014 valid negative results are evidence",
   "protocol_version": "PROTO-C01-v0.9",
-  "reason": "C-03/C-04 artifacts absent (insufficient_data upstream) \u2014 stress tests deferred pending full-era data; machinery verified on synthetic tests",
+  "selection_rule": "T_i = peak observed-MODIS FRP-sum day of each equal third of the held-out span (predetermined, no peeking at predictions)",
   "status": "deferred",
-  "task": "C-05 stress"
+  "task": "C-05 stress",
+  "tests": [
+    {
+      "reason": "window 2022-12-18..2023-01-15 exceeds held-out span",
+      "status": "deferred",
+      "transition_date": "2023-01-01",
+      "window": [
+        "2022-12-18",
+        "2023-01-15"
+      ]
+    },
+    {
+      "reason": "window lacks a before/after side",
+      "shift_harmonized": {
+        "n": 0,
+        "n_excluded": 0,
+        "reason": "window missing a before/after side",
+        "value": "N/A"
+      },
+      "shift_naive": {
+        "n": 0,
+        "n_excluded": 0,
+        "reason": "window missing a before/after side",
+        "value": "N/A"
+      },
+      "shift_truth_continued_modis": {
+        "n": 29,
+        "n_excluded": 0,
+        "reason": "",
+        "value": 0.437947
+      },
+      "status": "deferred",
+      "transition_date": "2023-07-12",
+      "truth_note": "continued MODIS is the reference measurement, not fire ground truth",
+      "window": [
+        "2023-06-28",
+        "2023-07-26"
+      ],
+      "window_days_present": 29,
+      "window_fraction": 1.0
+    },
+    {
+      "reason": "window lacks a before/after side",
+      "shift_harmonized": {
+        "n": 0,
+        "n_excluded": 0,
+        "reason": "window missing a before/after side",
+        "value": "N/A"
+      },
+      "shift_naive": {
+        "n": 0,
+        "n_excluded": 0,
+        "reason": "window missing a before/after side",
+        "value": "N/A"
+      },
+      "shift_truth_continued_modis": {
+        "n": 29,
+        "n_excluded": 0,
+        "reason": "",
+        "value": -0.033402
+      },
+      "status": "deferred",
+      "transition_date": "2026-01-20",
+      "truth_note": "continued MODIS is the reference measurement, not fire ground truth",
+      "window": [
+        "2026-01-06",
+        "2026-02-03"
+      ],
+      "window_days_present": 29,
+      "window_fraction": 1.0
+    }
+  ]
 }

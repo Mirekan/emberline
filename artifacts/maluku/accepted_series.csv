@@ -1,4 +1,5 @@
 date,year,position,source_flag,value_mw,index,harmonized_mw,observed_modis_mw
+2018-01-04,2018,4,observed_modis,5.1,0.386786,,5.1
 2018-01-06,2018,6,harmonized_viirs,7.303872,0.452759,7.303872,15.7
 2018-01-07,2018,7,harmonized_viirs,0.0,0.0,0.0,0.0
 2018-01-08,2018,8,harmonized_viirs,0.0,0.0,0.0,0.0

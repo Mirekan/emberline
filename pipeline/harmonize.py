@@ -188,57 +188,80 @@ def _predict_cell(coef: dict, smearing_k: float, row: dict) -> float:
 
 def _aoi_day_series(pairs: list[dict], eligible: set[str], model: dict, aoi_id: str,
                     zero_fill: list[dict] | None = None) -> tuple[list[dict], list[float]]:
-    """Group cell-day pairs into AOI-days (both-retrieved only), predict, and
-    collect TRAINING AOI-day residuals for interval calibration. Compact
-    zero-fill days become 0.0-value AOI-days (all cells predict 0 by policy) —
-    no-fire days exist in the series without per-cell materialization."""
-    by_day: dict[tuple[str, str], list[dict]] = {}
+    """Group cell-day pairs into AOI-days. The day set MUST mirror
+    baselines.aggregate_aoi_days exactly (F-15: identical held-out rows across
+    B0/B1/B2) — same bucket semantics: every pair row lands in a day bucket
+    (missing-side days marked both_retrieved=False), zero-fill days included,
+    and the ELIGIBLE filter is NOT applied here (eligibility gates FITTING in
+    fit_b2, not the published series extent).
+
+    Prediction semantics: days with both-retrieved rows get a B2 prediction
+    (zero policy: no-signal -> 0); days where a side is missing get NULL
+    values (explicit gap with the retrieval reason) — never a fabricated
+    prediction, never a silent zero.
+    """
+    by_day: dict[tuple[str, str], dict] = {}
+    row_lists: dict[tuple[str, str], list[dict]] = {}
     for row in pairs:
-        if row["date"][:4] not in eligible:
-            continue
-        if _num(row, "viirs_frp_sum_mw") is None or _num(row, "modis_frp_sum_mw") is None:
-            continue  # not both-retrieved: no truth, no prediction here
-        by_day.setdefault((row["date"], str(row["daynight"])), []).append(row)
+        day, daynight = str(row["date"]), str(row["daynight"])
+        key = (day, daynight)
+        bucket = by_day.setdefault(key, {
+            "date": day, "daynight": daynight,
+            "modis_frp_sum_mw": 0.0, "viirs_frp_sum_mw": 0.0,
+            "both_retrieved": True, "has_signal": False,
+        })
+        row_lists.setdefault(key, []).append(row)
+        m_val = _num(row, "modis_frp_sum_mw")
+        v_val = _num(row, "viirs_frp_sum_mw")
+        if m_val is None or v_val is None:
+            bucket["both_retrieved"] = False  # a missing side poisons the day
+        else:
+            bucket["modis_frp_sum_mw"] += m_val
+            bucket["viirs_frp_sum_mw"] += v_val
+            if str(row.get("state")) == "matched_signal":
+                bucket["has_signal"] = True
 
     coef, k = model["coefficients"], model["smearing_k"]
     days: list[dict] = []
     train_residuals: list[float] = []
-    for (day, daynight) in sorted(by_day):
-        rows = by_day[(day, daynight)]
-        observed = sum(_num(r, "modis_frp_sum_mw") or 0.0 for r in rows)
-        predicted = sum(_predict_cell(coef, k, r) for r in rows)
+    for key in sorted(by_day):
+        bucket = by_day[key]
+        rows = row_lists[key]
+        day, daynight = key   # unpack kunci — variabel `day`/`daynight` dari loop lain JANGAN dipakai (leak)
+        observed = round(bucket["modis_frp_sum_mw"], 6)
+        predicted = (round(sum(_predict_cell(coef, k, r) for r in rows), 6)
+                     if bucket["both_retrieved"] else None)
         entry = {
-            "aoi_id": rows[0].get("aoi_id", ""), "date": day, "daynight": daynight,
+            "aoi_id": aoi_id, "date": day, "daynight": daynight,
             "role": "train" if day <= TRAIN_END else "test",
-            "source_flag": "harmonized_viirs",
+            "source_flag": "harmonized_viirs" if bucket["both_retrieved"] else "gap",
             "n_cells_predicted": len(rows),
-            "observed_modis_mw": round(observed, 6),
-            "predicted_b2_mw": round(predicted, 6),
-            "lo_mw": None, "hi_mw": None, "flags": [],
+            "observed_modis_mw": observed if bucket["both_retrieved"] else None,
+            "predicted_b2_mw": predicted if bucket["both_retrieved"] else None,
+            "lo_mw": None, "hi_mw": None,
+            "flags": [] if bucket["both_retrieved"] else ["missing_retrieval_side"],
         }
-        if entry["role"] == "train":
+        if entry["role"] == "train" and bucket["both_retrieved"]:
             train_residuals.append(observed - predicted)
         days.append(entry)
     for zf in zero_fill or []:
         key = (str(zf["date"]), str(zf["daynight"]))
-        if str(zf["date"])[:4] not in eligible:
-            continue
         existing = next((d for d in days if (d["date"], d["daynight"]) == key), None)
-        if existing is None:
-            day, daynight = key
-            entry = {
-                "aoi_id": aoi_id, "date": day, "daynight": daynight,
-                "role": "train" if day <= TRAIN_END else "test",
-                "source_flag": "harmonized_viirs",
-                "n_cells_predicted": int(zf.get("n_zero_cells", 0)),
-                "observed_modis_mw": 0.0, "predicted_b2_mw": 0.0,
-                "lo_mw": None, "hi_mw": None, "flags": [],
-            }
-            if entry["role"] == "train":
-                train_residuals.append(0.0)  # perfect zero prediction on an all-zero day
-            days.append(entry)
-        else:
+        if existing is not None:
             existing["n_cells_predicted"] += int(zf.get("n_zero_cells", 0))
+            continue
+        day, daynight = key
+        entry = {
+            "aoi_id": aoi_id, "date": day, "daynight": daynight,
+            "role": "train" if day <= TRAIN_END else "test",
+            "source_flag": "harmonized_viirs",
+            "n_cells_predicted": int(zf.get("n_zero_cells", 0)),
+            "observed_modis_mw": 0.0, "predicted_b2_mw": 0.0,
+            "lo_mw": None, "hi_mw": None, "flags": [],
+        }
+        if entry["role"] == "train":
+            train_residuals.append(0.0)  # perfect zero prediction on an all-zero day
+        days.append(entry)
     days.sort(key=lambda d: (d["date"], d["daynight"]))
     return days, train_residuals
 

@@ -5,8 +5,8 @@
     "start": "2012-01-20"
   },
   "aoi_id": "south_sumatra",
-  "created_utc": "2026-11-15T09:57:24+00:00",
-  "git_sha": "f90f1f7",
+  "created_utc": "2026-11-15T13:39:46+00:00",
+  "git_sha": "ef37674",
   "honesty_note": "stage statuses are recorded verbatim \u2014 insufficient_data/deferred stages are NOT failures or passes, they are the actual state",
   "input_sha256": {
     "data/manifests/retrieval_mask_south_sumatra.csv": "dde638876e323780d45dc160d21e89b4743f501b48d0c43c15f3a3dad112099e",
@@ -21,11 +21,11 @@
   "metrics_path": "/home/ade/project/nasa/science_analytics/emberline/artifacts/south_sumatra/harmonization_metrics.json",
   "params_hash": "0d6ea05a5d7d73122aff09c5fb006b62586c4c6f0a1f49790fb83ae4fe02bcce",
   "protocol_version": "PROTO-C01-v0.9",
-  "run_id": "PROTO-C01-v0.9_f90f1f7_20261115T0957Z",
+  "run_id": "PROTO-C01-v0.9_ef37674_20261115T1339Z",
   "seeds": {
     "interval_bootstrap": 42
   },
-  "serving_db_sha256": "aed9f15d1a3bfcce1670e837d6743ea9bfcf4cbbe4cf6eb9cffae152998df0fe",
+  "serving_db_sha256": "ae06d6ab54798f5e31cfd0ab15ffc7e3999a5f00eab0f51d948d15c6e4fe50a4",
   "sources": [
     "MODIS_SP",
     "VIIRS_SNPP_SP"
@@ -84,7 +84,7 @@
       "outputs": {
         "db": "/home/ade/project/nasa/science_analytics/emberline/artifacts/south_sumatra/serving.db"
       },
-      "sha256": "aed9f15d1a3bfcce1670e837d6743ea9bfcf4cbbe4cf6eb9cffae152998df0fe",
+      "sha256": "ae06d6ab54798f5e31cfd0ab15ffc7e3999a5f00eab0f51d948d15c6e4fe50a4",
       "status": "ok",
       "tables": {
         "accepted_series": 5306,
@@ -92,7 +92,7 @@
         "calendar": 366,
         "harmonized_daily": 10612,
         "metrics": 36,
-        "splice_stress": 3,
+        "splice_stress": 6,
         "windows": 3,
         "years": 15
       }

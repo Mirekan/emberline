@@ -1,0 +1,8 @@
+{
+  "aoi_id": "papua_selatan",
+  "changepoint_significance": "not_implemented (no p-values manufactured)",
+  "protocol_version": "PROTO-C01-v0.9",
+  "reason": "C-03/C-04 artifacts absent (insufficient_data upstream) \u2014 stress tests deferred pending full-era data; machinery verified on synthetic tests",
+  "status": "deferred",
+  "task": "C-05 stress"
+}
