@@ -6,21 +6,22 @@
 
 AOI ?= riau
 PYTHON ?= .venv/bin/python
+P ?= 4
 
-.PHONY: help dev data reproduce test serve build
+.PHONY: help dev data reproduce reproduce-all test serve build
 
 help:
 	@echo "EmberLine targets (owner in brackets):"
-	@echo "  make dev                 [D-01] run Rust backend locally (frontend pending)"
+	@echo "  make dev                 [D-04] run FastAPI backend locally"
 	@echo "  make data                [B-03] fetch -> validate -> cache (resumable)"
 	@echo "  make reproduce AOI=<id>  [C-07] raw inputs -> versioned artifacts + manifest"
 	@echo "  make reproduce-all [P=4] [C-07] reproduce EVERY AOI in config/aois.yaml"
-	@echo "  make test                [D-01] Rust API + C-01 protocol checks (B/E pending)"
-	@echo "  make serve               [D-01] run release backend skeleton (artifacts pending)"
-	@echo "  make build               [D-01] build release backend (frontend pending)"
+	@echo "  make test                [D-04] API + C-01 protocol checks"
+	@echo "  make serve               [D-04] run FastAPI backend"
+	@echo "  make build               [E] build frontend"
 
 dev:
-# 	cargo run --manifest-path api/Cargo.toml --locked
+	$(PYTHON) -m uvicorn api.app:app --host 127.0.0.1 --port 8300
 
 # make data                       full era, ALL AOIs from config/aois.yaml (resumable)
 # make data DATA_AOI=riau START=2023-01-01 END=2023-12-31   dev-range profile:
@@ -36,42 +37,42 @@ SOURCES ?=           # optional source filter, e.g. "MODIS_SP VIIRS_SNPP_SP"
 
 data:
 	@test -f pipeline/fetch_firms.py || { echo "NOT READY: pipeline/fetch_firms.py missing — owner B-03"; exit 1; }
-	python3 pipeline/fetch_firms.py fetch \
+	$(PYTHON) pipeline/fetch_firms.py fetch \
 	    $(if $(DATA_AOI),--aoi $(DATA_AOI),) \
 	    $(if $(START),--start $(START),) \
 	    $(if $(END),--end $(END),) \
 	    $(if $(SOURCES),--source $(SOURCES),)
 	@echo "[B-04] validating fetched windows..."
-	python3 tests/test_b_ingestion.py 2>/dev/null || echo "[note] run python3 pipeline/validate.py --slug <slug> for per-AOI validation"
+	$(PYTHON) tests/test_b_ingestion.py 2>/dev/null || echo "[note] run $(PYTHON) pipeline/validate.py --slug <slug> for per-AOI validation"
 
 reproduce:
 	@test -f pipeline/run.py || { echo "NOT READY: science pipeline runner missing — owner C-07"; exit 1; }
-	python3 -m pipeline.run --aoi $(AOI)
+	$(PYTHON) -m pipeline.run --aoi $(AOI)
 
 # reproduce-all [P=4]: every AOI in config/aois.yaml (17 tiles). Parallel jobs each
 # load full-era data — use P=1..2 on constrained machines, P=4+ on the Azure VM.
 reproduce-all:
 	@test -f pipeline/run.py || { echo "NOT READY: science pipeline runner missing — owner C-07"; exit 1; }
-	@python3 -c "import yaml; print('\n'.join(a['id'] for a in yaml.safe_load(open('config/aois.yaml'))['aois']))" | \
-	    xargs -n1 -P$(P) -I{} python3 -m pipeline.run --aoi {}
+	@$(PYTHON) -c "import yaml; print('\n'.join(a['id'] for a in yaml.safe_load(open('config/aois.yaml'))['aois']))" | \
+	    xargs -n1 -P$(P) -I{} $(PYTHON) -m pipeline.run --aoi {}
 
 test:
-# 	cargo test --manifest-path api/Cargo.toml --locked
-	@python3 tests/test_protocol_contract.py
-	@python3 tests/test_grid_match.py
-	@python3 tests/test_baseline_leakage.py
-	@python3 tests/test_harmonization_leakage.py
-	@python3 tests/test_metrics.py
-	@python3 tests/test_splice_stress.py
-	@python3 tests/test_calendar.py
-	@python3 tests/test_windows.py
-	@python3 tests/test_run_manifest.py
-	@python3 tests/test_b_ingestion.py 2>/dev/null || echo "[skip] tests/test_b_ingestion.py not present in this checkout"
+	@$(PYTHON) tests/test_api_series.py
+	@$(PYTHON) tests/test_protocol_contract.py
+	@$(PYTHON) tests/test_grid_match.py
+	@$(PYTHON) tests/test_baseline_leakage.py
+	@$(PYTHON) tests/test_harmonization_leakage.py
+	@$(PYTHON) tests/test_metrics.py
+	@$(PYTHON) tests/test_splice_stress.py
+	@$(PYTHON) tests/test_calendar.py
+	@$(PYTHON) tests/test_windows.py
+	@$(PYTHON) tests/test_run_manifest.py
+	@$(PYTHON) tests/test_b_ingestion.py 2>/dev/null || echo "[skip] tests/test_b_ingestion.py not present in this checkout"
 	@echo ""
 	@echo "[note] C-01..C-07 contract tests consolidated; test_run_manifest is the memory-heaviest (full-chain rerun) — run when the machine has headroom."
 
 serve:
-# 	cargo run --manifest-path api/Cargo.toml --locked --release
+	node api/serve.mjs
 
 build:
-# 	cargo build --manifest-path api/Cargo.toml --locked --release
+	npm run build

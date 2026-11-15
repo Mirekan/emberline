@@ -16,6 +16,7 @@ from __future__ import annotations
 import csv
 import json
 import math
+import os
 import re
 import uuid
 from datetime import datetime, timedelta, timezone
@@ -30,8 +31,13 @@ ARTIFACTS = ROOT / "artifacts"
 AOIS_PATH = ROOT / "config" / "aois.yaml"
 
 app = FastAPI(title="EmberLine API", version="0.1.0")
-app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_methods=["*"],
-                   allow_headers=["*"])
+_cors_origins = [origin.strip() for origin in os.getenv("EMBERLINE_CORS_ORIGINS", "http://127.0.0.1:5173,http://localhost:5173").split(",") if origin.strip()]
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=_cors_origins,
+    allow_methods=["GET", "POST", "OPTIONS"],
+    allow_headers=["Content-Type"],
+)
 
 # In-process job store (bounded; DEV-S05 — no queue, no DB)
 JOBS: dict = {}

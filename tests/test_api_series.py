@@ -1,9 +1,12 @@
 import csv
 import json
+import sys
 import tempfile
 import unittest
 from pathlib import Path
 from unittest.mock import patch
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
 from api import app as emberline_api
 
@@ -118,6 +121,30 @@ class MapArtifactTests(unittest.TestCase):
         self.assertEqual(detections["n_detections"], 2)
         self.assertEqual(len(detections["detections"]), 2)
         self.assertEqual(all_detections["n_detections"], 3)
+
+
+class ApiBoundaryTests(unittest.TestCase):
+    def test_cors_allows_configured_frontend_only(self):
+        from fastapi.testclient import TestClient
+
+        with TestClient(emberline_api.app) as client:
+            allowed = client.options(
+                "/api/health",
+                headers={
+                    "Origin": "http://localhost:5173",
+                    "Access-Control-Request-Method": "GET",
+                },
+            )
+            denied = client.options(
+                "/api/health",
+                headers={
+                    "Origin": "https://untrusted.example",
+                    "Access-Control-Request-Method": "GET",
+                },
+            )
+
+        self.assertEqual(allowed.headers.get("access-control-allow-origin"), "http://localhost:5173")
+        self.assertIsNone(denied.headers.get("access-control-allow-origin"))
 
 
 if __name__ == "__main__":
