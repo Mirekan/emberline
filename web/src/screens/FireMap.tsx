@@ -188,6 +188,7 @@ export default function FireMap() {
   const [gridOn, setGridOn] = useState(false); // Default OFF so the map shows clean topography and fire dots
   const [gridLoading, setGridLoading] = useState(false);
   const [gridError, setGridError] = useState("");
+  const [selectedCell, setSelectedCell] = useState<GridCell | null>(null);
   const [det, setDet] = useState<Detections | null>(null);
   const [detOn, setDetOn] = useState(true); // Default ON: FIRMS dots are immediately rendered on map load
   const [detLoading, setDetLoading] = useState(false);
@@ -435,6 +436,24 @@ export default function FireMap() {
     return () => { cancelled = true; };
   }, [aoi, selName]);
 
+function getCellRisk(count: number, maxCount: number): { label: "Aman" | "Waspada" | "Siaga" | "Bahaya"; color: string; bg: string } {
+  if (count === 0) {
+    return { label: "Aman", color: "#10B981", bg: "rgba(16, 185, 129, 0.15)" };
+  }
+  const intensity = maxCount > 0 ? Math.log1p(count) / Math.log1p(maxCount) : 0;
+  if (intensity < 0.33) {
+    return { label: "Waspada", color: "#FACC15", bg: "rgba(250, 204, 21, 0.2)" };
+  }
+  if (intensity < 0.66) {
+    return { label: "Siaga", color: "#F97316", bg: "rgba(249, 115, 22, 0.25)" };
+  }
+  return { label: "Bahaya", color: "#EF4444", bg: "rgba(239, 68, 68, 0.32)" };
+}
+
+  const maxCount = useMemo(() => {
+    return grid && grid.cells.length > 0 ? Math.max(0, ...grid.cells.map(c => c.detection_count)) : 0;
+  }, [grid]);
+
   // Render 0.1° density grid overlay when toggled on
   useEffect(() => {
     const map = mapRef.current;
@@ -443,30 +462,79 @@ export default function FireMap() {
     gridLayerRef.current = null;
     if (!gridOn || !grid || grid.cells.length === 0) return;
 
-    const maxCount = Math.max(0, ...grid.cells.map(cell => cell.detection_count));
     const layer = L.layerGroup();
     for (const cell of grid.cells) {
       const count = cell.detection_count;
-      if (count === 0) continue; // Skip empty cells so terrain is crystal clear
-      const intensity = maxCount > 0 ? Math.log1p(count) / Math.log1p(maxCount) : 0;
-      const fillColor = intensity < 0.34 ? "#FACC15" : intensity < 0.67 ? "#F97316" : "#EF4444";
+      const isSelected = selectedCell?.cell_id === cell.cell_id;
+      if (count === 0 && !isSelected) continue; // Skip empty cells unless selected
+      const risk = getCellRisk(count, maxCount);
+
       const area = L.rectangle(
         [[cell.south, cell.west], [cell.north, cell.east]],
         {
-          color: fillColor,
-          weight: 0.5,
-          fillColor,
-          fillOpacity: 0.18 + intensity * 0.32,
+          color: isSelected ? "#FFFFFF" : risk.color,
+          weight: isSelected ? 2.5 : 0.6,
+          fillColor: risk.color,
+          fillOpacity: isSelected ? 0.45 : count === 0 ? 0.04 : 0.16 + (maxCount > 0 ? (Math.log1p(count) / Math.log1p(maxCount)) * 0.32 : 0),
           interactive: true,
-          bubblingMouseEvents: true,
+          bubblingMouseEvents: false,
         },
       );
-      area.bindTooltip(`${count.toLocaleString()} observasi FIRMS (0,1°)`, { sticky: true });
+      area.bindTooltip(
+        `<div style="font-size:11px; line-height:1.4;">
+          <div style="font-weight:700; color:${risk.color}; margin-bottom:2px;">Status: ${risk.label}</div>
+          <div>${count.toLocaleString()} observasi satelit</div>
+          <div style="font-size:10px; color:#888;">Klik untuk fokus sel</div>
+        </div>`,
+        { sticky: true }
+      );
+      area.on("click", (e) => {
+        L.DomEvent.stopPropagation(e);
+        setSelectedCell(prev => {
+          if (prev?.cell_id === cell.cell_id) {
+            const p = presets.find(pp => pp.id === aoi);
+            if (p) {
+              map.flyToBounds([[p.south, p.west], [p.north, p.east]], { padding: [50, 50], duration: 0.8 });
+            }
+            return null;
+          } else {
+            map.flyToBounds([[cell.south, cell.west], [cell.north, cell.east]], {
+              padding: [80, 80],
+              maxZoom: 11,
+              duration: 0.8,
+            });
+            return cell;
+          }
+        });
+      });
       area.addTo(layer);
     }
     layer.addTo(map);
     gridLayerRef.current = layer;
-  }, [grid, gridOn, mapReady]);
+  }, [grid, gridOn, selectedCell, maxCount, mapReady, aoi, presets]);
+
+  const detRows = useMemo(() => {
+    if (!det) return [];
+    return det.detections.filter(d => {
+      const matchTime = (detYear === "all" || d.date.startsWith(detYear));
+      const matchSensor = (detSensor === "all" || d.sensor === detSensor);
+      if (!matchTime || !matchSensor) return false;
+      if (selectedCell) {
+        return (
+          d.lat >= selectedCell.south &&
+          d.lat <= selectedCell.north &&
+          d.lon >= selectedCell.west &&
+          d.lon <= selectedCell.east
+        );
+      }
+      return true;
+    });
+  }, [det, detYear, detSensor, selectedCell]);
+
+  const detYears = useMemo(() => {
+    if (!det) return [];
+    return [...new Set(det.detections.map(d => d.date.slice(0, 4)))].sort((a, b) => b.localeCompare(a));
+  }, [det]);
 
   // Render satellite detection dots at their true geographic coordinates
   useEffect(() => {
@@ -484,10 +552,7 @@ export default function FireMap() {
       return;
     }
 
-    const rows = det.detections.filter(d =>
-      (detYear === "all" || d.date.startsWith(detYear)) &&
-      (detSensor === "all" || d.sensor === detSensor)
-    );
+    const rows = detRows;
 
     // Limit to 2,500 highest FRP points when "all" years are selected for smooth GPU rendering
     const cappedRows = rows.length > 2500
@@ -517,13 +582,14 @@ export default function FireMap() {
 
     g.addTo(map);
     dotsLayerRef.current = g;
-  }, [det, detOn, detYear, detSensor, mapReady]);
+  }, [det, detOn, detRows, mapReady]);
 
   // Smoothly pan only when user explicitly switches AOI preset
   const lastAoiRef = useRef<string>(aoi);
   useEffect(() => {
     if (lastAoiRef.current !== aoi && mapRef.current) {
       lastAoiRef.current = aoi;
+      setSelectedCell(null);
       const p = presets.find(pp => pp.id === aoi);
       if (p) {
         mapRef.current.flyToBounds([[p.south, p.west], [p.north, p.east]], {
@@ -533,19 +599,6 @@ export default function FireMap() {
       }
     }
   }, [aoi, presets]);
-
-  const detRows = useMemo(() => {
-    if (!det) return [];
-    return det.detections.filter(d =>
-      (detYear === "all" || d.date.startsWith(detYear)) &&
-      (detSensor === "all" || d.sensor === detSensor)
-    );
-  }, [det, detYear, detSensor]);
-
-  const detYears = useMemo(() => {
-    if (!det) return [];
-    return [...new Set(det.detections.map(d => d.date.slice(0, 4)))].sort((a, b) => b.localeCompare(a));
-  }, [det]);
 
   const flyTo = (r: (typeof REGIONS)[number]) => {
     setSelName(r.name);
@@ -825,7 +878,9 @@ export default function FireMap() {
           ) : det ? (
             <>
               <div style={{ fontSize: 10.5, color: "var(--ink2)", marginBottom: 7 }}>
-                {detRows.length.toLocaleString()} observasi titik satelit ({detYear === "all" ? "Semua tahun" : `Tahun ${detYear}`})
+                {selectedCell
+                  ? `${detRows.length.toLocaleString()} titik dalam sel ${selectedCell.cell_id} (${detYear === "all" ? "Semua tahun" : `Tahun ${detYear}`})`
+                  : `${detRows.length.toLocaleString()} observasi titik satelit (${detYear === "all" ? "Semua tahun" : `Tahun ${detYear}`})`}
               </div>
               <div style={{ display: "flex", gap: 8, marginTop: 4 }}>
                 <select
@@ -868,6 +923,53 @@ export default function FireMap() {
           ) : null}
         </div>
 
+        {/* Selected Cell Inspection Card */}
+        {selectedCell && (
+          <div style={{
+            margin: "0 14px 8px", padding: 10,
+            background: "var(--sunken)", borderRadius: 8,
+            border: "1px solid var(--line)",
+            borderLeft: `4px solid ${getCellRisk(selectedCell.detection_count, maxCount).color}`,
+          }}>
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 6 }}>
+              <span style={{ fontSize: 11, fontWeight: 700, color: "var(--ink)" }}>
+                Inspeksi Sel Terfokus
+              </span>
+              <span style={{
+                fontSize: 10, fontWeight: 700,
+                color: getCellRisk(selectedCell.detection_count, maxCount).color,
+                background: getCellRisk(selectedCell.detection_count, maxCount).bg,
+                padding: "2px 8px", borderRadius: 4,
+              }}>
+                Status: {getCellRisk(selectedCell.detection_count, maxCount).label}
+              </span>
+            </div>
+            <div style={{ fontSize: 10.5, color: "var(--ink2)", marginBottom: 4 }}>
+              Sel: <span className="mono">{selectedCell.cell_id}</span> (0,1° ≈ 11 km)
+            </div>
+            <div style={{ fontSize: 10.5, color: "var(--ink2)", marginBottom: 8 }}>
+              Observasi Satelit: <b>{selectedCell.detection_count.toLocaleString()}</b> titik ({selectedCell.total_viirs} VIIRS · {selectedCell.total_modis} MODIS)
+            </div>
+            <button
+              type="button"
+              className="seg-btn"
+              onClick={() => {
+                setSelectedCell(null);
+                const p = presets.find(pp => pp.id === aoi);
+                if (p) {
+                  mapRef.current?.flyToBounds([[p.south, p.west], [p.north, p.east]], { padding: [50, 50], duration: 0.8 });
+                }
+              }}
+              style={{
+                width: "100%", padding: "5px 10px", fontSize: 10.5,
+                fontWeight: 600, background: "var(--surface)", display: "block", textAlign: "center",
+              }}
+            >
+              Lepas Fokus Sel (Tampilkan Semua)
+            </button>
+          </div>
+        )}
+
         {/* Grid Kepadatan Observasi 0.1° Card */}
         <div style={{
           margin: "0 14px 8px", padding: 10,
@@ -894,19 +996,26 @@ export default function FireMap() {
               {gridOn ? "Aktif" : "Nonaktif"}
             </button>
           </div>
-          <div style={{ display: "flex", gap: 10, fontSize: 10.5, color: "var(--ink2)" }}>
-            <span style={{ display: "inline-flex", alignItems: "center", gap: 4 }}>
-              <i style={{ display: "inline-block", width: 10, height: 10, borderRadius: 2, background: "#FACC15" }} /> Rendah
-            </span>
-            <span style={{ display: "inline-flex", alignItems: "center", gap: 4 }}>
-              <i style={{ display: "inline-block", width: 10, height: 10, borderRadius: 2, background: "#F97316" }} /> Sedang
-            </span>
-            <span style={{ display: "inline-flex", alignItems: "center", gap: 4 }}>
-              <i style={{ display: "inline-block", width: 10, height: 10, borderRadius: 2, background: "#EF4444" }} /> Tinggi
-            </span>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 6, fontSize: 10, color: "var(--ink2)", textAlign: "center", marginTop: 4 }}>
+            <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 3 }}>
+              <span style={{ display: "inline-block", width: "100%", height: 4, borderRadius: 2, background: "#10B981" }} />
+              <span>Aman</span>
+            </div>
+            <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 3 }}>
+              <span style={{ display: "inline-block", width: "100%", height: 4, borderRadius: 2, background: "#FACC15" }} />
+              <span>Waspada</span>
+            </div>
+            <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 3 }}>
+              <span style={{ display: "inline-block", width: "100%", height: 4, borderRadius: 2, background: "#F97316" }} />
+              <span>Siaga</span>
+            </div>
+            <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 3 }}>
+              <span style={{ display: "inline-block", width: "100%", height: 4, borderRadius: 2, background: "#EF4444" }} />
+              <span>Bahaya</span>
+            </div>
           </div>
-          <div style={{ fontSize: 10, color: "var(--ink3)", lineHeight: 1.4, marginTop: 6 }}>
-            {gridOn ? "Lapisan grid 0,1° (~11 km) aktif menampilkan densitas spasial historis." : "Aktifkan bila ingin melihat agregasi densitas per sel 0,1°."}
+          <div style={{ fontSize: 10, color: "var(--ink3)", lineHeight: 1.4, marginTop: 7 }}>
+            {gridOn ? "Klik sel mana saja pada peta untuk memperbesar & menginspeksi titik di area tersebut." : "Aktifkan bila ingin melihat agregasi densitas spasial (Aman, Waspada, Siaga, Bahaya)."}
           </div>
         </div>
 
