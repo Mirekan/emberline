@@ -399,6 +399,14 @@ export default function FireMap() {
   const [detError, setDetError] = useState("");
   const [detYear, setDetYear] = useState("2026"); // Default to 2026 on initial load to prevent overcrowding
   const [detSensor, setDetSensor] = useState<"all" | "modis" | "viirs">("all");
+  const [viewMode, setViewMode] = useState<"both" | "dots" | "grid">("both");
+  const [riskFilter, setRiskFilter] = useState<"all" | "danger" | "alert">("all");
+  const [minFrp, setMinFrp] = useState<number>(0);
+  const [gridOpacity, setGridOpacity] = useState<number>(0.32);
+  const [basemapMode, setBasemapMode] = useState<"osm" | "muted" | "dark">("osm");
+  const [contrastPopoverOpen, setContrastPopoverOpen] = useState(false);
+  const filterBarRef = useRef<HTMLDivElement>(null);
+  const contrastPopoverRef = useRef<HTMLDivElement>(null);
   const [isFs, setIsFs] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const [mapReady, setMapReady] = useState(false);
@@ -481,6 +489,17 @@ export default function FireMap() {
       L.DomEvent.disableClickPropagation(toolbarRef.current);
     }
   }, []);
+
+  useEffect(() => {
+    if (filterBarRef.current) {
+      L.DomEvent.disableScrollPropagation(filterBarRef.current);
+      L.DomEvent.disableClickPropagation(filterBarRef.current);
+    }
+    if (contrastPopoverRef.current) {
+      L.DomEvent.disableScrollPropagation(contrastPopoverRef.current);
+      L.DomEvent.disableClickPropagation(contrastPopoverRef.current);
+    }
+  }, [contrastPopoverOpen]);
 
   useEffect(() => {
     if (aiDrawerRef.current) {
@@ -778,6 +797,26 @@ export default function FireMap() {
     return grid && grid.cells.length > 0 ? Math.max(0, ...grid.cells.map(c => c.detection_count)) : 0;
   }, [grid]);
 
+  const cellsByCoordMap = useMemo(() => {
+    const m = new Map<string, GridCell>();
+    if (!grid) return m;
+    for (const c of grid.cells) {
+      m.set(`${c.south.toFixed(1)},${c.west.toFixed(1)}`, c);
+    }
+    return m;
+  }, [grid]);
+
+  const activeGridCellCount = useMemo(() => {
+    if (!grid) return 0;
+    return grid.cells.filter(c => {
+      if (c.detection_count === 0) return false;
+      const intensity = maxCount > 0 ? Math.log1p(c.detection_count) / Math.log1p(maxCount) : 0;
+      if (riskFilter === "danger" && intensity < 0.66) return false;
+      if (riskFilter === "alert" && intensity < 0.33) return false;
+      return true;
+    }).length;
+  }, [grid, riskFilter, maxCount]);
+
   // Render 0.1° density grid overlay across the full rectangular Indonesia bounds
   useEffect(() => {
     const map = mapRef.current;
@@ -794,15 +833,15 @@ export default function FireMap() {
     const bounds = grid.bounds ?? { south: -12.0, west: 94.0, north: 8.0, east: 152.0 };
     const step = grid.cell_deg ?? 0.1;
 
-    // Full rectangular white background overlay for unmonitored / white grid area
+    // Full rectangular subtle white background overlay for unmonitored / base grid area
     const bgRect = L.rectangle(
       [[bounds.south, bounds.west], [bounds.north, bounds.east]],
       {
         renderer: canvasRenderer,
-        color: "rgba(255, 255, 255, 0.65)",
-        weight: 1.5,
+        color: "rgba(255, 255, 255, 0.40)",
+        weight: 1.0,
         fillColor: "#FFFFFF",
-        fillOpacity: 0.14,
+        fillOpacity: 0.035,
         interactive: true,
         bubblingMouseEvents: false,
       },
@@ -820,8 +859,8 @@ export default function FireMap() {
 
     const linesLayer = L.polyline(gridLines, {
       renderer: canvasRenderer,
-      color: "rgba(255, 255, 255, 0.35)",
-      weight: 0.5,
+      color: "rgba(255, 255, 255, 0.20)",
+      weight: 0.4,
       interactive: false,
     });
     linesLayer.addTo(layer);
@@ -835,6 +874,10 @@ export default function FireMap() {
       const count = cell.detection_count;
       if (count === 0) continue; // Unpopulated cells already rendered in the white base grid
 
+      const intensity = maxCount > 0 ? Math.log1p(count) / Math.log1p(maxCount) : 0;
+      if (riskFilter === "danger" && intensity < 0.66) continue;
+      if (riskFilter === "alert" && intensity < 0.33) continue;
+
       const isSelected = selectedCell?.cell_id === cell.cell_id;
       const density = getCellDensity(count, maxCount);
 
@@ -845,7 +888,9 @@ export default function FireMap() {
           color: isSelected ? "#FFFFFF" : density.color,
           weight: isSelected ? 2.5 : 0.65,
           fillColor: density.color,
-          fillOpacity: isSelected ? 0.6 : 0.25 + (maxCount > 0 ? (Math.log1p(count) / Math.log1p(maxCount)) * 0.45 : 0),
+          fillOpacity: isSelected
+            ? 0.70
+            : Math.min(0.85, gridOpacity * (0.60 + intensity * 0.75)),
           interactive: true,
           bubblingMouseEvents: false,
         },
@@ -915,14 +960,15 @@ export default function FireMap() {
 
     layer.addTo(map);
     gridLayerRef.current = layer;
-  }, [grid, gridOn, selectedCell, maxCount, mapReady, aoi, presets, lang]);
+  }, [grid, gridOn, selectedCell, maxCount, mapReady, aoi, presets, lang, riskFilter, gridOpacity]);
 
   const detRows = useMemo(() => {
     if (!det) return [];
     return det.detections.filter(d => {
       const matchTime = (detYear === "all" || d.date.startsWith(detYear));
       const matchSensor = (detSensor === "all" || d.sensor === detSensor);
-      if (!matchTime || !matchSensor) return false;
+      const matchFrp = d.frp >= minFrp;
+      if (!matchTime || !matchSensor || !matchFrp) return false;
       if (selectedCell) {
         return (
           d.lat >= selectedCell.south &&
@@ -931,16 +977,26 @@ export default function FireMap() {
           d.lon <= selectedCell.east
         );
       }
+      if (riskFilter !== "all" && grid && maxCount > 0) {
+        const step = grid.cell_deg ?? 0.1;
+        const cellSouth = Math.round(Math.floor(d.lat / step) * step * 10) / 10;
+        const cellWest = Math.round(Math.floor(d.lon / step) * step * 10) / 10;
+        const c = cellsByCoordMap.get(`${cellSouth.toFixed(1)},${cellWest.toFixed(1)}`);
+        if (!c || c.detection_count === 0) return false;
+        const intensity = maxCount > 0 ? Math.log1p(c.detection_count) / Math.log1p(maxCount) : 0;
+        if (riskFilter === "danger" && intensity < 0.66) return false;
+        if (riskFilter === "alert" && intensity < 0.33) return false;
+      }
       return true;
     });
-  }, [det, detYear, detSensor, selectedCell]);
+  }, [det, detYear, detSensor, minFrp, selectedCell, riskFilter, grid, maxCount, cellsByCoordMap, lang]);
 
   const detYears = useMemo(() => {
     if (!det) return [];
     return [...new Set(det.detections.map(d => d.date.slice(0, 4)))].sort((a, b) => b.localeCompare(a));
   }, [det]);
 
-  // Render satellite detection dots at their true geographic coordinates
+  // Render satellite detection dots at their true geographic coordinates with high-contrast outlines
   useEffect(() => {
     const map = mapRef.current;
     const canvasRenderer = canvasRendererRef.current;
@@ -973,13 +1029,15 @@ export default function FireMap() {
       const t = maxFrp > 0 ? Math.min(1, d.frp / maxFrp) : 0;
       const isViirs = d.sensor === "viirs";
 
+      // Dual-ring high contrast: dark silhouette ring + neon core
+      // Guarantees maximum visibility on red, orange, and yellow backgrounds
       L.circleMarker([d.lat, d.lon], {
         renderer: canvasRenderer,
-        radius: isViirs ? (2.8 + Math.sqrt(t) * 2.2) : (4.0 + Math.sqrt(t) * 2.5),
-        color: "#FFFFFF",
-        weight: 0.6,
-        fillColor: isViirs ? "#EF4444" : "#2563EB",
-        fillOpacity: 0.88,
+        radius: isViirs ? (2.9 + Math.sqrt(t) * 2.3) : (4.1 + Math.sqrt(t) * 2.7),
+        color: "#0F172A",
+        weight: 1.3,
+        fillColor: isViirs ? "#FF2A3B" : "#2563EB",
+        fillOpacity: 0.95,
         interactive: false,
       }).addTo(g);
     }
@@ -1036,6 +1094,7 @@ export default function FireMap() {
   return (
     <div
       ref={containerRef}
+      className={basemapMode === "muted" ? "basemap-muted" : basemapMode === "dark" ? "basemap-dark" : ""}
       style={{
         position: "relative",
         height: isFs ? "100vh" : "calc(100vh - 104px)",
@@ -1047,13 +1106,262 @@ export default function FireMap() {
       {/* Base Map Container */}
       <div ref={mapEl} style={{ position: "absolute", inset: 0 }} />
 
-      {/* Floating Control Toolbar */}
+      {/* Floating Map Filter HUD & Contrast Toolbar */}
+      <div ref={filterBarRef} className="map-filter-bar" role="toolbar" aria-label="Kontrol Filter Peta">
+        {/* Region Toggle Pill */}
+        <button
+          type="button"
+          className={"map-segmented-btn" + (sidebarOpen ? " active" : "")}
+          onClick={() => setSidebarOpen(o => !o)}
+          title={lang === "id" ? "Buka / sembunyikan daftar 38 provinsi" : "Open / close 38 provinces drawer"}
+          style={{ fontWeight: 700, padding: "4px 10px", gap: 6 }}
+        >
+          <span>📍</span>
+          <span>{selName ?? (lang === "id" ? "Seluruh Indonesia" : "All Indonesia")}</span>
+          <span style={{ fontSize: 9 }}>{sidebarOpen ? "▲" : "▼"}</span>
+        </button>
+
+        <div style={{ width: 1, height: 18, background: "var(--line-strong)", margin: "0 2px" }} />
+
+        {/* View Mode Segmented Control */}
+        <div className="map-segmented-control" role="group" aria-label="Mode Lapisan">
+          <button
+            type="button"
+            className={"map-segmented-btn" + (viewMode === "both" ? " active" : "")}
+            onClick={() => { setViewMode("both"); setGridOn(true); setDetOn(true); }}
+            title={lang === "id" ? "Tampilkan titik satelit dan grid kepadatan bersamaan" : "Show satellite points and density grid together"}
+          >
+            {lang === "id" ? "Kombinasi" : "Combined"}
+          </button>
+          <button
+            type="button"
+            className={"map-segmented-btn" + (viewMode === "dots" ? " active" : "")}
+            onClick={() => { setViewMode("dots"); setGridOn(false); setDetOn(true); }}
+            title={lang === "id" ? "Hanya tampilkan titik satelit FIRMS tanpa lapisan grid" : "Show only FIRMS satellite points without grid"}
+          >
+            {lang === "id" ? "Titik Api" : "Hotspots"}
+          </button>
+          <button
+            type="button"
+            className={"map-segmented-btn" + (viewMode === "grid" ? " active" : "")}
+            onClick={() => { setViewMode("grid"); setGridOn(true); setDetOn(false); }}
+            title={lang === "id" ? "Hanya tampilkan grid kepadatan 0,1° tanpa titik" : "Show only 0.1° density grid without points"}
+          >
+            {lang === "id" ? "Grid 0,1°" : "Density Grid"}
+          </button>
+        </div>
+
+        <div style={{ width: 1, height: 18, background: "var(--line-strong)", margin: "0 2px" }} />
+
+        {/* Quick Filter Group: Year, Sensor, Risk */}
+        <div className="map-filter-group">
+          {/* Year Filter */}
+          <select
+            className="map-filter-select"
+            value={detYear}
+            onChange={e => setDetYear(e.target.value)}
+            title={lang === "id" ? "Filter tahun observasi satelit" : "Filter observation year"}
+          >
+            <option value="all">{t("map_time_all")}</option>
+            {detYears.map(y => (
+              <option key={y} value={y}>{lang === "id" ? `Tahun ${y}` : `Year ${y}`}</option>
+            ))}
+          </select>
+
+          {/* Sensor Filter */}
+          <select
+            className="map-filter-select"
+            value={detSensor}
+            onChange={e => setDetSensor(e.target.value as "all" | "modis" | "viirs")}
+            title={lang === "id" ? "Filter instrumen satelit (VIIRS / MODIS)" : "Filter satellite sensor"}
+          >
+            <option value="all">{lang === "id" ? "Semua Sensor" : "All Sensors"}</option>
+            <option value="viirs">VIIRS 375m</option>
+            <option value="modis">MODIS 1km</option>
+          </select>
+
+          {/* Risk Level Filter */}
+          <select
+            className="map-filter-select"
+            value={riskFilter}
+            onChange={e => setRiskFilter(e.target.value as any)}
+            title={lang === "id" ? "Filter tingkat risiko kebakaran" : "Filter fire risk level"}
+            style={{
+              fontWeight: 600,
+              color: riskFilter === "danger" ? "#EF4444" : riskFilter === "alert" ? "#F97316" : "var(--ink)",
+            }}
+          >
+            <option value="all">{lang === "id" ? "Semua Risiko" : "All Risk"}</option>
+            <option value="danger">{lang === "id" ? "Bahaya Saja (Merah)" : "Danger Only (Red)"}</option>
+            <option value="alert">{lang === "id" ? "Siaga & Bahaya (Oranye+)" : "Alert & Danger (Orange+)"}</option>
+          </select>
+
+          {/* Contrast & Advanced Settings Button */}
+          <button
+            type="button"
+            className={"map-segmented-btn" + (contrastPopoverOpen ? " active" : "")}
+            onClick={() => setContrastPopoverOpen(o => !o)}
+            title={lang === "id" ? "Buka pengaturan kontras warna, opasitas, dan filter lanjutan" : "Open color contrast, opacity, and advanced filters"}
+            style={{ border: "1px solid var(--line-strong)" }}
+          >
+            <span>⚙</span>
+            <span>{lang === "id" ? "Kontras & Filter" : "Contrast & Filters"}</span>
+            {minFrp > 0 && <span style={{ width: 6, height: 6, borderRadius: "50%", background: "var(--ember)", display: "inline-block" }} />}
+          </button>
+        </div>
+
+        {/* Dynamic Count Metric Badge */}
+        <div className="map-stat-badge">
+          <span style={{ color: "var(--ember)", fontWeight: 700 }}>
+            {detRows.length.toLocaleString(lang === "id" ? "id-ID" : "en-US")}
+          </span>
+          <span>{lang === "id" ? "titik" : "points"}</span>
+          <span>·</span>
+          <span>
+            {activeGridCellCount.toLocaleString(lang === "id" ? "id-ID" : "en-US")} {lang === "id" ? "sel" : "cells"}
+          </span>
+        </div>
+      </div>
+
+      {/* Advanced Contrast & Opacity Popover */}
+      {contrastPopoverOpen && (
+        <div ref={contrastPopoverRef} className="map-contrast-popover">
+          <div className="map-contrast-popover-title">
+            <span>{lang === "id" ? "Kontras & Filter Lanjutan" : "Contrast & Advanced Filters"}</span>
+            <button
+              type="button"
+              className="seg-btn"
+              style={{ fontSize: 10, padding: "1px 6px" }}
+              onClick={() => setContrastPopoverOpen(false)}
+            >
+              ✕
+            </button>
+          </div>
+
+          {/* Grid Opacity Slider & Presets */}
+          <div className="map-contrast-row">
+            <div className="map-contrast-label">
+              <span>{lang === "id" ? "Opasitas Grid Kepadatan:" : "Density Grid Opacity:"}</span>
+              <span className="mono" style={{ color: "var(--ember)" }}>{Math.round(gridOpacity * 100)}%</span>
+            </div>
+            <input
+              type="range"
+              min="0.10"
+              max="0.80"
+              step="0.05"
+              value={gridOpacity}
+              onChange={e => setGridOpacity(parseFloat(e.target.value))}
+              className="map-range-slider"
+            />
+            <div style={{ display: "flex", gap: 4 }}>
+              {[
+                { label: lang === "id" ? "Halus (20%)" : "Subtle (20%)", val: 0.20 },
+                { label: lang === "id" ? "Optimal (35%)" : "Optimal (35%)", val: 0.35 },
+                { label: lang === "id" ? "Pekat (60%)" : "Vivid (60%)", val: 0.60 },
+              ].map(p => (
+                <button
+                  key={p.val}
+                  type="button"
+                  className={"map-segmented-btn" + (Math.abs(gridOpacity - p.val) < 0.04 ? " active" : "")}
+                  style={{ flex: 1, fontSize: 10, height: 24, border: "1px solid var(--line)" }}
+                  onClick={() => setGridOpacity(p.val)}
+                >
+                  {p.label}
+                </button>
+              ))}
+            </div>
+            <div className="map-contrast-hint">
+              {lang === "id"
+                ? "Turunkan opasitas agar titik api FIRMS lebih menonjol di atas latar belakang grid."
+                : "Lower opacity so FIRMS hotspots stand out clearly over background grid."}
+            </div>
+          </div>
+
+          {/* Basemap Contrast Mode */}
+          <div className="map-contrast-row">
+            <div className="map-contrast-label">
+              <span>{lang === "id" ? "Peta Dasar (Basemap):" : "Basemap Contrast:"}</span>
+            </div>
+            <div className="map-segmented-control" style={{ width: "100%" }}>
+              {[
+                { id: "osm", label: lang === "id" ? "Standar OSM" : "Standard OSM" },
+                { id: "muted", label: lang === "id" ? "Muted Kontras" : "Muted Contrast" },
+                { id: "dark", label: lang === "id" ? "Mode Gelap" : "Dark Telemetry" },
+              ].map(m => (
+                <button
+                  key={m.id}
+                  type="button"
+                  className={"map-segmented-btn" + (basemapMode === m.id ? " active" : "")}
+                  style={{ flex: 1, fontSize: 10.5 }}
+                  onClick={() => setBasemapMode(m.id as any)}
+                >
+                  {m.label}
+                </button>
+              ))}
+            </div>
+            <div className="map-contrast-hint">
+              {lang === "id"
+                ? "Mode 'Muted Kontras' atau 'Mode Gelap' memaksimalkan keterbacaan warna termal satelit."
+                : "Muted or Dark mode maximizes thermal satellite color readability."}
+            </div>
+          </div>
+
+          {/* Min FRP Threshold Filter */}
+          <div className="map-contrast-row">
+            <div className="map-contrast-label">
+              <span>{lang === "id" ? "Intensitas Termal Minimum (FRP):" : "Min Fire Radiative Power (FRP):"}</span>
+              <span className="mono" style={{ color: "var(--ember)" }}>{minFrp > 0 ? `≥ ${minFrp} MW` : (lang === "id" ? "Semua" : "All")}</span>
+            </div>
+            <div style={{ display: "flex", gap: 4 }}>
+              {[
+                { label: lang === "id" ? "Semua" : "All", val: 0 },
+                { label: "≥ 10 MW", val: 10 },
+                { label: "≥ 25 MW", val: 25 },
+                { label: "≥ 50 MW", val: 50 },
+              ].map(f => (
+                <button
+                  key={f.val}
+                  type="button"
+                  className={"map-segmented-btn" + (minFrp === f.val ? " active" : "")}
+                  style={{ flex: 1, fontSize: 10.5, height: 24, border: "1px solid var(--line)" }}
+                  onClick={() => setMinFrp(f.val)}
+                >
+                  {f.label}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Reset Filters */}
+          <div style={{ display: "flex", justifyContent: "flex-end", borderTop: "1px solid var(--line)", paddingTop: 8 }}>
+            <button
+              type="button"
+              className="seg-btn"
+              style={{ fontSize: 10.5, padding: "3px 8px" }}
+              onClick={() => {
+                setGridOpacity(0.32);
+                setBasemapMode("osm");
+                setMinFrp(0);
+                setRiskFilter("all");
+                setDetSensor("all");
+                setViewMode("both");
+                setGridOn(true);
+                setDetOn(true);
+              }}
+            >
+              {lang === "id" ? "Reset Pengaturan Kontras" : "Reset Contrast Settings"}
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* Floating Control Toolbar (Right side: Fullscreen & Controls) */}
       <div
         ref={toolbarRef}
         style={{
           position: "absolute",
-          top: 80,
-          right: 10,
+          top: 14,
+          right: 14,
           zIndex: 900,
           display: "flex",
           flexDirection: "column",
@@ -1078,93 +1386,24 @@ export default function FireMap() {
         >
           {isFs ? t("map_exit_fullscreen") : t("map_fullscreen")}
         </button>
-
-        <button
-          type="button"
-          onClick={() => setDetOn(o => !o)}
-          className={"seg-btn" + (detOn ? " active" : "")}
-          style={{
-            background: detOn ? "var(--ember-sub)" : "var(--surface)",
-            color: detOn ? "var(--ember)" : "var(--ink)",
-            borderColor: detOn ? "var(--ember-border)" : "var(--line)",
-            boxShadow: "var(--shadow-sm)",
-            padding: "6px 10px",
-            fontSize: 11,
-            fontWeight: 600,
-            display: "inline-flex",
-            alignItems: "center",
-            gap: 6,
-          }}
-          aria-pressed={detOn}
-          title={detOn ? (lang === "id" ? "Sembunyikan titik satelit FIRMS" : "Hide FIRMS satellite points") : (lang === "id" ? "Tampilkan titik satelit FIRMS" : "Show FIRMS satellite points")}
-        >
-          {detOn ? (lang === "id" ? "Titik Satelit: Aktif" : "Satellite Points: Active") : (lang === "id" ? "Titik Satelit: Nonaktif" : "Satellite Points: Off")}
-        </button>
-
-        <button
-          type="button"
-          onClick={() => setGridOn(g => !g)}
-          className={"seg-btn" + (gridOn ? " active" : "")}
-          style={{
-            background: gridOn ? "var(--ember-sub)" : "var(--surface)",
-            color: gridOn ? "var(--ember)" : "var(--ink)",
-            borderColor: gridOn ? "var(--ember-border)" : "var(--line)",
-            boxShadow: "var(--shadow-sm)",
-            padding: "6px 10px",
-            fontSize: 11,
-            fontWeight: 600,
-            display: "inline-flex",
-            alignItems: "center",
-            gap: 6,
-          }}
-          aria-pressed={gridOn}
-          title={gridOn ? (lang === "id" ? "Sembunyikan grid kepadatan 0,1°" : "Hide 0.1° density grid") : (lang === "id" ? "Tampilkan grid kepadatan 0,1°" : "Show 0.1° density grid")}
-        >
-          {gridOn ? (lang === "id" ? "Grid 0,1°: Aktif" : "0.1° Grid: Active") : (lang === "id" ? "Grid 0,1°: Nonaktif" : "0.1° Grid: Off")}
-        </button>
       </div>
-
-      {/* Floating Toggle Button when Sidebar is Closed */}
-      {!sidebarOpen && (
-        <button
-          type="button"
-          onClick={() => setSidebarOpen(true)}
-          className="seg-btn"
-          style={{
-            position: "absolute",
-            left: 16,
-            top: 16,
-            zIndex: 900,
-            background: "var(--surface)",
-            boxShadow: "var(--shadow-md)",
-            padding: "8px 14px",
-            fontSize: 12,
-            fontWeight: 600,
-            display: "inline-flex",
-            alignItems: "center",
-            gap: 6,
-          }}
-        >
-          {t("map_filter_btn")}
-        </button>
-      )}
 
       {/* Floating Sidebar Filter */}
       <div
         ref={sidebarRef}
         style={{
           position: "absolute",
-          left: 16,
-          top: 16,
+          left: 14,
+          top: 62,
           bottom: 48,
           width: 320,
           background: "var(--surface)",
           borderRadius: 12,
-          border: "1px solid var(--line)",
+          border: "1px solid var(--line-strong)",
           boxShadow: "var(--shadow-md)",
           display: sidebarOpen ? "flex" : "none",
           flexDirection: "column",
-          zIndex: 900,
+          zIndex: 920,
         }}
       >
         <div style={{ padding: 14 }}>

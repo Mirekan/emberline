@@ -60,6 +60,36 @@ class SeriesArtifactTests(unittest.TestCase):
         self.assertEqual(rows[1]["flags"], ["extrapolation", "one_sided"])
         self.assertIsNone(rows[0]["harmonized_estimate_mw"])
 
+    def test_series_populates_raw_viirs_from_baseline_series(self):
+        with tempfile.TemporaryDirectory() as temp_dir:
+            aoi_dir = Path(temp_dir) / "riau"
+            aoi_dir.mkdir()
+            accepted_fields = ["date", "source_flag", "value_mw", "harmonized_mw", "observed_modis_mw"]
+            accepted_rows = [
+                {"date": "2024-01-01", "source_flag": "harmonized_viirs", "value_mw": "30", "harmonized_mw": "30", "observed_modis_mw": "25"},
+            ]
+            with (aoi_dir / "accepted_series.csv").open("w", newline="", encoding="utf-8") as handle:
+                writer = csv.DictWriter(handle, fieldnames=accepted_fields)
+                writer.writeheader()
+                writer.writerows(accepted_rows)
+
+            baseline_fields = ["date", "daynight", "role", "source_flag", "modis_frp_sum_mw", "viirs_frp_sum_mw"]
+            baseline_rows = [
+                {"date": "2024-01-01", "daynight": "day", "role": "test", "source_flag": "observed_viirs", "modis_frp_sum_mw": "15.0", "viirs_frp_sum_mw": "42.5"},
+                {"date": "2024-01-01", "daynight": "night", "role": "test", "source_flag": "observed_viirs", "modis_frp_sum_mw": "10.0", "viirs_frp_sum_mw": "17.5"},
+            ]
+            with (aoi_dir / "baseline_series.csv").open("w", newline="", encoding="utf-8") as handle:
+                writer = csv.DictWriter(handle, fieldnames=baseline_fields)
+                writer.writeheader()
+                writer.writerows(baseline_rows)
+
+            with patch.object(emberline_api, "ARTIFACTS", Path(temp_dir)):
+                rows = emberline_api._series("riau")
+
+        self.assertEqual(len(rows), 1)
+        self.assertEqual(rows[0]["raw_modis_frp_mw"], 25.0)
+        self.assertEqual(rows[0]["raw_viirs_frp_mw"], 60.0)
+
 
 class MapArtifactTests(unittest.TestCase):
     def test_grid_counts_observations_and_filters_detections_by_cell_bounds(self):
