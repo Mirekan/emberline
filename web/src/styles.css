@@ -3002,6 +3002,9 @@ tbody tr:hover {
   left: 14px;
   z-index: 1050;
   width: 330px;
+  max-height: min(460px, calc(100vh - 120px));
+  overflow-y: auto;
+  overscroll-behavior: contain;
   background: var(--surface);
   border: 1px solid var(--line-strong);
   border-radius: 12px;
@@ -3012,7 +3015,30 @@ tbody tr:hover {
   gap: 13px;
 }
 
+.map-contrast-popover::-webkit-scrollbar {
+  width: 6px;
+}
+
+.map-contrast-popover::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.map-contrast-popover::-webkit-scrollbar-thumb {
+  background: var(--line-strong);
+  border-radius: 4px;
+}
+
+.map-contrast-popover::-webkit-scrollbar-thumb:hover {
+  background: var(--ink3);
+}
+
 .map-contrast-popover-title {
+  position: sticky;
+  top: -14px;
+  background: var(--surface);
+  z-index: 5;
+  margin: -14px -14px 0 -14px;
+  padding: 14px 14px 8px 14px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -3022,7 +3048,6 @@ tbody tr:hover {
   text-transform: uppercase;
   color: var(--ink);
   border-bottom: 1px solid var(--line);
-  padding-bottom: 8px;
 }
 
 .map-contrast-row {

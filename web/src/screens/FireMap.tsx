@@ -1169,54 +1169,30 @@ export default function FireMap() {
 
         <div style={{ width: 1, height: 18, background: "var(--line-strong)", margin: "0 2px" }} />
 
-        {/* Quick Filter Group: Year, Sensor, Risk */}
-        <div className="map-filter-group">
-          {/* Year Filter */}
-          <select
-            className="map-filter-select"
-            value={detYear}
-            onChange={e => setDetYear(e.target.value)}
-            title={lang === "id" ? "Filter tahun observasi satelit" : "Filter observation year"}
-          >
-            <option value="all">{t("map_time_all")}</option>
-            {detYears.map(y => (
-              <option key={y} value={y}>{lang === "id" ? `Tahun ${y}` : `Year ${y}`}</option>
-            ))}
-          </select>
-
-          {/* Sensor Filter */}
-          <select
-            className="map-filter-select"
-            value={detSensor}
-            onChange={e => setDetSensor(e.target.value as "all" | "modis" | "viirs")}
-            title={lang === "id" ? "Filter instrumen satelit (VIIRS / MODIS)" : "Filter satellite sensor"}
-          >
-            <option value="all">{lang === "id" ? "Semua Sensor" : "All Sensors"}</option>
-            <option value="viirs">VIIRS 375m</option>
-            <option value="modis">MODIS 1km</option>
-          </select>
-
-          {/* Contrast & Advanced Settings Button */}
-          <button
-            type="button"
-            className={"map-segmented-btn" + (contrastPopoverOpen ? " active" : "")}
-            onClick={toggleContrastPopover}
-            title={lang === "id" ? "Pengaturan Kontras & Filter" : "Contrast & Filter Settings"}
-            style={{ border: "1px solid var(--line-strong)", padding: "4px 8px" }}
-          >
-            <span style={{ fontSize: 13 }}>⚙</span>
-            {(minFrp > 0 || riskFilter !== "all") && (
-              <span style={{ width: 6, height: 6, borderRadius: "50%", background: "var(--ember)", display: "inline-block" }} />
-            )}
-          </button>
-        </div>
+        {/* Advanced Settings Gear Button */}
+        <button
+          type="button"
+          className={"map-segmented-btn" + (contrastPopoverOpen ? " active" : "")}
+          onClick={toggleContrastPopover}
+          title={lang === "id" ? "Pengaturan Lanjutan" : "Advanced Settings"}
+          style={{ border: "1px solid var(--line-strong)", padding: "4px 8px" }}
+        >
+          <span style={{ fontSize: 13 }}>⚙</span>
+          {(minFrp > 0 || riskFilter !== "all" || detSensor !== "all" || detYear !== "all" || basemapMode !== "osm" || Math.abs(gridOpacity - 0.32) > 0.04) && (
+            <span style={{ width: 6, height: 6, borderRadius: "50%", background: "var(--ember)", display: "inline-block" }} />
+          )}
+        </button>
       </div>
 
-      {/* Advanced Contrast & Opacity Popover */}
+      {/* Advanced Settings Popover */}
       {contrastPopoverOpen && (
-        <div ref={contrastPopoverRef} className="map-contrast-popover">
+        <div
+          ref={contrastPopoverRef}
+          className="map-contrast-popover"
+          style={{ maxHeight: "min(460px, calc(100vh - 120px))", overflowY: "auto", overscrollBehavior: "contain" }}
+        >
           <div className="map-contrast-popover-title">
-            <span>{lang === "id" ? "Kontras & Filter Lanjutan" : "Contrast & Advanced Filters"}</span>
+            <span>{lang === "id" ? "Pengaturan Lanjutan" : "Advanced Settings"}</span>
             <button
               type="button"
               className="seg-btn"
@@ -1295,6 +1271,50 @@ export default function FireMap() {
             </div>
           </div>
 
+          {/* Satellite Sensor Filter - 3 Selectable Buttons */}
+          <div className="map-contrast-row">
+            <div className="map-contrast-label">
+              <span>{lang === "id" ? "Sensor Satelit:" : "Satellite Sensor:"}</span>
+            </div>
+            <div className="map-segmented-control" style={{ width: "100%" }}>
+              {[
+                { id: "all", label: lang === "id" ? "Semua Sensor" : "All Sensors" },
+                { id: "viirs", label: "VIIRS 375m" },
+                { id: "modis", label: "MODIS 1km" },
+              ].map(s => (
+                <button
+                  key={s.id}
+                  type="button"
+                  className={"map-segmented-btn" + (detSensor === s.id ? " active" : "")}
+                  style={{ flex: 1, fontSize: 10.5 }}
+                  onClick={() => setDetSensor(s.id as "all" | "modis" | "viirs")}
+                >
+                  {s.label}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Observation Year Filter */}
+          <div className="map-contrast-row">
+            <div className="map-contrast-label">
+              <span>{lang === "id" ? "Tahun Observasi:" : "Observation Year:"}</span>
+            </div>
+            <select
+              className="glass-select"
+              value={detYear}
+              style={{ width: "100%", height: 32, fontSize: 11, cursor: "pointer" }}
+              onChange={e => setDetYear(e.target.value)}
+            >
+              <option value="all">{t("map_time_all")}</option>
+              {detYears.map(y => (
+                <option key={y} value={y}>
+                  {lang === "id" ? `Tahun ${y}` : `Year ${y}`}
+                </option>
+              ))}
+            </select>
+          </div>
+
           {/* Min FRP Threshold Filter */}
           <div className="map-contrast-row">
             <div className="map-contrast-label">
@@ -1321,6 +1341,30 @@ export default function FireMap() {
             </div>
           </div>
 
+          {/* Risk Level Filter - 3 Selectable Buttons */}
+          <div className="map-contrast-row">
+            <div className="map-contrast-label">
+              <span>{lang === "id" ? "Filter Tingkat Risiko:" : "Risk Level Filter:"}</span>
+            </div>
+            <div className="map-segmented-control" style={{ width: "100%" }}>
+              {[
+                { id: "all", label: lang === "id" ? "Semua Risiko" : "All Risk" },
+                { id: "alert", label: lang === "id" ? "Siaga & Bahaya" : "Alert & Danger" },
+                { id: "danger", label: lang === "id" ? "Bahaya Saja" : "Danger Only" },
+              ].map(r => (
+                <button
+                  key={r.id}
+                  type="button"
+                  className={"map-segmented-btn" + (riskFilter === r.id ? " active" : "")}
+                  style={{ flex: 1, fontSize: 10.5 }}
+                  onClick={() => setRiskFilter(r.id as "all" | "danger" | "alert")}
+                >
+                  {r.label}
+                </button>
+              ))}
+            </div>
+          </div>
+
           {/* Reset Filters */}
           <div style={{ display: "flex", justifyContent: "flex-end", borderTop: "1px solid var(--line)", paddingTop: 8 }}>
             <button
@@ -1333,12 +1377,13 @@ export default function FireMap() {
                 setMinFrp(0);
                 setRiskFilter("all");
                 setDetSensor("all");
+                setDetYear("all");
                 setViewMode("both");
                 setGridOn(true);
                 setDetOn(true);
               }}
             >
-              {lang === "id" ? "Reset Pengaturan Kontras" : "Reset Contrast Settings"}
+              {lang === "id" ? "Reset Pengaturan" : "Reset Settings"}
             </button>
           </div>
         </div>
@@ -1492,38 +1537,14 @@ export default function FireMap() {
             </div>
           ) : det ? (
             <>
-              <div style={{ fontSize: 10.5, color: "var(--ink2)", marginBottom: 7 }}>
-                {selectedCell
-                  ? (lang === "id"
-                      ? `${detRows.length.toLocaleString("id-ID")} titik dalam sel ${selectedCell.cell_id} (${detYear === "all" ? "Semua tahun" : `Tahun ${detYear}`})`
-                      : `${detRows.length.toLocaleString("en-US")} points in cell ${selectedCell.cell_id} (${detYear === "all" ? "All years" : `Year ${detYear}`})`)
-                  : null}
-              </div>
-              <div style={{ display: "flex", gap: 8, marginTop: 4 }}>
-                <select
-                  className="glass-select"
-                  value={detYear}
-                  style={{ flex: 1, minWidth: 0 }}
-                  onChange={e => setDetYear(e.target.value)}
-                >
-                  <option value="all">{t("map_time_all")}</option>
-                  {detYears.map(y => (
-                    <option key={y} value={y}>{lang === "id" ? `Tahun ${y}` : `Year ${y}`}</option>
-                  ))}
-                </select>
-                <select
-                  className="glass-select"
-                  value={detSensor}
-                  style={{ flex: 1, minWidth: 0 }}
-                  onChange={e => setDetSensor(e.target.value as "all" | "modis" | "viirs")}
-                >
-                  <option value="all">{lang === "id" ? "Semua Sensor" : "All Sensors"}</option>
-                  <option value="viirs">VIIRS 375m</option>
-                  <option value="modis">MODIS 1km</option>
-                </select>
-              </div>
-
-              <div style={{ display: "flex", alignItems: "center", gap: 12, marginTop: 8, fontSize: 11, color: "var(--ink2)" }}>
+              {selectedCell && (
+                <div style={{ fontSize: 10.5, color: "var(--ink2)", marginBottom: 6 }}>
+                  {lang === "id"
+                    ? `${detRows.length.toLocaleString("id-ID")} titik dalam sel ${selectedCell.cell_id} (${detYear === "all" ? "Semua tahun" : `Tahun ${detYear}`})`
+                    : `${detRows.length.toLocaleString("en-US")} points in cell ${selectedCell.cell_id} (${detYear === "all" ? "All years" : `Year ${detYear}`})`}
+                </div>
+              )}
+              <div style={{ display: "flex", alignItems: "center", gap: 12, marginTop: 4, fontSize: 11, color: "var(--ink2)" }}>
                 <span style={{ display: "inline-flex", alignItems: "center", gap: 5 }}>
                   <i style={{ width: 10, height: 10, borderRadius: "50%", background: "#EF4444", display: "inline-block" }} /> VIIRS 375m
                 </span>
@@ -1631,17 +1652,6 @@ export default function FireMap() {
               <span style={{ display: "inline-block", width: "100%", height: 4, borderRadius: 2, background: "#F97316" }} />
               <span>{lang === "id" ? "Tinggi" : "High"}</span>
             </div>
-          </div>
-          <div style={{ fontSize: 10, color: "var(--ink3)", lineHeight: 1.4, marginTop: 7 }}>
-            {gridOn ? (
-              lang === "id"
-                ? `${(grid?.n_cells ?? 29900).toLocaleString("id-ID")} sel 0,1° aktif di seluruh kepulauan Indonesia. Wilayah yang belum ada data observasi ditandai putih.`
-                : `${(grid?.n_cells ?? 29900).toLocaleString("en-US")} 0.1° cells active across Indonesia. Areas without observation data are shown in white.`
-            ) : (
-              lang === "id"
-                ? "Aktifkan bila ingin melihat agregasi densitas spasial (Putih = Belum ada data, Berwarna = Densitas observasi)."
-                : "Enable to see spatial density aggregation across Indonesia."
-            )}
           </div>
         </div>
 
