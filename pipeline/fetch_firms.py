@@ -57,6 +57,8 @@ ALLOWED_SOURCES = {
 
 MAX_DAY_RANGE = 5             # live API documents DAY_RANGE 1..5; do not raise
 THROTTLE_SECONDS = 1.0        # conservative pause between requests
+FAILURE_BACKOFF_S = 20        # sustained-failure pause (rate-limit defense) — applies
+FAILURE_STREAK_LIMIT = 5      # on the failure path too, not only successes
 MAX_RETRIES = 3
 RETRY_BACKOFF_S = (2, 8, 30)
 HTTP_TIMEOUT_S = 120
@@ -252,6 +254,7 @@ def fetch_range(key, source, bbox, bbox_str, start, end,
         end = today
     verified = load_verified()
     counters = Counter()
+    consecutive_failures = 0
     window_start = start
     while window_start <= end:
         window_end = min(window_start + timedelta(days=day_range - 1), end)
@@ -278,8 +281,20 @@ def fetch_range(key, source, bbox, bbox_str, start, end,
                 ledger_append({**base_entry, "status": "failed", "error": str(err)[:300],
                                "url": redact(url, key)})
                 counters["failed"] += 1
+                consecutive_failures += 1
                 print(f"[{source}] {window_start}..{window_end}: FAILED - {err}")
+                # throttle on the FAILURE path too — instant 400s otherwise let the
+                # loop hammer FIRMS unbounded (12 parallel processes once produced
+                # ~36k failed requests). Sustained failures = rate-limit signal:
+                # back off progressively instead of racing.
+                if consecutive_failures >= FAILURE_STREAK_LIMIT:
+                    print(f"[{source}] {consecutive_failures} failures beruntun -> "
+                          f"backoff {FAILURE_BACKOFF_S}s (rate-limit defense)")
+                    time.sleep(FAILURE_BACKOFF_S)
+                else:
+                    time.sleep(THROTTLE_SECONDS)
             else:
+                consecutive_failures = 0
                 path.parent.mkdir(parents=True, exist_ok=True)
                 tmp = path.with_name(path.name + ".part")
                 tmp.write_bytes(body)

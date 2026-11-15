@@ -31,7 +31,7 @@ import numpy as np
 import pandas
 import yaml
 
-from pipeline import baselines, calendar, harmonize, metrics, serving_db, splice_stress, windows
+from pipeline import baselines, calendar_climatology, harmonize, metrics, serving_db, splice_stress, windows
 from pipeline.match import run as match_run, write_outputs as match_write, read_table
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -162,7 +162,7 @@ def run(aoi_id: str, run_ts: str | None = None, detections: list[Path] | None = 
 
     # -- stage 6: C-06 calendar + windows --------------------------------------------------
     units_csv = c02_dir / "units_per_sensor.csv"
-    cal = calendar.run(series_h, units_csv if units_csv.exists() else None, artifacts, aoi_id)
+    cal = calendar_climatology.run(series_h, units_csv if units_csv.exists() else None, artifacts, aoi_id)
     stages["c06_calendar"] = {"status": cal["manifest"].get("status"), "outputs": cal["outputs"]}
     stages["c06_windows"] = {"status": windows.run(artifacts, artifacts)["manifest"].get("status")}
 

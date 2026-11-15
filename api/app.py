@@ -82,25 +82,46 @@ def _series(aoi: str):
     accepted_path = aoi_dir / "accepted_series.csv"
     if not accepted_path.exists():
         raise HTTPException(404, detail=f"Data deret waktu untuk wilayah '{aoi}' belum tersedia. Silakan pilih wilayah lain yang sudah siap.")
+
+    intervals_by_date = {}
+    intervals_path = aoi_dir / "harmonized_daily.csv"
+    if intervals_path.exists():
+        with intervals_path.open(newline="", encoding="utf-8") as fh:
+            for interval in csv.DictReader(fh):
+                intervals_by_date.setdefault(interval["date"], []).append(interval)
+
     rows = []
-    with p.open(newline="", encoding="utf-8") as fh:
-        for r in csv.DictReader(fh):
-            for k in ("raw_modis_frp_mw", "raw_modis_n", "raw_viirs_frp_mw",
-                      "raw_viirs_n", "harmonized_lo_mw", "harmonized_estimate_mw",
-                      "harmonized_hi_mw"):
-                if r.get(k) == "":
-                    r[k] = None
-                else:
-                    try:
-                        r[k] = float(r[k]) if k.endswith("mw") else int(r[k])
-                    except ValueError:
-                        pass
-            if r.get("flags"):
-                r["flags"] = r["flags"].split("|") if "|" in r["flags"] else (
-                    [r["flags"]] if r["flags"] else [])
-            else:
-                r["flags"] = []
-            rows.append(r)
+    with accepted_path.open(newline="", encoding="utf-8") as fh:
+        for accepted in csv.DictReader(fh):
+            intervals = intervals_by_date.get(accepted["date"], [])
+
+            def sum_bound(field: str):
+                values = [_number(interval.get(field)) for interval in intervals]
+                if not values or any(value is None for value in values):
+                    return None
+                return sum(value for value in values if value is not None)
+
+            flags = []
+            for raw_flags in [accepted.get("flags", "")] + [
+                interval.get("flags", "") for interval in intervals
+            ]:
+                for flag in raw_flags.split("|"):
+                    if flag and flag not in flags:
+                        flags.append(flag)
+
+            rows.append({
+                "date": accepted["date"],
+                "source_flag": accepted.get("source_flag") or "gap",
+                "raw_modis_frp_mw": _number(accepted.get("observed_modis_mw")),
+                "raw_modis_n": None,
+                "raw_viirs_frp_mw": _number(accepted.get("observed_viirs_mw")),
+                "raw_viirs_n": None,
+                "harmonized_lo_mw": sum_bound("lo_mw"),
+                "harmonized_estimate_mw": _number(accepted.get("harmonized_mw")),
+                "harmonized_hi_mw": sum_bound("hi_mw"),
+                "flags": flags,
+                "gap_reason": accepted.get("gap_reason") or None,
+            })
     return rows
 
 
