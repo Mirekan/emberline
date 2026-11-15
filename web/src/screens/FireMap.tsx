@@ -675,18 +675,19 @@ export default function FireMap() {
     return () => { cancelled = true; };
   }, [aoi, selName]);
 
-  function getCellRisk(count: number, maxCount: number): { label: "Aman" | "Waspada" | "Siaga" | "Bahaya"; color: string; bg: string } {
+  function getCellRisk(count: number, maxCount: number): { label: string; color: string; bg: string } {
+    const isEn = lang === "en";
     if (count === 0) {
-      return { label: "Aman", color: "#10B981", bg: "rgba(16, 185, 129, 0.15)" };
+      return { label: isEn ? "Safe" : "Aman", color: "#10B981", bg: "rgba(16, 185, 129, 0.15)" };
     }
     const intensity = maxCount > 0 ? Math.log1p(count) / Math.log1p(maxCount) : 0;
     if (intensity < 0.33) {
-      return { label: "Waspada", color: "#FACC15", bg: "rgba(250, 204, 21, 0.2)" };
+      return { label: isEn ? "Advisory" : "Waspada", color: "#FACC15", bg: "rgba(250, 204, 21, 0.2)" };
     }
     if (intensity < 0.66) {
-      return { label: "Siaga", color: "#F97316", bg: "rgba(249, 115, 22, 0.25)" };
+      return { label: isEn ? "Alert" : "Siaga", color: "#F97316", bg: "rgba(249, 115, 22, 0.25)" };
     }
-    return { label: "Bahaya", color: "#EF4444", bg: "rgba(239, 68, 68, 0.32)" };
+    return { label: isEn ? "Danger" : "Bahaya", color: "#EF4444", bg: "rgba(239, 68, 68, 0.32)" };
   }
 
   const maxCount = useMemo(() => {
@@ -1017,9 +1018,9 @@ export default function FireMap() {
             gap: 6,
           }}
           aria-pressed={detOn}
-          title={detOn ? "Sembunyikan titik satelit FIRMS" : "Tampilkan titik satelit FIRMS"}
+          title={detOn ? (lang === "id" ? "Sembunyikan titik satelit FIRMS" : "Hide FIRMS satellite points") : (lang === "id" ? "Tampilkan titik satelit FIRMS" : "Show FIRMS satellite points")}
         >
-          {detOn ? "Titik Satelit: Aktif" : "Titik Satelit: Nonaktif"}
+          {detOn ? (lang === "id" ? "Titik Satelit: Aktif" : "Satellite Points: Active") : (lang === "id" ? "Titik Satelit: Nonaktif" : "Satellite Points: Off")}
         </button>
 
         <button
@@ -1039,9 +1040,9 @@ export default function FireMap() {
             gap: 6,
           }}
           aria-pressed={gridOn}
-          title={gridOn ? "Sembunyikan grid kepadatan 0,1°" : "Tampilkan grid kepadatan 0,1°"}
+          title={gridOn ? (lang === "id" ? "Sembunyikan grid kepadatan 0,1°" : "Hide 0.1° density grid") : (lang === "id" ? "Tampilkan grid kepadatan 0,1°" : "Show 0.1° density grid")}
         >
-          {gridOn ? "Grid 0,1°: Aktif" : "Grid 0,1°: Nonaktif"}
+          {gridOn ? (lang === "id" ? "Grid 0,1°: Aktif" : "0.1° Grid: Active") : (lang === "id" ? "Grid 0,1°: Nonaktif" : "0.1° Grid: Off")}
         </button>
       </div>
 
@@ -1153,7 +1154,7 @@ export default function FireMap() {
         }}>
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 8 }}>
             <span style={{ fontSize: 12, fontWeight: 600, color: "var(--ink)" }}>
-              Titik Satelit FIRMS
+              {lang === "id" ? "Titik Satelit FIRMS" : "FIRMS Satellite Hotspots"}
             </span>
             <button
               type="button"
@@ -1167,28 +1168,32 @@ export default function FireMap() {
                 fontSize: 11,
                 padding: "3px 10px",
               }}
-              title={detOn ? "Sembunyikan titik satelit" : "Tampilkan titik satelit"}
+              title={detOn ? (lang === "id" ? "Sembunyikan titik satelit" : "Hide satellite hotspots") : (lang === "id" ? "Tampilkan titik satelit" : "Show satellite hotspots")}
             >
-              {detOn ? "Ditampilkan" : "Disembunyikan"}
+              {detOn ? (lang === "id" ? "Ditampilkan" : "Shown") : (lang === "id" ? "Disembunyikan" : "Hidden")}
             </button>
           </div>
 
           {!detOn ? (
             <div style={{ fontSize: 10.5, color: "var(--ink3)", lineHeight: 1.4 }}>
-              Lapisan titik satelit dinonaktifkan.
+              {lang === "id" ? "Lapisan titik satelit dinonaktifkan." : "Satellite hotspot layer is disabled."}
             </div>
           ) : detLoading ? (
-            <div style={{ fontSize: 10.5, color: "var(--ink3)" }}>Memuat titik satelit…</div>
+            <div style={{ fontSize: 10.5, color: "var(--ink3)" }}>{lang === "id" ? "Memuat titik satelit…" : "Loading satellite hotspots…"}</div>
           ) : detError ? (
             <div role="alert" style={{ fontSize: 10.5, color: "var(--danger, #dc2626)", lineHeight: 1.4 }}>
-              Titik satelit gagal dimuat: {detError}
+              {lang === "id" ? `Titik satelit gagal dimuat: ${detError}` : `Failed to load satellite hotspots: ${detError}`}
             </div>
           ) : det ? (
             <>
               <div style={{ fontSize: 10.5, color: "var(--ink2)", marginBottom: 7 }}>
                 {selectedCell
-                  ? `${detRows.length.toLocaleString()} titik dalam sel ${selectedCell.cell_id} (${detYear === "all" ? "Semua tahun" : `Tahun ${detYear}`})`
-                  : `${detRows.length.toLocaleString()} observasi titik satelit (${detYear === "all" ? "Semua tahun" : `Tahun ${detYear}`})`}
+                  ? (lang === "id"
+                      ? `${detRows.length.toLocaleString("id-ID")} titik dalam sel ${selectedCell.cell_id} (${detYear === "all" ? "Semua tahun" : `Tahun ${detYear}`})`
+                      : `${detRows.length.toLocaleString("en-US")} points in cell ${selectedCell.cell_id} (${detYear === "all" ? "All years" : `Year ${detYear}`})`)
+                  : (lang === "id"
+                      ? `${detRows.length.toLocaleString("id-ID")} observasi titik satelit (${detYear === "all" ? "Semua tahun" : `Tahun ${detYear}`})`
+                      : `${detRows.length.toLocaleString("en-US")} satellite hotspot observations (${detYear === "all" ? "All years" : `Year ${detYear}`})`)}
               </div>
               <div style={{ display: "flex", gap: 8, marginTop: 4 }}>
                 <select
@@ -1208,7 +1213,7 @@ export default function FireMap() {
                   style={{ flex: 1, minWidth: 0 }}
                   onChange={e => setDetSensor(e.target.value as "all" | "modis" | "viirs")}
                 >
-                  <option value="all">Semua Sensor</option>
+                  <option value="all">{lang === "id" ? "Semua Sensor" : "All Sensors"}</option>
                   <option value="viirs">VIIRS 375m</option>
                   <option value="modis">MODIS 1km</option>
                 </select>
@@ -1225,7 +1230,9 @@ export default function FireMap() {
               </div>
 
               <div style={{ fontSize: 10, color: "var(--ink3)", marginTop: 5, lineHeight: 1.4 }}>
-                Menyebar alami pada koordinat asli satelit. Klik titik mana saja di peta untuk detail FRP & sensor.
+                {lang === "id"
+                  ? "Menyebar alami pada koordinat asli satelit. Klik titik mana saja di peta untuk detail FRP & sensor."
+                  : "Naturally distributed at native satellite coordinates. Click any point on map for FRP & sensor details."}
               </div>
             </>
           ) : null}
@@ -1241,7 +1248,7 @@ export default function FireMap() {
           }}>
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 6 }}>
               <span style={{ fontSize: 11, fontWeight: 700, color: "var(--ink)" }}>
-                Inspeksi Sel Terfokus
+                {lang === "id" ? "Inspeksi Sel Terfokus" : "Focused Cell Inspection"}
               </span>
               <span style={{
                 fontSize: 10, fontWeight: 700,
@@ -1253,10 +1260,10 @@ export default function FireMap() {
               </span>
             </div>
             <div style={{ fontSize: 10.5, color: "var(--ink2)", marginBottom: 4 }}>
-              Sel: <span className="mono">{selectedCell.cell_id}</span> (0,1° ≈ 11 km)
+              {lang === "id" ? "Sel:" : "Cell:"} <span className="mono">{selectedCell.cell_id}</span> (0,1° ≈ 11 km)
             </div>
             <div style={{ fontSize: 10.5, color: "var(--ink2)", marginBottom: 8 }}>
-              Observasi Satelit: <b>{selectedCell.detection_count.toLocaleString()}</b> titik ({selectedCell.total_viirs} VIIRS · {selectedCell.total_modis} MODIS)
+              {lang === "id" ? "Observasi Satelit:" : "Satellite Observations:"} <b>{selectedCell.detection_count.toLocaleString(lang === "id" ? "id-ID" : "en-US")}</b> {lang === "id" ? "titik" : "points"} ({selectedCell.total_viirs} VIIRS · {selectedCell.total_modis} MODIS)
             </div>
             <button
               type="button"
@@ -1273,7 +1280,7 @@ export default function FireMap() {
                 fontWeight: 600, background: "var(--surface)", display: "block", textAlign: "center",
               }}
             >
-              Lepas Fokus Sel (Tampilkan Semua)
+              {lang === "id" ? "Lepas Fokus Sel (Tampilkan Semua)" : "Reset Cell Focus (Show All)"}
             </button>
           </div>
         )}
@@ -1285,7 +1292,7 @@ export default function FireMap() {
         }}>
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 7 }}>
             <span style={{ fontSize: 11, fontWeight: 600, color: "var(--ink)" }}>
-              Grid Kepadatan (0,1°)
+              {lang === "id" ? "Grid Kepadatan (0,1°)" : "Density Grid (0.1°)"}
             </span>
             <button
               type="button"
@@ -1299,9 +1306,9 @@ export default function FireMap() {
                 fontSize: 10.5,
                 padding: "2px 8px",
               }}
-              title={gridOn ? "Sembunyikan lapisan grid kepadatan" : "Tampilkan lapisan grid kepadatan"}
+              title={gridOn ? (lang === "id" ? "Sembunyikan lapisan grid kepadatan" : "Hide density grid layer") : (lang === "id" ? "Tampilkan lapisan grid kepadatan" : "Show density grid layer")}
             >
-              {gridOn ? "Aktif" : "Nonaktif"}
+              {gridOn ? (lang === "id" ? "Aktif" : "Active") : (lang === "id" ? "Nonaktif" : "Off")}
             </button>
           </div>
           <div style={{ display: "grid", gridTemplateColumns: "repeat(5, 1fr)", gap: 4, fontSize: 9.5, color: "var(--ink2)", textAlign: "center", marginTop: 4 }}>
@@ -1315,7 +1322,7 @@ export default function FireMap() {
             </div>
             <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 3 }}>
               <span style={{ display: "inline-block", width: "100%", height: 4, borderRadius: 2, background: "#FACC15" }} />
-              <span>{lang === "id" ? "Waspada" : "Warn"}</span>
+              <span>{lang === "id" ? "Waspada" : "Advisory"}</span>
             </div>
             <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 3 }}>
               <span style={{ display: "inline-block", width: "100%", height: 4, borderRadius: 2, background: "#F97316" }} />
