@@ -40,7 +40,7 @@ function LegendRows({ visible, onToggle }: { visible: Visible; onToggle: (k: key
 }
 
 export default function Compare() {
-  const { aoi, setAoi, series } = useAoi();
+  const { aoi, setAoi, series, theme } = useAoi();
   const [method, setMethod] = useState<Method | null>(null);
   const [visible, setVisible] = useState<Visible>({ modis: true, viirs: true, naive: true, harm: true });
   const ref = useRef<HTMLDivElement>(null);
@@ -62,7 +62,7 @@ export default function Compare() {
         chart.current?.dispose();
       };
     }
-  }, [series]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [series, theme]); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     if (series && chart.current) {

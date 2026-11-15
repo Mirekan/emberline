@@ -2,9 +2,11 @@ import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { api, Preset } from "../api";
 import { useAoi } from "../App";
+import EmberStage from "../components/EmberStage";
+import ScrollyActs, { RiskGaugeCard } from "../components/ScrollyActs";
 
-export default function Overview({ goCalendar }: { goCalendar: () => void }) {
-  const { aoi, series } = useAoi();
+export default function Overview({ goCalendar, goMethod }: { goCalendar: () => void; goMethod: () => void }) {
+  const { aoi, series, theme } = useAoi();
   const [presets, setPresets] = useState<Preset[]>([]);
   useEffect(() => {
     api.presets().then(r => setPresets(r.presets)).catch(() => {});
@@ -19,37 +21,59 @@ export default function Overview({ goCalendar }: { goCalendar: () => void }) {
 
   return (
     <div className="overview-page">
+      <EmberStage theme={theme} />
       <section className="overview-hero" aria-labelledby="overview-title">
-        <h1 id="overview-title">
-          See when fire activity rises—and where the record has gaps
-        </h1>
-        <span className="overview-scroll-cue" aria-hidden="true">Scroll to learn more ↓</span>
+        <div className="overview-hero-copy">
+          <p className="overview-eyebrow"><i /> EMBERLINE · MISSION CONTROL</p>
+          <h1 id="overview-title">
+            Membaca jejak api.
+            <br />
+            <span>Memahami pola bumi.</span>
+          </h1>
+          <p className="overview-description">
+            Eksplorasi observasi kebakaran MODIS dan VIIRS—disajikan sebagai rekam historis yang transparan, lengkap dengan ketidakpastian dan celah data.
+          </p>
+          <div className="overview-actions">
+            <button className="btn" onClick={goCalendar}>Jelajahi kalender <span aria-hidden="true">↗</span></button>
+            <button className="btn secondary" onClick={goMethod}>Lihat metodologi</button>
+          </div>
+          <span className="overview-scroll-cue">Gulir untuk mengikuti perjalanan data <span aria-hidden="true">↓</span></span>
+        </div>
+        <RiskGaugeCard />
+        <div className="overview-stats" aria-label="Ringkasan cakupan observasi">
+          <div><strong>38</strong><span>provinsi · konsep demo</span></div>
+          <div><strong>{series?.days.length.toLocaleString("id-ID") ?? "—"}</strong><span>observasi pada area terpilih</span></div>
+          <div><strong>{span ?? "MODIS + VIIRS"}</strong><span>rekam satelit historis</span></div>
+        </div>
       </section>
 
-      <section className="overview-details" aria-label="About the fire record">
+      <ScrollyActs />
+
+      <section className="overview-details" aria-label="Tentang rekam observasi EmberLine">
         <div className="overview-copy">
-          <p className="overview-eyebrow">Why this record matters</p>
-          <h2>Make sense of the pattern, and its limits.</h2>
+          <p className="overview-eyebrow">Jelajahi data</p>
+          <h2>Kenali pola, pahami batas datanya.</h2>
           <p className="overview-description">
-            Fire activity can change with the season, while satellite coverage can leave gaps in the record. The calendar brings those observations together so you can see when detections rise, compare patterns across the year, and keep the limits of the data in view.
+            Aktivitas kebakaran berubah mengikuti musim, sementara cakupan satelit dapat meninggalkan celah pengamatan. Kalender menyatukan observasi agar Anda dapat membandingkan pola antarwaktu tanpa mengaburkan keterbatasan data.
           </p>
           <p className="mono overview-meta">
             Wilayah: {targetLabel}{span ? ` · ${span}` : ""}{status ? ` · ${status}` : ""}
           </p>
           <p className="overview-disclosure">
-            MODIS &amp; VIIRS observations, harmonized with uncertainty and data gaps flagged. Historical context, never a prediction.
+            Observasi MODIS &amp; VIIRS yang diharmonisasi, dengan ketidakpastian dan celah data ditandai. Konteks historis, bukan prediksi.
           </p>
         </div>
 
         <motion.button
           className="overview-cta"
           onClick={goCalendar}
-          whileHover={{ scale: 1.03, backgroundColor: "var(--sunken)" }}
+          whileHover={{ scale: 1.03 }}
           whileTap={{ scale: 0.97 }}
           transition={{ type: "spring", stiffness: 300, damping: 24 }}
         >
-          Explore the calendar →
+          Jelajahi kalender →
         </motion.button>
+        <button className="overview-method-link" onClick={goMethod}>Baca metodologi EmberLine →</button>
       </section>
     </div>
   );
