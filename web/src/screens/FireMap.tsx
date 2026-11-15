@@ -144,8 +144,20 @@ const REGIONS: { name: string; center: [number, number]; preset?: string }[] = [
   { name: "Papua Selatan (Merauke)", center: [-8.0, 139.0], preset: "merauke" },
   { name: "Aceh", center: [4.6, 96.7] },
   { name: "Sumatera Utara", center: [2.2, 98.7] },
+  { name: "Sumatera Barat", center: [-0.5828, 100.6133] },
+  { name: "Bengkulu", center: [-3.7928, 102.2608] },
+  { name: "Lampung", center: [-4.8555, 105.0273] },
   { name: "Kepulauan Riau", center: [0.9, 104.5] },
-  { name: "Bangka Belitung", center: [-2.5, 106.0] },
+  { name: "Kepulauan Bangka Belitung", center: [-2.5, 106.0] },
+  { name: "Banten", center: [-6.4454, 106.1376] },
+  { name: "DKI Jakarta", center: [-6.1754, 106.8272] },
+  { name: "Jawa Barat", center: [-6.8892, 107.6405] },
+  { name: "Jawa Tengah", center: [-7.3032, 110.0044] },
+  { name: "DI Yogyakarta", center: [-7.9778, 110.3672] },
+  { name: "Jawa Timur", center: [-7.6977, 112.4914] },
+  { name: "Bali", center: [-8.2271, 115.1919] },
+  { name: "Nusa Tenggara Barat", center: [-8.7893, 117.1462] },
+  { name: "Nusa Tenggara Timur", center: [-8.5657, 120.6979] },
   { name: "Kalimantan Barat", center: [0.2, 109.5] },
   { name: "Kalimantan Selatan", center: [-3.0, 115.5] },
   { name: "Kalimantan Timur", center: [0.5, 116.5] },
@@ -154,8 +166,15 @@ const REGIONS: { name: string; center: [number, number]; preset?: string }[] = [
   { name: "Gorontalo", center: [0.6, 122.4] },
   { name: "Sulawesi Tengah", center: [-1.4, 120.4] },
   { name: "Sulawesi Selatan", center: [-3.8, 119.9] },
+  { name: "Sulawesi Barat", center: [-2.4975, 119.3919] },
+  { name: "Sulawesi Tenggara", center: [-3.5491, 121.7280] },
+  { name: "Maluku", center: [-3.1188, 129.4208] },
   { name: "Maluku Utara", center: [1.6, 127.6] },
   { name: "Papua", center: [-4.0, 138.5] },
+  { name: "Papua Barat", center: [-2.8554, 133.4738] },
+  { name: "Papua Barat Daya", center: [-1.0986, 131.3525] },
+  { name: "Papua Tengah", center: [-3.8642, 136.3733] },
+  { name: "Papua Pegunungan", center: [-4.2478, 139.3725] },
 ];
 
 export type IslandRegion = {
@@ -187,7 +206,7 @@ export const ISLANDS: IslandRegion[] = [
     ],
     defaultPreset: "riau",
     defaultProvince: "Riau",
-    provinces: ["Aceh", "Sumatera Utara", "Riau", "Kepulauan Riau", "Jambi", "Sumatera Selatan", "Bangka Belitung"]
+    provinces: ["Aceh", "Sumatera Utara", "Sumatera Barat", "Riau", "Kepulauan Riau", "Jambi", "Sumatera Selatan", "Bengkulu", "Lampung", "Kepulauan Bangka Belitung"]
   },
   {
     id: "kalimantan",
@@ -279,7 +298,7 @@ export const ISLANDS: IslandRegion[] = [
       [-4.0, 132.0], [-2.8, 132.0], [-1.5, 130.5], [-0.5, 131.0]
     ],
     defaultProvince: "Papua",
-    provinces: ["Papua", "Papua Selatan", "Papua Barat", "Papua Tengah", "Papua Pegunungan"]
+    provinces: ["Papua", "Papua Selatan", "Papua Barat", "Papua Barat Daya", "Papua Tengah", "Papua Pegunungan"]
   }
 ];
 
@@ -675,13 +694,13 @@ export default function FireMap() {
   // Render 0.1° density grid overlay across the full rectangular Indonesia bounds
   useEffect(() => {
     const map = mapRef.current;
-    if (!map) return;
+    const canvasRenderer = canvasRendererRef.current;
+    if (!map || !canvasRenderer) return;
     gridLayerRef.current?.remove();
     gridLayerRef.current = null;
     if (!gridOn || !grid) return;
 
-    // High performance hardware-accelerated canvas renderer
-    const canvasRenderer = L.canvas({ padding: 0.5 });
+    // Share the dots' canvas so transparent overlays cannot block cell input.
     const layer = L.layerGroup();
 
     // 1. Full rectangular bounds of Indonesia & New Guinea (94°E to 152°E, 12°S to 8°N) - no cuts or gaps
@@ -700,13 +719,6 @@ export default function FireMap() {
         interactive: true,
         bubblingMouseEvents: false,
       },
-    );
-    bgRect.bindTooltip(
-      `<div style="font-size:11px; line-height:1.4;">
-        <div style="font-weight:700; color:#FFFFFF; margin-bottom:2px;">${lang === "id" ? "Grid Nasional Indonesia (0,1°)" : "National Indonesia Grid (0.1°)"}</div>
-        <div>${lang === "id" ? "Klik pada sel mana pun untuk inspeksi titik observasi" : "Click any cell to inspect observation counts"}</div>
-      </div>`,
-      { sticky: true }
     );
     bgRect.addTo(layer);
 
@@ -756,8 +768,7 @@ export default function FireMap() {
           <div style="font-weight:700; color:${risk.color}; margin-bottom:2px;">Status: ${risk.label}</div>
           <div>${count.toLocaleString(lang === "id" ? "id-ID" : "en-US")} ${lang === "id" ? "observasi satelit" : "satellite observations"}</div>
           <div style="font-size:10px; color:#aaa;">${lang === "id" ? "Klik untuk fokus sel" : "Click to focus cell"}</div>
-        </div>`,
-        { sticky: true }
+        </div>`
       );
       area.on("click", (e) => {
         L.DomEvent.stopPropagation(e);
