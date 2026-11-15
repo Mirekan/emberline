@@ -801,12 +801,12 @@ export default function FireMap() {
     }
     const intensity = maxCount > 0 ? Math.log1p(count) / Math.log1p(maxCount) : 0;
     if (intensity < 0.33) {
-      return { label: isEn ? "Low" : "Rendah", color: "#10B981", bg: "rgba(16, 185, 129, 0.15)" };
+      return { label: isEn ? "Low" : "Rendah", color: "#FACC15", bg: "rgba(250, 204, 21, 0.2)" };
     }
     if (intensity < 0.66) {
-      return { label: isEn ? "Medium" : "Sedang", color: "#FACC15", bg: "rgba(250, 204, 21, 0.2)" };
+      return { label: isEn ? "Medium" : "Sedang", color: "#F97316", bg: "rgba(249, 115, 22, 0.25)" };
     }
-    return { label: isEn ? "High" : "Tinggi", color: "#F97316", bg: "rgba(249, 115, 22, 0.25)" };
+    return { label: isEn ? "High" : "Tinggi", color: "#EF4444", bg: "rgba(239, 68, 68, 0.32)" };
   }
 
   const maxCount = useMemo(() => {
@@ -1620,15 +1620,15 @@ export default function FireMap() {
               <span>{lang === "id" ? "0 rekaman" : "0 records"}</span>
             </div>
             <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 3 }}>
-              <span style={{ display: "inline-block", width: "100%", height: 4, borderRadius: 2, background: "#10B981" }} />
+              <span style={{ display: "inline-block", width: "100%", height: 4, borderRadius: 2, background: "#FACC15" }} />
               <span>{lang === "id" ? "Rendah" : "Low"}</span>
             </div>
             <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 3 }}>
-              <span style={{ display: "inline-block", width: "100%", height: 4, borderRadius: 2, background: "#FACC15" }} />
+              <span style={{ display: "inline-block", width: "100%", height: 4, borderRadius: 2, background: "#F97316" }} />
               <span>{lang === "id" ? "Sedang" : "Medium"}</span>
             </div>
             <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 3 }}>
-              <span style={{ display: "inline-block", width: "100%", height: 4, borderRadius: 2, background: "#F97316" }} />
+              <span style={{ display: "inline-block", width: "100%", height: 4, borderRadius: 2, background: "#EF4444" }} />
               <span>{lang === "id" ? "Tinggi" : "High"}</span>
             </div>
           </div>
