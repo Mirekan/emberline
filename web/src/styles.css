@@ -1594,8 +1594,21 @@ tbody tr:hover {
 
 /* Tiered Fire Heatmap Styles */
 .tile[data-tier="0"] {
-  background: var(--surface);
-  border-color: var(--line);
+  background: color-mix(in srgb, var(--safe) 8%, var(--surface));
+  border-color: color-mix(in srgb, var(--safe) 24%, var(--line));
+}
+
+.tile[data-tier="0"] .tile-value {
+  color: var(--safe);
+}
+
+:root[data-theme="light"] .tile[data-tier="0"] {
+  background: #f0fdf4;
+  border-color: #bbf7d0;
+}
+
+:root[data-theme="light"] .tile[data-tier="0"] .tile-value {
+  color: #166534;
 }
 
 .tile[data-tier="1"] {
@@ -1801,7 +1814,8 @@ tbody tr:hover {
 }
 
 .ramp i[data-tier="0"] {
-  background: var(--surface);
+  background: color-mix(in srgb, var(--safe) 20%, var(--surface));
+  border-color: color-mix(in srgb, var(--safe) 40%, var(--line));
 }
 
 .ramp i[data-tier="1"] {
@@ -1855,8 +1869,8 @@ tbody tr:hover {
 }
 
 .sw-zero {
-  background: var(--sunken);
-  border: 1px solid var(--line-strong);
+  background: color-mix(in srgb, var(--safe) 14%, var(--surface));
+  border: 1px solid color-mix(in srgb, var(--safe) 45%, var(--line-strong));
   position: relative;
 }
 
@@ -1865,10 +1879,10 @@ tbody tr:hover {
   position: absolute;
   inset: 0;
   margin: auto;
-  width: 4px;
-  height: 4px;
+  width: 5px;
+  height: 5px;
   border-radius: 99px;
-  background: var(--ink3);
+  background: var(--safe);
 }
 
 .sw-gap {
