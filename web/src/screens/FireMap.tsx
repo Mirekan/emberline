@@ -429,6 +429,8 @@ export default function FireMap() {
     });
   };
 
+  const curPreset = presets.find(p => p.id === aoi);
+
   const toggleContrastPopover = () => {
     setContrastPopoverOpen(prev => {
       const next = !prev;
@@ -784,10 +786,11 @@ export default function FireMap() {
   useEffect(() => {
     let cancelled = false;
     const targetAoi = selName === null ? "all" : aoi;
+    const targetPreset = selName === null ? undefined : presets.find(p => p.id === aoi);
     setDet(null);
     setDetError("");
     setDetLoading(true);
-    api.detections(targetAoi)
+    api.detections(targetAoi, targetPreset)
       .then(data => {
         if (!cancelled) setDet(data);
       })
@@ -800,7 +803,7 @@ export default function FireMap() {
         if (!cancelled) setDetLoading(false);
       });
     return () => { cancelled = true; };
-  }, [aoi, selName]);
+  }, [aoi, selName, presets]);
 
   function getCellDensity(count: number, maxCount: number): { label: string; color: string; bg: string } {
     const isEn = lang === "en";
@@ -834,6 +837,16 @@ export default function FireMap() {
 
     const step = grid?.cell_deg ?? 0.1;
     for (const d of det.detections) {
+      if (selName !== null && curPreset) {
+        if (
+          d.lat < curPreset.south ||
+          d.lat > curPreset.north ||
+          d.lon < curPreset.west ||
+          d.lon > curPreset.east
+        ) {
+          continue;
+        }
+      }
       if (detYear !== "all" && !d.date.startsWith(detYear)) continue;
       if (detSensor !== "all" && d.sensor !== detSensor) continue;
       if (d.frp < minFrp) continue;
@@ -856,7 +869,7 @@ export default function FireMap() {
       }
     }
     return counts;
-  }, [det, grid, detYear, detSensor, minFrp]);
+  }, [det, grid, detYear, detSensor, minFrp, selName, curPreset]);
 
   const maxCount = useMemo(() => {
     let max = 0;
@@ -1050,6 +1063,16 @@ export default function FireMap() {
   const detRows = useMemo(() => {
     if (!det) return [];
     return det.detections.filter(d => {
+      if (selName !== null && curPreset) {
+        if (
+          d.lat < curPreset.south ||
+          d.lat > curPreset.north ||
+          d.lon < curPreset.west ||
+          d.lon > curPreset.east
+        ) {
+          return false;
+        }
+      }
       const matchTime = (detYear === "all" || d.date.startsWith(detYear));
       const matchSensor = (detSensor === "all" || d.sensor === detSensor);
       const matchFrp = d.frp >= minFrp;
@@ -1074,7 +1097,7 @@ export default function FireMap() {
       }
       return true;
     });
-  }, [det, detYear, detSensor, minFrp, selectedCell, riskFilter, grid, maxCount, cellCountsByCoord, lang]);
+  }, [det, detYear, detSensor, minFrp, selectedCell, riskFilter, grid, maxCount, cellCountsByCoord, lang, selName, curPreset]);
 
   const detYears = useMemo(() => {
     if (!det || det.detections.length === 0) {
@@ -1194,7 +1217,6 @@ export default function FireMap() {
     if (!p) return null;
     return p.artifact_status === "available" ? t("map_status_ready") : t("map_status_queued");
   };
-  const curPreset = presets.find(p => p.id === aoi);
 
   return (
     <div
