@@ -1,0 +1,22 @@
+{
+  "aoi_id": "papua_selatan",
+  "note": "deferred \u2260 failed: machinery verified on synthetic data (tests), real evaluation lands with the full-era swap-in",
+  "protocol_version": "PROTO-C01-v0.9",
+  "reason": "C-03/C-04 artifacts absent \u2014 upstream returned insufficient_data on the delivered fixture; metrics deferred pending full-era data",
+  "required_metrics": [
+    "mean_log_ratio_bias",
+    "smape",
+    "mape_zero_actual_excluded",
+    "pearson_daily",
+    "spearman_daily",
+    "pearson_weekly",
+    "spearman_weekly",
+    "log_space_r2",
+    "ks_statistic",
+    "wasserstein_distance",
+    "calendar_pattern_correlation",
+    "interval_coverage_empirical"
+  ],
+  "status": "deferred",
+  "task": "C-05"
+}

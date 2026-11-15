@@ -1,0 +1,125 @@
+{
+  "aoi_id": "sumut_aceh",
+  "eligible_years": [
+    "2018",
+    "2019",
+    "2020",
+    "2021",
+    "2022",
+    "2023",
+    "2024",
+    "2025",
+    "2026"
+  ],
+  "frozen_split": {
+    "test_start": "2020-10-09",
+    "train_end": "2020-10-08"
+  },
+  "note": "B0 = naive splice; B1 = training-fitted global ratio; FRP-sum is an aggregate of sampled radiative-power observations, not a fire count",
+  "outcome": {
+    "B1_fit_inputs": {
+      "test_years": [
+        "2020",
+        "2021",
+        "2022",
+        "2023",
+        "2024",
+        "2025",
+        "2026"
+      ],
+      "train_dates_eligible_pairs_only": true,
+      "train_sum_modis_mw": 30021.3,
+      "train_sum_viirs_mw": 78323.99,
+      "train_years": [
+        "2018",
+        "2019",
+        "2020"
+      ]
+    },
+    "B1_ratio": 0.38329636,
+    "status": "ok",
+    "test_days": 4244,
+    "train_days": 2009
+  },
+  "pair_counts": {
+    "fitting_eligible_pairs": 1229,
+    "pairs_seen": 21690,
+    "zero_fill_days_ingested": 6248
+  },
+  "protocol_version": "PROTO-C01-v0.9",
+  "task": "C-03",
+  "year_eligibility": [
+    {
+      "days_both_retrieved": 710,
+      "eligible": true,
+      "era_days": 359,
+      "retrieval_fraction": 1.9777,
+      "signal_days": 77,
+      "year": "2018"
+    },
+    {
+      "days_both_retrieved": 730,
+      "eligible": true,
+      "era_days": 365,
+      "retrieval_fraction": 2.0,
+      "signal_days": 55,
+      "year": "2019"
+    },
+    {
+      "days_both_retrieved": 732,
+      "eligible": true,
+      "era_days": 366,
+      "retrieval_fraction": 2.0,
+      "signal_days": 54,
+      "year": "2020"
+    },
+    {
+      "days_both_retrieved": 730,
+      "eligible": true,
+      "era_days": 365,
+      "retrieval_fraction": 2.0,
+      "signal_days": 54,
+      "year": "2021"
+    },
+    {
+      "days_both_retrieved": 730,
+      "eligible": true,
+      "era_days": 365,
+      "retrieval_fraction": 2.0,
+      "signal_days": 39,
+      "year": "2022"
+    },
+    {
+      "days_both_retrieved": 730,
+      "eligible": true,
+      "era_days": 365,
+      "retrieval_fraction": 2.0,
+      "signal_days": 42,
+      "year": "2023"
+    },
+    {
+      "days_both_retrieved": 732,
+      "eligible": true,
+      "era_days": 366,
+      "retrieval_fraction": 2.0,
+      "signal_days": 40,
+      "year": "2024"
+    },
+    {
+      "days_both_retrieved": 730,
+      "eligible": true,
+      "era_days": 365,
+      "retrieval_fraction": 2.0,
+      "signal_days": 71,
+      "year": "2025"
+    },
+    {
+      "days_both_retrieved": 424,
+      "eligible": true,
+      "era_days": 212,
+      "retrieval_fraction": 2.0,
+      "signal_days": 43,
+      "year": "2026"
+    }
+  ]
+}

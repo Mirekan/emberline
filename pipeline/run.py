@@ -100,6 +100,18 @@ def run(aoi_id: str, run_ts: str | None = None, detections: list[Path] | None = 
     c02_dir = ROOT / "data" / "processed" / aoi_id / "c02"
     stages: dict[str, dict] = {}
 
+    # -- reset derived artifacts: every reproduce rebuilds them from canonical
+    #    inputs. Stale files from interrupted runs must NEVER mix into a fresh
+    #    chain (F-15: held-out rows identical across B0/B1/B2).
+    for name in ("baseline_series.csv", "harmonized_daily.csv",
+                 "harmonization_metrics.json", "splice_stress_test.json",
+                 "splice_stress_test_b2.json", "accepted_series.csv",
+                 "calendar.csv", "climatology.json", "windows.json",
+                 "serving.db", "run_manifest.json"):
+        stale = artifacts / name
+        if stale.exists():
+            stale.unlink()
+
     # -- stage 1: C-02 match ------------------------------------------------------
     det_paths = [p for p in detections if p.exists()]
     if not mask_path.exists() or not det_paths:
@@ -151,14 +163,30 @@ def run(aoi_id: str, run_ts: str | None = None, detections: list[Path] | None = 
     else:
         stages["c04_harmonize"] = {"status": "skipped", "reason": "no matched_pairs.csv"}
 
-    # -- stages 4/5: C-05 metrics + stress ----------------------------------------------
+    # -- stages 4/5: C-05 metrics + stress (F-15 mismatch recorded honestly,
+    #    never crashes the whole reproduce batch) ---------------------------------------
     series_b = artifacts / "baseline_series.csv"
     series_h = artifacts / "harmonized_daily.csv"
-    m = metrics.run(series_b, series_h, stage_pairs if stage_pairs.exists() else None,
-                    artifacts, aoi_id)["manifest"]
-    stages["c05_metrics"] = {"status": m.get("status") or m.get("outcome", {}).get("status"),
-                             "outputs": {"metrics": str(artifacts / "harmonization_metrics.json")}}
-    stages["c05_splice_stress"] = {"status": splice_stress.run(series_b, series_h, artifacts, aoi_id)["manifest"].get("status")}
+    try:
+        m = metrics.run(series_b, series_h, stage_pairs if stage_pairs.exists() else None,
+                        artifacts, aoi_id)["manifest"]
+        stages["c05_metrics"] = {"status": m.get("status") or m.get("outcome", {}).get("status"),
+                                 "outputs": {"metrics": str(artifacts / "harmonization_metrics.json")}}
+    except ValueError as err:
+        stages["c05_metrics"] = {"status": "mismatch", "error": str(err)[:300],
+                                 "note": "F-15 violation recorded honestly — rebuild via make reproduce"}
+    try:
+        # B1 (accepted, DEC-6) = published stress artifact; B2 kept visible (negative result)
+        stages["c05_splice_stress"] = {"status": splice_stress.run(
+            series_b, series_h, artifacts, aoi_id,
+            harmonized_column="B1_ratio_pred_mw", out_name="splice_stress_test.json",
+            method_label="B1 (accepted)")["manifest"].get("status")}
+        splice_stress.run(series_b, series_h, artifacts, aoi_id,
+                          harmonized_column="predicted_b2_mw",
+                          out_name="splice_stress_test_b2.json", method_label="B2")
+    except ValueError as err:
+        stages["c05_splice_stress"] = {"status": "mismatch", "error": str(err)[:300],
+                                       "note": "recorded honestly — rebuild via make reproduce"}
 
     # -- stage 6: C-06 calendar + windows --------------------------------------------------
     units_csv = c02_dir / "units_per_sensor.csv"

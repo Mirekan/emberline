@@ -1,0 +1,7 @@
+{
+  "aoi_id": "papua_selatan",
+  "protocol_version": "PROTO-C01-v0.9",
+  "reason": "calendar artifacts absent \u2014 C-06 upstream deferred/insufficient",
+  "status": "deferred",
+  "task": "C-06 windows"
+}

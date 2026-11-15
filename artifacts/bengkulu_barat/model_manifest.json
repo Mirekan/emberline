@@ -1,0 +1,162 @@
+{
+  "aoi_id": "bengkulu_barat",
+  "eligible_years": [
+    "2018",
+    "2019",
+    "2020",
+    "2021",
+    "2022",
+    "2023",
+    "2024",
+    "2025",
+    "2026"
+  ],
+  "frozen_split": {
+    "test_start": "2020-10-09",
+    "train_end": "2020-10-08"
+  },
+  "git_sha": "f90f1f7",
+  "model_version": "b2-primary",
+  "outcome": {
+    "extrapolation_flagged_days": 903,
+    "intervals": [
+      {
+        "bootstrap_draws": 1000,
+        "daynight": "day",
+        "nominal_target": 0.8,
+        "note": "nominal 80% target calibrated on training AOI-day residuals (day-level bootstrap); actual held-out coverage is MEASURED at C-05, not promised",
+        "q10_mw": -43.583718,
+        "q90_mw": 0.0,
+        "seed": 42
+      },
+      {
+        "bootstrap_draws": 1000,
+        "daynight": "night",
+        "nominal_target": 0.8,
+        "note": "nominal 80% target calibrated on training AOI-day residuals (day-level bootstrap); actual held-out coverage is MEASURED at C-05, not promised",
+        "q10_mw": -43.583718,
+        "q90_mw": 0.0,
+        "seed": 42
+      }
+    ],
+    "model": {
+      "coefficients": {
+        "a_intercept": 0.00010138,
+        "b_log1p_viirs": 0.7105844,
+        "c_log1p_count": 0.56974682,
+        "d_night": -0.00011575
+      },
+      "fit_inputs": {
+        "n_train_rows": 399,
+        "test_years_recorded_never_fitted": [
+          "2020",
+          "2021",
+          "2022",
+          "2023",
+          "2024",
+          "2025",
+          "2026"
+        ],
+        "train_years": [
+          "2018",
+          "2019",
+          "2020"
+        ],
+        "unit": "cell-day pairs, fitting-eligible only (F-6), training years only; compact zero-fill entered as exact weights (identical to duplicated rows)",
+        "zero_cells_weighted": {
+          "day": 894299,
+          "night": 897533
+        }
+      },
+      "monotone_projection": "none_active",
+      "smearing_k": 1.00016615
+    },
+    "n_aoi_days": 6240,
+    "status": "ok",
+    "support_bounds": {
+      "support_hi_log1p": 6.0623,
+      "support_lo_log1p": 1.2181
+    }
+  },
+  "protocol_version": "PROTO-C01-v0.9",
+  "quantile_correction": "omitted in v1 (DEV-S03)",
+  "run_id": "PROTO-C01-v0.9_b2-primary_20261115T0959Z",
+  "scope_note": "FRP-sum is an aggregate of sampled radiative-power observations; MODIS is the reference measurement, not fire ground truth",
+  "source_policy": "F-14: MODIS reference before VIIRS support, mapped VIIRS in validated coverage, explicit gaps otherwise; sensors never blended",
+  "task": "C-04",
+  "year_eligibility": [
+    {
+      "days_both_retrieved": 702,
+      "eligible": true,
+      "era_days": 352,
+      "retrieval_fraction": 1.9943,
+      "signal_days": 50,
+      "year": "2018"
+    },
+    {
+      "days_both_retrieved": 730,
+      "eligible": true,
+      "era_days": 365,
+      "retrieval_fraction": 2.0,
+      "signal_days": 78,
+      "year": "2019"
+    },
+    {
+      "days_both_retrieved": 732,
+      "eligible": true,
+      "era_days": 366,
+      "retrieval_fraction": 2.0,
+      "signal_days": 23,
+      "year": "2020"
+    },
+    {
+      "days_both_retrieved": 730,
+      "eligible": true,
+      "era_days": 365,
+      "retrieval_fraction": 2.0,
+      "signal_days": 40,
+      "year": "2021"
+    },
+    {
+      "days_both_retrieved": 730,
+      "eligible": true,
+      "era_days": 365,
+      "retrieval_fraction": 2.0,
+      "signal_days": 36,
+      "year": "2022"
+    },
+    {
+      "days_both_retrieved": 730,
+      "eligible": true,
+      "era_days": 365,
+      "retrieval_fraction": 2.0,
+      "signal_days": 79,
+      "year": "2023"
+    },
+    {
+      "days_both_retrieved": 732,
+      "eligible": true,
+      "era_days": 366,
+      "retrieval_fraction": 2.0,
+      "signal_days": 41,
+      "year": "2024"
+    },
+    {
+      "days_both_retrieved": 730,
+      "eligible": true,
+      "era_days": 365,
+      "retrieval_fraction": 2.0,
+      "signal_days": 48,
+      "year": "2025"
+    },
+    {
+      "days_both_retrieved": 424,
+      "eligible": true,
+      "era_days": 212,
+      "retrieval_fraction": 2.0,
+      "signal_days": 21,
+      "year": "2026"
+    }
+  ],
+  "zero_policy": "v1: S_viirs==0 and n==0 -> prediction 0 (two-part zero-inflation model deferred)"
+}

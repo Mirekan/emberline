@@ -5,8 +5,8 @@
     "start": "2012-01-20"
   },
   "aoi_id": "central_kalimantan",
-  "created_utc": "2026-11-15T04:47:41+00:00",
-  "git_sha": "0746e3f",
+  "created_utc": "2026-11-15T09:57:24+00:00",
+  "git_sha": "f90f1f7",
   "honesty_note": "stage statuses are recorded verbatim \u2014 insufficient_data/deferred stages are NOT failures or passes, they are the actual state",
   "input_sha256": {
     "data/manifests/retrieval_mask_central_kalimantan.csv": "c111d2c1f026de6f1a0204b02abe665daa7efab2a967cef6e7978cd90c1f1d0f",
@@ -21,11 +21,11 @@
   "metrics_path": "/home/ade/project/nasa/science_analytics/emberline/artifacts/central_kalimantan/harmonization_metrics.json",
   "params_hash": "0d6ea05a5d7d73122aff09c5fb006b62586c4c6f0a1f49790fb83ae4fe02bcce",
   "protocol_version": "PROTO-C01-v0.9",
-  "run_id": "PROTO-C01-v0.9_0746e3f_20261115T0447Z",
+  "run_id": "PROTO-C01-v0.9_f90f1f7_20261115T0957Z",
   "seeds": {
     "interval_bootstrap": 42
   },
-  "serving_db_sha256": "b9db12861cdc9a6a68c63d3acdfe3d8348da9c2296f6fc69a89b27aed63580a3",
+  "serving_db_sha256": "64c80306ca334d7185162d61fd0949a8911e4941c4914c9dbf830a9a3428fccb",
   "sources": [
     "MODIS_SP",
     "VIIRS_SNPP_SP"
@@ -84,7 +84,7 @@
       "outputs": {
         "db": "/home/ade/project/nasa/science_analytics/emberline/artifacts/central_kalimantan/serving.db"
       },
-      "sha256": "b9db12861cdc9a6a68c63d3acdfe3d8348da9c2296f6fc69a89b27aed63580a3",
+      "sha256": "64c80306ca334d7185162d61fd0949a8911e4941c4914c9dbf830a9a3428fccb",
       "status": "ok",
       "tables": {
         "accepted_series": 5307,

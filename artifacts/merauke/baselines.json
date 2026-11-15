@@ -1,0 +1,185 @@
+{
+  "aoi_id": "merauke",
+  "eligible_years": [
+    "2012",
+    "2013",
+    "2014",
+    "2015",
+    "2016",
+    "2017",
+    "2018",
+    "2019",
+    "2020",
+    "2021",
+    "2022",
+    "2023",
+    "2024",
+    "2025",
+    "2026"
+  ],
+  "frozen_split": {
+    "test_start": "2020-10-09",
+    "train_end": "2020-10-08"
+  },
+  "note": "B0 = naive splice; B1 = training-fitted global ratio; FRP-sum is an aggregate of sampled radiative-power observations, not a fire count",
+  "outcome": {
+    "B1_fit_inputs": {
+      "test_years": [
+        "2020",
+        "2021",
+        "2022",
+        "2023",
+        "2024",
+        "2025",
+        "2026"
+      ],
+      "train_dates_eligible_pairs_only": true,
+      "train_sum_modis_mw": 786428.4,
+      "train_sum_viirs_mw": 1309084.85,
+      "train_years": [
+        "2012",
+        "2013",
+        "2014",
+        "2015",
+        "2016",
+        "2017",
+        "2018",
+        "2019",
+        "2020"
+      ]
+    },
+    "B1_ratio": 0.6007467,
+    "status": "ok",
+    "test_days": 4244,
+    "train_days": 6227
+  },
+  "pair_counts": {
+    "fitting_eligible_pairs": 11101,
+    "pairs_seen": 57404,
+    "zero_fill_days_ingested": 10466
+  },
+  "protocol_version": "PROTO-C01-v0.9",
+  "task": "C-03",
+  "year_eligibility": [
+    {
+      "days_both_retrieved": 546,
+      "eligible": true,
+      "era_days": 278,
+      "retrieval_fraction": 1.964,
+      "signal_days": 94,
+      "year": "2012"
+    },
+    {
+      "days_both_retrieved": 730,
+      "eligible": true,
+      "era_days": 365,
+      "retrieval_fraction": 2.0,
+      "signal_days": 75,
+      "year": "2013"
+    },
+    {
+      "days_both_retrieved": 730,
+      "eligible": true,
+      "era_days": 365,
+      "retrieval_fraction": 2.0,
+      "signal_days": 113,
+      "year": "2014"
+    },
+    {
+      "days_both_retrieved": 730,
+      "eligible": true,
+      "era_days": 365,
+      "retrieval_fraction": 2.0,
+      "signal_days": 190,
+      "year": "2015"
+    },
+    {
+      "days_both_retrieved": 732,
+      "eligible": true,
+      "era_days": 366,
+      "retrieval_fraction": 2.0,
+      "signal_days": 62,
+      "year": "2016"
+    },
+    {
+      "days_both_retrieved": 730,
+      "eligible": true,
+      "era_days": 365,
+      "retrieval_fraction": 2.0,
+      "signal_days": 72,
+      "year": "2017"
+    },
+    {
+      "days_both_retrieved": 730,
+      "eligible": true,
+      "era_days": 365,
+      "retrieval_fraction": 2.0,
+      "signal_days": 110,
+      "year": "2018"
+    },
+    {
+      "days_both_retrieved": 730,
+      "eligible": true,
+      "era_days": 365,
+      "retrieval_fraction": 2.0,
+      "signal_days": 94,
+      "year": "2019"
+    },
+    {
+      "days_both_retrieved": 732,
+      "eligible": true,
+      "era_days": 366,
+      "retrieval_fraction": 2.0,
+      "signal_days": 62,
+      "year": "2020"
+    },
+    {
+      "days_both_retrieved": 730,
+      "eligible": true,
+      "era_days": 365,
+      "retrieval_fraction": 2.0,
+      "signal_days": 32,
+      "year": "2021"
+    },
+    {
+      "days_both_retrieved": 730,
+      "eligible": true,
+      "era_days": 365,
+      "retrieval_fraction": 2.0,
+      "signal_days": 32,
+      "year": "2022"
+    },
+    {
+      "days_both_retrieved": 730,
+      "eligible": true,
+      "era_days": 365,
+      "retrieval_fraction": 2.0,
+      "signal_days": 128,
+      "year": "2023"
+    },
+    {
+      "days_both_retrieved": 732,
+      "eligible": true,
+      "era_days": 366,
+      "retrieval_fraction": 2.0,
+      "signal_days": 45,
+      "year": "2024"
+    },
+    {
+      "days_both_retrieved": 730,
+      "eligible": true,
+      "era_days": 365,
+      "retrieval_fraction": 2.0,
+      "signal_days": 21,
+      "year": "2025"
+    },
+    {
+      "days_both_retrieved": 424,
+      "eligible": true,
+      "era_days": 212,
+      "retrieval_fraction": 2.0,
+      "signal_days": 37,
+      "year": "2026"
+    }
+  ]
+}

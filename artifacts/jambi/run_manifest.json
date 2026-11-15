@@ -1,58 +1,92 @@
 {
-  "run_id": "PROTO-C01-v0.9_20261115T0325Z_b2_simple_log_ratio_only_FIXTURE",
-  "git_sha": "ae408ed7e680796e7822c7732406f947e3292aa0",
-  "created_utc": "2026-11-15T03:25:13+00:00",
   "aoi_bbox_date_range": {
-    "aoi": "jambi",
-    "slug": "w102_s-3_e104.5_n-1",
-    "bbox": [
-      102.0,
-      -3.0,
-      104.5,
-      -1.0
-    ],
-    "coverage": {
-      "first": "2012-01-20",
-      "last": "2026-07-31"
-    }
+    "bbox": "102,-3,104,-1",
+    "end": "2026-07-31",
+    "start": "2012-01-20"
   },
+  "aoi_id": "jambi",
+  "created_utc": "2026-11-15T09:57:24+00:00",
+  "git_sha": "f90f1f7",
+  "honesty_note": "stage statuses are recorded verbatim \u2014 insufficient_data/deferred stages are NOT failures or passes, they are the actual state",
+  "input_sha256": {
+    "data/manifests/retrieval_mask_jambi.csv": "5600c6ceb04391ad539f280b82464d1fda385163541f48660204fc20f2e95d91"
+  },
+  "library_versions": {
+    "numpy": "2.5.4",
+    "pandas": "3.1.1",
+    "python": "3.14.8"
+  },
+  "metrics_path": "/home/ade/project/nasa/science_analytics/emberline/artifacts/jambi/harmonization_metrics.json",
+  "params_hash": "0d6ea05a5d7d73122aff09c5fb006b62586c4c6f0a1f49790fb83ae4fe02bcce",
+  "protocol_version": "PROTO-C01-v0.9",
+  "run_id": "PROTO-C01-v0.9_f90f1f7_20261115T0957Z",
+  "seeds": {
+    "interval_bootstrap": 42
+  },
+  "serving_db_sha256": "aa68de98529c64f7db4a95456e4d75a47521c759214c5f6ca09a69957c00e825",
   "sources": [
     "MODIS_SP",
     "VIIRS_SNPP_SP"
   ],
-  "input_sha256": {
-    "data/fixtures/FIXTURE_SYNTHETIC/jambi/MODIS_SP/w102_s-3_e104.5_n-1/normalized.csv": "cffbf50360ac59d1c7f89f7dbf15930c8f02959ab73bcae589d4c631cc763cb3",
-    "data/fixtures/FIXTURE_SYNTHETIC/jambi/VIIRS_SNPP_SP/w102_s-3_e104.5_n-1/normalized.csv": "dcb4a094583cedbb55cd09b7e29e8c52750d50ba5c996d99505e6f8fa5acdd17"
+  "stage_statuses": {
+    "c02_match": {
+      "reason": "missing inputs: detections=['normalized.csv', 'normalized.csv'], mask=present",
+      "status": "skipped"
+    },
+    "c03_baselines": {
+      "reason": "no matched_pairs.csv",
+      "status": "skipped"
+    },
+    "c04_harmonize": {
+      "reason": "no matched_pairs.csv",
+      "status": "skipped"
+    },
+    "c05_metrics": {
+      "outputs": {
+        "metrics": "/home/ade/project/nasa/science_analytics/emberline/artifacts/jambi/harmonization_metrics.json"
+      },
+      "status": "deferred"
+    },
+    "c05_splice_stress": {
+      "status": "deferred"
+    },
+    "c06_calendar": {
+      "outputs": {
+        "climatology": "/home/ade/project/nasa/science_analytics/emberline/artifacts/jambi/climatology.json"
+      },
+      "status": "insufficient_data"
+    },
+    "c06_windows": {
+      "status": "deferred"
+    },
+    "c07_serving_db": {
+      "missing_sources": [
+        "accepted_series.csv",
+        "calendar.csv",
+        "windows.json",
+        "harmonized_daily.csv:legacy-schema",
+        "harmonization_metrics.json",
+        "splice_stress manifests",
+        "years (no accepted series)"
+      ],
+      "outputs": {
+        "db": "/home/ade/project/nasa/science_analytics/emberline/artifacts/jambi/serving.db"
+      },
+      "sha256": "aa68de98529c64f7db4a95456e4d75a47521c759214c5f6ca09a69957c00e825",
+      "status": "ok",
+      "tables": {
+        "accepted_series": 0,
+        "baselines": 0,
+        "calendar": 0,
+        "harmonized_daily": 5307,
+        "metrics": 0,
+        "splice_stress": 0,
+        "windows": 0,
+        "years": 0
+      }
+    }
   },
-  "params_hash": "f1e61abb82e1bd0d8250abef4b43b078a318e3e83ce5c745dc126017b9d827fc",
-  "train_years": [
-    "2012",
-    "2013",
-    "2014",
-    "2015",
-    "2016",
-    "2017",
-    "2018",
-    "2019",
-    "2020"
-  ],
-  "test_years": [
-    "2021",
-    "2022",
-    "2023",
-    "2024",
-    "2025",
-    "2026"
-  ],
-  "metrics_path": "artifacts/jambi/metrics.json",
-  "library_versions": {
-    "python": "stdlib-only",
-    "numpy": "not-used",
-    "pandas": "not-used"
-  },
-  "seeds": {
-    "bootstrap": 20261114
-  },
-  "fixture": "FIXTURE_SYNTHETIC",
-  "boundary": "Historical & descriptive \u2014 not predictive."
+  "task": "C-07",
+  "test_years": null,
+  "train_years": null
 }

@@ -1,24 +1,100 @@
 {
-  "run_id": "PROTO-C01-v0.9_20261115T0324Z_b2_simple_log_ratio_only_FIXTURE",
-  "fixture": "FIXTURE_SYNTHETIC",
+  "activity": {
+    "active_days_per_year": {
+      "2012": 87,
+      "2013": 61,
+      "2014": 83,
+      "2015": 90,
+      "2016": 45,
+      "2017": 40,
+      "2018": 62,
+      "2019": 88,
+      "2020": 19,
+      "2021": 27,
+      "2022": 8,
+      "2023": 75,
+      "2024": 47,
+      "2025": 21,
+      "2026": 5
+    },
+    "missing_years_note": "years absent from the accepted series are never counted inactive",
+    "rule": "years_active = year's daily index >= window threshold on >= 3 era days (DEC-3 PROVISIONAL; frozen with this artifact)",
+    "threshold_rule": "75th percentile of the smoothed climatology median curve (descriptive, NOT a safety threshold)",
+    "years_active": [
+      "2012",
+      "2013",
+      "2014",
+      "2015",
+      "2016",
+      "2017",
+      "2018",
+      "2019",
+      "2020",
+      "2021",
+      "2022",
+      "2023",
+      "2024",
+      "2025",
+      "2026"
+    ]
+  },
+  "aoi_id": "south_sumatra",
+  "n_windows": 3,
+  "protocol_version": "PROTO-C01-v0.9",
+  "status": "ok",
+  "task": "C-06 windows",
+  "threshold": {
+    "meaning": "descriptive seasonal percentile \u2014 NOT a safety threshold; stated in UI and exports",
+    "percentile_of_smoothed_curve": 75,
+    "value": 0.622707
+  },
   "windows": [
     {
-      "start_md": "02-28",
-      "end_md": "03-03",
-      "wraps_new_year": false,
-      "median_intensity_mw": 8.14,
-      "threshold_percentile": 75,
-      "years_active": null,
-      "years_eligible": 15
+      "end_month_day": "08-08",
+      "end_position": 221,
+      "length_days": 15,
+      "max_index_in_window": 0.653753,
+      "median_index_in_window": 0.639384,
+      "start_month_day": "07-25",
+      "start_position": 207,
+      "wraps_dec_jan": false
     },
     {
-      "start_md": "08-01",
-      "end_md": "10-27",
-      "wraps_new_year": false,
-      "median_intensity_mw": 25.52,
-      "threshold_percentile": 75,
-      "years_active": null,
-      "years_eligible": 15
+      "end_month_day": "10-17",
+      "end_position": 291,
+      "length_days": 69,
+      "max_index_in_window": 0.787136,
+      "median_index_in_window": 0.711853,
+      "start_month_day": "08-10",
+      "start_position": 223,
+      "wraps_dec_jan": false
+    },
+    {
+      "end_month_day": "10-26",
+      "end_position": 300,
+      "length_days": 8,
+      "max_index_in_window": 0.638633,
+      "median_index_in_window": 0.631849,
+      "start_month_day": "10-19",
+      "start_position": 293,
+      "wraps_dec_jan": false
     }
+  ],
+  "years_eligible": [
+    "2012",
+    "2013",
+    "2014",
+    "2015",
+    "2016",
+    "2017",
+    "2018",
+    "2019",
+    "2020",
+    "2021",
+    "2022",
+    "2023",
+    "2024",
+    "2025",
+    "2026"
   ]
 }

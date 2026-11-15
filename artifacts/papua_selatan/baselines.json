@@ -1,0 +1,100 @@
+{
+  "aoi_id": "papua_selatan",
+  "eligible_years": [
+    "2018",
+    "2023",
+    "2026"
+  ],
+  "frozen_split": {
+    "test_start": "2020-10-09",
+    "train_end": "2020-10-08"
+  },
+  "note": "B0 = naive splice; B1 = training-fitted global ratio; FRP-sum is an aggregate of sampled radiative-power observations, not a fire count",
+  "outcome": {
+    "reason": "eligible training/test year counts below F-9b minimums",
+    "status": "insufficient_data",
+    "test_days": 1153,
+    "train_days": 720
+  },
+  "pair_counts": {
+    "fitting_eligible_pairs": 104,
+    "pairs_seen": 1628,
+    "zero_fill_days_ingested": 6252
+  },
+  "protocol_version": "PROTO-C01-v0.9",
+  "task": "C-03",
+  "year_eligibility": [
+    {
+      "days_both_retrieved": 718,
+      "eligible": true,
+      "era_days": 361,
+      "retrieval_fraction": 1.9889,
+      "signal_days": 24,
+      "year": "2018"
+    },
+    {
+      "days_both_retrieved": 730,
+      "eligible": false,
+      "era_days": 365,
+      "retrieval_fraction": 2.0,
+      "signal_days": 8,
+      "year": "2019"
+    },
+    {
+      "days_both_retrieved": 732,
+      "eligible": false,
+      "era_days": 366,
+      "retrieval_fraction": 2.0,
+      "signal_days": 7,
+      "year": "2020"
+    },
+    {
+      "days_both_retrieved": 730,
+      "eligible": false,
+      "era_days": 365,
+      "retrieval_fraction": 2.0,
+      "signal_days": 2,
+      "year": "2021"
+    },
+    {
+      "days_both_retrieved": 730,
+      "eligible": false,
+      "era_days": 365,
+      "retrieval_fraction": 2.0,
+      "signal_days": 9,
+      "year": "2022"
+    },
+    {
+      "days_both_retrieved": 730,
+      "eligible": true,
+      "era_days": 365,
+      "retrieval_fraction": 2.0,
+      "signal_days": 19,
+      "year": "2023"
+    },
+    {
+      "days_both_retrieved": 732,
+      "eligible": false,
+      "era_days": 366,
+      "retrieval_fraction": 2.0,
+      "signal_days": 3,
+      "year": "2024"
+    },
+    {
+      "days_both_retrieved": 730,
+      "eligible": false,
+      "era_days": 365,
+      "retrieval_fraction": 2.0,
+      "signal_days": 2,
+      "year": "2025"
+    },
+    {
+      "days_both_retrieved": 420,
+      "eligible": true,
+      "era_days": 212,
+      "retrieval_fraction": 1.9811,
+      "signal_days": 10,
+      "year": "2026"
+    }
+  ]
+}

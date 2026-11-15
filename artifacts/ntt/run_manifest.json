@@ -1,0 +1,116 @@
+{
+  "aoi_bbox_date_range": {
+    "bbox": "120,-10,125,-5",
+    "end": "2026-07-31",
+    "start": "2018-01-01"
+  },
+  "aoi_id": "ntt",
+  "created_utc": "2026-11-15T09:58:35+00:00",
+  "git_sha": "f90f1f7",
+  "honesty_note": "stage statuses are recorded verbatim \u2014 insufficient_data/deferred stages are NOT failures or passes, they are the actual state",
+  "input_sha256": {
+    "data/manifests/retrieval_mask_ntt.csv": "30238baeff6ddf56a96175b7c020c6d6e01555bb8885af6ba60f5f369f4d824f",
+    "data/processed/MODIS_SP/w120_s-10_e125_n-5/normalized.csv": "4ddbe0a866fbccbe9c784026991b4f6f9b133fe1254634e925a5dde6dcfd845d",
+    "data/processed/VIIRS_SNPP_SP/w120_s-10_e125_n-5/normalized.csv": "327b7598567c6f1b532f54821576b2882a98000b84819fc16a46b8f0ccc44682"
+  },
+  "library_versions": {
+    "numpy": "2.5.4",
+    "pandas": "3.1.1",
+    "python": "3.14.8"
+  },
+  "metrics_path": "/home/ade/project/nasa/science_analytics/emberline/artifacts/ntt/harmonization_metrics.json",
+  "params_hash": "0d6ea05a5d7d73122aff09c5fb006b62586c4c6f0a1f49790fb83ae4fe02bcce",
+  "protocol_version": "PROTO-C01-v0.9",
+  "run_id": "PROTO-C01-v0.9_f90f1f7_20261115T0958Z",
+  "seeds": {
+    "interval_bootstrap": 42
+  },
+  "serving_db_sha256": "ad941f4f97b91570e50f4664a0fd558659d0a9aee9ab5f73cc7590661df7dd50",
+  "sources": [
+    "MODIS_SP",
+    "VIIRS_SNPP_SP"
+  ],
+  "stage_statuses": {
+    "c02_match": {
+      "outputs": {
+        "matched_pairs": "/home/ade/project/nasa/science_analytics/emberline/data/processed/ntt/c02/matched_pairs.csv",
+        "summary": "/home/ade/project/nasa/science_analytics/emberline/data/processed/ntt/c02/match_summary.json",
+        "units_per_sensor": "/home/ade/project/nasa/science_analytics/emberline/data/processed/ntt/c02/units_per_sensor.csv",
+        "zero_fill_days": "/home/ade/project/nasa/science_analytics/emberline/data/processed/ntt/c02/zero_fill_days.csv"
+      },
+      "pair_states": {
+        "matched_signal": 4765,
+        "matched_zero": 15583540,
+        "one_sided": 46695
+      },
+      "status": "ok"
+    },
+    "c03_baselines": {
+      "outputs": {
+        "manifest": "/home/ade/project/nasa/science_analytics/emberline/artifacts/ntt/baselines.json",
+        "series": "/home/ade/project/nasa/science_analytics/emberline/artifacts/ntt/baseline_series.csv"
+      },
+      "status": "ok"
+    },
+    "c04_harmonize": {
+      "outputs": {
+        "manifest": "/home/ade/project/nasa/science_analytics/emberline/artifacts/ntt/model_manifest.json",
+        "series": "/home/ade/project/nasa/science_analytics/emberline/artifacts/ntt/harmonized_daily.csv"
+      },
+      "status": "ok"
+    },
+    "c05_metrics": {
+      "outputs": {
+        "metrics": "/home/ade/project/nasa/science_analytics/emberline/artifacts/ntt/harmonization_metrics.json"
+      },
+      "status": "ok"
+    },
+    "c05_splice_stress": {
+      "status": "ok"
+    },
+    "c06_calendar": {
+      "outputs": {
+        "calendar": "/home/ade/project/nasa/science_analytics/emberline/artifacts/ntt/calendar.csv",
+        "climatology": "/home/ade/project/nasa/science_analytics/emberline/artifacts/ntt/climatology.json",
+        "series": "/home/ade/project/nasa/science_analytics/emberline/artifacts/ntt/accepted_series.csv"
+      },
+      "status": "ok"
+    },
+    "c06_windows": {
+      "status": "ok"
+    },
+    "c07_serving_db": {
+      "missing_sources": [],
+      "outputs": {
+        "db": "/home/ade/project/nasa/science_analytics/emberline/artifacts/ntt/serving.db"
+      },
+      "sha256": "ad941f4f97b91570e50f4664a0fd558659d0a9aee9ab5f73cc7590661df7dd50",
+      "status": "ok",
+      "tables": {
+        "accepted_series": 3127,
+        "baselines": 6254,
+        "calendar": 366,
+        "harmonized_daily": 6254,
+        "metrics": 36,
+        "splice_stress": 3,
+        "windows": 1,
+        "years": 9
+      }
+    }
+  },
+  "task": "C-07",
+  "test_years": [
+    "2020",
+    "2021",
+    "2022",
+    "2023",
+    "2024",
+    "2025",
+    "2026"
+  ],
+  "train_years": [
+    "2018",
+    "2019",
+    "2020"
+  ]
+}

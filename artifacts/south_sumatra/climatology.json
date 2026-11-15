@@ -1,0 +1,53 @@
+{
+  "aoi_id": "south_sumatra",
+  "axis": "366-position month/day; Feb 29 (position 60) fed only by leap years \u2014 non-leap years are not_applicable, never a retrieval outage",
+  "dec3_note": "years_active is computed in windows.json (DEC-3 provisional rule)",
+  "eligibility_rule": ">= 60% of a year's CALENDAR-ERA days valid (era days = calendar days of the year inside the series span; partial years cannot pass as normal-year samples)",
+  "index": {
+    "available": true,
+    "denominator_frozen_from": "role=train days in the C-04 artifact (3184 days)",
+    "denominator_mw": 3032.79,
+    "formula": "idx(day) = log1p(published AOI FRP-sum) / log1p(P95 training daily reference MODIS FRP-sum)",
+    "raw_units_fallback": "raw MW are always available in the accepted series"
+  },
+  "protocol_version": "PROTO-C01-v0.9",
+  "reason": null,
+  "reference_note": "MODIS is the reference measurement, not fire ground truth; index is AOI-specific and not comparable across regions",
+  "smoothing": "circular \u00b17 days across the 366->1 seam (median curve)",
+  "status": "ok",
+  "task": "C-06",
+  "years_eligible": [
+    "2012",
+    "2013",
+    "2014",
+    "2015",
+    "2016",
+    "2017",
+    "2018",
+    "2019",
+    "2020",
+    "2021",
+    "2022",
+    "2023",
+    "2024",
+    "2025",
+    "2026"
+  ],
+  "years_in_series": [
+    "2012",
+    "2013",
+    "2014",
+    "2015",
+    "2016",
+    "2017",
+    "2018",
+    "2019",
+    "2020",
+    "2021",
+    "2022",
+    "2023",
+    "2024",
+    "2025",
+    "2026"
+  ]
+}

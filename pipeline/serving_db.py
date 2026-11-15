@@ -68,8 +68,8 @@ def build(artifacts_dir: str | Path, aoi_id: str) -> dict:
     climatology = _load_json(art / "climatology.json") or {}
     windows_manifest = _load_json(art / "windows.json") or {}
     metrics_manifest = _load_json(art / "harmonization_metrics.json") or {}
-    stress_files = [("B2", art / "splice_stress_test.json"),
-                    ("B1", art / "splice_stress_test_b1.json")]
+    stress_files = [("B1 (accepted)", art / "splice_stress_test.json"),
+                    ("B2", art / "splice_stress_test_b2.json")]
     baselines_manifest = _load_json(art / "baselines.json") or {}
 
     con = sqlite3.connect(db_path)
