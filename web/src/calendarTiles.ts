@@ -1,12 +1,14 @@
 /* Tile-comparison builder (user directive: "ada perbandingan tahun ada perbandingan bulan,
    bukan matrix tahun × tanggal") — one tile = one year, or one tile = one month.
-   Color: theme-aware surface → ember, normalized to the peak in view.
+   Color: theme-aware surface → warm glowing incandescent fire gradient.
    Honesty states preserved: retrieval-gap tiles are hatched and never zero-filled. */
 import type { Calendar } from "./api";
 
 type CalYearT = Calendar["years"][0];
 
-const MONTH_ABBR = ["Jan", "Feb", "Mar", "Apr", "Mei", "Jun", "Jul", "Agu", "Sep", "Okt", "Nov", "Des"];
+export const MONTHS_ID = ["Jan", "Feb", "Mar", "Apr", "Mei", "Jun", "Jul", "Agu", "Sep", "Okt", "Nov", "Des"];
+export const MONTHS_EN = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+export const MONTH_ABBR = MONTHS_ID;
 
 export type Tile = {
   key: string;
@@ -17,13 +19,46 @@ export type Tile = {
   days: number;        // positions in scope
   isGap: boolean;      // entire scope is retrieval gap
   fill: string;        // tile background
+  tier: number;        // -1 (gap), 0 (zero), 1..5 (intensity)
+  isPeak: boolean;
 };
 
-function fillFor(val: number, max: number): string {
-  if (val <= 0 || max <= 0) return "var(--surface)";
-  const t = val / max;
-  const intensity = t <= 0.25 ? 8 : t <= 0.5 ? 14 : t <= 0.75 ? 20 : t < 1 ? 26 : 32;
-  return `color-mix(in srgb, var(--ember) ${intensity}%, var(--surface))`;
+function assignTiers(raw: Omit<Tile, "tier" | "isPeak" | "fill">[]): Tile[] {
+  const nonGaps = raw.filter(t => !t.isGap && t.total > 0);
+  if (nonGaps.length === 0) {
+    return raw.map(t => ({
+      ...t,
+      fill: t.isGap ? "#DCDAD4" : "var(--surface)",
+      tier: t.isGap ? -1 : 0,
+      isPeak: false,
+    }));
+  }
+
+  const max = Math.max(...nonGaps.map(t => t.total));
+  const sortedValues = [...nonGaps.map(t => t.total)].sort((a, b) => a - b);
+
+  return raw.map(t => {
+    if (t.isGap) {
+      return { ...t, fill: "#DCDAD4", tier: -1, isPeak: false };
+    }
+    if (t.total <= 0) {
+      return { ...t, fill: "var(--surface)", tier: 0, isPeak: false };
+    }
+    if (t.total === max) {
+      return { ...t, fill: "", tier: 5, isPeak: true };
+    }
+
+    // Rank-based relative percentile among positive tiles for distinct visual contrast
+    const rank = sortedValues.indexOf(t.total);
+    const ratio = rank / Math.max(1, sortedValues.length - 1);
+    let tier = 1;
+    if (ratio >= 0.72) tier = 4;
+    else if (ratio >= 0.45) tier = 3;
+    else if (ratio >= 0.20) tier = 2;
+    else tier = 1;
+
+    return { ...t, fill: "", tier, isPeak: false };
+  });
 }
 
 function summarize(ps: CalYearT["positions"][]) {
@@ -45,25 +80,22 @@ export function yearTiles(years: CalYearT[], monthSel: string): Tile[] {
     const ps = y.positions.filter(p => monthSel === "all" || p.month_day.slice(0, 2) === monthSel);
     return { key: String(y.year), label: String(y.year), ...summarize([ps]) };
   });
-  const max = Math.max(0, ...raw.map(t => t.total));
-  return raw.map(t => ({ ...t, fill: t.isGap ? "#DCDAD4" : fillFor(t.total, max) }));
+  return assignTiers(raw);
 }
 
 /** One tile per month. yearSel ("all" | year) scopes which years aggregate in. */
-export function monthTiles(years: CalYearT[], yearSel: string): Tile[] {
+export function monthTiles(years: CalYearT[], yearSel: string, lang: "id" | "en" = "id"): Tile[] {
+  const months = lang === "en" ? MONTHS_EN : MONTHS_ID;
   const src = yearSel === "all" ? years : years.filter(y => String(y.year) === yearSel);
   const raw = Array.from({ length: 12 }, (_, m) => {
     const mm = String(m + 1).padStart(2, "0");
     const ps = src.map(y => y.positions.filter(p => p.month_day.slice(0, 2) === mm));
-    return { key: mm, label: MONTH_ABBR[m], ...summarize(ps) };
+    return { key: mm, label: months[m], ...summarize(ps) };
   });
-  const max = Math.max(0, ...raw.map(t => t.total));
-  return raw.map(t => ({ ...t, fill: t.isGap ? "#DCDAD4" : fillFor(t.total, max) }));
+  return assignTiers(raw);
 }
 
-export { MONTH_ABBR };
-
-/* ---- Raw-sensor tiles (user: "belom ada konteks atau milih buat viirs atau modis") ----
+/* ---- Raw-sensor tiles ----
    Built client-side from series.days — raw instrument scale, NOT MODIS-equivalent. */
 
 export type RawField = "raw_modis_frp_mw" | "raw_viirs_frp_mw";
@@ -87,8 +119,7 @@ function tilesFromDays(days: Day[], keyOf: (d: Day) => string, labelOf: (k: stri
     gapDays: g.gaps, days: g.count,
     isGap: g.count > 0 && g.gaps === g.count,
   }));
-  const max = Math.max(0, ...raw.map(t => t.total));
-  return raw.map(t => ({ ...t, fill: t.isGap ? "#DCDAD4" : fillFor(t.total, max) }));
+  return assignTiers(raw);
 }
 
 /** One tile per year, summed from the RAW sensor column (no harmonization). */
@@ -99,8 +130,9 @@ export function yearTilesFromDays(days: Day[], monthSel: string, field: RawField
 }
 
 /** One tile per month, summed from the RAW sensor column (no harmonization). */
-export function monthTilesFromDays(days: Day[], yearSel: string, field: RawField): Tile[] {
+export function monthTilesFromDays(days: Day[], yearSel: string, field: RawField, lang: "id" | "en" = "id"): Tile[] {
+  const months = lang === "en" ? MONTHS_EN : MONTHS_ID;
   return tilesFromDays(
     days.filter(d => yearSel === "all" || d.date.slice(0, 4) === yearSel),
-    d => d.date.slice(5, 7), k => MONTH_ABBR[Number(k) - 1], field);
+    d => d.date.slice(5, 7), k => months[Number(k) - 1], field);
 }

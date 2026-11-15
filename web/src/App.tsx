@@ -1,7 +1,7 @@
 import React, { createContext, lazy, Suspense, useContext, useEffect, useState } from "react";
 import { motion, MotionConfig } from "framer-motion";
 import { api, Series } from "./api";
-import { HomeIcon, MapIcon, CalendarIcon, CrisisIcon, ChartIcon, ResearchIcon, FlameMark, SunIcon, MoonIcon, GlobeIcon } from "./components/Icons";
+import { HomeIcon, MapIcon, CalendarIcon, CrisisIcon, ChartIcon, ResearchIcon, FlameMark, ContrastThemeIcon } from "./components/Icons";
 import { getTranslation, Lang, TranslationKey } from "./i18n";
 import Overview from "./screens/Overview";
 import CalendarScreen from "./screens/CalendarScreen";
@@ -149,33 +149,22 @@ export default function App() {
 
             <div className="topbar-actions">
               <button
-                className="glossary-trigger"
-                onClick={() => setTab("methodology")}
-                title={lang === "id" ? "Buka glosarium dan definisi istilah sains" : "Inspect plain-language definitions for every scientific term"}
-              >
-                <ResearchIcon /> <span>{t("nav_glossary")}</span>
-              </button>
-
-              <button
-                className="lang-toggle"
+                className="lang-toggle-btn"
                 onClick={toggleLang}
                 title={t("nav_lang_toggle")}
                 aria-label={t("nav_lang_toggle")}
               >
-                <GlobeIcon width={14} height={14} />
-                <span className={`lang-code ${lang === "id" ? "active" : ""}`}>ID</span>
-                <span className="lang-sep">/</span>
-                <span className={`lang-code ${lang === "en" ? "active" : ""}`}>EN</span>
+                {lang === "id" ? "ID" : "EN"}
               </button>
 
               <button
-                className="theme-toggle"
+                className="theme-toggle-btn"
                 onClick={toggleTheme}
                 title={theme === "dark" ? t("nav_theme_light") : t("nav_theme_dark")}
                 aria-label={theme === "dark" ? t("nav_theme_light") : t("nav_theme_dark")}
                 aria-pressed={theme === "dark"}
               >
-                {theme === "dark" ? <SunIcon /> : <MoonIcon />}
+                <ContrastThemeIcon />
               </button>
             </div>
           </header>
