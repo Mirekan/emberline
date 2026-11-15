@@ -181,12 +181,11 @@ export default function FireMap() {
   const [gridError, setGridError] = useState("");
   const [selectedCell, setSelectedCell] = useState<GridCell | null>(null);
   const [det, setDet] = useState<Detections | null>(null);
-  const [detOn, setDetOn] = useState(false);
+  const [detOn, setDetOn] = useState(true); // Default ON: FIRMS dots are immediately rendered on map load
   const [detLoading, setDetLoading] = useState(false);
   const [detError, setDetError] = useState("");
-  const [detYear, setDetYear] = useState("all"); // Default to all years for full hotspot coverage
+  const [detYear, setDetYear] = useState("2026"); // Default to 2026 on initial load to prevent overcrowding
   const [detSensor, setDetSensor] = useState<"all" | "modis" | "viirs">("all");
-  const [mapTheme, setMapTheme] = useState<"dark" | "osm">("dark");
   const [isFs, setIsFs] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const [mapReady, setMapReady] = useState(false);
@@ -253,16 +252,6 @@ export default function FireMap() {
     return { center: [-2.5, 118.0], zoom: 5 }; // Whole Indonesia center
   };
 
-  // Switch basemap layer dynamically
-  useEffect(() => {
-    if (!tileLayerRef.current) return;
-    if (mapTheme === "dark") {
-      tileLayerRef.current.setUrl("https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}");
-    } else {
-      tileLayerRef.current.setUrl("https://tile.openstreetmap.org/{z}/{x}/{y}.png");
-    }
-  }, [mapTheme]);
-
   // Initialize Map locked to Indonesia territory (no global wander, seamless tiles)
   useEffect(() => {
     if (!mapEl.current || mapRef.current) return;
@@ -296,15 +285,11 @@ export default function FireMap() {
 
     L.control.zoom({ position: "topright" }).addTo(map);
 
-    // Fast basemap with 3-tile buffer: avoids loading ~900 tiles in fullscreen
+    // Fast Topography basemap (OpenStreetMap) with 3-tile buffer
     const tileLayer = L.tileLayer(
-      mapTheme === "dark"
-        ? "https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}"
-        : "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+      "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
       {
-        attribution: mapTheme === "dark"
-          ? "Esri, HERE, Garmin, OpenStreetMap contributors"
-          : "© OpenStreetMap contributors",
+        attribution: "© OpenStreetMap contributors",
         maxZoom: 13,
         minZoom: 5,
         keepBuffer: 3,           // Fast 3-tile buffer: massive performance gain on fullscreen displays
@@ -574,7 +559,7 @@ export default function FireMap() {
 
   const detYears = useMemo(() => {
     if (!det) return [];
-    return [...new Set(det.detections.map(d => d.date.slice(0, 4)))].sort();
+    return [...new Set(det.detections.map(d => d.date.slice(0, 4)))].sort((a, b) => b.localeCompare(a));
   }, [det]);
 
   const flyTo = (r: (typeof REGIONS)[number]) => {
@@ -765,30 +750,6 @@ export default function FireMap() {
             placeholder={t("map_search_placeholder")}
             style={{ width: "100%", borderRadius: 8, padding: "8px 12px" }}
           />
-          {/* Basemap switcher */}
-          <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginTop: 8, fontSize: 11, color: "var(--ink2)" }}>
-            <span>{t("map_basemap")}</span>
-            <div style={{ display: "flex", gap: 4 }}>
-              <button
-                type="button"
-                className={"seg-btn" + (mapTheme === "dark" ? " active" : "")}
-                style={{ fontSize: 10.5, padding: "2px 8px" }}
-                onClick={() => setMapTheme("dark")}
-                aria-pressed={mapTheme === "dark"}
-              >
-                {t("map_basemap_dark")}
-              </button>
-              <button
-                type="button"
-                className={"seg-btn" + (mapTheme === "osm" ? " active" : "")}
-                style={{ fontSize: 10.5, padding: "2px 8px" }}
-                onClick={() => setMapTheme("osm")}
-                aria-pressed={mapTheme === "osm"}
-              >
-                {t("map_basemap_osm")}
-              </button>
-            </div>
-          </div>
         </div>
 
         {calFilter && (
@@ -887,9 +848,9 @@ export default function FireMap() {
                   style={{ flex: 1, minWidth: 0 }}
                   onChange={e => setDetYear(e.target.value)}
                 >
-                  <option value="all">Semua Tahun</option>
+                  <option value="all">{t("map_time_all")}</option>
                   {detYears.map(y => (
-                    <option key={y} value={y}>{y}</option>
+                    <option key={y} value={y}>{lang === "id" ? `Tahun ${y}` : `Year ${y}`}</option>
                   ))}
                 </select>
                 <select
