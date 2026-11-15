@@ -348,6 +348,11 @@ export default function FireMap() {
   const [keySavedStatus, setKeySavedStatus] = useState<string | null>(null);
   const lastClickedDetectionRef = useRef<Detection | null>(null);
   const aiDrawerRef = useRef<HTMLDivElement>(null);
+  const langRef = useRef(lang);
+
+  useEffect(() => {
+    langRef.current = lang;
+  }, [lang]);
 
   const visibleRowsRef = useRef<Detection[]>([]);
 
@@ -366,10 +371,11 @@ export default function FireMap() {
         region: selName || aoi,
         question: customQuestion || undefined,
         api_key: grokApiKey.trim() || undefined,
+        lang: lang,
       });
       setAiResponse(res);
     } catch (err: any) {
-      setAiError(err?.message || "Gagal menghubungi layanan analisis satelit AI.");
+      setAiError(err?.message || (lang === "id" ? "Gagal menghubungi layanan analisis satelit AI." : "Failed to connect to AI satellite telemetry service."));
     } finally {
       setAiLoading(false);
     }
@@ -413,7 +419,7 @@ export default function FireMap() {
     return () => {
       delete (window as any).__emberline_open_ai_analyzer;
     };
-  }, [grokApiKey, selName, aoi]);
+  }, [grokApiKey, selName, aoi, lang]);
 
   // Sync selected region name when global AOI changes
   useEffect(() => {
@@ -545,24 +551,39 @@ export default function FireMap() {
         lastClickedDetectionRef.current = nearest;
         setSelectedDetection(nearest);
         const isViirs = nearest.sensor === "viirs";
+        const isEn = langRef.current === "en";
+        const overpassText = nearest.daynight === "D"
+          ? (isEn ? "Day overpass (~13:30 LT)" : "Lintasan siang (~13:30 LT)")
+          : (isEn ? "Night overpass (~01:30 LT)" : "Lintasan malam (~01:30 LT)");
+        const precisionText = isEn
+          ? `FIRMS coordinate precision (${isViirs ? "375 m" : "1,000 m"})`
+          : `Presisi koordinat FIRMS (${isViirs ? "375 m" : "1.000 m"})`;
+        const caveatText = isEn
+          ? "Spaceborne observation pixel — not proof of physical fire perimeter."
+          : "Piksel observasi satelit — bukan klaim batas fisik kebakaran.";
+        const askAiButtonText = isEn
+          ? "Ask AI (Satellite Telemetry) &rarr;"
+          : "Tanya AI (Grok Telemetry) &rarr;";
+        const confText = isEn ? "Confidence" : "Keyakinan";
+
         L.popup({ autoPan: false, closeButton: true })
           .setLatLng([nearest.lat, nearest.lon])
           .setContent(
             `<div style="font-size:12px; min-width:210px; line-height:1.5; font-family:var(--font-sans, system-ui);">
               <div style="font-weight:700; color:${isViirs ? "#EF4444" : "#2563EB"}; margin-bottom:4px; display:flex; align-items:center; justify-content:space-between;">
                 <span>${isViirs ? "VIIRS 375m (S-NPP)" : "MODIS 1km (Aqua)"}</span>
-                <span style="font-size:10px; padding:1px 6px; background:rgba(128,128,128,0.15); border-radius:4px; font-weight:600;">Conf: ${nearest.conf}</span>
+                <span style="font-size:10px; padding:1px 6px; background:rgba(128,128,128,0.15); border-radius:4px; font-weight:600;">${confText}: ${nearest.conf}</span>
               </div>
               <div style="font-size:12px;">FRP: <b>${nearest.frp.toFixed(2)} MW</b></div>
-              <div style="font-size:11.5px; color:#666;">${nearest.date} · ${nearest.daynight === "D" ? "Day overpass" : "Night overpass"}</div>
+              <div style="font-size:11.5px; color:#666;">${nearest.date} · ${overpassText}</div>
               <div style="font-size:11px; font-family:monospace; color:#222; background:rgba(0,0,0,0.06); padding:2px 6px; border-radius:4px; margin-top:4px;">
                 Lat: <b>${nearest.lat.toFixed(5)}°</b> · Lon: <b>${nearest.lon.toFixed(5)}°</b>
               </div>
               <div style="font-size:10px; color:#22c55e; font-weight:600; margin-top:4px;">
-                Presisi koordinat FIRMS (${isViirs ? "375 m" : "1.000 m"})
+                ${precisionText}
               </div>
               <div style="font-size:10px; color:#888; margin-top:4px; border-top:1px dashed rgba(128,128,128,0.3); padding-top:4px; line-height:1.3;">
-                Piksel observasi satelit — bukan klaim batas fisik kebakaran.
+                ${caveatText}
               </div>
               <button
                 type="button"
@@ -585,7 +606,7 @@ export default function FireMap() {
                   gap:6px;
                 "
               >
-                Tanya AI (Grok Telemetry) &rarr;
+                ${askAiButtonText}
               </button>
             </div>`
           )
@@ -1393,7 +1414,9 @@ export default function FireMap() {
           padding: "5px 12px", fontSize: 11,
         }}
       >
-        Hotspot = observasi termal satelit, bukan kepastian kebakaran fisik · Radius ∝ FRP (MW)
+        {lang === "id"
+          ? "Hotspot = observasi termal satelit, bukan kepastian kebakaran fisik · Radius ∝ FRP (MW)"
+          : "Hotspot = spaceborne thermal observation, not proof of physical fire · Radius ∝ FRP (MW)"}
       </span>
 
       {/* Floating Shortcut to Open AI Drawer if Hotspot is Selected and Drawer is Closed */}
@@ -1405,13 +1428,13 @@ export default function FireMap() {
             setIsAiDrawerOpen(true);
             triggerAiAnalysis(selectedDetection);
           }}
-          title="Buka panel analisis telemetri satelit AI untuk titik ini"
+          title={lang === "id" ? "Buka panel analisis telemetri satelit AI untuk titik ini" : "Open AI satellite telemetry analysis panel for this hotspot"}
         >
           <span>
-            Titik Terpilih: {selectedDetection.sensor === "viirs" ? "VIIRS" : "MODIS"} {selectedDetection.frp.toFixed(1)} MW
+            {lang === "id" ? "Titik Terpilih" : "Selected Hotspot"}: {selectedDetection.sensor === "viirs" ? "VIIRS" : "MODIS"} {selectedDetection.frp.toFixed(1)} MW
           </span>
           <span>·</span>
-          <span>Tanya AI (Grok) &rarr;</span>
+          <span>{lang === "id" ? "Tanya AI (Grok) →" : "Ask AI (Telemetry) →"}</span>
         </button>
       )}
 
@@ -1420,31 +1443,35 @@ export default function FireMap() {
         <div ref={aiDrawerRef} className="ai-drawer-container">
           <div className="ai-drawer-header">
             <div>
-              <div className="ai-drawer-title">Analisis Telemetri Satelit AI</div>
-              <div className="ai-drawer-subtitle">Didukung oleh Groq / xAI Grok & FIRMS Climatology</div>
+              <div className="ai-drawer-title">
+                {lang === "id" ? "Analisis Telemetri Satelit AI" : "AI Satellite Telemetry Analysis"}
+              </div>
+              <div className="ai-drawer-subtitle">
+                {lang === "id" ? "Didukung oleh Groq / xAI Grok & FIRMS Climatology" : "Powered by Groq / xAI Grok & FIRMS Climatology"}
+              </div>
             </div>
             <div className="ai-header-actions">
               <button
                 type="button"
                 className={"ai-btn-key active"}
                 onClick={() => setApiKeySettingsOpen(o => !o)}
-                title="Konfigurasi API Key Groq / Grok"
+                title={lang === "id" ? "Konfigurasi API Key Groq / Grok" : "Configure Groq / Grok API Key"}
               >
                 <span>
                   {aiResponse?.provider === "groq"
-                    ? "Groq Cloud (Aktif)"
+                    ? (lang === "id" ? "Groq Cloud (Aktif)" : "Groq Cloud (Active)")
                     : aiResponse?.provider === "grok"
-                    ? "xAI Grok (Aktif)"
+                    ? (lang === "id" ? "xAI Grok (Aktif)" : "xAI Grok (Active)")
                     : grokApiKey
-                    ? "API Key (Kustom)"
-                    : "Groq Cloud (.env)"}
+                    ? (lang === "id" ? "API Key (Kustom)" : "API Key (Custom)")
+                    : (lang === "id" ? "Groq Cloud (.env)" : "Groq Cloud (.env)")}
                 </span>
               </button>
               <button
                 type="button"
                 className="ai-btn-close"
                 onClick={() => setIsAiDrawerOpen(false)}
-                title="Tutup Panel Analisis"
+                title={lang === "id" ? "Tutup Panel Analisis" : "Close Analysis Panel"}
               >
                 ✕
               </button>
@@ -1454,16 +1481,20 @@ export default function FireMap() {
           {apiKeySettingsOpen && (
             <div className="ai-settings-card">
               <div style={{ fontWeight: 600, color: "var(--ink)", marginBottom: 4 }}>
-                Pengaturan API Key (Groq Cloud / xAI Grok)
+                {lang === "id" ? "Pengaturan API Key (Groq Cloud / xAI Grok)" : "API Key Settings (Groq Cloud / xAI Grok)"}
               </div>
               <div style={{ color: "var(--ink3)", fontSize: 11, lineHeight: 1.4 }}>
-                Mendukung <b>Groq</b> (<code>gsk_...</code>) dan <b>xAI Grok</b> (<code>xai-...</code>). Key tersimpan di peramban lokal (localStorage). Sistem juga membaca file <code>.env</code> (GROK_API_KEY / GROQ_API_KEY). Jika dikosongkan, modul telemetri satelit internal tetap aktif.
+                {lang === "id" ? (
+                  <>Mendukung <b>Groq</b> (<code>gsk_...</code>) dan <b>xAI Grok</b> (<code>xai-...</code>). Key tersimpan di peramban lokal (localStorage). Sistem juga membaca file <code>.env</code> (GROK_API_KEY / GROQ_API_KEY). Jika dikosongkan, modul telemetri satelit internal tetap aktif.</>
+                ) : (
+                  <>Supports <b>Groq</b> (<code>gsk_...</code>) and <b>xAI Grok</b> (<code>xai-...</code>). Key is stored in local browser (localStorage). The system also reads <code>.env</code> (GROK_API_KEY / GROQ_API_KEY). If left empty, internal satellite telemetry heuristic remains active.</>
+                )}
               </div>
               <div className="ai-settings-input-group">
                 <input
                   type="password"
                   className="ai-settings-input"
-                  placeholder="gsk_... (Groq) atau xai-... (Grok)"
+                  placeholder={lang === "id" ? "gsk_... (Groq) atau xai-... (Grok)" : "gsk_... (Groq) or xai-... (Grok)"}
                   value={apiKeyInput}
                   onChange={(e) => setApiKeyInput(e.target.value)}
                 />
@@ -1479,7 +1510,7 @@ export default function FireMap() {
                     setTimeout(() => setKeySavedStatus(null), 2500);
                   }}
                 >
-                  Simpan
+                  {lang === "id" ? "Simpan" : "Save"}
                 </button>
                 {grokApiKey && (
                   <button
@@ -1494,12 +1525,14 @@ export default function FireMap() {
                       setTimeout(() => setKeySavedStatus(null), 2500);
                     }}
                   >
-                    Hapus
+                    {lang === "id" ? "Hapus" : "Remove"}
                   </button>
                 )}
               </div>
               {keySavedStatus && (
-                <div style={{ fontSize: 10.5, color: "#10B981", fontWeight: 600 }}>{keySavedStatus}</div>
+                <div style={{ fontSize: 10.5, color: "#10B981", fontWeight: 600 }}>
+                  {keySavedStatus === "Tersimpan!" ? (lang === "id" ? "Tersimpan!" : "Saved!") : (lang === "id" ? "Dihapus" : "Removed")}
+                </div>
               )}
             </div>
           )}
@@ -1508,7 +1541,7 @@ export default function FireMap() {
             {/* Hotspot details badge card */}
             <div className="ai-hotspot-card">
               <div style={{ fontSize: 11, fontWeight: 700, color: "var(--ink)" }}>
-                Parameter Observasi Radiometrik
+                {lang === "id" ? "Parameter Observasi Radiometrik" : "Radiometric Observation Parameters"}
               </div>
               <div className="ai-badge-row">
                 <span className={"ai-badge " + (selectedDetection.sensor === "viirs" ? "ai-badge-viirs" : "ai-badge-modis")}>
@@ -1518,13 +1551,13 @@ export default function FireMap() {
                   FRP: {selectedDetection.frp.toFixed(2)} MW
                 </span>
                 <span className="ai-badge ai-badge-dim">
-                  {selectedDetection.date} · {selectedDetection.daynight === "D" ? "Siang (Day)" : "Malam (Night)"}
+                  {selectedDetection.date} · {selectedDetection.daynight === "D" ? (lang === "id" ? "Siang (Day)" : "Day Overpass") : (lang === "id" ? "Malam (Night)" : "Night Overpass")}
                 </span>
                 <span className="ai-badge ai-badge-dim">
                   Lat: {selectedDetection.lat.toFixed(5)}° · Lon: {selectedDetection.lon.toFixed(5)}°
                 </span>
                 <span className="ai-badge ai-badge-dim">
-                  Keyakinan: {selectedDetection.conf}
+                  {lang === "id" ? `Keyakinan: ${selectedDetection.conf}` : `Confidence: ${selectedDetection.conf}`}
                 </span>
               </div>
             </div>
@@ -1532,15 +1565,20 @@ export default function FireMap() {
             {/* Quick Prompts */}
             <div className="ai-prompt-container">
               <div style={{ fontSize: 11, fontWeight: 600, color: "var(--ink2)" }}>
-                Pertanyaan Cepat untuk AI:
+                {lang === "id" ? "Pertanyaan Cepat untuk AI:" : "Quick Inquiries for AI:"}
               </div>
               <div className="ai-chips-list">
-                {[
+                {(lang === "id" ? [
                   "Kenapa titik ini terbakar?",
                   "Kondisi lahan gambut & kerentanan",
                   "Analisis intensitas radiasi FRP",
                   "Korelasi musim kemarau & El Niño",
-                ].map((promptChip) => (
+                ] : [
+                  "Why was this hotspot detected?",
+                  "Peatland condition & vulnerability",
+                  "FRP radiative power analysis",
+                  "Correlation with dry season & El Niño",
+                ]).map((promptChip) => (
                   <button
                     key={promptChip}
                     type="button"
@@ -1560,7 +1598,7 @@ export default function FireMap() {
                 <input
                   type="text"
                   className="ai-text-input"
-                  placeholder="Tanyakan hal lain seputar titik ini..."
+                  placeholder={lang === "id" ? "Tanyakan hal lain seputar titik ini... (misal: Kenapa terdeteksi?)" : "Ask a satellite telemetry question... (e.g. Why was this detected?)"}
                   value={aiQuestion}
                   onChange={(e) => setAiQuestion(e.target.value)}
                   onKeyDown={(e) => {
@@ -1575,7 +1613,7 @@ export default function FireMap() {
                   onClick={() => triggerAiAnalysis(selectedDetection, aiQuestion)}
                   disabled={aiLoading}
                 >
-                  {aiLoading ? "Memproses..." : "Kirim"}
+                  {aiLoading ? (lang === "id" ? "Memproses..." : "Processing...") : (lang === "id" ? "Kirim" : "Send")}
                 </button>
               </div>
             </div>
@@ -1584,10 +1622,12 @@ export default function FireMap() {
             {aiLoading && (
               <div className="ai-response-box" style={{ textAlign: "center", padding: "28px 16px" }}>
                 <div style={{ fontWeight: 600, color: "var(--ink)", marginBottom: 6 }}>
-                  Menganalisis Telemetri Satelit...
+                  {lang === "id" ? "Menganalisis Telemetri Satelit..." : "Analyzing Satellite Telemetry..."}
                 </div>
                 <div style={{ fontSize: 11, color: "var(--ink3)" }}>
-                  Menggabungkan bioma spasial, hidrologi gambut, data ENSO/IOD, dan radiasi sensor.
+                  {lang === "id"
+                    ? "Menggabungkan bioma spasial, hidrologi gambut, data ENSO/IOD, dan radiasi sensor."
+                    : "Synthesizing spatial biome, peat hydrology, ENSO/IOD data, and sensor radiative power."}
                 </div>
               </div>
             )}
@@ -1595,7 +1635,7 @@ export default function FireMap() {
             {aiError && !aiLoading && (
               <div className="ai-response-box" style={{ borderColor: "#EF4444", background: "rgba(239,68,68,0.06)" }}>
                 <div style={{ fontWeight: 600, color: "#EF4444", marginBottom: 4 }}>
-                  Kendala Komunikasi AI
+                  {lang === "id" ? "Kendala Komunikasi AI" : "AI Communication Issue"}
                 </div>
                 <div style={{ fontSize: 11.5, color: "var(--ink2)", marginBottom: 8 }}>
                   {aiError}
@@ -1606,7 +1646,7 @@ export default function FireMap() {
                   style={{ background: "var(--surface)", border: "1px solid var(--line)", fontSize: 11, padding: "4px 10px" }}
                   onClick={() => triggerAiAnalysis(selectedDetection, aiQuestion)}
                 >
-                  Coba Lagi
+                  {lang === "id" ? "Coba Lagi" : "Retry"}
                 </button>
               </div>
             )}
@@ -1619,10 +1659,10 @@ export default function FireMap() {
                       ? `Groq Cloud (${aiResponse.model})`
                       : aiResponse.provider === "grok"
                       ? `xAI Grok (${aiResponse.model})`
-                      : "Telemetri Satelit Heuristik"}
+                      : (lang === "id" ? "Telemetri Satelit Heuristik" : "Heuristic Satellite Telemetry")}
                   </span>
                   <span style={{ fontSize: 10, color: "var(--ink3)" }}>
-                    Sesuai Kaidah Kontrak Sains
+                    {lang === "id" ? "Sesuai Kaidah Kontrak Sains" : "Scientific Contract Honesty"}
                   </span>
                 </div>
 
@@ -1630,10 +1670,14 @@ export default function FireMap() {
                 <div className="ai-direct-answer-container">
                   <div className="ai-direct-answer-header">
                     <span className="ai-direct-answer-badge">
-                      Jawaban Analisis AI ({aiResponse.provider === "groq" ? "Groq GPT-OSS" : aiResponse.provider === "grok" ? "xAI Grok" : "Telemetri Satelit"})
+                      {lang === "id"
+                        ? `Jawaban Analisis AI (${aiResponse.provider === "groq" ? "Groq GPT-OSS" : aiResponse.provider === "grok" ? "xAI Grok" : "Telemetri Satelit"})`
+                        : `AI Analysis Answer (${aiResponse.provider === "groq" ? "Groq GPT-OSS" : aiResponse.provider === "grok" ? "xAI Grok" : "Satellite Telemetry"})`}
                     </span>
                     <span style={{ fontSize: 10.5, color: "var(--ink3)" }}>
-                      {aiQuestion ? `Pertanyaan: "${aiQuestion}"` : "Analisis Telemetri"}
+                      {aiQuestion
+                        ? (lang === "id" ? `Pertanyaan: "${aiQuestion}"` : `Inquiry: "${aiQuestion}"`)
+                        : (lang === "id" ? "Analisis Telemetri" : "Telemetry Analysis")}
                     </span>
                   </div>
                   <div className="ai-direct-answer-body">
@@ -1645,24 +1689,24 @@ export default function FireMap() {
                 {aiResponse.telemetry_context && (
                   <div style={{ marginTop: 14, paddingTop: 10, borderTop: "1px dashed var(--line)" }}>
                     <div style={{ fontSize: 11, fontWeight: 700, color: "var(--ink2)", marginBottom: 8, display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-                      <span>Parameter Biofisik & Konteks Satelit:</span>
+                      <span>{lang === "id" ? "Parameter Biofisik & Konteks Satelit:" : "Biophysical Parameters & Satellite Context:"}</span>
                       <span style={{ fontSize: 10, color: "var(--ink3)", fontWeight: 500 }}>NASA FIRMS C6.1 / VNP14IMG</span>
                     </div>
                     <div className="ai-context-grid">
                       <div className="ai-context-tile">
-                        <div className="ai-context-label">Bioma & Ekosistem</div>
+                        <div className="ai-context-label">{lang === "id" ? "Bioma & Ekosistem" : "Biome & Ecosystem"}</div>
                         <div className="ai-context-value">{aiResponse.telemetry_context.biome}</div>
                       </div>
                       <div className="ai-context-tile">
-                        <div className="ai-context-label">Kerentanan Gambut</div>
+                        <div className="ai-context-label">{lang === "id" ? "Kerentanan Gambut" : "Peat Susceptibility"}</div>
                         <div className="ai-context-value">{aiResponse.telemetry_context.peatland_susceptibility}</div>
                       </div>
                       <div className="ai-context-tile">
-                        <div className="ai-context-label">Siklus Iklim</div>
+                        <div className="ai-context-label">{lang === "id" ? "Siklus Iklim" : "Climate Cycle"}</div>
                         <div className="ai-context-value">{aiResponse.telemetry_context.seasonal_climate}</div>
                       </div>
                       <div className="ai-context-tile">
-                        <div className="ai-context-label">Resolusi & Radiasi</div>
+                        <div className="ai-context-label">{lang === "id" ? "Resolusi & Radiasi" : "Resolution & Radiance"}</div>
                         <div className="ai-context-value">{aiResponse.telemetry_context.frp_interpretation}</div>
                       </div>
                     </div>
@@ -1671,7 +1715,7 @@ export default function FireMap() {
 
                 {aiResponse.note && (
                   <div style={{ fontSize: 10.5, color: "var(--ink3)", marginTop: 10, fontStyle: "italic", borderTop: "1px solid var(--line)", paddingTop: 6 }}>
-                    Catatan: {aiResponse.note}
+                    {lang === "id" ? "Catatan:" : "Note:"} {aiResponse.note}
                   </div>
                 )}
               </div>
@@ -1680,7 +1724,9 @@ export default function FireMap() {
 
           {/* Bottom Honesty Guardrail */}
           <div style={{ padding: "8px 14px", background: "var(--sunken)", borderTop: "1px solid var(--line)", fontSize: 10, color: "var(--ink3)", lineHeight: 1.3 }}>
-            Sensor antariksa merekam pancaran radiasi gelombang elektromagnetik. Penentuan penyebab fisik di darat memerlukan pemeriksaan lapangan langsung.
+            {lang === "id"
+              ? "Sensor antariksa merekam pancaran radiasi gelombang elektromagnetik. Penentuan penyebab fisik di darat memerlukan pemeriksaan lapangan langsung."
+              : "Spaceborne sensors record electromagnetic wave radiation emissions. Determining physical ground causation strictly requires direct field inspection."}
           </div>
         </div>
       )}

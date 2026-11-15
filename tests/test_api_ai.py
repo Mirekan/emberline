@@ -75,6 +75,48 @@ class TestAIHotspotAnalyzer(unittest.TestCase):
         self.assertEqual(data["provider"], "heuristic")
         self.assertIn("dialihkan ke telemetri satelit", data["note"])
 
+    def test_api_endpoint_english_language_support(self):
+        from unittest.mock import patch
+        with patch("api.app._get_grok_key", return_value=(None, "heuristic")):
+            resp = self.client.post("/api/ai/analyze-hotspot", json={
+                "lat": 0.73494,
+                "lon": 102.88028,
+                "date": "2017-09-28",
+                "frp": 69.52,
+                "sensor": "viirs",
+                "conf": "h",
+                "daynight": "N",
+                "question": "why was this hotspot detected?",
+                "lang": "en",
+            })
+            self.assertEqual(resp.status_code, 200)
+            data = resp.json()
+            self.assertEqual(data["status"], "success")
+            self.assertEqual(data["provider"], "heuristic")
+            self.assertIn("Eastern Coast of Sumatra", data["analysis"])
+            self.assertIn("Tropical Deep Peatland", data["telemetry_context"]["biome"])
+            self.assertIn("NASA FIRMS Satellite Telemetry Report", data["analysis"])
+
+    def test_api_endpoint_indonesian_language_default(self):
+        from unittest.mock import patch
+        with patch("api.app._get_grok_key", return_value=(None, "heuristic")):
+            resp = self.client.post("/api/ai/analyze-hotspot", json={
+                "lat": 0.73494,
+                "lon": 102.88028,
+                "date": "2017-09-28",
+                "frp": 69.52,
+                "sensor": "viirs",
+                "conf": "h",
+                "daynight": "N",
+                "lang": "id",
+            })
+            self.assertEqual(resp.status_code, 200)
+            data = resp.json()
+            self.assertEqual(data["status"], "success")
+            self.assertEqual(data["provider"], "heuristic")
+            self.assertIn("Pesisir Timur Sumatra", data["analysis"])
+            self.assertIn("Lahan Gambut Tropis", data["telemetry_context"]["biome"])
+
 
 if __name__ == "__main__":
     unittest.main()
