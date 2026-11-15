@@ -30,6 +30,7 @@ human, that limitation is disclosed here (small-team day-1 condition).**
 | DEC-5 | Official brief + deadline timezone — STILL UNRESOLVED (A-01 not yet confirmed by organizer); claims language stays conservative until then | A-01 | OPEN |
 | DEC-6 | **Method selection outcome (G2 fail action, §6.4): B1 training-fitted ratio = accepted harmonization (published series); B2 monotone mapping = NEGATIVE RESULT on held-out data (worse than B1 on both AOIs), kept visible in artifacts/method page/demo. No held-out tuning occurred — split & methods frozen pre-results.** | real G2 metrics (docs/validation.md) | APPROVED 14 Nov (protocol-mandated fail action) |
 | AOI-PRESETS | Indonesia-only five (riau, central_kalimantan, south_sumatra, jambi, merauke) replace plan's global candidates | B-02 delivery + density probe plan | APPROVED 14 Nov |
+| AOI-PRESETS-EXPANSION | **Full-Indonesia mosaic: +12 tile AOIs** (kalbar, kaltim, papua_selatan, sulsel, ntt, ntb, sumut_aceh, lampung — tier A; papua_barat, maluku, jawa, bengkulu_barat — tier C probe-first), era profile (b) 2018-01-01..2026-07-31 per tile (straddles frozen split → full harmonization science per tile); fetch on Azure parallel, one ledger per tile. Statuses per tile stay honest (thin-density tiles may be `insufficient` — recorded, never padded) | A instructed in session; config/aois.yaml updated + docs/azure_fetch_runbook.md | APPROVED 14 Nov |
 
 ## Integration decisions
 
