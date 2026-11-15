@@ -14,7 +14,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
-from pipeline import calendar, windows  # noqa: E402
+from pipeline import calendar_climatology as calendar, windows  # noqa: E402
 from tests.test_calendar import harmonized_rows, write_csv  # noqa: E402
 
 REAL_CLIM = None  # real fixture path checked dynamically below

@@ -23,7 +23,7 @@ from pathlib import Path
 import numpy as np
 
 from pipeline.baselines import PROTOCOL_VERSION
-from pipeline.calendar import month_day_of
+from pipeline.calendar_climatology import month_day_of
 
 DEFAULT_THRESHOLD_PERCENTILE = 75
 MIN_RUN_DAYS = 3

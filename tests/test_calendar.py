@@ -18,7 +18,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
-from pipeline import calendar  # noqa: E402
+from pipeline import calendar_climatology as calendar  # noqa: E402
 
 REAL_HARM = Path(__file__).resolve().parents[1] / "artifacts/riau/harmonized_daily.csv"
 
