@@ -310,7 +310,7 @@ select {
   padding: 8px 28px;
   position: sticky;
   top: 0;
-  z-index: 60;
+  z-index: 2000;
   background: color-mix(in srgb, var(--surface) 88%, transparent);
   backdrop-filter: blur(14px) saturate(150%);
   -webkit-backdrop-filter: blur(14px) saturate(150%);
@@ -529,6 +529,40 @@ select {
 
 .content-flush {
   padding: 0;
+}
+
+/* FireMap Viewport Locked GIS Workstation Layout */
+.app-firemap-view {
+  height: 100vh;
+  height: 100dvh;
+  max-height: 100vh;
+  max-height: 100dvh;
+  overflow: hidden;
+}
+
+.app-firemap-view .content,
+.app-firemap-view .content-firemap {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  overflow: hidden;
+}
+
+.app-firemap-view .screen-fade,
+.app-firemap-view .firemap-screen-fade,
+.app-firemap-view .firemap-motion-wrap {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.app-firemap-view .footer {
+  flex-shrink: 0;
+  padding: 10px 24px 12px;
 }
 
 .content-overview {

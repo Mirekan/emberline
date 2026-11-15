@@ -111,10 +111,14 @@ export default function App() {
     return () => { cancelled = true; };
   }, [aoi, tab]);
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [tab]);
+
   return (
     <AoiContext.Provider value={{ aoi, setAoi, series, theme, calFilter, setCalFilter, lang, setLang, toggleLang, t }}>
       <MotionConfig reducedMotion="user">
-        <div className="app">
+        <div className={"app" + (tab === "firemap" ? " app-firemap-view" : "")}>
           {tab === "overview" && (
             <Suspense fallback={<div className="ember-stage" aria-hidden="true"><div className="ember-stage-fallback" /></div>}>
               <EmberStage theme={theme} />
@@ -168,8 +172,8 @@ export default function App() {
             </div>
           </header>
 
-          <main className={"content" + (tab === "firemap" ? " content-flush" : "") + (tab === "overview" ? " content-overview" : "")}>
-            <div key={tab} className="screen-fade">
+          <main className={"content" + (tab === "firemap" ? " content-flush content-firemap" : "") + (tab === "overview" ? " content-overview" : "")}>
+            <div key={tab} className={"screen-fade" + (tab === "firemap" ? " firemap-screen-fade" : "")}>
               {error && tab === "analytics" && (
                 <div className="status-panel failed" style={{ marginBottom: 20 }}>
                   <div className="status-title">{t("err_not_available")}</div>
@@ -187,6 +191,7 @@ export default function App() {
               )}
               <motion.div
                 key={tab}
+                className={tab === "firemap" ? "firemap-motion-wrap" : undefined}
                 initial={{ opacity: 0, y: 8 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ type: "spring", stiffness: 320, damping: 30 }}
