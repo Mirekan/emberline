@@ -478,6 +478,46 @@ export default function FireMap({ goCalendar }: { goCalendar: () => void }) {
   const aiAnswerRef = useRef<HTMLDivElement>(null);
   const langRef = useRef(lang);
 
+  const activeAiReqIdRef = useRef<number>(0);
+  const activeDetIdRef = useRef<string | null>(null);
+  const isMountedRef = useRef<boolean>(true);
+  const isAiDrawerOpenRef = useRef<boolean>(false);
+
+  const getDetectionId = (d: Detection | null) => {
+    if (!d) return "";
+    return `${d.date}_${d.lat.toFixed(5)}_${d.lon.toFixed(5)}_${d.sensor}_${d.frp.toFixed(2)}`;
+  };
+
+  useEffect(() => {
+    isMountedRef.current = true;
+    return () => {
+      isMountedRef.current = false;
+      activeAiReqIdRef.current++;
+    };
+  }, []);
+
+  useEffect(() => {
+    isAiDrawerOpenRef.current = isAiDrawerOpen;
+  }, [isAiDrawerOpen]);
+
+  // When active hotspot changes, cancel active requests and reset AI state
+  useEffect(() => {
+    activeAiReqIdRef.current++;
+    activeDetIdRef.current = getDetectionId(selectedDetection);
+    setAiLoading(false);
+    setAiResponse(null);
+    setAiError(null);
+    setAiQuestion("");
+  }, [selectedDetection]);
+
+  const closeAiDrawer = () => {
+    activeAiReqIdRef.current++;
+    setIsAiDrawerOpen(false);
+    setAiLoading(false);
+    setAiResponse(null);
+    setAiError(null);
+  };
+
   // Smoothly scroll down to AI answer when response arrives
   useEffect(() => {
     if (aiResponse) {
@@ -494,8 +534,14 @@ export default function FireMap({ goCalendar }: { goCalendar: () => void }) {
   const visibleRowsRef = useRef<Detection[]>([]);
 
   const triggerAiAnalysis = async (targetDet: Detection, customQuestion?: string) => {
+    const targetDetId = getDetectionId(targetDet);
+    const reqId = ++activeAiReqIdRef.current;
+    activeDetIdRef.current = targetDetId;
+
     setAiLoading(true);
     setAiError(null);
+    setAiResponse(null);
+
     try {
       const res = await api.analyzeHotspot({
         lat: targetDet.lat,
@@ -510,11 +556,31 @@ export default function FireMap({ goCalendar }: { goCalendar: () => void }) {
         api_key: grokApiKey.trim() || undefined,
         lang: lang,
       });
+
+      if (
+        !isMountedRef.current ||
+        reqId !== activeAiReqIdRef.current ||
+        targetDetId !== activeDetIdRef.current ||
+        !isAiDrawerOpenRef.current
+      ) {
+        return;
+      }
+
       setAiResponse(res);
     } catch (err: any) {
+      if (
+        !isMountedRef.current ||
+        reqId !== activeAiReqIdRef.current ||
+        targetDetId !== activeDetIdRef.current ||
+        !isAiDrawerOpenRef.current
+      ) {
+        return;
+      }
       setAiError(err?.message || (lang === "id" ? "Gagal menghubungi layanan analisis satelit AI." : "Failed to connect to AI satellite telemetry service."));
     } finally {
-      setAiLoading(false);
+      if (isMountedRef.current && reqId === activeAiReqIdRef.current) {
+        setAiLoading(false);
+      }
     }
   };
 
@@ -601,6 +667,98 @@ export default function FireMap({ goCalendar }: { goCalendar: () => void }) {
     }
   };
 
+  const findNearestDetection = (latlng: L.LatLng, maxPx: number = 24): Detection | null => {
+    const map = mapRef.current;
+    const rows = visibleRowsRef.current;
+    if (!map || !rows || rows.length === 0) return null;
+    const clickPt = map.latLngToContainerPoint(latlng);
+    let nearest: Detection | null = null;
+    let minDist = maxPx;
+    for (let i = 0; i < rows.length; i++) {
+      const d = rows[i];
+      const pt = map.latLngToContainerPoint([d.lat, d.lon]);
+      const dist = Math.hypot(pt.x - clickPt.x, pt.y - clickPt.y);
+      if (dist < minDist) {
+        minDist = dist;
+        nearest = d;
+      }
+    }
+    return nearest;
+  };
+
+  const openDetectionInspection = (nearest: Detection, latlng?: L.LatLngExpression) => {
+    lastClickedDetectionRef.current = nearest;
+    setSelectedDetection(nearest);
+    const map = mapRef.current;
+    if (!map) return;
+    const isViirs = nearest.sensor === "viirs";
+    const isEn = langRef.current === "en";
+    const overpassText = nearest.daynight === "D"
+      ? (isEn ? "Day overpass (~13:30 LT)" : "Lintasan siang (~13:30 LT)")
+      : (isEn ? "Night overpass (~01:30 LT)" : "Lintasan malam (~01:30 LT)");
+    const precisionText = isEn
+      ? `FIRMS coordinate precision (${isViirs ? "375 m" : "1,000 m"})`
+      : `Presisi koordinat FIRMS (${isViirs ? "375 m" : "1.000 m"})`;
+    const caveatText = isEn
+      ? "Spaceborne observation pixel — not proof of physical fire perimeter."
+      : "Piksel observasi satelit — bukan klaim batas fisik kebakaran.";
+    const askAiButtonText = isEn
+      ? "Ask about this detection &rarr;"
+      : "Tanya tentang deteksi ini &rarr;";
+    const confText = isEn ? "Confidence" : "Keyakinan";
+
+    L.popup({ autoPan: false, closeButton: true })
+      .setLatLng(latlng || [nearest.lat, nearest.lon])
+      .setContent(
+        `<div style="font-size:12px; min-width:210px; line-height:1.5; font-family:var(--font-sans, system-ui);">
+          <div style="font-weight:700; color:${isViirs ? "#EF4444" : "#2563EB"}; margin-bottom:4px; display:flex; align-items:center; justify-content:space-between;">
+            <span>${isViirs ? "VIIRS (~375 m)" : "MODIS (~1 km)"}</span>
+            <span style="font-size:10px; padding:1px 6px; background:rgba(128,128,128,0.15); border-radius:4px; font-weight:600;">${confText}: ${nearest.conf}</span>
+          </div>
+          <div style="font-size:12px;">FRP: <b>${nearest.frp.toFixed(2)} MW</b></div>
+          <div style="font-size:11.5px; color:#666;">${nearest.date} · ${overpassText}</div>
+          <div style="font-size:11px; font-family:monospace; color:#222; background:rgba(0,0,0,0.06); padding:2px 6px; border-radius:4px; margin-top:4px;">
+            Lat: <b>${nearest.lat.toFixed(5)}°</b> · Lon: <b>${nearest.lon.toFixed(5)}°</b>
+          </div>
+          <div style="font-size:10px; color:#22c55e; font-weight:600; margin-top:4px;">
+            ${precisionText}
+          </div>
+          <div style="font-size:10px; color:#888; margin-top:4px; border-top:1px dashed rgba(128,128,128,0.3); padding-top:4px; line-height:1.3;">
+            ${caveatText}
+          </div>
+          <button
+            type="button"
+            onclick="window.__emberline_open_ai_analyzer && window.__emberline_open_ai_analyzer()"
+            style="
+              width:100%;
+              margin-top:8px;
+              padding:7px 10px;
+              background:#0D9488;
+              color:#ffffff;
+              border:none;
+              border-radius:6px;
+              font-weight:600;
+              font-size:11px;
+              cursor:pointer;
+              box-shadow:0 1px 3px rgba(0,0,0,0.25);
+              display:flex;
+              align-items:center;
+              justify-content:center;
+              gap:6px;
+            "
+          >
+            <span>${askAiButtonText}</span>
+          </button>
+        </div>`
+      )
+      .openOn(map);
+  };
+
+  const findNearestDetectionRef = useRef(findNearestDetection);
+  findNearestDetectionRef.current = findNearestDetection;
+  const openDetectionInspectionRef = useRef(openDetectionInspection);
+  openDetectionInspectionRef.current = openDetectionInspection;
+
   // Initialize Map locked to Indonesia territory (no global wander, seamless tiles)
   useEffect(() => {
     if (!mapEl.current || mapRef.current) return;
@@ -678,88 +836,12 @@ export default function FireMap({ goCalendar }: { goCalendar: () => void }) {
 
     // Instant click inspector (finds nearest dot within 24px)
     map.on("click", (e) => {
-      const rows = visibleRowsRef.current;
-      if (!rows || rows.length === 0) return;
-
-      const clickPt = map.latLngToContainerPoint(e.latlng);
-      let nearest: Detection | null = null;
-      let minDist = 24;
-
-      for (let i = 0; i < rows.length; i++) {
-        const d = rows[i];
-        const pt = map.latLngToContainerPoint([d.lat, d.lon]);
-        const dist = Math.hypot(pt.x - clickPt.x, pt.y - clickPt.y);
-        if (dist < minDist) {
-          minDist = dist;
-          nearest = d;
-        }
-      }
-
+      const nearest = findNearestDetectionRef.current(e.latlng, 24);
       if (nearest) {
-        lastClickedDetectionRef.current = nearest;
-        setSelectedDetection(nearest);
-        const isViirs = nearest.sensor === "viirs";
-        const isEn = langRef.current === "en";
-        const overpassText = nearest.daynight === "D"
-          ? (isEn ? "Day overpass (~13:30 LT)" : "Lintasan siang (~13:30 LT)")
-          : (isEn ? "Night overpass (~01:30 LT)" : "Lintasan malam (~01:30 LT)");
-        const precisionText = isEn
-          ? `FIRMS coordinate precision (${isViirs ? "375 m" : "1,000 m"})`
-          : `Presisi koordinat FIRMS (${isViirs ? "375 m" : "1.000 m"})`;
-        const caveatText = isEn
-          ? "Spaceborne observation pixel — not proof of physical fire perimeter."
-          : "Piksel observasi satelit — bukan klaim batas fisik kebakaran.";
-        const askAiButtonText = isEn
-          ? "Ask about this detection &rarr;"
-          : "Tanya tentang deteksi ini &rarr;";
-        const confText = isEn ? "Confidence" : "Keyakinan";
-
-        L.popup({ autoPan: false, closeButton: true })
-          .setLatLng([nearest.lat, nearest.lon])
-          .setContent(
-            `<div style="font-size:12px; min-width:210px; line-height:1.5; font-family:var(--font-sans, system-ui);">
-              <div style="font-weight:700; color:${isViirs ? "#EF4444" : "#2563EB"}; margin-bottom:4px; display:flex; align-items:center; justify-content:space-between;">
-                <span>${isViirs ? "VIIRS (~375 m)" : "MODIS (~1 km)"}</span>
-                <span style="font-size:10px; padding:1px 6px; background:rgba(128,128,128,0.15); border-radius:4px; font-weight:600;">${confText}: ${nearest.conf}</span>
-              </div>
-              <div style="font-size:12px;">FRP: <b>${nearest.frp.toFixed(2)} MW</b></div>
-              <div style="font-size:11.5px; color:#666;">${nearest.date} · ${overpassText}</div>
-              <div style="font-size:11px; font-family:monospace; color:#222; background:rgba(0,0,0,0.06); padding:2px 6px; border-radius:4px; margin-top:4px;">
-                Lat: <b>${nearest.lat.toFixed(5)}°</b> · Lon: <b>${nearest.lon.toFixed(5)}°</b>
-              </div>
-              <div style="font-size:10px; color:#22c55e; font-weight:600; margin-top:4px;">
-                ${precisionText}
-              </div>
-              <div style="font-size:10px; color:#888; margin-top:4px; border-top:1px dashed rgba(128,128,128,0.3); padding-top:4px; line-height:1.3;">
-                ${caveatText}
-              </div>
-              <button
-                type="button"
-                onclick="window.__emberline_open_ai_analyzer && window.__emberline_open_ai_analyzer()"
-                style="
-                  width:100%;
-                  margin-top:8px;
-                  padding:7px 10px;
-                  background:#0D9488;
-                  color:#ffffff;
-                  border:none;
-                  border-radius:6px;
-                  font-weight:600;
-                  font-size:11px;
-                  cursor:pointer;
-                  box-shadow:0 1px 3px rgba(0,0,0,0.25);
-                  display:flex;
-                  align-items:center;
-                  justify-content:center;
-                  gap:6px;
-                "
-              >
-                ${askAiButtonText}
-              </button>
-            </div>`
-          )
-          .openOn(map);
+        openDetectionInspectionRef.current(nearest, [nearest.lat, nearest.lon]);
+        return;
       }
+      setSelectedCell(null);
     });
 
     let resizeTimer: ReturnType<typeof setTimeout>;
@@ -855,26 +937,7 @@ export default function FireMap({ goCalendar }: { goCalendar: () => void }) {
 
   const cellCountsByCoord = useMemo(() => {
     const counts = new Map<string, { total: number; viirs: number; modis: number }>();
-    if (!det || det.detections.length === 0) {
-      if (!grid) return counts;
-      for (const cell of grid.cells) {
-        if (activeRegionBounds) {
-          if (
-            cell.south < activeRegionBounds.south ||
-            cell.north > activeRegionBounds.north ||
-            cell.west < activeRegionBounds.west ||
-            cell.east > activeRegionBounds.east
-          ) {
-            continue;
-          }
-        }
-        const key = `${cell.south.toFixed(1)},${cell.west.toFixed(1)}`;
-        counts.set(key, {
-          total: cell.detection_count,
-          viirs: cell.total_viirs || 0,
-          modis: cell.total_modis || 0,
-        });
-      }
+    if (!det || detLoading || !!detError) {
       return counts;
     }
 
@@ -912,7 +975,7 @@ export default function FireMap({ goCalendar }: { goCalendar: () => void }) {
       }
     }
     return counts;
-  }, [det, grid, detYear, detSensor, minFrp, activeRegionBounds]);
+  }, [det, detLoading, detError, grid, detYear, detSensor, minFrp, activeRegionBounds]);
 
   const maxCount = useMemo(() => {
     let max = 0;
@@ -1033,24 +1096,21 @@ export default function FireMap({ goCalendar }: { goCalendar: () => void }) {
         },
       );
       const yearText = detYear === "all" ? (lang === "id" ? "Semua tahun" : "All years") : (lang === "id" ? `Tahun ${detYear}` : `Year ${detYear}`);
+      const sensorText = detSensor === "all" ? (lang === "id" ? "Semua sensor" : "All sensors") : detSensor.toUpperCase();
       area.bindTooltip(
         `<div style="font-size:11px; line-height:1.4;">
           <div style="font-weight:700; color:${density.color}; margin-bottom:2px;">${lang === "id" ? "Kepadatan observasi" : "Observation density"}: ${density.label}</div>
           <div>${count.toLocaleString(lang === "id" ? "id-ID" : "en-US")} ${lang === "id" ? "observasi satelit" : "satellite observations"}</div>
-          <div style="font-size:10px; color:#94A3B8;">${cell.cell_id} · ${yearText}</div>
+          <div style="font-size:10px; color:#94A3B8;">${cell.cell_id} · ${yearText} (${sensorText})</div>
         </div>`
       );
       area.on("click", (e) => {
-        // Prioritize dot popup if clicked close to a hotspot
-        const rows = visibleRowsRef.current;
-        if (rows && rows.length > 0 && map) {
-          const clickPt = map.latLngToContainerPoint(e.latlng);
-          for (let i = 0; i < rows.length; i++) {
-            const d = rows[i];
-            const pt = map.latLngToContainerPoint([d.lat, d.lon]);
-            if (Math.hypot(pt.x - clickPt.x, pt.y - clickPt.y) < 18) {
-              return;
-            }
+        if (detOn) {
+          const nearest = findNearestDetectionRef.current(e.latlng, 22);
+          if (nearest) {
+            L.DomEvent.stopPropagation(e);
+            openDetectionInspectionRef.current(nearest, [nearest.lat, nearest.lon]);
+            return;
           }
         }
         L.DomEvent.stopPropagation(e);
@@ -1061,16 +1121,12 @@ export default function FireMap({ goCalendar }: { goCalendar: () => void }) {
 
     // 4. Click handler on the full rectangle to focus / inspect any 0.1° cell
     bgRect.on("click", (e) => {
-      // Prioritize dot popup if clicked close to a hotspot
-      const rows = visibleRowsRef.current;
-      if (rows && rows.length > 0 && map) {
-        const clickPt = map.latLngToContainerPoint(e.latlng);
-        for (let i = 0; i < rows.length; i++) {
-          const d = rows[i];
-          const pt = map.latLngToContainerPoint([d.lat, d.lon]);
-          if (Math.hypot(pt.x - clickPt.x, pt.y - clickPt.y) < 18) {
-            return;
-          }
+      if (detOn) {
+        const nearest = findNearestDetectionRef.current(e.latlng, 22);
+        if (nearest) {
+          L.DomEvent.stopPropagation(e);
+          openDetectionInspectionRef.current(nearest, [nearest.lat, nearest.lon]);
+          return;
         }
       }
 
@@ -1115,7 +1171,7 @@ export default function FireMap({ goCalendar }: { goCalendar: () => void }) {
       dotsLayerRef.current.remove();
       dotsLayerRef.current.addTo(map);
     }
-  }, [grid, gridOn, selectedCell, maxCount, mapReady, aoi, presets, lang, riskFilter, gridOpacity, cellCountsByCoord, detYear, activeRegionBounds]);
+  }, [grid, gridOn, selectedCell, maxCount, mapReady, aoi, presets, lang, riskFilter, gridOpacity, cellCountsByCoord, detYear, detSensor, activeRegionBounds]);
 
   const detRows = useMemo(() => {
     if (!det) return [];
@@ -1135,12 +1191,13 @@ export default function FireMap({ goCalendar }: { goCalendar: () => void }) {
       const matchFrp = d.frp >= minFrp;
       if (!matchTime || !matchSensor || !matchFrp) return false;
       if (selectedCell) {
-        return (
+        const inSelected = (
           d.lat >= selectedCell.south &&
           d.lat <= selectedCell.north &&
           d.lon >= selectedCell.west &&
           d.lon <= selectedCell.east
         );
+        if (!inSelected) return false;
       }
       if (riskFilter !== "all" && grid && maxCount > 0) {
         const step = grid.cell_deg ?? 0.1;
@@ -1200,19 +1257,19 @@ export default function FireMap({ goCalendar }: { goCalendar: () => void }) {
 
     const rows = detRows;
 
-    // Limit to 10,000 highest FRP points when "all" years are selected for smooth GPU rendering
-    const cappedRows = rows.length > 10000
-      ? [...rows].sort((a, b) => b.frp - a.frp).slice(0, 10000)
+    // Render VIIRS first, then MODIS on top so both sensors remain clearly visible when "all" is selected
+    const displayRows = detSensor === "all"
+      ? [...rows].sort((a, b) => (a.sensor === "modis" ? 1 : 0) - (b.sensor === "modis" ? 1 : 0))
       : rows;
 
-    visibleRowsRef.current = cappedRows;
+    visibleRowsRef.current = displayRows;
 
-    const maxFrp = Math.max(0, ...cappedRows.map(d => d.frp));
+    const maxFrp = Math.max(0, ...displayRows.map(d => d.frp));
     const g = L.layerGroup();
     const isMacroView = currentZoom < 7;
 
-    for (let i = 0; i < cappedRows.length; i++) {
-      const d = cappedRows[i];
+    for (let i = 0; i < displayRows.length; i++) {
+      const d = displayRows[i];
       const t = maxFrp > 0 ? Math.min(1, d.frp / maxFrp) : 0;
       const isViirs = d.sensor === "viirs";
 
@@ -1588,28 +1645,6 @@ export default function FireMap({ goCalendar }: { goCalendar: () => void }) {
               ))}
             </div>
           </div>
-
-          {/* Reset Filters */}
-          <div style={{ display: "flex", justifyContent: "flex-end", borderTop: "1px solid var(--line)", paddingTop: 8 }}>
-            <button
-              type="button"
-              className="seg-btn"
-              style={{ fontSize: 10.5, padding: "3px 8px" }}
-              onClick={() => {
-                setGridOpacity(0.32);
-                setBasemapMode("osm");
-                setMinFrp(0);
-                setRiskFilter("all");
-                setDetSensor("all");
-                setDetYear("all");
-                setViewMode("both");
-                setGridOn(true);
-                setDetOn(true);
-              }}
-            >
-              {lang === "id" ? "Reset Pengaturan" : "Reset Settings"}
-            </button>
-          </div>
         </div>
       )}
 
@@ -1776,11 +1811,15 @@ export default function FireMap({ goCalendar }: { goCalendar: () => void }) {
         {selectedCell && (() => {
           const cellKey = `${selectedCell.south.toFixed(1)},${selectedCell.west.toFixed(1)}`;
           const cellData = cellCountsByCoord.get(cellKey);
-          const cellCount = cellData ? cellData.total : (det ? 0 : selectedCell.detection_count);
-          const cellViirs = cellData ? cellData.viirs : (det ? 0 : selectedCell.total_viirs);
-          const cellModis = cellData ? cellData.modis : (det ? 0 : selectedCell.total_modis);
-          const density = getCellDensity(cellCount, maxCount);
+          const isDataReady = det !== null && !detLoading && !detError;
+          const cellCount = isDataReady ? (cellData?.total ?? 0) : null;
+          const cellViirs = isDataReady ? (cellData?.viirs ?? 0) : null;
+          const cellModis = isDataReady ? (cellData?.modis ?? 0) : null;
+          const density = isDataReady
+            ? getCellDensity(cellCount!, maxCount)
+            : { label: detLoading ? (lang === "id" ? "Memuat..." : "Loading...") : (lang === "id" ? "Tidak Tersedia" : "Unavailable"), color: "#94A3B8", bg: "rgba(148, 163, 184, 0.15)" };
           const yearLabel = detYear === "all" ? (lang === "id" ? "Semua tahun" : "All years") : (lang === "id" ? `Tahun ${detYear}` : `Year ${detYear}`);
+          const sensorLabel = detSensor === "all" ? (lang === "id" ? "Semua sensor" : "All sensors") : detSensor.toUpperCase();
 
           return (
             <div style={{
@@ -1803,10 +1842,19 @@ export default function FireMap({ goCalendar }: { goCalendar: () => void }) {
                 </span>
               </div>
               <div style={{ fontSize: 10.5, color: "var(--ink2)", marginBottom: 4 }}>
-                {lang === "id" ? "Sel:" : "Cell:"} <span className="mono">{selectedCell.cell_id}</span> (0,1° ≈ 11 km) · <span className="mono">{yearLabel}</span>
+                {lang === "id" ? "Sel:" : "Cell:"} <span className="mono">{selectedCell.cell_id}</span> (0,1° ≈ 11 km) · <span className="mono">{yearLabel} ({sensorLabel})</span>
               </div>
               <div style={{ fontSize: 10.5, color: "var(--ink2)", marginBottom: 8 }}>
-                {lang === "id" ? "Observasi Satelit:" : "Satellite Observations:"} <b>{cellCount.toLocaleString(lang === "id" ? "id-ID" : "en-US")}</b> {lang === "id" ? "titik" : "points"} ({cellViirs} VIIRS · {cellModis} MODIS)
+                {lang === "id" ? "Observasi Satelit:" : "Satellite Observations:"}{" "}
+                {isDataReady ? (
+                  <>
+                    <b>{cellCount!.toLocaleString(lang === "id" ? "id-ID" : "en-US")}</b> {lang === "id" ? "titik" : "points"} ({cellViirs} VIIRS · {cellModis} MODIS)
+                  </>
+                ) : detLoading ? (
+                  <span style={{ color: "var(--ink3)" }}>{lang === "id" ? "Memuat data telemetri..." : "Loading satellite telemetry..."}</span>
+                ) : (
+                  <span style={{ color: "#EF4444" }}>{lang === "id" ? "Telemetri satelit tidak tersedia" : "Satellite telemetry unavailable"}</span>
+                )}
               </div>
               {cellPreset ? (
                 <button
@@ -2044,7 +2092,7 @@ export default function FireMap({ goCalendar }: { goCalendar: () => void }) {
               <button
                 type="button"
                 className="ai-btn-close"
-                onClick={() => setIsAiDrawerOpen(false)}
+                onClick={closeAiDrawer}
                 title={lang === "id" ? "Tutup Panel Analisis" : "Close Analysis Panel"}
               >
                 ✕

@@ -260,51 +260,52 @@ def _generate_indonesia_mosaic_grid():
     # 1. Merge artifact observation counts where available across monitored regions
     merged_cells = {}
     years = set()
-    for path in sorted(ARTIFACTS.iterdir()):
-        if not path.is_dir() or path.name in ("all", "indonesia"):
-            continue
-        g_path = path / "grid.json"
-        d_path = path / "detections.json"
-        if not g_path.is_file() or not d_path.is_file():
-            continue
-        try:
-            g = json.loads(g_path.read_text(encoding="utf-8"))
-            dets = json.loads(d_path.read_text(encoding="utf-8")).get("detections", [])
-            years.update(g.get("years", []))
+    if ARTIFACTS.exists() and ARTIFACTS.is_dir():
+        for path in sorted(ARTIFACTS.iterdir()):
+            if not path.is_dir() or path.name in ("all", "indonesia"):
+                continue
+            g_path = path / "grid.json"
+            d_path = path / "detections.json"
+            if not g_path.is_file() or not d_path.is_file():
+                continue
+            try:
+                g = json.loads(g_path.read_text(encoding="utf-8"))
+                dets = json.loads(d_path.read_text(encoding="utf-8")).get("detections", [])
+                years.update(g.get("years", []))
 
-            d_counts = {}
-            for d in dets:
-                l_idx = math.floor(d["lat"] / cell_deg + 1e-9)
-                o_idx = math.floor(d["lon"] / cell_deg + 1e-9)
-                d_counts[(l_idx, o_idx)] = d_counts.get((l_idx, o_idx), 0) + 1
+                d_counts = {}
+                for d in dets:
+                    l_idx = math.floor(d["lat"] / cell_deg + 1e-9)
+                    o_idx = math.floor(d["lon"] / cell_deg + 1e-9)
+                    d_counts[(l_idx, o_idx)] = d_counts.get((l_idx, o_idx), 0) + 1
 
-            for c in g.get("cells", []):
-                l_idx = math.floor(c["south"] / cell_deg + 1e-9)
-                o_idx = math.floor(c["west"] / cell_deg + 1e-9)
-                cid = f"R{l_idx:05d}C{o_idx:05d}"
-                cnt = d_counts.get((l_idx, o_idx), 0)
-                if cid in merged_cells:
-                    target = merged_cells[cid]
-                    target["has_data"] = True
-                    target["detection_count"] += cnt
-                    target["total_modis"] += c.get("total_modis", 0.0)
-                    target["total_viirs"] += c.get("total_viirs", 0.0)
-                    target["n_days"] = max(target["n_days"], c.get("n_days", 0))
-                else:
-                    merged_cells[cid] = {
-                        "cell_id": cid,
-                        "south": c["south"],
-                        "west": c["west"],
-                        "north": c["north"],
-                        "east": c["east"],
-                        "detection_count": cnt,
-                        "total_modis": c.get("total_modis", 0.0),
-                        "total_viirs": c.get("total_viirs", 0.0),
-                        "n_days": c.get("n_days", 0),
-                        "has_data": True,
-                    }
-        except Exception:
-            pass
+                for c in g.get("cells", []):
+                    l_idx = math.floor(c["south"] / cell_deg + 1e-9)
+                    o_idx = math.floor(c["west"] / cell_deg + 1e-9)
+                    cid = f"R{l_idx:05d}C{o_idx:05d}"
+                    cnt = d_counts.get((l_idx, o_idx), 0)
+                    if cid in merged_cells:
+                        target = merged_cells[cid]
+                        target["has_data"] = True
+                        target["detection_count"] += cnt
+                        target["total_modis"] += c.get("total_modis", 0.0)
+                        target["total_viirs"] += c.get("total_viirs", 0.0)
+                        target["n_days"] = max(target["n_days"], c.get("n_days", 0))
+                    else:
+                        merged_cells[cid] = {
+                            "cell_id": cid,
+                            "south": c["south"],
+                            "west": c["west"],
+                            "north": c["north"],
+                            "east": c["east"],
+                            "detection_count": cnt,
+                            "total_modis": c.get("total_modis", 0.0),
+                            "total_viirs": c.get("total_viirs", 0.0),
+                            "n_days": c.get("n_days", 0),
+                            "has_data": True,
+                        }
+            except Exception:
+                pass
 
     cell_list = sorted(merged_cells.values(), key=lambda c: (c["south"], c["west"]))
     _CACHED_INDONESIA_MOSAIC_GRID = {
@@ -332,34 +333,35 @@ def api_grid(aoi: str, coverage: str | None = None):
     years = set()
     cell_deg = None
     scale_note = None
-    for path in sorted(ARTIFACTS.iterdir()):
-        if (
-            not path.is_dir()
-            or path.name in ("all", "indonesia")
-            or not (path / "grid.json").is_file()
-            or not (path / "detections.json").is_file()
-        ):
-            continue
-        grid = _grid_with_detection_counts(path.name)
-        cell_deg = grid["cell_deg"] if cell_deg is None else cell_deg
-        scale_note = grid.get("scale_note", scale_note)
-        years.update(grid.get("years", []))
-        for cell in grid["cells"]:
-            existing = merged_cells.get(cell["cell_id"])
-            if existing is None:
-                merged_cells[cell["cell_id"]] = cell
+    if ARTIFACTS.exists() and ARTIFACTS.is_dir():
+        for path in sorted(ARTIFACTS.iterdir()):
+            if (
+                not path.is_dir()
+                or path.name in ("all", "indonesia")
+                or not (path / "grid.json").is_file()
+                or not (path / "detections.json").is_file()
+            ):
                 continue
-            existing["total_modis"] += cell["total_modis"]
-            existing["total_viirs"] += cell["total_viirs"]
-            existing["detection_count"] += cell["detection_count"]
-            existing["n_days"] = max(existing["n_days"], cell["n_days"])
-            for year, values in cell.get("years", {}).items():
-                target = existing["years"].setdefault(
-                    year, {"modis": 0, "viirs": 0, "n_days": 0}
-                )
-                target["modis"] += values.get("modis", 0)
-                target["viirs"] += values.get("viirs", 0)
-                target["n_days"] = max(target["n_days"], values.get("n_days", 0))
+            grid = _grid_with_detection_counts(path.name)
+            cell_deg = grid["cell_deg"] if cell_deg is None else cell_deg
+            scale_note = grid.get("scale_note", scale_note)
+            years.update(grid.get("years", []))
+            for cell in grid["cells"]:
+                existing = merged_cells.get(cell["cell_id"])
+                if existing is None:
+                    merged_cells[cell["cell_id"]] = cell
+                    continue
+                existing["total_modis"] += cell["total_modis"]
+                existing["total_viirs"] += cell["total_viirs"]
+                existing["detection_count"] += cell["detection_count"]
+                existing["n_days"] = max(existing["n_days"], cell["n_days"])
+                for year, values in cell.get("years", {}).items():
+                    target = existing["years"].setdefault(
+                        year, {"modis": 0, "viirs": 0, "n_days": 0}
+                    )
+                    target["modis"] += values.get("modis", 0)
+                    target["viirs"] += values.get("viirs", 0)
+                    target["n_days"] = max(target["n_days"], values.get("n_days", 0))
 
     if cell_deg is None:
         raise HTTPException(404, detail="Data grid untuk wilayah Indonesia belum tersedia.")
