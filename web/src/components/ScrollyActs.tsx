@@ -162,12 +162,14 @@ function RiskLevel({
   reduced,
   label,
   color,
+  border,
   range,
 }: {
   progress: MotionValue<number>;
   reduced: boolean;
   label: string;
   color: string;
+  border?: string;
   range: [number, number];
 }) {
   const scaleX = useTransform(progress, range, reduced ? [1, 1] : [0.28, 1]);
@@ -178,7 +180,8 @@ function RiskLevel({
       <motion.span
         style={{
           backgroundColor: color,
-          boxShadow: `0 0 13px ${color}55`,
+          border: border ?? "none",
+          boxShadow: color === "#FFFFFF" ? "0 0 13px rgba(255, 255, 255, 0.4)" : `0 0 13px ${color}55`,
           scaleX: reduced ? 1 : scaleX,
           opacity: reduced ? 1 : opacity,
         }}
@@ -191,10 +194,11 @@ function RiskLevel({
 function RiskScale({ progress, reduced }: { progress: MotionValue<number>; reduced: boolean }) {
   const { t } = useAoi();
   const riskLevels = [
-    { label: t("story_risk_safe"), color: "#81d5a3", range: [0.39, 0.45] as [number, number] },
-    { label: t("story_risk_advisory"), color: "#f0be68", range: [0.43, 0.49] as [number, number] },
-    { label: t("story_risk_warning"), color: "#fa773f", range: [0.47, 0.53] as [number, number] },
-    { label: t("story_risk_danger"), color: "#ff8b82", range: [0.51, 0.57] as [number, number] },
+    { label: t("story_density_no_data"), color: "#FFFFFF", border: "1px solid rgba(255, 255, 255, 0.6)", range: [0.37, 0.42] as [number, number] },
+    { label: t("story_density_zero"), color: "#94A3B8", range: [0.41, 0.46] as [number, number] },
+    { label: t("story_density_low"), color: "#FACC15", range: [0.45, 0.50] as [number, number] },
+    { label: t("story_density_medium"), color: "#F97316", range: [0.49, 0.54] as [number, number] },
+    { label: t("story_density_high"), color: "#EF4444", range: [0.53, 0.58] as [number, number] },
   ];
 
   return (
