@@ -452,7 +452,7 @@ export default function FireMap() {
       if (rafCoord) return;
       rafCoord = window.requestAnimationFrame(() => {
         if (coordRef.current) {
-          coordRef.current.textContent = `Lat: ${e.latlng.lat.toFixed(5)}° · Lon: ${e.latlng.lng.toFixed(5)}°`;
+          coordRef.current.textContent = `Lat: ${e.latlng.lat.toFixed(2)}° · Lon: ${e.latlng.lng.toFixed(2)}°`;
         }
         rafCoord = null;
       });
@@ -460,7 +460,7 @@ export default function FireMap() {
 
     map.on("mouseout", () => {
       if (coordRef.current) {
-        coordRef.current.textContent = "Arahkan kursor ke peta untuk koordinat";
+        coordRef.current.textContent = lang === "id" ? "Arahkan kursor ke peta" : "Hover cursor over map";
       }
     });
 
@@ -1297,12 +1297,14 @@ export default function FireMap() {
         </div>
       </div>
 
-      {/* Real-time Cursor Coordinate Tracker */}
+      {/* Real-time Cursor Coordinate Tracker — pinned to bottom-left even with the filter search panel */}
       <div
         style={{
           position: "absolute",
-          left: sidebarOpen ? 350 : 16,
+          left: 16,
           bottom: 16,
+          width: 320,
+          boxSizing: "border-box",
           zIndex: 890,
           background: "var(--surface)",
           border: "1px solid var(--line)",
@@ -1312,17 +1314,17 @@ export default function FireMap() {
           fontSize: 11,
           display: "flex",
           alignItems: "center",
-          gap: 10,
+          justifyContent: "space-between",
           color: "var(--ink2)",
-          transition: "left 0.2s ease",
         }}
       >
         <span style={{ color: "var(--ink)", fontWeight: 600 }}>{lang === "id" ? "Wilayah: Indonesia" : "Region: Indonesia"}</span>
-        <span>·</span>
-        <span ref={coordRef} className="mono">
-          {lang === "id" ? "Arahkan kursor ke peta untuk koordinat" : "Hover cursor over map for coordinates"}
+        <span ref={coordRef} className="mono" style={{ fontSize: 10.5 }}>
+          {lang === "id" ? "Arahkan kursor ke peta" : "Hover cursor over map"}
         </span>
       </div>
+
+
 
       {/* Scientific Honesty Chip (Guardrail FR-UI-12) */}
       <span
