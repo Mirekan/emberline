@@ -23,7 +23,7 @@ const REGIONS: { name: string; center: [number, number]; preset?: string }[] = [
   { name: "Sulawesi Selatan", center: [-3.8, 119.9] },
   { name: "Maluku Utara", center: [1.6, 127.6] },
   { name: "Papua", center: [-4.0, 138.5] },
-  { name: "Papua Selatan", center: [-6.5, 138.8] },
+  { name: "Papua Selatan (Merauke)", center: [-8.0, 139.0], preset: "merauke" },
 ];
 
 export type IslandRegion = {

@@ -2,9 +2,9 @@
   "protocol_id": "PROTO-C01-v0.9",
   "method": "b2_simple_log_ratio_only",
   "coefficients": {
-    "b1_ratio": 0.21498
+    "b1_ratio": 0.20612
   },
-  "b1_ratio": 0.21498,
+  "b1_ratio": 0.20612,
   "split": {
     "train_years": [
       "2012",
@@ -48,27 +48,27 @@
     "nominal": 0.8,
     "B": 400,
     "method": "training_daily_residual_bootstrap_centered",
-    "q_lo_log": -0.0363,
-    "q_hi_log": 0.0342
+    "q_lo_log": -0.0389,
+    "q_hi_log": 0.0416
   },
-  "index_denominator_p95_training_modis_mw": 47.48,
+  "index_denominator_p95_training_modis_mw": 45.91,
   "viirs_era_start": "2012-01-20",
   "extrapolation_bounds": {
     "log1p_viirs": [
       0.0,
-      3.402
+      3.442
     ],
     "n_viirs": [
       0,
-      1
+      2
     ]
   },
   "filter_counts": {
-    "rows_read": 47881,
-    "modis_terra_excluded": 6789,
-    "conf_modis_excluded": 2802,
-    "conf_viirs_excluded": 960,
-    "conf_unknown_excluded": 203
+    "rows_read": 48322,
+    "modis_terra_excluded": 6996,
+    "conf_modis_excluded": 2833,
+    "conf_viirs_excluded": 1004,
+    "conf_unknown_excluded": 199
   },
   "fixture": "FIXTURE_SYNTHETIC"
 }

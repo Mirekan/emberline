@@ -3,7 +3,7 @@
 # All values below are frozen decisions F-4 unless marked otherwise.
 
 protocol_version: "PROTO-C01-v0.9"
-status: "DRAFT_FOR_REVIEW"          # becomes FROZEN v1.0 at B/D/E sign-off
+status: "FROZEN"                    # v1.0 — signed by B/D/E 14 Nov 2026 (DECISIONS.md)
 
 grid:
   cell_size_deg: 0.1
@@ -22,14 +22,14 @@ aoi_limits:
 
 aois:
   source_of_truth: "config/aois.yaml (owned by task B-02)"
-  status: "PENDING_B02"
+  status: "B02_DELIVERED_OPEN_FLAG_A_C"
   expected_presets:
-    - "riau_or_jambi"
+    - "riau"
     - "central_kalimantan"
-    - "northern_california"
-    - "pantanal"
-    - "nsw_victoria"
-  note: "names above are candidates from the plan, not approved coordinates; usable dates come from B-01/B-05 evidence only"
+    - "south_sumatra"
+    - "jambi"
+    - "merauke"
+  note: "B-02 delivered an Indonesia-only preset set (2026-11-14), substituting the plan's global candidates (northern_california/pantanal/nsw_victoria) — OPEN FLAG recorded in docs/handoffs/B-03_downloader.md; needs A/C confirmation and a DECISIONS.md entry. riau + central_kalimantan fetched (G1); other three pending density probe. Era cap 2026-07-31 (SP archive)."
 
 time_policy:
   daily_bin: "UTC calendar day from acq_date + zero-padded acq_time (timezone-aware)"

@@ -1,0 +1,185 @@
+{
+  "aoi_id": "central_kalimantan",
+  "eligible_years": [
+    "2012",
+    "2013",
+    "2014",
+    "2015",
+    "2016",
+    "2017",
+    "2018",
+    "2019",
+    "2020",
+    "2021",
+    "2022",
+    "2023",
+    "2024",
+    "2025",
+    "2026"
+  ],
+  "frozen_split": {
+    "test_start": "2020-10-09",
+    "train_end": "2020-10-08"
+  },
+  "note": "B0 = naive splice; B1 = training-fitted global ratio; FRP-sum is an aggregate of sampled radiative-power observations, not a fire count",
+  "outcome": {
+    "B1_fit_inputs": {
+      "test_years": [
+        "2020",
+        "2021",
+        "2022",
+        "2023",
+        "2024",
+        "2025",
+        "2026"
+      ],
+      "train_dates_eligible_pairs_only": true,
+      "train_sum_modis_mw": 1275700.3,
+      "train_sum_viirs_mw": 2352391.19,
+      "train_years": [
+        "2012",
+        "2013",
+        "2014",
+        "2015",
+        "2016",
+        "2017",
+        "2018",
+        "2019",
+        "2020"
+      ]
+    },
+    "B1_ratio": 0.54229939,
+    "status": "ok",
+    "test_days": 4244,
+    "train_days": 6370
+  },
+  "pair_counts": {
+    "fitting_eligible_pairs": 15515,
+    "pairs_seen": 95777,
+    "zero_fill_days_ingested": 10614
+  },
+  "protocol_version": "PROTO-C01-v0.9",
+  "task": "C-03",
+  "year_eligibility": [
+    {
+      "days_both_retrieved": 694,
+      "eligible": true,
+      "era_days": 347,
+      "retrieval_fraction": 2.0,
+      "signal_days": 149,
+      "year": "2012"
+    },
+    {
+      "days_both_retrieved": 730,
+      "eligible": true,
+      "era_days": 365,
+      "retrieval_fraction": 2.0,
+      "signal_days": 105,
+      "year": "2013"
+    },
+    {
+      "days_both_retrieved": 730,
+      "eligible": true,
+      "era_days": 365,
+      "retrieval_fraction": 2.0,
+      "signal_days": 165,
+      "year": "2014"
+    },
+    {
+      "days_both_retrieved": 730,
+      "eligible": true,
+      "era_days": 365,
+      "retrieval_fraction": 2.0,
+      "signal_days": 224,
+      "year": "2015"
+    },
+    {
+      "days_both_retrieved": 732,
+      "eligible": true,
+      "era_days": 366,
+      "retrieval_fraction": 2.0,
+      "signal_days": 77,
+      "year": "2016"
+    },
+    {
+      "days_both_retrieved": 730,
+      "eligible": true,
+      "era_days": 365,
+      "retrieval_fraction": 2.0,
+      "signal_days": 49,
+      "year": "2017"
+    },
+    {
+      "days_both_retrieved": 730,
+      "eligible": true,
+      "era_days": 365,
+      "retrieval_fraction": 2.0,
+      "signal_days": 109,
+      "year": "2018"
+    },
+    {
+      "days_both_retrieved": 730,
+      "eligible": true,
+      "era_days": 365,
+      "retrieval_fraction": 2.0,
+      "signal_days": 195,
+      "year": "2019"
+    },
+    {
+      "days_both_retrieved": 732,
+      "eligible": true,
+      "era_days": 366,
+      "retrieval_fraction": 2.0,
+      "signal_days": 50,
+      "year": "2020"
+    },
+    {
+      "days_both_retrieved": 730,
+      "eligible": true,
+      "era_days": 365,
+      "retrieval_fraction": 2.0,
+      "signal_days": 44,
+      "year": "2021"
+    },
+    {
+      "days_both_retrieved": 730,
+      "eligible": true,
+      "era_days": 365,
+      "retrieval_fraction": 2.0,
+      "signal_days": 42,
+      "year": "2022"
+    },
+    {
+      "days_both_retrieved": 730,
+      "eligible": true,
+      "era_days": 365,
+      "retrieval_fraction": 2.0,
+      "signal_days": 157,
+      "year": "2023"
+    },
+    {
+      "days_both_retrieved": 732,
+      "eligible": true,
+      "era_days": 366,
+      "retrieval_fraction": 2.0,
+      "signal_days": 75,
+      "year": "2024"
+    },
+    {
+      "days_both_retrieved": 730,
+      "eligible": true,
+      "era_days": 365,
+      "retrieval_fraction": 2.0,
+      "signal_days": 74,
+      "year": "2025"
+    },
+    {
+      "days_both_retrieved": 424,
+      "eligible": true,
+      "era_days": 212,
+      "retrieval_fraction": 2.0,
+      "signal_days": 55,
+      "year": "2026"
+    }
+  ]
+}

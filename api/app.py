@@ -224,20 +224,76 @@ def method(aoi: str | None = None):
     if aoi is None:
         raise HTTPException(404, detail="no artifacts yet — run pipeline/run.py first")
     man = _load(aoi, "run_manifest.json")
-    model = _load(aoi, "model.json")
-    metrics = _load(aoi, "metrics.json")
-    stress = _load(aoi, "stress_test.json")
-    return {**_envelope(aoi), "protocol_id": man.get("params_hash") and "PROTO-C01-v0.9",
-            "split": model["split"], "method_form":
-                "log1p(S_modis) = a + b*log1p(S_viirs) + c*log1p(1+n_viirs) + d*I_night (monotone; fallback = global ratio)",
-            "coefficients": model.get("coefficients"), "interval": model.get("interval"),
-            "metrics": metrics["metrics"], "stress_tests": stress["results"],
-            "limitations": [
-                "Harmonized values are model estimates — not ground truth; every value ships with its interval.",
-                "Detections are never summed into a fire count across sensors.",
-                "Gaps are flagged, never interpolated; failed retrieval is not zero.",
-                "Aqua-reference calibration limits claims to what it supports."],
-            "citations": "NASA FIRMS — MODIS C6.1 (Giglio et al. 2016); VIIRS 375 m VNP14IMG (Schroeder et al. 2014)."}
+    
+    # Load model from model_manifest.json (new) or model.json (fallback)
+    try:
+        model = _load(aoi, "model_manifest.json")
+        fit_inputs = model.get("outcome", {}).get("model", {}).get("fit_inputs", {})
+        train_years = fit_inputs.get("train_years") or model.get("split", {}).get("train_years", [])
+        test_years = fit_inputs.get("test_years_recorded_never_fitted") or model.get("split", {}).get("test_years", [])
+        split = {
+            "train_years": train_years,
+            "test_years": test_years
+        }
+        coefficients = model.get("outcome", {}).get("model", {}).get("coefficients") or model.get("coefficients", {})
+        interval = model.get("outcome", {}).get("intervals") or model.get("interval", {})
+    except HTTPException:
+        model = _load(aoi, "model.json")
+        split = model.get("split", {"train_years": [], "test_years": []})
+        coefficients = model.get("coefficients", {})
+        interval = model.get("interval", {})
+        
+    # Load metrics from harmonization_metrics.json (new) or metrics.json (fallback)
+    try:
+        raw_m = _load(aoi, "harmonization_metrics.json")
+        outcome_m = raw_m.get("outcome", {}).get("metrics", {})
+        b1 = outcome_m.get("b1", {})
+        b2 = outcome_m.get("b2", {})
+        b0 = outcome_m.get("b0", {})
+        metrics = {
+            "mean_log_ratio_bias": b1.get("mean_log_ratio_bias", {}).get("value"),
+            "smape": b1.get("smape", {}).get("value"),
+            "pearson_daily": b1.get("pearson_daily", {}).get("value"),
+            "pearson_weekly": b1.get("pearson_weekly", {}).get("value"),
+            "spearman_daily": b1.get("spearman_daily", {}).get("value"),
+            "spearman_weekly": b1.get("spearman_weekly", {}).get("value"),
+            "log_space_r2": b1.get("log_space_r2", {}).get("value"),
+            "ks_statistic": b1.get("ks_statistic", {}).get("value"),
+            "wasserstein_distance": b1.get("wasserstein_distance", {}).get("value"),
+            "calendar_pattern_correlation": b1.get("calendar_pattern_correlation", {}).get("value"),
+            "interval_coverage_empirical": b2.get("interval_coverage_empirical", {}).get("value"),
+            "b0_naive_splice_level_shift": b0.get("mean_log_ratio_bias", {}).get("value"),
+            "b1_naive_splice_level_shift": b1.get("mean_log_ratio_bias", {}).get("value"),
+            "b2_naive_splice_level_shift": b2.get("mean_log_ratio_bias", {}).get("value"),
+        }
+    except HTTPException:
+        metrics = _load(aoi, "metrics.json").get("metrics", {})
+
+    # Load stress tests
+    try:
+        stress_raw = _load(aoi, "splice_stress_test.json")
+        stress_tests = stress_raw.get("tests", stress_raw.get("results", []))
+    except HTTPException:
+        stress_tests = _load(aoi, "stress_test.json").get("results", [])
+
+    return {
+        **_envelope(aoi),
+        "protocol_id": man.get("protocol_version") or "PROTO-C01-v0.9",
+        "split": split,
+        "method_form": "log1p(S_modis) = a + b*log1p(S_viirs) + c*log1p(1+n_viirs) + d*I_night (monotone; B1 fallback = global ratio)",
+        "coefficients": coefficients,
+        "interval": interval,
+        "metrics": metrics,
+        "stress_tests": stress_tests,
+        "limitations": [
+            "Harmonized values are model estimates — not ground truth; every value ships with its interval.",
+            "DEC-6: B1 training-fitted ratio accepted; B2 monotone mapping displayed honestly as a negative result.",
+            "Detections are never summed into a physical fire count across sensors.",
+            "Gaps are flagged, never interpolated; failed retrieval is not zero.",
+            "Aqua-reference calibration limits claims strictly to what satellite evidence supports."
+        ],
+        "citations": "NASA FIRMS — MODIS C6.1 (Giglio et al. 2016); VIIRS 375 m VNP14IMG (Schroeder et al. 2014)."
+    }
 
 
 @app.post("/api/aoi/analyze")

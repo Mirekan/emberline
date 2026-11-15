@@ -1,41 +1,41 @@
 {
-  "run_id": "PROTO-C01-v0.9_20261114T0818Z_b2_simple_log_ratio_only_FIXTURE",
+  "run_id": "PROTO-C01-v0.9_20261114T1553Z_b2_simple_log_ratio_only_FIXTURE",
   "fixture": "FIXTURE_SYNTHETIC",
   "selection_rule": "peak MODIS FRP-sum day per equal segment of eligible held-out span (predetermined)",
   "window_days": 14,
   "results": [
     {
       "segment": 1,
-      "pseudo_transition": "2022-09-21",
-      "window": "2022-09-07..2022-10-05",
+      "pseudo_transition": "2022-09-14",
+      "window": "2022-08-31..2022-09-28",
       "paired_retrieval_fraction": 1.0,
       "status": "computed",
-      "shift_naive": 4.376,
-      "shift_harmonized": 0.941,
-      "shift_truth": 1.095,
-      "error_ratio": 0.859
+      "shift_naive": 5.467,
+      "shift_harmonized": 1.127,
+      "shift_truth": 1.411,
+      "error_ratio": 0.799
     },
     {
       "segment": 2,
-      "pseudo_transition": "2024-09-29",
-      "window": "2024-09-15..2024-10-13",
+      "pseudo_transition": "2024-09-20",
+      "window": "2024-09-06..2024-10-04",
       "paired_retrieval_fraction": 1.0,
       "status": "computed",
-      "shift_naive": 2.912,
-      "shift_harmonized": 0.626,
-      "shift_truth": 0.772,
-      "error_ratio": 0.811
+      "shift_naive": 4.417,
+      "shift_harmonized": 0.91,
+      "shift_truth": 1.425,
+      "error_ratio": 0.639
     },
     {
       "segment": 3,
-      "pseudo_transition": "2025-09-12",
-      "window": "2025-08-29..2025-09-26",
+      "pseudo_transition": "2025-09-08",
+      "window": "2025-08-25..2025-09-22",
       "paired_retrieval_fraction": 1.0,
       "status": "computed",
-      "shift_naive": 4.008,
-      "shift_harmonized": 0.862,
-      "shift_truth": 1.13,
-      "error_ratio": 0.763
+      "shift_naive": 4.334,
+      "shift_harmonized": 0.893,
+      "shift_truth": 0.849,
+      "error_ratio": 1.052
     }
   ]
 }

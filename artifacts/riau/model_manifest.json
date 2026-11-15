@@ -1,0 +1,222 @@
+{
+  "aoi_id": "riau",
+  "eligible_years": [
+    "2012",
+    "2013",
+    "2014",
+    "2015",
+    "2016",
+    "2017",
+    "2018",
+    "2019",
+    "2020",
+    "2021",
+    "2022",
+    "2023",
+    "2024",
+    "2025",
+    "2026"
+  ],
+  "frozen_split": {
+    "test_start": "2020-10-09",
+    "train_end": "2020-10-08"
+  },
+  "git_sha": "63d1f37",
+  "model_version": "b2-primary",
+  "outcome": {
+    "extrapolation_flagged_days": 1901,
+    "intervals": [
+      {
+        "bootstrap_draws": 1000,
+        "daynight": "day",
+        "nominal_target": 0.8,
+        "note": "nominal 80% target calibrated on training AOI-day residuals (day-level bootstrap); actual held-out coverage is MEASURED at C-05, not promised",
+        "q10_mw": -193.379054,
+        "q90_mw": 19.580811,
+        "seed": 42
+      },
+      {
+        "bootstrap_draws": 1000,
+        "daynight": "night",
+        "nominal_target": 0.8,
+        "note": "nominal 80% target calibrated on training AOI-day residuals (day-level bootstrap); actual held-out coverage is MEASURED at C-05, not promised",
+        "q10_mw": -193.379054,
+        "q90_mw": 19.580811,
+        "seed": 42
+      }
+    ],
+    "model": {
+      "coefficients": {
+        "a_intercept": 0.00051952,
+        "b_log1p_viirs": 0.91900832,
+        "c_log1p_count": 0.12757029,
+        "d_night": -0.00051336
+      },
+      "fit_inputs": {
+        "n_train_rows": 14771,
+        "test_years_recorded_never_fitted": [
+          "2020",
+          "2021",
+          "2022",
+          "2023",
+          "2024",
+          "2025",
+          "2026"
+        ],
+        "train_years": [
+          "2012",
+          "2013",
+          "2014",
+          "2015",
+          "2016",
+          "2017",
+          "2018",
+          "2019",
+          "2020"
+        ],
+        "unit": "cell-day pairs, fitting-eligible only (F-6), training years only; compact zero-fill entered as exact weights (identical to duplicated rows)",
+        "zero_cells_weighted": {
+          "day": 4718769,
+          "night": 4741640
+        }
+      },
+      "monotone_projection": "none_active",
+      "smearing_k": 1.00141708
+    },
+    "n_aoi_days": 10614,
+    "status": "ok",
+    "support_bounds": {
+      "support_hi_log1p": 6.9316,
+      "support_lo_log1p": 1.0116
+    }
+  },
+  "protocol_version": "PROTO-C01-v0.9",
+  "quantile_correction": "omitted in v1 (DEV-S03)",
+  "run_id": "PROTO-C01-v0.9_b2-primary_20261114T1616Z",
+  "scope_note": "FRP-sum is an aggregate of sampled radiative-power observations; MODIS is the reference measurement, not fire ground truth",
+  "source_policy": "F-14: MODIS reference before VIIRS support, mapped VIIRS in validated coverage, explicit gaps otherwise; sensors never blended",
+  "task": "C-04",
+  "year_eligibility": [
+    {
+      "days_both_retrieved": 694,
+      "eligible": true,
+      "era_days": 347,
+      "retrieval_fraction": 2.0,
+      "signal_days": 229,
+      "year": "2012"
+    },
+    {
+      "days_both_retrieved": 730,
+      "eligible": true,
+      "era_days": 365,
+      "retrieval_fraction": 2.0,
+      "signal_days": 212,
+      "year": "2013"
+    },
+    {
+      "days_both_retrieved": 730,
+      "eligible": true,
+      "era_days": 365,
+      "retrieval_fraction": 2.0,
+      "signal_days": 264,
+      "year": "2014"
+    },
+    {
+      "days_both_retrieved": 730,
+      "eligible": true,
+      "era_days": 365,
+      "retrieval_fraction": 2.0,
+      "signal_days": 287,
+      "year": "2015"
+    },
+    {
+      "days_both_retrieved": 732,
+      "eligible": true,
+      "era_days": 366,
+      "retrieval_fraction": 2.0,
+      "signal_days": 115,
+      "year": "2016"
+    },
+    {
+      "days_both_retrieved": 730,
+      "eligible": true,
+      "era_days": 365,
+      "retrieval_fraction": 2.0,
+      "signal_days": 70,
+      "year": "2017"
+    },
+    {
+      "days_both_retrieved": 730,
+      "eligible": true,
+      "era_days": 365,
+      "retrieval_fraction": 2.0,
+      "signal_days": 122,
+      "year": "2018"
+    },
+    {
+      "days_both_retrieved": 730,
+      "eligible": true,
+      "era_days": 365,
+      "retrieval_fraction": 2.0,
+      "signal_days": 232,
+      "year": "2019"
+    },
+    {
+      "days_both_retrieved": 732,
+      "eligible": true,
+      "era_days": 366,
+      "retrieval_fraction": 2.0,
+      "signal_days": 62,
+      "year": "2020"
+    },
+    {
+      "days_both_retrieved": 730,
+      "eligible": true,
+      "era_days": 365,
+      "retrieval_fraction": 2.0,
+      "signal_days": 54,
+      "year": "2021"
+    },
+    {
+      "days_both_retrieved": 730,
+      "eligible": true,
+      "era_days": 365,
+      "retrieval_fraction": 2.0,
+      "signal_days": 32,
+      "year": "2022"
+    },
+    {
+      "days_both_retrieved": 730,
+      "eligible": true,
+      "era_days": 365,
+      "retrieval_fraction": 2.0,
+      "signal_days": 71,
+      "year": "2023"
+    },
+    {
+      "days_both_retrieved": 732,
+      "eligible": true,
+      "era_days": 366,
+      "retrieval_fraction": 2.0,
+      "signal_days": 68,
+      "year": "2024"
+    },
+    {
+      "days_both_retrieved": 730,
+      "eligible": true,
+      "era_days": 365,
+      "retrieval_fraction": 2.0,
+      "signal_days": 63,
+      "year": "2025"
+    },
+    {
+      "days_both_retrieved": 424,
+      "eligible": true,
+      "era_days": 212,
+      "retrieval_fraction": 2.0,
+      "signal_days": 36,
+      "year": "2026"
+    }
+  ],
+  "zero_policy": "v1: S_viirs==0 and n==0 -> prediction 0 (two-part zero-inflation model deferred)"
+}

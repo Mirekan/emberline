@@ -4,11 +4,11 @@
   "first_date": "2012-01-20",
   "last_date": "2026-07-31",
   "filter_counts": {
-    "rows_read": 47881,
-    "modis_terra_excluded": 6789,
-    "conf_modis_excluded": 2802,
-    "conf_viirs_excluded": 960,
-    "conf_unknown_excluded": 203
+    "rows_read": 48322,
+    "modis_terra_excluded": 6996,
+    "conf_modis_excluded": 2833,
+    "conf_viirs_excluded": 1004,
+    "conf_unknown_excluded": 199
   },
   "retrieval_mask": {
     "2012-01-20": "retrieved",
