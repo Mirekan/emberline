@@ -358,6 +358,7 @@ export default function FireMap({ goCalendar }: { goCalendar: () => void }) {
   const mapEl = useRef<HTMLDivElement>(null);
   const mapRef = useRef<L.Map | null>(null);
   const canvasRendererRef = useRef<L.Canvas | null>(null);
+  const allDetectionsRef = useRef<Detections | null>(null);
   const tileLayerRef = useRef<L.TileLayer | null>(null);
   const gridLayerRef = useRef<L.LayerGroup | null>(null);
   const dotsLayerRef = useRef<L.LayerGroup | null>(null);
@@ -366,8 +367,8 @@ export default function FireMap({ goCalendar }: { goCalendar: () => void }) {
   const coordRef = useRef<HTMLSpanElement>(null);
 
   const PRESET_NAMES: Record<string, string> = {
-    central_kalimantan: "Kalimantan Tengah",
     riau: "Riau",
+    central_kalimantan: "Kalimantan Tengah",
     south_sumatra: "Sumatera Selatan",
     jambi: "Jambi",
     merauke: "Papua Selatan (Merauke)",
@@ -375,7 +376,6 @@ export default function FireMap({ goCalendar }: { goCalendar: () => void }) {
     kaltim: "Kalimantan Timur",
     papua_selatan: "Papua Selatan",
     sulsel: "Sulawesi Selatan",
-    sulteng_sulut: "Sulawesi Tengah",
     ntt: "Nusa Tenggara Timur",
     ntb: "Nusa Tenggara Barat",
     sumut_aceh: "Sumatera Utara",
@@ -409,7 +409,7 @@ export default function FireMap({ goCalendar }: { goCalendar: () => void }) {
   const [detOn, setDetOn] = useState(true); // Default ON: FIRMS dots are immediately rendered on map load
   const [detLoading, setDetLoading] = useState(false);
   const [detError, setDetError] = useState("");
-  const [detYear, setDetYear] = useState("2026"); // Default to 2026 on initial load to prevent overcrowding
+  const [detYear, setDetYear] = useState("all"); // Default to "all" so all hotspot telemetry is visible immediately
   const [detSensor, setDetSensor] = useState<"all" | "modis" | "viirs">("all");
   const [viewMode, setViewMode] = useState<"both" | "dots" | "grid">("both");
   const [currentZoom, setCurrentZoom] = useState<number>(() => getInitialCoords().zoom);
@@ -433,6 +433,27 @@ export default function FireMap({ goCalendar }: { goCalendar: () => void }) {
   };
 
   const curPreset = presets.find(p => p.id === aoi);
+
+  const activeRegionBounds = useMemo(() => {
+    if (!selName) return null;
+    const r = REGIONS.find(x => x.name === selName);
+    if (!r) return null;
+    if (r.preset && curPreset) {
+      return {
+        west: curPreset.west,
+        south: curPreset.south,
+        east: curPreset.east,
+        north: curPreset.north,
+      };
+    }
+    // Province bounds: 1.5 deg lon, 1.2 deg lat around province center
+    return {
+      west: r.center[1] - 1.5,
+      south: r.center[0] - 1.2,
+      east: r.center[1] + 1.5,
+      north: r.center[0] + 1.2,
+    };
+  }, [selName, curPreset]);
 
   const toggleContrastPopover = () => {
     setContrastPopoverOpen(prev => {
@@ -783,25 +804,39 @@ export default function FireMap({ goCalendar }: { goCalendar: () => void }) {
   // Load satellite hotspot detections across the entire active region
   useEffect(() => {
     let cancelled = false;
-    const targetAoi = selName === null ? "all" : aoi;
-    const targetPreset = selName === null ? undefined : presets.find(p => p.id === aoi);
-    setDet(null);
-    setDetError("");
+    // Fast path: if all-Indonesia detections are already in memory, use them immediately without flash
+    if (allDetectionsRef.current) {
+      setDet(allDetectionsRef.current);
+      return;
+    }
     setDetLoading(true);
-    api.detections(targetAoi, targetPreset)
+    setDetError("");
+    api.detections("all")
       .then(data => {
-        if (!cancelled) setDet(data);
+        if (!cancelled) {
+          allDetectionsRef.current = data;
+          setDet(data);
+        }
       })
       .catch(error => {
         if (!cancelled) {
-          setDetError(error instanceof Error ? error.message : "Gagal memuat titik satelit.");
+          const targetAoi = selName === null ? "all" : aoi;
+          api.detections(targetAoi)
+            .then(fallbackData => {
+              if (!cancelled) setDet(fallbackData);
+            })
+            .catch(fallbackError => {
+              if (!cancelled) {
+                setDetError(fallbackError instanceof Error ? fallbackError.message : "Gagal memuat titik satelit.");
+              }
+            });
         }
       })
       .finally(() => {
         if (!cancelled) setDetLoading(false);
       });
     return () => { cancelled = true; };
-  }, [aoi, selName, presets]);
+  }, [aoi, selName]);
 
   function getCellDensity(count: number, maxCount: number): { label: string; color: string; bg: string } {
     const isEn = lang === "en";
@@ -823,12 +858,12 @@ export default function FireMap({ goCalendar }: { goCalendar: () => void }) {
     if (!det || det.detections.length === 0) {
       if (!grid) return counts;
       for (const cell of grid.cells) {
-        if (selName !== null && curPreset) {
+        if (activeRegionBounds) {
           if (
-            cell.south < curPreset.south ||
-            cell.north > curPreset.north ||
-            cell.west < curPreset.west ||
-            cell.east > curPreset.east
+            cell.south < activeRegionBounds.south ||
+            cell.north > activeRegionBounds.north ||
+            cell.west < activeRegionBounds.west ||
+            cell.east > activeRegionBounds.east
           ) {
             continue;
           }
@@ -845,12 +880,12 @@ export default function FireMap({ goCalendar }: { goCalendar: () => void }) {
 
     const step = grid?.cell_deg ?? 0.1;
     for (const d of det.detections) {
-      if (selName !== null && curPreset) {
+      if (activeRegionBounds) {
         if (
-          d.lat < curPreset.south ||
-          d.lat > curPreset.north ||
-          d.lon < curPreset.west ||
-          d.lon > curPreset.east
+          d.lat < activeRegionBounds.south ||
+          d.lat > activeRegionBounds.north ||
+          d.lon < activeRegionBounds.west ||
+          d.lon > activeRegionBounds.east
         ) {
           continue;
         }
@@ -877,7 +912,7 @@ export default function FireMap({ goCalendar }: { goCalendar: () => void }) {
       }
     }
     return counts;
-  }, [det, grid, detYear, detSensor, minFrp, selName, curPreset]);
+  }, [det, grid, detYear, detSensor, minFrp, activeRegionBounds]);
 
   const maxCount = useMemo(() => {
     let max = 0;
@@ -917,7 +952,7 @@ export default function FireMap({ goCalendar }: { goCalendar: () => void }) {
     gridLayerRef.current = null;
     if (!gridOn || !grid) return;
 
-    // Share the dots' canvas so transparent overlays cannot block cell input.
+    // Dedicated grid canvas on gridPane (zIndex: 410)
     const layer = L.layerGroup();
 
     // 1. Full rectangular bounds of Indonesia & New Guinea (94°E to 152°E, 12°S to 8°N) - no cuts or gaps
@@ -959,12 +994,12 @@ export default function FireMap({ goCalendar }: { goCalendar: () => void }) {
     // 3. Render active / monitored observation cells with heat & risk colors
     const cellsByCoord = new Map<string, GridCell>();
     for (const cell of grid.cells) {
-      if (selName !== null && curPreset) {
+      if (activeRegionBounds) {
         if (
-          cell.south < curPreset.south ||
-          cell.north > curPreset.north ||
-          cell.west < curPreset.west ||
-          cell.east > curPreset.east
+          cell.south < activeRegionBounds.south ||
+          cell.north > activeRegionBounds.north ||
+          cell.west < activeRegionBounds.west ||
+          cell.east > activeRegionBounds.east
         ) {
           continue;
         }
@@ -1076,17 +1111,21 @@ export default function FireMap({ goCalendar }: { goCalendar: () => void }) {
 
     layer.addTo(map);
     gridLayerRef.current = layer;
-  }, [grid, gridOn, selectedCell, maxCount, mapReady, aoi, presets, lang, riskFilter, gridOpacity, cellCountsByCoord, detYear]);
+    if (dotsLayerRef.current && map.hasLayer(dotsLayerRef.current)) {
+      dotsLayerRef.current.remove();
+      dotsLayerRef.current.addTo(map);
+    }
+  }, [grid, gridOn, selectedCell, maxCount, mapReady, aoi, presets, lang, riskFilter, gridOpacity, cellCountsByCoord, detYear, activeRegionBounds]);
 
   const detRows = useMemo(() => {
     if (!det) return [];
     return det.detections.filter(d => {
-      if (selName !== null && curPreset) {
+      if (activeRegionBounds) {
         if (
-          d.lat < curPreset.south ||
-          d.lat > curPreset.north ||
-          d.lon < curPreset.west ||
-          d.lon > curPreset.east
+          d.lat < activeRegionBounds.south ||
+          d.lat > activeRegionBounds.north ||
+          d.lon < activeRegionBounds.west ||
+          d.lon > activeRegionBounds.east
         ) {
           return false;
         }
@@ -1115,7 +1154,7 @@ export default function FireMap({ goCalendar }: { goCalendar: () => void }) {
       }
       return true;
     });
-  }, [det, detYear, detSensor, minFrp, selectedCell, riskFilter, grid, maxCount, cellCountsByCoord, lang, selName, curPreset]);
+  }, [det, detYear, detSensor, minFrp, selectedCell, riskFilter, grid, maxCount, cellCountsByCoord, lang, activeRegionBounds]);
 
   const detYears = useMemo(() => {
     if (!det || det.detections.length === 0) {
@@ -1124,8 +1163,24 @@ export default function FireMap({ goCalendar }: { goCalendar: () => void }) {
       }
       return [];
     }
-    return [...new Set(det.detections.map(d => d.date.slice(0, 4)))].sort((a, b) => b.localeCompare(a));
-  }, [det, grid]);
+    const targetDets = activeRegionBounds
+      ? det.detections.filter(d =>
+          d.lat >= activeRegionBounds.south &&
+          d.lat <= activeRegionBounds.north &&
+          d.lon >= activeRegionBounds.west &&
+          d.lon <= activeRegionBounds.east
+        )
+      : det.detections;
+    const years = [...new Set(targetDets.map(d => d.date.slice(0, 4)))].sort((a, b) => b.localeCompare(a));
+    return years.length > 0 ? years : [...new Set(det.detections.map(d => d.date.slice(0, 4)))].sort((a, b) => b.localeCompare(a));
+  }, [det, grid, activeRegionBounds]);
+
+  // Fallback to "all" if current year filter is not available in newly focused region
+  useEffect(() => {
+    if (detYear !== "all" && detYears.length > 0 && !detYears.includes(detYear)) {
+      setDetYear("all");
+    }
+  }, [detYears, detYear]);
 
   // Render satellite detection dots at their true geographic coordinates with progressive disclosure
   useEffect(() => {
@@ -1191,14 +1246,14 @@ export default function FireMap({ goCalendar }: { goCalendar: () => void }) {
       lastAoiRef.current = aoi;
       setSelectedCell(null);
       const p = presets.find(pp => pp.id === aoi);
-      if (p) {
+      if (p && (!selName || PRESET_NAMES[p.id] === selName || p.name === selName)) {
         mapRef.current.flyToBounds([[p.south, p.west], [p.north, p.east]], {
           padding: [50, 50],
           duration: 0.9,
         });
       }
     }
-  }, [aoi, presets]);
+  }, [aoi, presets, selName]);
 
   const resetToAllRegions = () => {
     setSelName(null);
@@ -1214,7 +1269,9 @@ export default function FireMap({ goCalendar }: { goCalendar: () => void }) {
       lastAoiRef.current = targetPreset;
       setAoi(targetPreset);
       api.series(targetPreset).catch(() => { });
-      const p = presets.find(pp => pp.id === targetPreset);
+    }
+    if (r.preset) {
+      const p = presets.find(pp => pp.id === r.preset);
       if (p) {
         mapRef.current?.flyToBounds([[p.south, p.west], [p.north, p.east]], {
           padding: [50, 50],

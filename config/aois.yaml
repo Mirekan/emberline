@@ -88,9 +88,9 @@ aois:
     end: 2026-07-31
   - id: papua_selatan
     name: "South Papua - Mappi/Asmat savanna and agricultural fires"
-    west: 132.0
+    west: 136.0
     south: -9.0
-    east: 137.0
+    east: 141.0
     north: -4.0
     sources: MODIS_SP VIIRS_SNPP_SP
     start: 2018-01-01
@@ -136,7 +136,7 @@ aois:
     west: 103.0
     south: -8.0
     east: 108.0
-    north: -5.0
+    north: -3.5
     sources: MODIS_SP VIIRS_SNPP_SP
     start: 2018-01-01
     end: 2026-07-31
@@ -160,9 +160,9 @@ aois:
     end: 2026-07-31
   - id: jawa
     name: "West/Central Java - north-coast wetland and agricultural fires (probe first)"
-    west: 107.0
-    south: -8.0
-    east: 112.0
+    west: 105.0
+    south: -9.0
+    east: 115.0
     north: -3.0
     sources: MODIS_SP VIIRS_SNPP_SP
     start: 2018-01-01

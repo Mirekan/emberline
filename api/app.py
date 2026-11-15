@@ -434,7 +434,7 @@ def api_detections(
                 if d.is_dir() and d.name != "all" and (d / "detections.json").exists():
                     try:
                         for item in json.loads((d / "detections.json").read_text(encoding="utf-8")).get("detections", []):
-                            key = (item["date"], round(item["lat"], 4), round(item["lon"], 4), item["sensor"])
+                            key = (item.get("date", ""), round(item["lat"], 4), round(item["lon"], 4), item.get("sensor", ""))
                             if key not in seen:
                                 seen.add(key)
                                 all_dets.append(item)
@@ -486,19 +486,6 @@ def api_detections(
                 }
         else:
             data = _load(aoi, "detections.json")
-            if bounds is None:
-                p_match = None
-                try:
-                    for p_item in presets().get("presets", []):
-                        if p_item.get("id") == aoi:
-                            p_match = p_item
-                            break
-                except Exception:
-                    pass
-                if p_match:
-                    preset_bbox = (p_match["west"], p_match["south"], p_match["east"], p_match["north"])
-                    data["detections"] = _filter_detections(data["detections"], preset_bbox)
-                    data["n_detections"] = len(data["detections"])
 
     if bounds is not None:
         data["detections"] = _filter_detections(data["detections"], bounds)
