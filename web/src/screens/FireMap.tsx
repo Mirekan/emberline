@@ -3,6 +3,7 @@ import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import { api, Preset, Detections, Detection, Grid, GridCell, HotspotAnalysisResponse } from "../api";
 import { useAoi } from "../App";
+import SearchableSelect from "../components/SearchableSelect";
 
 function MarkdownView({ content }: { content: string }) {
   const lines = content.split("\n");
@@ -1455,19 +1456,22 @@ export default function FireMap() {
                 {detYear === "all" ? (lang === "id" ? "Semua tahun" : "All years") : detYear}
               </span>
             </div>
-            <select
+            <SearchableSelect
               className="glass-select"
               value={detYear}
+              label={lang === "id" ? "Tahun Observasi (Grid & Titik)" : "Observation Year (Grid & Dots)"}
+              options={[
+                { value: "all", label: t("map_time_all") },
+                ...detYears.map(year => ({
+                  value: year,
+                  label: lang === "id" ? `Tahun ${year}` : `Year ${year}`,
+                })),
+              ]}
+              searchPlaceholder={t("select_search_placeholder")}
+              noResultsMessage={t("select_no_results")}
               style={{ width: "100%", height: 32, fontSize: 11, cursor: "pointer" }}
-              onChange={e => setDetYear(e.target.value)}
-            >
-              <option value="all">{t("map_time_all")}</option>
-              {detYears.map(y => (
-                <option key={y} value={y}>
-                  {lang === "id" ? `Tahun ${y}` : `Year ${y}`}
-                </option>
-              ))}
-            </select>
+              onChange={setDetYear}
+            />
             <div className="map-contrast-hint">
               {lang === "id"
                 ? "Memfilter kepadatan grid 0,1° dan sebaran titik api satelit berdasarkan tahun observasi yang dipilih."

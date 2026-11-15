@@ -16,6 +16,8 @@ export const DICTIONARY = {
     nav_lang_toggle: "Ganti bahasa (ID / EN)",
     nav_theme_dark: "Ganti ke mode gelap",
     nav_theme_light: "Ganti ke mode terang",
+    select_search_placeholder: "Cari pilihan…",
+    select_no_results: "Tidak ada hasil",
     mock_badge: "DATA CONTOH / SINTETIS",
     mock_badge_title: "Artefak tiruan aktif (Prinsip Kejujuran Ilmiah Satelit)",
 
@@ -271,6 +273,8 @@ export const DICTIONARY = {
     nav_lang_toggle: "Switch language (ID / EN)",
     nav_theme_dark: "Switch to dark mode",
     nav_theme_light: "Switch to light mode",
+    select_search_placeholder: "Search options…",
+    select_no_results: "No results found",
     mock_badge: "MOCK / SYNTHETIC",
     mock_badge_title: "Synthetic fixture artifact active (Scientific Honesty Principle)",
 

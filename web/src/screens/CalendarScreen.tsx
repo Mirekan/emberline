@@ -4,6 +4,7 @@ import { api, Calendar, Preset } from "../api";
 import { yearTiles, monthTiles, yearTilesFromDays, monthTilesFromDays, Tile, MONTHS_ID, MONTHS_EN, RawField } from "../calendarTiles";
 import { useAoi } from "../App";
 import { PRESET_NAMES } from "../presets";
+import SearchableSelect from "../components/SearchableSelect";
 import Seasons from "./Seasons";
 
 type CalendarSensor = "harm" | "modis" | "viirs";
@@ -148,21 +149,26 @@ export default function CalendarScreen({ goMap }: { goMap: () => void }) {
       </div>
 
       <div className="calendar-controls">
-        <label className="calendar-filter-control">
+        <div className="calendar-filter-control">
           <span className="calendar-filter-label">{t("cal_label_region")}</span>
-          <select
+          <SearchableSelect
             className="glass-select"
             value={aoi}
-            aria-label={t("cal_label_region")}
-            onChange={e => { setAoi(e.target.value); setSel(null); }}
-          >
-            {presets.map(p => (
-              <option key={p.id} value={p.id}>
-                {PRESET_NAMES[lang]?.[p.id] ?? p.name}
-              </option>
-            ))}
-          </select>
-        </label>
+            label={t("cal_label_region")}
+            options={[
+              ...(presets.some(p => p.id === aoi)
+                ? []
+                : [{ value: aoi, label: PRESET_NAMES[lang]?.[aoi] ?? aoi }]),
+              ...presets.map(p => ({
+                value: p.id,
+                label: PRESET_NAMES[lang]?.[p.id] ?? p.name,
+              })),
+            ]}
+            searchPlaceholder={t("select_search_placeholder")}
+            noResultsMessage={t("select_no_results")}
+            onChange={nextAoi => { setAoi(nextAoi); setSel(null); }}
+          />
+        </div>
 
         <div className="calendar-filter-control">
           <span className="calendar-filter-label" id="calendar-sensor-label">{t("cal_label_sensor")}</span>
@@ -210,35 +216,43 @@ export default function CalendarScreen({ goMap }: { goMap: () => void }) {
         </div>
 
         {view === "monthly" ? (
-          <label className="calendar-filter-control">
+          <div className="calendar-filter-control">
             <span className="calendar-filter-label">{t("cal_year_choice")}</span>
-            <select
+            <SearchableSelect
               className="glass-select"
               value={yearSel}
-              aria-label={t("cal_year_choice")}
-              onChange={e => { setYearSel(e.target.value); setSel(null); }}
-            >
-              <option value="all">{t("cal_all_years")}</option>
-              {yearsAll.map(y => (
-                <option key={y.year} value={String(y.year)}>{t("cal_year_opt", { year: y.year })}</option>
-              ))}
-            </select>
-          </label>
+              label={t("cal_year_choice")}
+              options={[
+                { value: "all", label: t("cal_all_years") },
+                ...yearsAll.map(y => ({
+                  value: String(y.year),
+                  label: t("cal_year_opt", { year: y.year }),
+                })),
+              ]}
+              searchPlaceholder={t("select_search_placeholder")}
+              noResultsMessage={t("select_no_results")}
+              onChange={nextYear => { setYearSel(nextYear); setSel(null); }}
+            />
+          </div>
         ) : (
-          <label className="calendar-filter-control">
+          <div className="calendar-filter-control">
             <span className="calendar-filter-label">{t("cal_month_choice")}</span>
-            <select
+            <SearchableSelect
               className="glass-select"
               value={monthSel}
-              aria-label={t("cal_month_choice")}
-              onChange={e => { setMonthSel(e.target.value); setSel(null); }}
-            >
-              <option value="all">{t("cal_all_months")}</option>
-              {monthNames.map((m, i) => (
-                <option key={m} value={String(i + 1).padStart(2, "0")}>{t("cal_month_opt", { month: m })}</option>
-              ))}
-            </select>
-          </label>
+              label={t("cal_month_choice")}
+              options={[
+                { value: "all", label: t("cal_all_months") },
+                ...monthNames.map((month, i) => ({
+                  value: String(i + 1).padStart(2, "0"),
+                  label: t("cal_month_opt", { month }),
+                })),
+              ]}
+              searchPlaceholder={t("select_search_placeholder")}
+              noResultsMessage={t("select_no_results")}
+              onChange={nextMonth => { setMonthSel(nextMonth); setSel(null); }}
+            />
+          </div>
         )}
 
         <div className="calendar-filter-summary" aria-live="polite">

@@ -50,3 +50,4 @@ artifacts/**/*.db
 
 # tool artifacts
 .agent/
+.github/
