@@ -2842,6 +2842,7 @@ tbody tr:hover {
 }
 
 @media (max-width: 520px) {
+
   .searchable-select-trigger,
   .searchable-select-search,
   .searchable-select-option {
@@ -3073,6 +3074,7 @@ tbody tr:hover {
     opacity: 0;
     transform: translateX(20px);
   }
+
   to {
     opacity: 1;
     transform: translateX(0);
@@ -3395,21 +3397,32 @@ tbody tr:hover {
   color: var(--ink);
 }
 
-.ai-markdown-body h2, .ai-markdown-body h3, .ai-markdown-body h4 {
+.ai-markdown-body h2,
+.ai-markdown-body h3,
+.ai-markdown-body h4 {
   color: var(--ink);
   margin: 12px 0 6px;
   font-weight: 700;
 }
 
-.ai-markdown-body h2 { font-size: 13.5px; }
-.ai-markdown-body h3 { font-size: 12.5px; }
-.ai-markdown-body h4 { font-size: 12px; }
+.ai-markdown-body h2 {
+  font-size: 13.5px;
+}
+
+.ai-markdown-body h3 {
+  font-size: 12.5px;
+}
+
+.ai-markdown-body h4 {
+  font-size: 12px;
+}
 
 .ai-markdown-body p {
   margin: 6px 0;
 }
 
-.ai-markdown-body ul, .ai-markdown-body ol {
+.ai-markdown-body ul,
+.ai-markdown-body ol {
   margin: 6px 0;
   padding-left: 18px;
 }
@@ -3652,4 +3665,3 @@ tbody tr:hover {
   cursor: pointer;
   height: 6px;
 }
-

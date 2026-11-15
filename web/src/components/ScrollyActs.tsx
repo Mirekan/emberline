@@ -12,18 +12,28 @@ import {
 import type { ReactNode } from "react";
 import { stageState } from "./stageState";
 import { useAoi } from "../App";
-import { api } from "../api";
+import { api, Preset } from "../api";
+import SearchableRegionSelect from "./SearchableRegionSelect";
 
 type ActWindow = [number, number, number, number];
 
-export function RiskGaugeCard() {
-  const { aoi, lang, t } = useAoi();
+export function RiskGaugeCard({ presets: propPresets }: { presets?: Preset[] }) {
+  const { aoi, setAoi, lang, t } = useAoi();
+  const [presets, setPresets] = useState<Preset[]>(propPresets ?? []);
   const [telemetry, setTelemetry] = useState<{ score: number; peakMonth: string; label: string; color: string } | null>(null);
   const score = useMotionValue(0);
   const roundedScore = useTransform(score, value => Math.round(value).toString().padStart(2, "0"));
   const radius = 52;
   const circumference = 2 * Math.PI * radius;
   const arc = circumference * (260 / 360);
+
+  useEffect(() => {
+    if (propPresets && propPresets.length > 0) {
+      setPresets(propPresets);
+      return;
+    }
+    api.presets().then(r => setPresets(r.presets)).catch(() => { });
+  }, [propPresets]);
 
   useEffect(() => {
     let cancelled = false;
@@ -102,12 +112,23 @@ export function RiskGaugeCard() {
   return (
     <div
       className="hero-hud-card"
-      role="img"
+      role="region"
       aria-label={t("hud_aria")}
     >
       <div className="hero-hud-heading">
         <span className="hero-hud-kicker">{t("hud_kicker")}</span>
         <span className="hero-hud-live"><i /> {t("hud_demo")}</span>
+      </div>
+
+      <div style={{ marginTop: 12 }}>
+        <SearchableRegionSelect
+          value={aoi}
+          onChange={newAoi => setAoi(newAoi)}
+          presets={presets}
+          lang={lang}
+          compact
+          style={{ width: "100%" }}
+        />
       </div>
 
       <div className="hero-hud-main">

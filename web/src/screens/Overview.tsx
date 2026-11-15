@@ -49,7 +49,7 @@ export default function Overview({
           </div>
           <span className="overview-scroll-cue">{t("overview_scroll_cue")} <span aria-hidden="true">↓</span></span>
         </div>
-        <RiskGaugeCard />
+        <RiskGaugeCard presets={presets} />
         <div className="overview-stats" aria-label={lang === "id" ? "Ringkasan cakupan observasi" : "Observation coverage summary"}>
           <div><strong>38</strong><span>{t("overview_stat_provinces")}</span></div>
           <div><strong>{series?.days.length.toLocaleString(lang === "id" ? "id-ID" : "en-US") ?? "5,114"}</strong><span>{t("overview_stat_obs")}</span></div>
