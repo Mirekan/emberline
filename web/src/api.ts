@@ -19,7 +19,7 @@ export type Method = Envelope & { split: { train_years: string[]; test_years: st
 
 export type GridYear = { modis: number; viirs: number; n_days: number };
 export type GridCell = { cell_id: string; south: number; west: number; north: number; east: number; years?: Record<string, GridYear>; n_days: number; total_modis: number; total_viirs: number; detection_count: number; has_data?: boolean };
-export type Grid = { cell_deg: number; years: string[]; n_cells: number; scale_note: string; cells: GridCell[] };
+export type Grid = { cell_deg: number; bounds?: { south: number; west: number; north: number; east: number }; years: string[]; n_cells: number; scale_note: string; cells: GridCell[] };
 
 export type Detection = { date: string; lat: number; lon: number; frp: number; sensor: "modis" | "viirs"; conf: string; daynight: string };
 export type Detections = { n_detections: number; note: string; detections: Detection[] };

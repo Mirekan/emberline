@@ -220,66 +220,11 @@ def _generate_indonesia_mosaic_grid():
         return _CACHED_INDONESIA_MOSAIC_GRID
 
     cell_deg = 0.1
-    scale_note = "0.1-degree density grid across Indonesia mosaic. Unmonitored or 0-observation cells are standby."
-    cells = {}
+    bounds = {"south": -11.0, "west": 95.0, "north": 6.0, "east": 141.0}
+    scale_note = "0.1-degree full rectangular grid across Indonesia (95°E to 141°E, 11°S to 6°N). Areas without observations are white standby."
 
-    # 1. Parse all presets from config/aois.yaml
-    presets = []
-    if AOIS_PATH.exists():
-        cur = None
-        for raw in AOIS_PATH.read_text(encoding="utf-8").splitlines():
-            line = raw.split("#", 1)[0].rstrip()
-            s = line.strip()
-            if s.startswith("- id:"):
-                if cur:
-                    presets.append(cur)
-                cur = {"id": s.split(":", 1)[1].strip()}
-                continue
-            if cur is not None:
-                if s.startswith("- "):
-                    presets.append(cur)
-                    cur = None
-                    continue
-                if s and ":" in s:
-                    k, v = s.split(":", 1)
-                    k = k.strip()
-                    try:
-                        cur[k] = float(v.strip())
-                    except ValueError:
-                        cur[k] = v.strip().strip('"')
-        if cur:
-            presets.append(cur)
-
-    # 2. Generate 0.1 deg cells across all presets in the Indonesia mosaic
-    for p in presets:
-        if not all(k in p for k in ("west", "south", "east", "north")):
-            continue
-        west, east = p["west"], p["east"]
-        south, north = p["south"], p["north"]
-        x = west
-        while x < east - 1e-6:
-            y = south
-            while y < north - 1e-6:
-                lat_idx = int(round(y / cell_deg))
-                lon_idx = int(round(x / cell_deg))
-                cell_id = f"R{lat_idx:05d}C{lon_idx:05d}"
-                if cell_id not in cells:
-                    cells[cell_id] = {
-                        "cell_id": cell_id,
-                        "south": round(y, 2),
-                        "west": round(x, 2),
-                        "north": round(y + cell_deg, 2),
-                        "east": round(x + cell_deg, 2),
-                        "detection_count": 0,
-                        "total_modis": 0.0,
-                        "total_viirs": 0.0,
-                        "n_days": 0,
-                        "has_data": False,
-                    }
-                y += cell_deg
-            x += cell_deg
-
-    # 3. Merge artifact observation counts where available
+    # 1. Merge artifact observation counts where available across monitored regions
+    merged_cells = {}
     years = set()
     for path in sorted(ARTIFACTS.iterdir()):
         if not path.is_dir() or path.name in ("all", "indonesia"):
@@ -304,15 +249,15 @@ def _generate_indonesia_mosaic_grid():
                 o_idx = math.floor(c["west"] / cell_deg + 1e-9)
                 cid = f"R{l_idx:05d}C{o_idx:05d}"
                 cnt = d_counts.get((l_idx, o_idx), 0)
-                if cid in cells:
-                    target = cells[cid]
+                if cid in merged_cells:
+                    target = merged_cells[cid]
                     target["has_data"] = True
                     target["detection_count"] += cnt
                     target["total_modis"] += c.get("total_modis", 0.0)
                     target["total_viirs"] += c.get("total_viirs", 0.0)
                     target["n_days"] = max(target["n_days"], c.get("n_days", 0))
                 else:
-                    cells[cid] = {
+                    merged_cells[cid] = {
                         "cell_id": cid,
                         "south": c["south"],
                         "west": c["west"],
@@ -327,11 +272,13 @@ def _generate_indonesia_mosaic_grid():
         except Exception:
             pass
 
-    cell_list = sorted(cells.values(), key=lambda c: (c["south"], c["west"]))
+    cell_list = sorted(merged_cells.values(), key=lambda c: (c["south"], c["west"]))
     _CACHED_INDONESIA_MOSAIC_GRID = {
         "cell_deg": cell_deg,
+        "bounds": bounds,
         "years": sorted(years),
-        "n_cells": len(cell_list),
+        "n_cells": 78200,
+        "n_monitored_cells": len(cell_list),
         "scale_note": scale_note,
         "cells": cell_list,
     }

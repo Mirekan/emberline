@@ -452,69 +452,73 @@ export default function FireMap() {
     return grid && grid.cells.length > 0 ? Math.max(0, ...grid.cells.map(c => c.detection_count)) : 0;
   }, [grid]);
 
-  // Render 0.1° density grid overlay across Indonesia when toggled on
+  // Render 0.1° density grid overlay across the full rectangular Indonesia bounds
   useEffect(() => {
     const map = mapRef.current;
     if (!map) return;
     gridLayerRef.current?.remove();
     gridLayerRef.current = null;
-    if (!gridOn || !grid || grid.cells.length === 0) return;
+    if (!gridOn || !grid) return;
 
-    // High performance hardware-accelerated canvas renderer for the full 29,900-cell nationwide mosaic
+    // High performance hardware-accelerated canvas renderer
     const canvasRenderer = L.canvas({ padding: 0.5 });
     const layer = L.layerGroup();
+
+    // 1. Full rectangular bounds of Indonesia (95°E to 141°E, 11°S to 6°N) - no cuts or gaps
+    const bounds = grid.bounds ?? { south: -11.0, west: 95.0, north: 6.0, east: 141.0 };
+    const step = grid.cell_deg ?? 0.1;
+
+    // Full rectangular white background overlay for unmonitored / white grid area
+    const bgRect = L.rectangle(
+      [[bounds.south, bounds.west], [bounds.north, bounds.east]],
+      {
+        renderer: canvasRenderer,
+        color: "rgba(255, 255, 255, 0.65)",
+        weight: 1.5,
+        fillColor: "#FFFFFF",
+        fillOpacity: 0.14,
+        interactive: true,
+        bubblingMouseEvents: false,
+      },
+    );
+    bgRect.bindTooltip(
+      `<div style="font-size:11px; line-height:1.4;">
+        <div style="font-weight:700; color:#FFFFFF; margin-bottom:2px;">${lang === "id" ? "Grid Nasional Indonesia (0,1°)" : "National Indonesia Grid (0.1°)"}</div>
+        <div>${lang === "id" ? "Klik pada sel mana pun untuk inspeksi titik observasi" : "Click any cell to inspect observation counts"}</div>
+      </div>`,
+      { sticky: true }
+    );
+    bgRect.addTo(layer);
+
+    // 2. Uniform 0.1° grid lines spanning the entire rectangle ("full persegi panjang")
+    const gridLines: [number, number][][] = [];
+    for (let lat = bounds.south; lat <= bounds.north + 1e-5; lat = Math.round((lat + step) * 10) / 10) {
+      gridLines.push([[lat, bounds.west], [lat, bounds.east]]);
+    }
+    for (let lon = bounds.west; lon <= bounds.east + 1e-5; lon = Math.round((lon + step) * 10) / 10) {
+      gridLines.push([[bounds.south, lon], [bounds.north, lon]]);
+    }
+
+    const linesLayer = L.polyline(gridLines, {
+      renderer: canvasRenderer,
+      color: "rgba(255, 255, 255, 0.35)",
+      weight: 0.5,
+      interactive: false,
+    });
+    linesLayer.addTo(layer);
+
+    // 3. Render active / monitored observation cells with heat & risk colors
+    const cellsByCoord = new Map<string, GridCell>();
     for (const cell of grid.cells) {
+      const key = `${cell.south.toFixed(1)},${cell.west.toFixed(1)}`;
+      cellsByCoord.set(key, cell);
+
       const count = cell.detection_count;
+      if (count === 0) continue; // Unpopulated cells already rendered in the white base grid
+
       const isSelected = selectedCell?.cell_id === cell.cell_id;
-      const hasData = cell.has_data ?? (count > 0);
-
-      // Area yang belum ada data / 0 observasi ditampilkan putih sesuai permintaan
-      if (!hasData || count === 0) {
-        const area = L.rectangle(
-          [[cell.south, cell.west], [cell.north, cell.east]],
-          {
-            renderer: canvasRenderer,
-            color: isSelected ? "#FFFFFF" : "rgba(255, 255, 255, 0.4)",
-            weight: isSelected ? 2.5 : 0.4,
-            fillColor: "#FFFFFF",
-            fillOpacity: isSelected ? 0.45 : 0.14,
-            interactive: true,
-            bubblingMouseEvents: false,
-          },
-        );
-        area.bindTooltip(
-          `<div style="font-size:11px; line-height:1.4;">
-            <div style="font-weight:700; color:#FFFFFF; margin-bottom:2px;">Status: ${lang === "id" ? "Belum Ada Data Satelit" : "No Satellite Data"}</div>
-            <div>0 ${lang === "id" ? "observasi satelit" : "observations"}</div>
-            <div style="font-size:10px; color:#aaa;">${lang === "id" ? "Wilayah standby pemantauan (putih)" : "Monitoring standby area (white)"}</div>
-          </div>`,
-          { sticky: true }
-        );
-        area.on("click", (e) => {
-          L.DomEvent.stopPropagation(e);
-          setSelectedCell(prev => {
-            if (prev?.cell_id === cell.cell_id) {
-              const p = presets.find(pp => pp.id === aoi);
-              if (p) {
-                map.flyToBounds([[p.south, p.west], [p.north, p.east]], { padding: [50, 50], duration: 0.8 });
-              }
-              return null;
-            } else {
-              map.flyToBounds([[cell.south, cell.west], [cell.north, cell.east]], {
-                padding: [80, 80],
-                maxZoom: 11,
-                duration: 0.8,
-              });
-              return cell;
-            }
-          });
-        });
-        area.addTo(layer);
-        continue;
-      }
-
-      // Area dengan data deteksi satelit ditampilkan gradasi densitas
       const risk = getCellRisk(count, maxCount);
+
       const area = L.rectangle(
         [[cell.south, cell.west], [cell.north, cell.east]],
         {
@@ -522,7 +526,7 @@ export default function FireMap() {
           color: isSelected ? "#FFFFFF" : risk.color,
           weight: isSelected ? 2.5 : 0.65,
           fillColor: risk.color,
-          fillOpacity: isSelected ? 0.55 : 0.22 + (maxCount > 0 ? (Math.log1p(count) / Math.log1p(maxCount)) * 0.4 : 0),
+          fillOpacity: isSelected ? 0.6 : 0.25 + (maxCount > 0 ? (Math.log1p(count) / Math.log1p(maxCount)) * 0.45 : 0),
           interactive: true,
           bubblingMouseEvents: false,
         },
@@ -537,25 +541,60 @@ export default function FireMap() {
       );
       area.on("click", (e) => {
         L.DomEvent.stopPropagation(e);
-        setSelectedCell(prev => {
-          if (prev?.cell_id === cell.cell_id) {
-            const p = presets.find(pp => pp.id === aoi);
-            if (p) {
-              map.flyToBounds([[p.south, p.west], [p.north, p.east]], { padding: [50, 50], duration: 0.8 });
-            }
-            return null;
-          } else {
-            map.flyToBounds([[cell.south, cell.west], [cell.north, cell.east]], {
-              padding: [80, 80],
-              maxZoom: 11,
-              duration: 0.8,
-            });
-            return cell;
-          }
-        });
+        setSelectedCell(prev => (prev?.cell_id === cell.cell_id ? null : cell));
       });
       area.addTo(layer);
     }
+
+    // 4. Click handler on the full rectangle to focus / inspect any 0.1° cell
+    bgRect.on("click", (e) => {
+      L.DomEvent.stopPropagation(e);
+      const clickedLat = Math.floor(e.latlng.lat / step) * step;
+      const clickedLon = Math.floor(e.latlng.lng / step) * step;
+      const cellSouth = Math.round(clickedLat * 10) / 10;
+      const cellWest = Math.round(clickedLon * 10) / 10;
+      const key = `${cellSouth.toFixed(1)},${cellWest.toFixed(1)}`;
+      const existing = cellsByCoord.get(key);
+
+      if (existing) {
+        setSelectedCell(prev => (prev?.cell_id === existing.cell_id ? null : existing));
+      } else {
+        const dummyId = `R${Math.round(cellSouth * 10)}C${Math.round(cellWest * 10)}`;
+        setSelectedCell(prev => {
+          if (prev?.cell_id === dummyId) return null;
+          return {
+            cell_id: dummyId,
+            south: cellSouth,
+            west: cellWest,
+            north: Math.round((cellSouth + step) * 10) / 10,
+            east: Math.round((cellWest + step) * 10) / 10,
+            detection_count: 0,
+            total_modis: 0,
+            total_viirs: 0,
+            n_days: 0,
+            has_data: false,
+          };
+        });
+      }
+    });
+
+    // 5. If a cell is selected, render a prominent highlight rectangle over it
+    if (selectedCell) {
+      const isObs = selectedCell.detection_count > 0;
+      const highlight = L.rectangle(
+        [[selectedCell.south, selectedCell.west], [selectedCell.north, selectedCell.east]],
+        {
+          renderer: canvasRenderer,
+          color: "#FFFFFF",
+          weight: 2.5,
+          fillColor: isObs ? getCellRisk(selectedCell.detection_count, maxCount).color : "#FFFFFF",
+          fillOpacity: 0.55,
+          interactive: false,
+        }
+      );
+      highlight.addTo(layer);
+    }
+
     layer.addTo(map);
     gridLayerRef.current = layer;
   }, [grid, gridOn, selectedCell, maxCount, mapReady, aoi, presets, lang]);
