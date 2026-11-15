@@ -38,6 +38,7 @@ data/raw/**
 !data/manifests/data_availability_*.csv
 
 # Scientific artifacts — small versioned JSONs are committed; heavy binaries are not.
+*_full.json
 artifacts/**/*.parquet
 
 # OS / editor noise

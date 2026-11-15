@@ -194,12 +194,14 @@ def api_grid(aoi: str):
 def api_detections(aoi: str):
     """Validated hotspot detections — one entry = one satellite pixel, not one fire."""
     if aoi in ("all", "indonesia"):
+        p = ARTIFACTS / "all" / "detections.json"
+        if p.exists():
+            return json.loads(p.read_text(encoding="utf-8"))
         all_dets = []
-        for p in sorted(ARTIFACTS.glob("*")):
-            if p.is_dir() and (p / "detections.json").exists():
+        for d in sorted(ARTIFACTS.glob("*")):
+            if d.is_dir() and d.name != "all" and (d / "detections.json").exists():
                 try:
-                    data = json.loads((p / "detections.json").read_text(encoding="utf-8"))
-                    all_dets.extend(data.get("detections", []))
+                    all_dets.extend(json.loads((d / "detections.json").read_text(encoding="utf-8")).get("detections", []))
                 except Exception:
                     pass
         return {
