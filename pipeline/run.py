@@ -89,6 +89,10 @@ def discover_inputs(aoi_id: str) -> dict:
 def run(aoi_id: str, run_ts: str | None = None, detections: list[Path] | None = None,
         mask_path: Path | None = None) -> dict:
     created = run_ts or datetime.now(timezone.utc).strftime("%Y%m%dT%H%MZ")
+    if run_ts:  # frozen clock -> fully deterministic provenance (tests/audit reruns)
+        created_utc = datetime.strptime(run_ts, "%Y%m%dT%H%MZ").replace(tzinfo=timezone.utc).isoformat(timespec="seconds")
+    else:
+        created_utc = datetime.now(timezone.utc).isoformat(timespec="seconds")
     inputs = discover_inputs(aoi_id)
     detections = detections or inputs["detections"]
     mask_path = mask_path or inputs["mask"]
@@ -186,7 +190,7 @@ def run(aoi_id: str, run_ts: str | None = None, detections: list[Path] | None = 
         "task": "C-07",
         "run_id": f"{PROTOCOL_VERSION}_{git_sha()}_{created}",
         "git_sha": git_sha(),
-        "created_utc": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+        "created_utc": created_utc,
         "aoi_id": aoi_id,
         "aoi_bbox_date_range": {
             "bbox": inputs["bbox_str"],
