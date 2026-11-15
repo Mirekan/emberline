@@ -17,6 +17,7 @@ human, that limitation is disclosed here (small-team day-1 condition).**
 | DEV-S04 | Bounded custom rectangles only; genuine recompute for supported cached areas, explicit unsupported/insufficient otherwise | FR-UI-1 | APPROVED 14 Nov |
 | DEV-S05 | One app, one backend, precomputed versioned artifacts; no DB/auth/queue/runtime-LLM | PRD §11 | APPROVED 14 Nov |
 | DEV-S06 | CSV provenance as ordinary columns, not leading comment headers | FR-EXP-1 | APPROVED 14 Nov |
+| DEV-S05-CLARIF | Clarification of DEV-S05: "no database" means **no database SERVER** (no Postgres/deployment infra); an **embedded SQLite file as a derived serving artifact** (`artifacts/<aoi>/serving.db`, rebuilt by `make reproduce`, canonical sources remain CSV/JSON) is allowed | PRD §11 | APPROVED 14 Nov (instructed by A) |
 
 ## Frozen decisions
 

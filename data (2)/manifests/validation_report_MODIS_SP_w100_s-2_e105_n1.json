@@ -1,0 +1,49 @@
+{
+  "source": "MODIS_SP",
+  "slug": "w100_s-2_e105_n1",
+  "bbox": "100,-2,105,1",
+  "generated_utc": "2026-11-14T03:31:45+00:00",
+  "files_total": 129,
+  "hash_checked": 129,
+  "hash_mismatch": 0,
+  "files_missing_from_ledger": 0,
+  "rows_raw": 26917,
+  "rows_kept": 26917,
+  "drop_counts": {},
+  "schema_variants": {
+    "latitude,longitude,brightness,scan,track,acq_date,acq_time,satellite,instrument,confidence,version,bright_t31,frp,daynight,type": 129
+  },
+  "coverage": {
+    "requested_start": "2012-01-20",
+    "requested_end": "2015-09-15",
+    "days_total": 1335,
+    "days_retrieved": 645,
+    "days_failed_retrieval": 0,
+    "days_with_detections": 451,
+    "days_zero_detections": 645
+  },
+  "satellite_breakdown": {
+    "Terra": 10250,
+    "Aqua": 16667
+  },
+  "first_detection": "2012-01-20",
+  "last_detection": "2015-09-15",
+  "per_year": {
+    "2012": {
+      "total": 10809,
+      "Terra": 3590,
+      "Aqua": 7219
+    },
+    "2013": {
+      "total": 10354,
+      "Aqua": 6467,
+      "Terra": 3887
+    },
+    "2015": {
+      "total": 5754,
+      "Terra": 2773,
+      "Aqua": 2981
+    }
+  },
+  "failed_windows": []
+}

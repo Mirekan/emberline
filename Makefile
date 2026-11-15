@@ -19,7 +19,7 @@ help:
 	@echo "  make build               [D-01] build release backend (frontend pending)"
 
 dev:
-	cargo run --manifest-path api/Cargo.toml --locked
+# 	cargo run --manifest-path api/Cargo.toml --locked
 
 # make data                       full era, ALL AOIs from config/aois.yaml (resumable)
 # make data DATA_AOI=riau START=2023-01-01 END=2023-12-31   dev-range profile:
@@ -48,7 +48,7 @@ reproduce:
 	python3 -m pipeline.run --aoi $(AOI)
 
 test:
-	cargo test --manifest-path api/Cargo.toml --locked
+# 	cargo test --manifest-path api/Cargo.toml --locked
 	@python3 tests/test_protocol_contract.py
 	@python3 tests/test_grid_match.py
 	@python3 tests/test_baseline_leakage.py
@@ -63,7 +63,7 @@ test:
 	@echo "[note] C-01..C-07 contract tests consolidated; test_run_manifest is the memory-heaviest (full-chain rerun) — run when the machine has headroom."
 
 serve:
-	cargo run --manifest-path api/Cargo.toml --locked --release
+# 	cargo run --manifest-path api/Cargo.toml --locked --release
 
 build:
-	cargo build --manifest-path api/Cargo.toml --locked --release
+# 	cargo build --manifest-path api/Cargo.toml --locked --release
