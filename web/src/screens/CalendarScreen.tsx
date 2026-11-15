@@ -4,6 +4,7 @@ import { api, Calendar, Preset } from "../api";
 import { yearTiles, monthTiles, yearTilesFromDays, monthTilesFromDays, Tile, MONTHS_ID, MONTHS_EN, RawField } from "../calendarTiles";
 import { useAoi } from "../App";
 import { PRESET_NAMES } from "../presets";
+import SearchableRegionSelect from "../components/SearchableRegionSelect";
 import Seasons from "./Seasons";
 
 type CalendarSensor = "harm" | "modis" | "viirs";
@@ -148,21 +149,15 @@ export default function CalendarScreen({ goMap }: { goMap: () => void }) {
       </div>
 
       <div className="calendar-controls">
-        <label className="calendar-filter-control">
-          <span className="calendar-filter-label">{t("cal_label_region")}</span>
-          <select
-            className="glass-select"
+        <div className="calendar-filter-control">
+          <SearchableRegionSelect
             value={aoi}
-            aria-label={t("cal_label_region")}
-            onChange={e => { setAoi(e.target.value); setSel(null); }}
-          >
-            {presets.map(p => (
-              <option key={p.id} value={p.id}>
-                {PRESET_NAMES[lang]?.[p.id] ?? p.name}
-              </option>
-            ))}
-          </select>
-        </label>
+            onChange={(newAoi) => { setAoi(newAoi); setSel(null); }}
+            presets={presets}
+            lang={lang}
+            label={t("cal_label_region")}
+          />
+        </div>
 
         <div className="calendar-filter-control">
           <span className="calendar-filter-label" id="calendar-sensor-label">{t("cal_label_sensor")}</span>
