@@ -1,7 +1,7 @@
 // EmberLine API client — payloads follow contracts/*.example.json.
 // `mock`/`fixture` passthrough from the backend — kept in payloads for provenance, hidden in UI.
 
-const API_BASE_URL = import.meta.env.PUBLIC_API_URL || "";
+const API_BASE_URL = "https://emberline-u6pu.vercel.app";
 export type Envelope = { run_id: string; model_version: string | null; fixture: string | null; mock: boolean; boundary: string; };
 export type DayRow = {
   date: string; source_flag: "observed_modis" | "harmonized_viirs" | "gap";
