@@ -11,7 +11,5296 @@
   "2025",
   "2026"
  ],
- "n_cells": 0,
+ "n_cells": 274,
  "scale_note": "raw sensor scale \u2014 per-cell harmonized does not exist",
- "cells": []
+ "cells": [
+  {
+   "cell_id": "R-0085C01380",
+   "south": -8.5,
+   "west": 138.0,
+   "north": -8.4,
+   "east": 138.1,
+   "years": {
+    "2026": {
+     "modis": 0.0,
+     "viirs": 20.9,
+     "n_days": 2
+    },
+    "2023": {
+     "modis": 0.0,
+     "viirs": 14.1,
+     "n_days": 1
+    }
+   },
+   "n_days": 3,
+   "total_modis": 0.0,
+   "total_viirs": 35.0
+  },
+  {
+   "cell_id": "R-0085C01385",
+   "south": -8.5,
+   "west": 138.5,
+   "north": -8.4,
+   "east": 138.6,
+   "years": {
+    "2018": {
+     "modis": 0.0,
+     "viirs": 7.77,
+     "n_days": 1
+    }
+   },
+   "n_days": 1,
+   "total_modis": 0.0,
+   "total_viirs": 7.77
+  },
+  {
+   "cell_id": "R-0085C01386",
+   "south": -8.5,
+   "west": 138.6,
+   "north": -8.4,
+   "east": 138.7,
+   "years": {
+    "2022": {
+     "modis": 0.0,
+     "viirs": 7.83,
+     "n_days": 1
+    },
+    "2018": {
+     "modis": 0.0,
+     "viirs": 7.3,
+     "n_days": 1
+    }
+   },
+   "n_days": 2,
+   "total_modis": 0.0,
+   "total_viirs": 15.13
+  },
+  {
+   "cell_id": "R-0085C01389",
+   "south": -8.5,
+   "west": 138.9,
+   "north": -8.4,
+   "east": 139.0,
+   "years": {
+    "2022": {
+     "modis": 0.0,
+     "viirs": 13.55,
+     "n_days": 1
+    },
+    "2021": {
+     "modis": 0.0,
+     "viirs": 3.5,
+     "n_days": 1
+    }
+   },
+   "n_days": 2,
+   "total_modis": 0.0,
+   "total_viirs": 17.05
+  },
+  {
+   "cell_id": "R-0085C01390",
+   "south": -8.5,
+   "west": 139.0,
+   "north": -8.4,
+   "east": 139.1,
+   "years": {
+    "2026": {
+     "modis": 0.0,
+     "viirs": 10.9,
+     "n_days": 1
+    },
+    "2020": {
+     "modis": 0.0,
+     "viirs": 7.83,
+     "n_days": 1
+    }
+   },
+   "n_days": 2,
+   "total_modis": 0.0,
+   "total_viirs": 18.73
+  },
+  {
+   "cell_id": "R-0085C01391",
+   "south": -8.5,
+   "west": 139.1,
+   "north": -8.4,
+   "east": 139.2,
+   "years": {
+    "2022": {
+     "modis": 0.0,
+     "viirs": 4.25,
+     "n_days": 1
+    }
+   },
+   "n_days": 1,
+   "total_modis": 0.0,
+   "total_viirs": 4.25
+  },
+  {
+   "cell_id": "R-0085C01392",
+   "south": -8.5,
+   "west": 139.2,
+   "north": -8.4,
+   "east": 139.3,
+   "years": {
+    "2022": {
+     "modis": 0.0,
+     "viirs": 7.57,
+     "n_days": 1
+    },
+    "2018": {
+     "modis": 0.0,
+     "viirs": 9.5,
+     "n_days": 1
+    }
+   },
+   "n_days": 2,
+   "total_modis": 0.0,
+   "total_viirs": 17.07
+  },
+  {
+   "cell_id": "R-0085C01394",
+   "south": -8.5,
+   "west": 139.4,
+   "north": -8.4,
+   "east": 139.5,
+   "years": {
+    "2022": {
+     "modis": 0.0,
+     "viirs": 8.35,
+     "n_days": 1
+    }
+   },
+   "n_days": 1,
+   "total_modis": 0.0,
+   "total_viirs": 8.35
+  },
+  {
+   "cell_id": "R-0085C01395",
+   "south": -8.5,
+   "west": 139.5,
+   "north": -8.4,
+   "east": 139.6,
+   "years": {
+    "2023": {
+     "modis": 0.0,
+     "viirs": 7.27,
+     "n_days": 1
+    },
+    "2020": {
+     "modis": 0.0,
+     "viirs": 9.2,
+     "n_days": 1
+    }
+   },
+   "n_days": 2,
+   "total_modis": 0.0,
+   "total_viirs": 16.47
+  },
+  {
+   "cell_id": "R-0085C01396",
+   "south": -8.5,
+   "west": 139.6,
+   "north": -8.4,
+   "east": 139.7,
+   "years": {
+    "2023": {
+     "modis": 0.0,
+     "viirs": 22.65,
+     "n_days": 1
+    },
+    "2019": {
+     "modis": 0.0,
+     "viirs": 10.1,
+     "n_days": 1
+    },
+    "2022": {
+     "modis": 0.0,
+     "viirs": 5.4,
+     "n_days": 1
+    }
+   },
+   "n_days": 3,
+   "total_modis": 0.0,
+   "total_viirs": 38.15
+  },
+  {
+   "cell_id": "R-0085C01397",
+   "south": -8.5,
+   "west": 139.7,
+   "north": -8.4,
+   "east": 139.8,
+   "years": {
+    "2026": {
+     "modis": 0.0,
+     "viirs": 9.05,
+     "n_days": 1
+    }
+   },
+   "n_days": 1,
+   "total_modis": 0.0,
+   "total_viirs": 9.05
+  },
+  {
+   "cell_id": "R-0085C01398",
+   "south": -8.5,
+   "west": 139.8,
+   "north": -8.4,
+   "east": 139.9,
+   "years": {
+    "2026": {
+     "modis": 0.0,
+     "viirs": 16.82,
+     "n_days": 1
+    },
+    "2018": {
+     "modis": 0.0,
+     "viirs": 9.27,
+     "n_days": 1
+    }
+   },
+   "n_days": 2,
+   "total_modis": 0.0,
+   "total_viirs": 26.09
+  },
+  {
+   "cell_id": "R-0085C01399",
+   "south": -8.5,
+   "west": 139.9,
+   "north": -8.4,
+   "east": 140.0,
+   "years": {
+    "2018": {
+     "modis": 0.0,
+     "viirs": 15.27,
+     "n_days": 2
+    },
+    "2021": {
+     "modis": 0.0,
+     "viirs": 8.0,
+     "n_days": 1
+    }
+   },
+   "n_days": 3,
+   "total_modis": 0.0,
+   "total_viirs": 23.27
+  },
+  {
+   "cell_id": "R-0085C01400",
+   "south": -8.5,
+   "west": 140.0,
+   "north": -8.4,
+   "east": 140.1,
+   "years": {
+    "2023": {
+     "modis": 0.0,
+     "viirs": 74.92,
+     "n_days": 1
+    },
+    "2020": {
+     "modis": 0.0,
+     "viirs": 9.93,
+     "n_days": 1
+    }
+   },
+   "n_days": 2,
+   "total_modis": 0.0,
+   "total_viirs": 84.85
+  },
+  {
+   "cell_id": "R-0085C01401",
+   "south": -8.5,
+   "west": 140.1,
+   "north": -8.4,
+   "east": 140.2,
+   "years": {
+    "2023": {
+     "modis": 0.0,
+     "viirs": 10.77,
+     "n_days": 1
+    }
+   },
+   "n_days": 1,
+   "total_modis": 0.0,
+   "total_viirs": 10.77
+  },
+  {
+   "cell_id": "R-0085C01403",
+   "south": -8.5,
+   "west": 140.3,
+   "north": -8.4,
+   "east": 140.4,
+   "years": {
+    "2024": {
+     "modis": 0.0,
+     "viirs": 65.75,
+     "n_days": 1
+    },
+    "2018": {
+     "modis": 0.0,
+     "viirs": 4.7,
+     "n_days": 1
+    }
+   },
+   "n_days": 2,
+   "total_modis": 0.0,
+   "total_viirs": 70.45
+  },
+  {
+   "cell_id": "R-0085C01404",
+   "south": -8.5,
+   "west": 140.4,
+   "north": -8.4,
+   "east": 140.5,
+   "years": {
+    "2018": {
+     "modis": 0.0,
+     "viirs": 53.38,
+     "n_days": 1
+    }
+   },
+   "n_days": 1,
+   "total_modis": 0.0,
+   "total_viirs": 53.38
+  },
+  {
+   "cell_id": "R-0085C01405",
+   "south": -8.5,
+   "west": 140.5,
+   "north": -8.4,
+   "east": 140.6,
+   "years": {
+    "2026": {
+     "modis": 0.0,
+     "viirs": 15.65,
+     "n_days": 1
+    }
+   },
+   "n_days": 1,
+   "total_modis": 0.0,
+   "total_viirs": 15.65
+  },
+  {
+   "cell_id": "R-0085C01406",
+   "south": -8.5,
+   "west": 140.6,
+   "north": -8.4,
+   "east": 140.7,
+   "years": {
+    "2019": {
+     "modis": 0.0,
+     "viirs": 7.1,
+     "n_days": 1
+    },
+    "2018": {
+     "modis": 0.0,
+     "viirs": 4.7,
+     "n_days": 1
+    }
+   },
+   "n_days": 2,
+   "total_modis": 0.0,
+   "total_viirs": 11.8
+  },
+  {
+   "cell_id": "R-0084C01382",
+   "south": -8.4,
+   "west": 138.2,
+   "north": -8.3,
+   "east": 138.3,
+   "years": {
+    "2022": {
+     "modis": 0.0,
+     "viirs": 8.9,
+     "n_days": 1
+    }
+   },
+   "n_days": 1,
+   "total_modis": 0.0,
+   "total_viirs": 8.9
+  },
+  {
+   "cell_id": "R-0084C01383",
+   "south": -8.4,
+   "west": 138.3,
+   "north": -8.3,
+   "east": 138.4,
+   "years": {
+    "2019": {
+     "modis": 0.0,
+     "viirs": 6.47,
+     "n_days": 1
+    }
+   },
+   "n_days": 1,
+   "total_modis": 0.0,
+   "total_viirs": 6.47
+  },
+  {
+   "cell_id": "R-0084C01384",
+   "south": -8.4,
+   "west": 138.4,
+   "north": -8.3,
+   "east": 138.5,
+   "years": {
+    "2020": {
+     "modis": 0.0,
+     "viirs": 3.3,
+     "n_days": 1
+    }
+   },
+   "n_days": 1,
+   "total_modis": 0.0,
+   "total_viirs": 3.3
+  },
+  {
+   "cell_id": "R-0084C01385",
+   "south": -8.4,
+   "west": 138.5,
+   "north": -8.3,
+   "east": 138.6,
+   "years": {
+    "2018": {
+     "modis": 0.0,
+     "viirs": 25.38,
+     "n_days": 1
+    }
+   },
+   "n_days": 1,
+   "total_modis": 0.0,
+   "total_viirs": 25.38
+  },
+  {
+   "cell_id": "R-0084C01386",
+   "south": -8.4,
+   "west": 138.6,
+   "north": -8.3,
+   "east": 138.7,
+   "years": {
+    "2018": {
+     "modis": 0.0,
+     "viirs": 9.27,
+     "n_days": 1
+    },
+    "2024": {
+     "modis": 0.0,
+     "viirs": 7.83,
+     "n_days": 1
+    },
+    "2019": {
+     "modis": 0.0,
+     "viirs": 6.47,
+     "n_days": 1
+    }
+   },
+   "n_days": 3,
+   "total_modis": 0.0,
+   "total_viirs": 23.57
+  },
+  {
+   "cell_id": "R-0084C01388",
+   "south": -8.4,
+   "west": 138.8,
+   "north": -8.3,
+   "east": 138.9,
+   "years": {
+    "2024": {
+     "modis": 0.0,
+     "viirs": 11.57,
+     "n_days": 1
+    },
+    "2023": {
+     "modis": 0.0,
+     "viirs": 8.2,
+     "n_days": 1
+    }
+   },
+   "n_days": 2,
+   "total_modis": 0.0,
+   "total_viirs": 19.77
+  },
+  {
+   "cell_id": "R-0084C01389",
+   "south": -8.4,
+   "west": 138.9,
+   "north": -8.3,
+   "east": 139.0,
+   "years": {
+    "2024": {
+     "modis": 0.0,
+     "viirs": 28.68,
+     "n_days": 1
+    },
+    "2022": {
+     "modis": 0.0,
+     "viirs": 5.4,
+     "n_days": 1
+    }
+   },
+   "n_days": 2,
+   "total_modis": 0.0,
+   "total_viirs": 34.08
+  },
+  {
+   "cell_id": "R-0084C01390",
+   "south": -8.4,
+   "west": 139.0,
+   "north": -8.3,
+   "east": 139.1,
+   "years": {
+    "2023": {
+     "modis": 0.0,
+     "viirs": 3.6,
+     "n_days": 1
+    }
+   },
+   "n_days": 1,
+   "total_modis": 0.0,
+   "total_viirs": 3.6
+  },
+  {
+   "cell_id": "R-0084C01392",
+   "south": -8.4,
+   "west": 139.2,
+   "north": -8.3,
+   "east": 139.3,
+   "years": {
+    "2018": {
+     "modis": 0.0,
+     "viirs": 15.35,
+     "n_days": 1
+    },
+    "2024": {
+     "modis": 0.0,
+     "viirs": 4.5,
+     "n_days": 1
+    }
+   },
+   "n_days": 2,
+   "total_modis": 0.0,
+   "total_viirs": 19.85
+  },
+  {
+   "cell_id": "R-0084C01394",
+   "south": -8.4,
+   "west": 139.4,
+   "north": -8.3,
+   "east": 139.5,
+   "years": {
+    "2018": {
+     "modis": 0.0,
+     "viirs": 197.7,
+     "n_days": 1
+    }
+   },
+   "n_days": 1,
+   "total_modis": 0.0,
+   "total_viirs": 197.7
+  },
+  {
+   "cell_id": "R-0084C01396",
+   "south": -8.4,
+   "west": 139.6,
+   "north": -8.3,
+   "east": 139.7,
+   "years": {
+    "2021": {
+     "modis": 0.0,
+     "viirs": 9.87,
+     "n_days": 1
+    },
+    "2023": {
+     "modis": 0.0,
+     "viirs": 4.15,
+     "n_days": 1
+    }
+   },
+   "n_days": 2,
+   "total_modis": 0.0,
+   "total_viirs": 14.02
+  },
+  {
+   "cell_id": "R-0084C01399",
+   "south": -8.4,
+   "west": 139.9,
+   "north": -8.3,
+   "east": 140.0,
+   "years": {
+    "2021": {
+     "modis": 0.0,
+     "viirs": 15.9,
+     "n_days": 1
+    },
+    "2018": {
+     "modis": 0.0,
+     "viirs": 5.45,
+     "n_days": 1
+    }
+   },
+   "n_days": 2,
+   "total_modis": 0.0,
+   "total_viirs": 21.35
+  },
+  {
+   "cell_id": "R-0084C01400",
+   "south": -8.4,
+   "west": 140.0,
+   "north": -8.3,
+   "east": 140.1,
+   "years": {
+    "2024": {
+     "modis": 0.0,
+     "viirs": 4.35,
+     "n_days": 1
+    }
+   },
+   "n_days": 1,
+   "total_modis": 0.0,
+   "total_viirs": 4.35
+  },
+  {
+   "cell_id": "R-0084C01401",
+   "south": -8.4,
+   "west": 140.1,
+   "north": -8.3,
+   "east": 140.2,
+   "years": {
+    "2026": {
+     "modis": 0.0,
+     "viirs": 7.93,
+     "n_days": 1
+    },
+    "2023": {
+     "modis": 0.0,
+     "viirs": 6.25,
+     "n_days": 1
+    }
+   },
+   "n_days": 2,
+   "total_modis": 0.0,
+   "total_viirs": 14.18
+  },
+  {
+   "cell_id": "R-0084C01402",
+   "south": -8.4,
+   "west": 140.2,
+   "north": -8.3,
+   "east": 140.3,
+   "years": {
+    "2021": {
+     "modis": 0.0,
+     "viirs": 15.9,
+     "n_days": 1
+    }
+   },
+   "n_days": 1,
+   "total_modis": 0.0,
+   "total_viirs": 15.9
+  },
+  {
+   "cell_id": "R-0084C01404",
+   "south": -8.4,
+   "west": 140.4,
+   "north": -8.3,
+   "east": 140.5,
+   "years": {
+    "2023": {
+     "modis": 0.0,
+     "viirs": 15.1,
+     "n_days": 1
+    }
+   },
+   "n_days": 1,
+   "total_modis": 0.0,
+   "total_viirs": 15.1
+  },
+  {
+   "cell_id": "R-0084C01405",
+   "south": -8.4,
+   "west": 140.5,
+   "north": -8.3,
+   "east": 140.6,
+   "years": {
+    "2018": {
+     "modis": 0.0,
+     "viirs": 7.93,
+     "n_days": 1
+    },
+    "2019": {
+     "modis": 0.0,
+     "viirs": 6.47,
+     "n_days": 1
+    }
+   },
+   "n_days": 2,
+   "total_modis": 0.0,
+   "total_viirs": 14.4
+  },
+  {
+   "cell_id": "R-0084C01407",
+   "south": -8.4,
+   "west": 140.7,
+   "north": -8.3,
+   "east": 140.8,
+   "years": {
+    "2021": {
+     "modis": 0.0,
+     "viirs": 38.98,
+     "n_days": 1
+    }
+   },
+   "n_days": 1,
+   "total_modis": 0.0,
+   "total_viirs": 38.98
+  },
+  {
+   "cell_id": "R-0083C01380",
+   "south": -8.3,
+   "west": 138.0,
+   "north": -8.2,
+   "east": 138.1,
+   "years": {
+    "2023": {
+     "modis": 0.0,
+     "viirs": 51.68,
+     "n_days": 2
+    },
+    "2022": {
+     "modis": 0.0,
+     "viirs": 5.4,
+     "n_days": 1
+    }
+   },
+   "n_days": 3,
+   "total_modis": 0.0,
+   "total_viirs": 57.08
+  },
+  {
+   "cell_id": "R-0083C01381",
+   "south": -8.3,
+   "west": 138.1,
+   "north": -8.2,
+   "east": 138.2,
+   "years": {
+    "2019": {
+     "modis": 0.0,
+     "viirs": 22.88,
+     "n_days": 1
+    }
+   },
+   "n_days": 1,
+   "total_modis": 0.0,
+   "total_viirs": 22.88
+  },
+  {
+   "cell_id": "R-0083C01386",
+   "south": -8.3,
+   "west": 138.6,
+   "north": -8.2,
+   "east": 138.7,
+   "years": {
+    "2023": {
+     "modis": 0.0,
+     "viirs": 22.65,
+     "n_days": 1
+    }
+   },
+   "n_days": 1,
+   "total_modis": 0.0,
+   "total_viirs": 22.65
+  },
+  {
+   "cell_id": "R-0083C01387",
+   "south": -8.3,
+   "west": 138.7,
+   "north": -8.2,
+   "east": 138.8,
+   "years": {
+    "2018": {
+     "modis": 0.0,
+     "viirs": 9.1,
+     "n_days": 1
+    }
+   },
+   "n_days": 1,
+   "total_modis": 0.0,
+   "total_viirs": 9.1
+  },
+  {
+   "cell_id": "R-0083C01388",
+   "south": -8.3,
+   "west": 138.8,
+   "north": -8.2,
+   "east": 138.9,
+   "years": {
+    "2026": {
+     "modis": 0.0,
+     "viirs": 21.85,
+     "n_days": 1
+    }
+   },
+   "n_days": 1,
+   "total_modis": 0.0,
+   "total_viirs": 21.85
+  },
+  {
+   "cell_id": "R-0083C01389",
+   "south": -8.3,
+   "west": 138.9,
+   "north": -8.2,
+   "east": 139.0,
+   "years": {
+    "2026": {
+     "modis": 0.0,
+     "viirs": 7.8,
+     "n_days": 1
+    }
+   },
+   "n_days": 1,
+   "total_modis": 0.0,
+   "total_viirs": 7.8
+  },
+  {
+   "cell_id": "R-0083C01390",
+   "south": -8.3,
+   "west": 139.0,
+   "north": -8.2,
+   "east": 139.1,
+   "years": {
+    "2023": {
+     "modis": 0.0,
+     "viirs": 7.93,
+     "n_days": 1
+    }
+   },
+   "n_days": 1,
+   "total_modis": 0.0,
+   "total_viirs": 7.93
+  },
+  {
+   "cell_id": "R-0083C01391",
+   "south": -8.3,
+   "west": 139.1,
+   "north": -8.2,
+   "east": 139.2,
+   "years": {
+    "2018": {
+     "modis": 0.0,
+     "viirs": 15.35,
+     "n_days": 1
+    },
+    "2026": {
+     "modis": 0.0,
+     "viirs": 13.9,
+     "n_days": 1
+    },
+    "2024": {
+     "modis": 0.0,
+     "viirs": 11.57,
+     "n_days": 1
+    },
+    "2021": {
+     "modis": 0.0,
+     "viirs": 9.87,
+     "n_days": 1
+    },
+    "2023": {
+     "modis": 0.0,
+     "viirs": 7.27,
+     "n_days": 1
+    }
+   },
+   "n_days": 5,
+   "total_modis": 0.0,
+   "total_viirs": 57.96
+  },
+  {
+   "cell_id": "R-0083C01394",
+   "south": -8.3,
+   "west": 139.4,
+   "north": -8.2,
+   "east": 139.5,
+   "years": {
+    "2019": {
+     "modis": 0.0,
+     "viirs": 3.65,
+     "n_days": 1
+    }
+   },
+   "n_days": 1,
+   "total_modis": 0.0,
+   "total_viirs": 3.65
+  },
+  {
+   "cell_id": "R-0083C01396",
+   "south": -8.3,
+   "west": 139.6,
+   "north": -8.2,
+   "east": 139.7,
+   "years": {
+    "2019": {
+     "modis": 0.0,
+     "viirs": 15.4,
+     "n_days": 1
+    },
+    "2021": {
+     "modis": 0.0,
+     "viirs": 4.2,
+     "n_days": 1
+    }
+   },
+   "n_days": 2,
+   "total_modis": 0.0,
+   "total_viirs": 19.6
+  },
+  {
+   "cell_id": "R-0083C01398",
+   "south": -8.3,
+   "west": 139.8,
+   "north": -8.2,
+   "east": 139.9,
+   "years": {
+    "2018": {
+     "modis": 0.0,
+     "viirs": 17.7,
+     "n_days": 1
+    }
+   },
+   "n_days": 1,
+   "total_modis": 0.0,
+   "total_viirs": 17.7
+  },
+  {
+   "cell_id": "R-0083C01399",
+   "south": -8.3,
+   "west": 139.9,
+   "north": -8.2,
+   "east": 140.0,
+   "years": {
+    "2025": {
+     "modis": 0.0,
+     "viirs": 6.9,
+     "n_days": 1
+    },
+    "2023": {
+     "modis": 0.0,
+     "viirs": 6.63,
+     "n_days": 1
+    }
+   },
+   "n_days": 2,
+   "total_modis": 0.0,
+   "total_viirs": 13.53
+  },
+  {
+   "cell_id": "R-0083C01400",
+   "south": -8.3,
+   "west": 140.0,
+   "north": -8.2,
+   "east": 140.1,
+   "years": {
+    "2019": {
+     "modis": 0.0,
+     "viirs": 22.88,
+     "n_days": 1
+    }
+   },
+   "n_days": 1,
+   "total_modis": 0.0,
+   "total_viirs": 22.88
+  },
+  {
+   "cell_id": "R-0083C01401",
+   "south": -8.3,
+   "west": 140.1,
+   "north": -8.2,
+   "east": 140.2,
+   "years": {
+    "2019": {
+     "modis": 0.0,
+     "viirs": 7.15,
+     "n_days": 1
+    }
+   },
+   "n_days": 1,
+   "total_modis": 0.0,
+   "total_viirs": 7.15
+  },
+  {
+   "cell_id": "R-0083C01402",
+   "south": -8.3,
+   "west": 140.2,
+   "north": -8.2,
+   "east": 140.3,
+   "years": {
+    "2022": {
+     "modis": 0.0,
+     "viirs": 13.55,
+     "n_days": 1
+    }
+   },
+   "n_days": 1,
+   "total_modis": 0.0,
+   "total_viirs": 13.55
+  },
+  {
+   "cell_id": "R-0083C01403",
+   "south": -8.3,
+   "west": 140.3,
+   "north": -8.2,
+   "east": 140.4,
+   "years": {
+    "2024": {
+     "modis": 0.0,
+     "viirs": 45.3,
+     "n_days": 1
+    },
+    "2021": {
+     "modis": 0.0,
+     "viirs": 4.2,
+     "n_days": 1
+    }
+   },
+   "n_days": 2,
+   "total_modis": 0.0,
+   "total_viirs": 49.5
+  },
+  {
+   "cell_id": "R-0083C01406",
+   "south": -8.3,
+   "west": 140.6,
+   "north": -8.2,
+   "east": 140.7,
+   "years": {
+    "2023": {
+     "modis": 0.0,
+     "viirs": 6.85,
+     "n_days": 1
+    }
+   },
+   "n_days": 1,
+   "total_modis": 0.0,
+   "total_viirs": 6.85
+  },
+  {
+   "cell_id": "R-0082C01380",
+   "south": -8.2,
+   "west": 138.0,
+   "north": -8.1,
+   "east": 138.1,
+   "years": {
+    "2020": {
+     "modis": 0.0,
+     "viirs": 13.97,
+     "n_days": 1
+    },
+    "2024": {
+     "modis": 0.0,
+     "viirs": 9.3,
+     "n_days": 1
+    }
+   },
+   "n_days": 2,
+   "total_modis": 0.0,
+   "total_viirs": 23.27
+  },
+  {
+   "cell_id": "R-0082C01383",
+   "south": -8.2,
+   "west": 138.3,
+   "north": -8.1,
+   "east": 138.4,
+   "years": {
+    "2023": {
+     "modis": 0.0,
+     "viirs": 7.03,
+     "n_days": 1
+    }
+   },
+   "n_days": 1,
+   "total_modis": 0.0,
+   "total_viirs": 7.03
+  },
+  {
+   "cell_id": "R-0082C01384",
+   "south": -8.2,
+   "west": 138.4,
+   "north": -8.1,
+   "east": 138.5,
+   "years": {
+    "2020": {
+     "modis": 0.0,
+     "viirs": 9.93,
+     "n_days": 1
+    }
+   },
+   "n_days": 1,
+   "total_modis": 0.0,
+   "total_viirs": 9.93
+  },
+  {
+   "cell_id": "R-0082C01385",
+   "south": -8.2,
+   "west": 138.5,
+   "north": -8.1,
+   "east": 138.6,
+   "years": {
+    "2023": {
+     "modis": 0.0,
+     "viirs": 21.83,
+     "n_days": 2
+    },
+    "2020": {
+     "modis": 0.0,
+     "viirs": 9.3,
+     "n_days": 1
+    }
+   },
+   "n_days": 3,
+   "total_modis": 0.0,
+   "total_viirs": 31.13
+  },
+  {
+   "cell_id": "R-0082C01386",
+   "south": -8.2,
+   "west": 138.6,
+   "north": -8.1,
+   "east": 138.7,
+   "years": {
+    "2019": {
+     "modis": 0.0,
+     "viirs": 10.3,
+     "n_days": 2
+    }
+   },
+   "n_days": 2,
+   "total_modis": 0.0,
+   "total_viirs": 10.3
+  },
+  {
+   "cell_id": "R-0082C01389",
+   "south": -8.2,
+   "west": 138.9,
+   "north": -8.1,
+   "east": 139.0,
+   "years": {
+    "2023": {
+     "modis": 0.0,
+     "viirs": 7.03,
+     "n_days": 1
+    }
+   },
+   "n_days": 1,
+   "total_modis": 0.0,
+   "total_viirs": 7.03
+  },
+  {
+   "cell_id": "R-0082C01390",
+   "south": -8.2,
+   "west": 139.0,
+   "north": -8.1,
+   "east": 139.1,
+   "years": {
+    "2018": {
+     "modis": 0.0,
+     "viirs": 25.38,
+     "n_days": 1
+    }
+   },
+   "n_days": 1,
+   "total_modis": 0.0,
+   "total_viirs": 25.38
+  },
+  {
+   "cell_id": "R-0082C01391",
+   "south": -8.2,
+   "west": 139.1,
+   "north": -8.1,
+   "east": 139.2,
+   "years": {
+    "2023": {
+     "modis": 0.0,
+     "viirs": 74.92,
+     "n_days": 1
+    }
+   },
+   "n_days": 1,
+   "total_modis": 0.0,
+   "total_viirs": 74.92
+  },
+  {
+   "cell_id": "R-0082C01392",
+   "south": -8.2,
+   "west": 139.2,
+   "north": -8.1,
+   "east": 139.3,
+   "years": {
+    "2023": {
+     "modis": 0.0,
+     "viirs": 15.1,
+     "n_days": 1
+    }
+   },
+   "n_days": 1,
+   "total_modis": 0.0,
+   "total_viirs": 15.1
+  },
+  {
+   "cell_id": "R-0082C01393",
+   "south": -8.2,
+   "west": 139.3,
+   "north": -8.1,
+   "east": 139.4,
+   "years": {
+    "2023": {
+     "modis": 0.0,
+     "viirs": 14.83,
+     "n_days": 2
+    }
+   },
+   "n_days": 2,
+   "total_modis": 0.0,
+   "total_viirs": 14.83
+  },
+  {
+   "cell_id": "R-0082C01394",
+   "south": -8.2,
+   "west": 139.4,
+   "north": -8.1,
+   "east": 139.5,
+   "years": {
+    "2018": {
+     "modis": 0.0,
+     "viirs": 61.7,
+     "n_days": 1
+    }
+   },
+   "n_days": 1,
+   "total_modis": 0.0,
+   "total_viirs": 61.7
+  },
+  {
+   "cell_id": "R-0082C01395",
+   "south": -8.2,
+   "west": 139.5,
+   "north": -8.1,
+   "east": 139.6,
+   "years": {
+    "2023": {
+     "modis": 0.0,
+     "viirs": 74.92,
+     "n_days": 1
+    }
+   },
+   "n_days": 1,
+   "total_modis": 0.0,
+   "total_viirs": 74.92
+  },
+  {
+   "cell_id": "R-0082C01396",
+   "south": -8.2,
+   "west": 139.6,
+   "north": -8.1,
+   "east": 139.7,
+   "years": {
+    "2022": {
+     "modis": 0.0,
+     "viirs": 15.43,
+     "n_days": 1
+    },
+    "2018": {
+     "modis": 0.0,
+     "viirs": 3.95,
+     "n_days": 1
+    }
+   },
+   "n_days": 2,
+   "total_modis": 0.0,
+   "total_viirs": 19.38
+  },
+  {
+   "cell_id": "R-0082C01397",
+   "south": -8.2,
+   "west": 139.7,
+   "north": -8.1,
+   "east": 139.8,
+   "years": {
+    "2021": {
+     "modis": 0.0,
+     "viirs": 38.98,
+     "n_days": 1
+    }
+   },
+   "n_days": 1,
+   "total_modis": 0.0,
+   "total_viirs": 38.98
+  },
+  {
+   "cell_id": "R-0082C01398",
+   "south": -8.2,
+   "west": 139.8,
+   "north": -8.1,
+   "east": 139.9,
+   "years": {
+    "2023": {
+     "modis": 0.0,
+     "viirs": 16.2,
+     "n_days": 1
+    }
+   },
+   "n_days": 1,
+   "total_modis": 0.0,
+   "total_viirs": 16.2
+  },
+  {
+   "cell_id": "R-0082C01400",
+   "south": -8.2,
+   "west": 140.0,
+   "north": -8.1,
+   "east": 140.1,
+   "years": {
+    "2018": {
+     "modis": 0.0,
+     "viirs": 23.4,
+     "n_days": 2
+    },
+    "2024": {
+     "modis": 0.0,
+     "viirs": 9.3,
+     "n_days": 1
+    },
+    "2021": {
+     "modis": 0.0,
+     "viirs": 7.1,
+     "n_days": 1
+    }
+   },
+   "n_days": 4,
+   "total_modis": 0.0,
+   "total_viirs": 39.8
+  },
+  {
+   "cell_id": "R-0082C01401",
+   "south": -8.2,
+   "west": 140.1,
+   "north": -8.1,
+   "east": 140.2,
+   "years": {
+    "2018": {
+     "modis": 0.0,
+     "viirs": 13.47,
+     "n_days": 1
+    },
+    "2019": {
+     "modis": 0.0,
+     "viirs": 4.85,
+     "n_days": 1
+    }
+   },
+   "n_days": 2,
+   "total_modis": 0.0,
+   "total_viirs": 18.32
+  },
+  {
+   "cell_id": "R-0082C01402",
+   "south": -8.2,
+   "west": 140.2,
+   "north": -8.1,
+   "east": 140.3,
+   "years": {
+    "2026": {
+     "modis": 0.0,
+     "viirs": 15.65,
+     "n_days": 1
+    },
+    "2018": {
+     "modis": 0.0,
+     "viirs": 8.0,
+     "n_days": 1
+    }
+   },
+   "n_days": 2,
+   "total_modis": 0.0,
+   "total_viirs": 23.65
+  },
+  {
+   "cell_id": "R-0081C01381",
+   "south": -8.1,
+   "west": 138.1,
+   "north": -8.0,
+   "east": 138.2,
+   "years": {
+    "2018": {
+     "modis": 0.0,
+     "viirs": 8.9,
+     "n_days": 1
+    }
+   },
+   "n_days": 1,
+   "total_modis": 0.0,
+   "total_viirs": 8.9
+  },
+  {
+   "cell_id": "R-0081C01383",
+   "south": -8.1,
+   "west": 138.3,
+   "north": -8.0,
+   "east": 138.4,
+   "years": {
+    "2023": {
+     "modis": 0.0,
+     "viirs": 14.7,
+     "n_days": 1
+    }
+   },
+   "n_days": 1,
+   "total_modis": 0.0,
+   "total_viirs": 14.7
+  },
+  {
+   "cell_id": "R-0081C01386",
+   "south": -8.1,
+   "west": 138.6,
+   "north": -8.0,
+   "east": 138.7,
+   "years": {
+    "2020": {
+     "modis": 0.0,
+     "viirs": 6.5,
+     "n_days": 1
+    }
+   },
+   "n_days": 1,
+   "total_modis": 0.0,
+   "total_viirs": 6.5
+  },
+  {
+   "cell_id": "R-0081C01387",
+   "south": -8.1,
+   "west": 138.7,
+   "north": -8.0,
+   "east": 138.8,
+   "years": {
+    "2022": {
+     "modis": 0.0,
+     "viirs": 7.57,
+     "n_days": 1
+    }
+   },
+   "n_days": 1,
+   "total_modis": 0.0,
+   "total_viirs": 7.57
+  },
+  {
+   "cell_id": "R-0081C01388",
+   "south": -8.1,
+   "west": 138.8,
+   "north": -8.0,
+   "east": 138.9,
+   "years": {
+    "2023": {
+     "modis": 0.0,
+     "viirs": 17.27,
+     "n_days": 1
+    },
+    "2018": {
+     "modis": 0.0,
+     "viirs": 4.4,
+     "n_days": 1
+    }
+   },
+   "n_days": 2,
+   "total_modis": 0.0,
+   "total_viirs": 21.67
+  },
+  {
+   "cell_id": "R-0081C01392",
+   "south": -8.1,
+   "west": 139.2,
+   "north": -8.0,
+   "east": 139.3,
+   "years": {
+    "2025": {
+     "modis": 0.0,
+     "viirs": 6.9,
+     "n_days": 1
+    },
+    "2020": {
+     "modis": 0.0,
+     "viirs": 4.95,
+     "n_days": 1
+    }
+   },
+   "n_days": 2,
+   "total_modis": 0.0,
+   "total_viirs": 11.85
+  },
+  {
+   "cell_id": "R-0081C01393",
+   "south": -8.1,
+   "west": 139.3,
+   "north": -8.0,
+   "east": 139.4,
+   "years": {
+    "2024": {
+     "modis": 0.0,
+     "viirs": 28.68,
+     "n_days": 1
+    },
+    "2019": {
+     "modis": 0.0,
+     "viirs": 4.2,
+     "n_days": 1
+    }
+   },
+   "n_days": 2,
+   "total_modis": 0.0,
+   "total_viirs": 32.88
+  },
+  {
+   "cell_id": "R-0081C01395",
+   "south": -8.1,
+   "west": 139.5,
+   "north": -8.0,
+   "east": 139.6,
+   "years": {
+    "2026": {
+     "modis": 0.0,
+     "viirs": 21.85,
+     "n_days": 1
+    },
+    "2021": {
+     "modis": 0.0,
+     "viirs": 9.87,
+     "n_days": 1
+    },
+    "2018": {
+     "modis": 0.0,
+     "viirs": 7.77,
+     "n_days": 1
+    }
+   },
+   "n_days": 3,
+   "total_modis": 0.0,
+   "total_viirs": 39.49
+  },
+  {
+   "cell_id": "R-0081C01397",
+   "south": -8.1,
+   "west": 139.7,
+   "north": -8.0,
+   "east": 139.8,
+   "years": {
+    "2018": {
+     "modis": 0.0,
+     "viirs": 8.9,
+     "n_days": 1
+    }
+   },
+   "n_days": 1,
+   "total_modis": 0.0,
+   "total_viirs": 8.9
+  },
+  {
+   "cell_id": "R-0081C01398",
+   "south": -8.1,
+   "west": 139.8,
+   "north": -8.0,
+   "east": 139.9,
+   "years": {
+    "2018": {
+     "modis": 0.0,
+     "viirs": 10.2,
+     "n_days": 2
+    }
+   },
+   "n_days": 2,
+   "total_modis": 0.0,
+   "total_viirs": 10.2
+  },
+  {
+   "cell_id": "R-0081C01399",
+   "south": -8.1,
+   "west": 139.9,
+   "north": -8.0,
+   "east": 140.0,
+   "years": {
+    "2018": {
+     "modis": 0.0,
+     "viirs": 16.2,
+     "n_days": 1
+    }
+   },
+   "n_days": 1,
+   "total_modis": 0.0,
+   "total_viirs": 16.2
+  },
+  {
+   "cell_id": "R-0081C01400",
+   "south": -8.1,
+   "west": 140.0,
+   "north": -8.0,
+   "east": 140.1,
+   "years": {
+    "2026": {
+     "modis": 0.0,
+     "viirs": 7.1,
+     "n_days": 1
+    }
+   },
+   "n_days": 1,
+   "total_modis": 0.0,
+   "total_viirs": 7.1
+  },
+  {
+   "cell_id": "R-0081C01401",
+   "south": -8.1,
+   "west": 140.1,
+   "north": -8.0,
+   "east": 140.2,
+   "years": {
+    "2018": {
+     "modis": 0.0,
+     "viirs": 6.2,
+     "n_days": 1
+    }
+   },
+   "n_days": 1,
+   "total_modis": 0.0,
+   "total_viirs": 6.2
+  },
+  {
+   "cell_id": "R-0081C01403",
+   "south": -8.1,
+   "west": 140.3,
+   "north": -8.0,
+   "east": 140.4,
+   "years": {
+    "2018": {
+     "modis": 0.0,
+     "viirs": 20.74,
+     "n_days": 2
+    },
+    "2019": {
+     "modis": 0.0,
+     "viirs": 4.85,
+     "n_days": 1
+    },
+    "2024": {
+     "modis": 0.0,
+     "viirs": 4.6,
+     "n_days": 1
+    }
+   },
+   "n_days": 4,
+   "total_modis": 0.0,
+   "total_viirs": 30.19
+  },
+  {
+   "cell_id": "R-0081C01405",
+   "south": -8.1,
+   "west": 140.5,
+   "north": -8.0,
+   "east": 140.6,
+   "years": {
+    "2018": {
+     "modis": 0.0,
+     "viirs": 14.6,
+     "n_days": 1
+    }
+   },
+   "n_days": 1,
+   "total_modis": 0.0,
+   "total_viirs": 14.6
+  },
+  {
+   "cell_id": "R-0081C01407",
+   "south": -8.1,
+   "west": 140.7,
+   "north": -8.0,
+   "east": 140.8,
+   "years": {
+    "2023": {
+     "modis": 0.0,
+     "viirs": 4.5,
+     "n_days": 1
+    }
+   },
+   "n_days": 1,
+   "total_modis": 0.0,
+   "total_viirs": 4.5
+  },
+  {
+   "cell_id": "R-0080C01380",
+   "south": -8.0,
+   "west": 138.0,
+   "north": -7.9,
+   "east": 138.1,
+   "years": {
+    "2021": {
+     "modis": 0.0,
+     "viirs": 38.98,
+     "n_days": 1
+    },
+    "2026": {
+     "modis": 0.0,
+     "viirs": 13.78,
+     "n_days": 1
+    },
+    "2022": {
+     "modis": 0.0,
+     "viirs": 16.47,
+     "n_days": 1
+    }
+   },
+   "n_days": 3,
+   "total_modis": 0.0,
+   "total_viirs": 69.23
+  },
+  {
+   "cell_id": "R-0080C01382",
+   "south": -8.0,
+   "west": 138.2,
+   "north": -7.9,
+   "east": 138.3,
+   "years": {
+    "2026": {
+     "modis": 0.0,
+     "viirs": 25.53,
+     "n_days": 3
+    }
+   },
+   "n_days": 3,
+   "total_modis": 0.0,
+   "total_viirs": 25.53
+  },
+  {
+   "cell_id": "R-0080C01383",
+   "south": -8.0,
+   "west": 138.3,
+   "north": -7.9,
+   "east": 138.4,
+   "years": {
+    "2023": {
+     "modis": 0.0,
+     "viirs": 7.15,
+     "n_days": 1
+    },
+    "2020": {
+     "modis": 0.0,
+     "viirs": 6.45,
+     "n_days": 1
+    }
+   },
+   "n_days": 2,
+   "total_modis": 0.0,
+   "total_viirs": 13.6
+  },
+  {
+   "cell_id": "R-0080C01384",
+   "south": -8.0,
+   "west": 138.4,
+   "north": -7.9,
+   "east": 138.5,
+   "years": {
+    "2024": {
+     "modis": 0.0,
+     "viirs": 4.5,
+     "n_days": 1
+    }
+   },
+   "n_days": 1,
+   "total_modis": 0.0,
+   "total_viirs": 4.5
+  },
+  {
+   "cell_id": "R-0080C01386",
+   "south": -8.0,
+   "west": 138.6,
+   "north": -7.9,
+   "east": 138.7,
+   "years": {
+    "2022": {
+     "modis": 0.0,
+     "viirs": 9.37,
+     "n_days": 1
+    }
+   },
+   "n_days": 1,
+   "total_modis": 0.0,
+   "total_viirs": 9.37
+  },
+  {
+   "cell_id": "R-0080C01387",
+   "south": -8.0,
+   "west": 138.7,
+   "north": -7.9,
+   "east": 138.8,
+   "years": {
+    "2023": {
+     "modis": 0.0,
+     "viirs": 6.63,
+     "n_days": 1
+    },
+    "2020": {
+     "modis": 0.0,
+     "viirs": 8.95,
+     "n_days": 1
+    }
+   },
+   "n_days": 2,
+   "total_modis": 0.0,
+   "total_viirs": 15.58
+  },
+  {
+   "cell_id": "R-0080C01389",
+   "south": -8.0,
+   "west": 138.9,
+   "north": -7.9,
+   "east": 139.0,
+   "years": {
+    "2022": {
+     "modis": 0.0,
+     "viirs": 6.1,
+     "n_days": 1
+    }
+   },
+   "n_days": 1,
+   "total_modis": 0.0,
+   "total_viirs": 6.1
+  },
+  {
+   "cell_id": "R-0080C01393",
+   "south": -8.0,
+   "west": 139.3,
+   "north": -7.9,
+   "east": 139.4,
+   "years": {
+    "2024": {
+     "modis": 0.0,
+     "viirs": 28.68,
+     "n_days": 1
+    }
+   },
+   "n_days": 1,
+   "total_modis": 0.0,
+   "total_viirs": 28.68
+  },
+  {
+   "cell_id": "R-0080C01395",
+   "south": -8.0,
+   "west": 139.5,
+   "north": -7.9,
+   "east": 139.6,
+   "years": {
+    "2026": {
+     "modis": 0.0,
+     "viirs": 13.78,
+     "n_days": 1
+    }
+   },
+   "n_days": 1,
+   "total_modis": 0.0,
+   "total_viirs": 13.78
+  },
+  {
+   "cell_id": "R-0080C01396",
+   "south": -8.0,
+   "west": 139.6,
+   "north": -7.9,
+   "east": 139.7,
+   "years": {
+    "2026": {
+     "modis": 0.0,
+     "viirs": 15.65,
+     "n_days": 1
+    }
+   },
+   "n_days": 1,
+   "total_modis": 0.0,
+   "total_viirs": 15.65
+  },
+  {
+   "cell_id": "R-0080C01399",
+   "south": -8.0,
+   "west": 139.9,
+   "north": -7.9,
+   "east": 140.0,
+   "years": {
+    "2020": {
+     "modis": 0.0,
+     "viirs": 10.23,
+     "n_days": 1
+    },
+    "2023": {
+     "modis": 0.0,
+     "viirs": 9.0,
+     "n_days": 1
+    }
+   },
+   "n_days": 2,
+   "total_modis": 0.0,
+   "total_viirs": 19.23
+  },
+  {
+   "cell_id": "R-0080C01401",
+   "south": -8.0,
+   "west": 140.1,
+   "north": -7.9,
+   "east": 140.2,
+   "years": {
+    "2022": {
+     "modis": 0.0,
+     "viirs": 3.25,
+     "n_days": 1
+    }
+   },
+   "n_days": 1,
+   "total_modis": 0.0,
+   "total_viirs": 3.25
+  },
+  {
+   "cell_id": "R-0080C01402",
+   "south": -8.0,
+   "west": 140.2,
+   "north": -7.9,
+   "east": 140.3,
+   "years": {
+    "2018": {
+     "modis": 0.0,
+     "viirs": 9.8,
+     "n_days": 2
+    }
+   },
+   "n_days": 2,
+   "total_modis": 0.0,
+   "total_viirs": 9.8
+  },
+  {
+   "cell_id": "R-0080C01403",
+   "south": -8.0,
+   "west": 140.3,
+   "north": -7.9,
+   "east": 140.4,
+   "years": {
+    "2020": {
+     "modis": 0.0,
+     "viirs": 6.45,
+     "n_days": 1
+    }
+   },
+   "n_days": 1,
+   "total_modis": 0.0,
+   "total_viirs": 6.45
+  },
+  {
+   "cell_id": "R-0080C01405",
+   "south": -8.0,
+   "west": 140.5,
+   "north": -7.9,
+   "east": 140.6,
+   "years": {
+    "2023": {
+     "modis": 0.0,
+     "viirs": 74.92,
+     "n_days": 1
+    },
+    "2021": {
+     "modis": 0.0,
+     "viirs": 16.0,
+     "n_days": 1
+    }
+   },
+   "n_days": 2,
+   "total_modis": 0.0,
+   "total_viirs": 90.92
+  },
+  {
+   "cell_id": "R-0080C01406",
+   "south": -8.0,
+   "west": 140.6,
+   "north": -7.9,
+   "east": 140.7,
+   "years": {
+    "2023": {
+     "modis": 0.0,
+     "viirs": 22.65,
+     "n_days": 1
+    },
+    "2019": {
+     "modis": 0.0,
+     "viirs": 6.47,
+     "n_days": 1
+    }
+   },
+   "n_days": 2,
+   "total_modis": 0.0,
+   "total_viirs": 29.12
+  },
+  {
+   "cell_id": "R-0079C01380",
+   "south": -7.9,
+   "west": 138.0,
+   "north": -7.8,
+   "east": 138.1,
+   "years": {
+    "2018": {
+     "modis": 0.0,
+     "viirs": 20.65,
+     "n_days": 2
+    }
+   },
+   "n_days": 2,
+   "total_modis": 0.0,
+   "total_viirs": 20.65
+  },
+  {
+   "cell_id": "R-0079C01381",
+   "south": -7.9,
+   "west": 138.1,
+   "north": -7.8,
+   "east": 138.2,
+   "years": {
+    "2022": {
+     "modis": 0.0,
+     "viirs": 16.47,
+     "n_days": 1
+    }
+   },
+   "n_days": 1,
+   "total_modis": 0.0,
+   "total_viirs": 16.47
+  },
+  {
+   "cell_id": "R-0079C01382",
+   "south": -7.9,
+   "west": 138.2,
+   "north": -7.8,
+   "east": 138.3,
+   "years": {
+    "2024": {
+     "modis": 0.0,
+     "viirs": 7.8,
+     "n_days": 1
+    }
+   },
+   "n_days": 1,
+   "total_modis": 0.0,
+   "total_viirs": 7.8
+  },
+  {
+   "cell_id": "R-0079C01384",
+   "south": -7.9,
+   "west": 138.4,
+   "north": -7.8,
+   "east": 138.5,
+   "years": {
+    "2018": {
+     "modis": 0.0,
+     "viirs": 197.7,
+     "n_days": 1
+    }
+   },
+   "n_days": 1,
+   "total_modis": 0.0,
+   "total_viirs": 197.7
+  },
+  {
+   "cell_id": "R-0079C01385",
+   "south": -7.9,
+   "west": 138.5,
+   "north": -7.8,
+   "east": 138.6,
+   "years": {
+    "2018": {
+     "modis": 0.0,
+     "viirs": 61.7,
+     "n_days": 1
+    }
+   },
+   "n_days": 1,
+   "total_modis": 0.0,
+   "total_viirs": 61.7
+  },
+  {
+   "cell_id": "R-0079C01386",
+   "south": -7.9,
+   "west": 138.6,
+   "north": -7.8,
+   "east": 138.7,
+   "years": {
+    "2019": {
+     "modis": 0.0,
+     "viirs": 15.2,
+     "n_days": 1
+    },
+    "2023": {
+     "modis": 0.0,
+     "viirs": 3.6,
+     "n_days": 1
+    }
+   },
+   "n_days": 2,
+   "total_modis": 0.0,
+   "total_viirs": 18.8
+  },
+  {
+   "cell_id": "R-0079C01387",
+   "south": -7.9,
+   "west": 138.7,
+   "north": -7.8,
+   "east": 138.8,
+   "years": {
+    "2019": {
+     "modis": 0.0,
+     "viirs": 6.1,
+     "n_days": 1
+    }
+   },
+   "n_days": 1,
+   "total_modis": 0.0,
+   "total_viirs": 6.1
+  },
+  {
+   "cell_id": "R-0079C01388",
+   "south": -7.9,
+   "west": 138.8,
+   "north": -7.8,
+   "east": 138.9,
+   "years": {
+    "2026": {
+     "modis": 0.0,
+     "viirs": 10.9,
+     "n_days": 1
+    },
+    "2018": {
+     "modis": 0.0,
+     "viirs": 12.72,
+     "n_days": 2
+    }
+   },
+   "n_days": 3,
+   "total_modis": 0.0,
+   "total_viirs": 23.62
+  },
+  {
+   "cell_id": "R-0079C01389",
+   "south": -7.9,
+   "west": 138.9,
+   "north": -7.8,
+   "east": 139.0,
+   "years": {
+    "2021": {
+     "modis": 0.0,
+     "viirs": 3.5,
+     "n_days": 1
+    }
+   },
+   "n_days": 1,
+   "total_modis": 0.0,
+   "total_viirs": 3.5
+  },
+  {
+   "cell_id": "R-0079C01394",
+   "south": -7.9,
+   "west": 139.4,
+   "north": -7.8,
+   "east": 139.5,
+   "years": {
+    "2025": {
+     "modis": 0.0,
+     "viirs": 14.3,
+     "n_days": 1
+    }
+   },
+   "n_days": 1,
+   "total_modis": 0.0,
+   "total_viirs": 14.3
+  },
+  {
+   "cell_id": "R-0079C01397",
+   "south": -7.9,
+   "west": 139.7,
+   "north": -7.8,
+   "east": 139.8,
+   "years": {
+    "2026": {
+     "modis": 0.0,
+     "viirs": 7.93,
+     "n_days": 1
+    }
+   },
+   "n_days": 1,
+   "total_modis": 0.0,
+   "total_viirs": 7.93
+  },
+  {
+   "cell_id": "R-0079C01398",
+   "south": -7.9,
+   "west": 139.8,
+   "north": -7.8,
+   "east": 139.9,
+   "years": {
+    "2018": {
+     "modis": 0.0,
+     "viirs": 9.27,
+     "n_days": 1
+    }
+   },
+   "n_days": 1,
+   "total_modis": 0.0,
+   "total_viirs": 9.27
+  },
+  {
+   "cell_id": "R-0079C01403",
+   "south": -7.9,
+   "west": 140.3,
+   "north": -7.8,
+   "east": 140.4,
+   "years": {
+    "2020": {
+     "modis": 0.0,
+     "viirs": 3.5,
+     "n_days": 1
+    }
+   },
+   "n_days": 1,
+   "total_modis": 0.0,
+   "total_viirs": 3.5
+  },
+  {
+   "cell_id": "R-0079C01405",
+   "south": -7.9,
+   "west": 140.5,
+   "north": -7.8,
+   "east": 140.6,
+   "years": {
+    "2021": {
+     "modis": 0.0,
+     "viirs": 3.95,
+     "n_days": 1
+    }
+   },
+   "n_days": 1,
+   "total_modis": 0.0,
+   "total_viirs": 3.95
+  },
+  {
+   "cell_id": "R-0079C01406",
+   "south": -7.9,
+   "west": 140.6,
+   "north": -7.8,
+   "east": 140.7,
+   "years": {
+    "2019": {
+     "modis": 0.0,
+     "viirs": 17.2,
+     "n_days": 2
+    }
+   },
+   "n_days": 2,
+   "total_modis": 0.0,
+   "total_viirs": 17.2
+  },
+  {
+   "cell_id": "R-0079C01407",
+   "south": -7.9,
+   "west": 140.7,
+   "north": -7.8,
+   "east": 140.8,
+   "years": {
+    "2026": {
+     "modis": 0.0,
+     "viirs": 16.82,
+     "n_days": 1
+    },
+    "2020": {
+     "modis": 0.0,
+     "viirs": 6.1,
+     "n_days": 1
+    },
+    "2022": {
+     "modis": 0.0,
+     "viirs": 5.75,
+     "n_days": 1
+    }
+   },
+   "n_days": 3,
+   "total_modis": 0.0,
+   "total_viirs": 28.67
+  },
+  {
+   "cell_id": "R-0078C01381",
+   "south": -7.8,
+   "west": 138.1,
+   "north": -7.7,
+   "east": 138.2,
+   "years": {
+    "2020": {
+     "modis": 0.0,
+     "viirs": 4.25,
+     "n_days": 1
+    }
+   },
+   "n_days": 1,
+   "total_modis": 0.0,
+   "total_viirs": 4.25
+  },
+  {
+   "cell_id": "R-0078C01382",
+   "south": -7.8,
+   "west": 138.2,
+   "north": -7.7,
+   "east": 138.3,
+   "years": {
+    "2018": {
+     "modis": 0.0,
+     "viirs": 7.93,
+     "n_days": 1
+    },
+    "2023": {
+     "modis": 0.0,
+     "viirs": 6.35,
+     "n_days": 1
+    }
+   },
+   "n_days": 2,
+   "total_modis": 0.0,
+   "total_viirs": 14.28
+  },
+  {
+   "cell_id": "R-0078C01383",
+   "south": -7.8,
+   "west": 138.3,
+   "north": -7.7,
+   "east": 138.4,
+   "years": {
+    "2024": {
+     "modis": 0.0,
+     "viirs": 65.75,
+     "n_days": 1
+    },
+    "2026": {
+     "modis": 0.0,
+     "viirs": 21.85,
+     "n_days": 1
+    },
+    "2019": {
+     "modis": 0.0,
+     "viirs": 15.2,
+     "n_days": 1
+    },
+    "2023": {
+     "modis": 0.0,
+     "viirs": 7.15,
+     "n_days": 1
+    }
+   },
+   "n_days": 4,
+   "total_modis": 0.0,
+   "total_viirs": 109.95
+  },
+  {
+   "cell_id": "R-0078C01384",
+   "south": -7.8,
+   "west": 138.4,
+   "north": -7.7,
+   "east": 138.5,
+   "years": {
+    "2022": {
+     "modis": 0.0,
+     "viirs": 7.83,
+     "n_days": 1
+    },
+    "2024": {
+     "modis": 0.0,
+     "viirs": 4.6,
+     "n_days": 1
+    }
+   },
+   "n_days": 2,
+   "total_modis": 0.0,
+   "total_viirs": 12.43
+  },
+  {
+   "cell_id": "R-0078C01385",
+   "south": -7.8,
+   "west": 138.5,
+   "north": -7.7,
+   "east": 138.6,
+   "years": {
+    "2023": {
+     "modis": 0.0,
+     "viirs": 5.8,
+     "n_days": 1
+    }
+   },
+   "n_days": 1,
+   "total_modis": 0.0,
+   "total_viirs": 5.8
+  },
+  {
+   "cell_id": "R-0078C01386",
+   "south": -7.8,
+   "west": 138.6,
+   "north": -7.7,
+   "east": 138.7,
+   "years": {
+    "2018": {
+     "modis": 0.0,
+     "viirs": 197.7,
+     "n_days": 1
+    }
+   },
+   "n_days": 1,
+   "total_modis": 0.0,
+   "total_viirs": 197.7
+  },
+  {
+   "cell_id": "R-0078C01387",
+   "south": -7.8,
+   "west": 138.7,
+   "north": -7.7,
+   "east": 138.8,
+   "years": {
+    "2026": {
+     "modis": 0.0,
+     "viirs": 8.95,
+     "n_days": 1
+    }
+   },
+   "n_days": 1,
+   "total_modis": 0.0,
+   "total_viirs": 8.95
+  },
+  {
+   "cell_id": "R-0078C01388",
+   "south": -7.8,
+   "west": 138.8,
+   "north": -7.7,
+   "east": 138.9,
+   "years": {
+    "2018": {
+     "modis": 0.0,
+     "viirs": 34.88,
+     "n_days": 2
+    }
+   },
+   "n_days": 2,
+   "total_modis": 0.0,
+   "total_viirs": 34.88
+  },
+  {
+   "cell_id": "R-0078C01389",
+   "south": -7.8,
+   "west": 138.9,
+   "north": -7.7,
+   "east": 139.0,
+   "years": {
+    "2018": {
+     "modis": 0.0,
+     "viirs": 17.7,
+     "n_days": 1
+    },
+    "2019": {
+     "modis": 0.0,
+     "viirs": 6.47,
+     "n_days": 1
+    },
+    "2023": {
+     "modis": 0.0,
+     "viirs": 4.15,
+     "n_days": 1
+    }
+   },
+   "n_days": 3,
+   "total_modis": 0.0,
+   "total_viirs": 28.32
+  },
+  {
+   "cell_id": "R-0078C01390",
+   "south": -7.8,
+   "west": 139.0,
+   "north": -7.7,
+   "east": 139.1,
+   "years": {
+    "2019": {
+     "modis": 0.0,
+     "viirs": 15.2,
+     "n_days": 1
+    }
+   },
+   "n_days": 1,
+   "total_modis": 0.0,
+   "total_viirs": 15.2
+  },
+  {
+   "cell_id": "R-0078C01392",
+   "south": -7.8,
+   "west": 139.2,
+   "north": -7.7,
+   "east": 139.3,
+   "years": {
+    "2018": {
+     "modis": 0.0,
+     "viirs": 17.95,
+     "n_days": 1
+    },
+    "2026": {
+     "modis": 0.0,
+     "viirs": 13.78,
+     "n_days": 1
+    }
+   },
+   "n_days": 2,
+   "total_modis": 0.0,
+   "total_viirs": 31.73
+  },
+  {
+   "cell_id": "R-0078C01394",
+   "south": -7.8,
+   "west": 139.4,
+   "north": -7.7,
+   "east": 139.5,
+   "years": {
+    "2026": {
+     "modis": 0.0,
+     "viirs": 7.93,
+     "n_days": 1
+    },
+    "2018": {
+     "modis": 0.0,
+     "viirs": 4.4,
+     "n_days": 1
+    }
+   },
+   "n_days": 2,
+   "total_modis": 0.0,
+   "total_viirs": 12.33
+  },
+  {
+   "cell_id": "R-0078C01396",
+   "south": -7.8,
+   "west": 139.6,
+   "north": -7.7,
+   "east": 139.7,
+   "years": {
+    "2023": {
+     "modis": 0.0,
+     "viirs": 44.25,
+     "n_days": 1
+    },
+    "2025": {
+     "modis": 0.0,
+     "viirs": 14.3,
+     "n_days": 1
+    }
+   },
+   "n_days": 2,
+   "total_modis": 0.0,
+   "total_viirs": 58.55
+  },
+  {
+   "cell_id": "R-0078C01397",
+   "south": -7.8,
+   "west": 139.7,
+   "north": -7.7,
+   "east": 139.8,
+   "years": {
+    "2022": {
+     "modis": 0.0,
+     "viirs": 15.43,
+     "n_days": 1
+    },
+    "2023": {
+     "modis": 0.0,
+     "viirs": 14.97,
+     "n_days": 1
+    }
+   },
+   "n_days": 2,
+   "total_modis": 0.0,
+   "total_viirs": 30.4
+  },
+  {
+   "cell_id": "R-0078C01399",
+   "south": -7.8,
+   "west": 139.9,
+   "north": -7.7,
+   "east": 140.0,
+   "years": {
+    "2023": {
+     "modis": 0.0,
+     "viirs": 7.73,
+     "n_days": 1
+    }
+   },
+   "n_days": 1,
+   "total_modis": 0.0,
+   "total_viirs": 7.73
+  },
+  {
+   "cell_id": "R-0078C01403",
+   "south": -7.8,
+   "west": 140.3,
+   "north": -7.7,
+   "east": 140.4,
+   "years": {
+    "2023": {
+     "modis": 0.0,
+     "viirs": 7.43,
+     "n_days": 1
+    }
+   },
+   "n_days": 1,
+   "total_modis": 0.0,
+   "total_viirs": 7.43
+  },
+  {
+   "cell_id": "R-0078C01404",
+   "south": -7.8,
+   "west": 140.4,
+   "north": -7.7,
+   "east": 140.5,
+   "years": {
+    "2023": {
+     "modis": 0.0,
+     "viirs": 44.25,
+     "n_days": 1
+    }
+   },
+   "n_days": 1,
+   "total_modis": 0.0,
+   "total_viirs": 44.25
+  },
+  {
+   "cell_id": "R-0078C01406",
+   "south": -7.8,
+   "west": 140.6,
+   "north": -7.7,
+   "east": 140.7,
+   "years": {
+    "2020": {
+     "modis": 0.0,
+     "viirs": 4.25,
+     "n_days": 1
+    }
+   },
+   "n_days": 1,
+   "total_modis": 0.0,
+   "total_viirs": 4.25
+  },
+  {
+   "cell_id": "R-0078C01407",
+   "south": -7.8,
+   "west": 140.7,
+   "north": -7.7,
+   "east": 140.8,
+   "years": {
+    "2020": {
+     "modis": 0.0,
+     "viirs": 9.33,
+     "n_days": 1
+    },
+    "2023": {
+     "modis": 0.0,
+     "viirs": 6.97,
+     "n_days": 1
+    }
+   },
+   "n_days": 2,
+   "total_modis": 0.0,
+   "total_viirs": 16.3
+  },
+  {
+   "cell_id": "R-0077C01380",
+   "south": -7.7,
+   "west": 138.0,
+   "north": -7.6,
+   "east": 138.1,
+   "years": {
+    "2026": {
+     "modis": 0.0,
+     "viirs": 10.9,
+     "n_days": 1
+    }
+   },
+   "n_days": 1,
+   "total_modis": 0.0,
+   "total_viirs": 10.9
+  },
+  {
+   "cell_id": "R-0077C01382",
+   "south": -7.7,
+   "west": 138.2,
+   "north": -7.6,
+   "east": 138.3,
+   "years": {
+    "2023": {
+     "modis": 0.0,
+     "viirs": 7.27,
+     "n_days": 1
+    },
+    "2022": {
+     "modis": 0.0,
+     "viirs": 4.0,
+     "n_days": 1
+    }
+   },
+   "n_days": 2,
+   "total_modis": 0.0,
+   "total_viirs": 11.27
+  },
+  {
+   "cell_id": "R-0077C01383",
+   "south": -7.7,
+   "west": 138.3,
+   "north": -7.6,
+   "east": 138.4,
+   "years": {
+    "2026": {
+     "modis": 0.0,
+     "viirs": 7.1,
+     "n_days": 1
+    }
+   },
+   "n_days": 1,
+   "total_modis": 0.0,
+   "total_viirs": 7.1
+  },
+  {
+   "cell_id": "R-0077C01384",
+   "south": -7.7,
+   "west": 138.4,
+   "north": -7.6,
+   "east": 138.5,
+   "years": {
+    "2018": {
+     "modis": 0.0,
+     "viirs": 8.0,
+     "n_days": 1
+    }
+   },
+   "n_days": 1,
+   "total_modis": 0.0,
+   "total_viirs": 8.0
+  },
+  {
+   "cell_id": "R-0077C01386",
+   "south": -7.7,
+   "west": 138.6,
+   "north": -7.6,
+   "east": 138.7,
+   "years": {
+    "2023": {
+     "modis": 0.0,
+     "viirs": 6.97,
+     "n_days": 1
+    }
+   },
+   "n_days": 1,
+   "total_modis": 0.0,
+   "total_viirs": 6.97
+  },
+  {
+   "cell_id": "R-0077C01394",
+   "south": -7.7,
+   "west": 139.4,
+   "north": -7.6,
+   "east": 139.5,
+   "years": {
+    "2023": {
+     "modis": 0.0,
+     "viirs": 17.27,
+     "n_days": 1
+    },
+    "2018": {
+     "modis": 0.0,
+     "viirs": 5.35,
+     "n_days": 1
+    }
+   },
+   "n_days": 2,
+   "total_modis": 0.0,
+   "total_viirs": 22.62
+  },
+  {
+   "cell_id": "R-0077C01395",
+   "south": -7.7,
+   "west": 139.5,
+   "north": -7.6,
+   "east": 139.6,
+   "years": {
+    "2018": {
+     "modis": 0.0,
+     "viirs": 17.95,
+     "n_days": 1
+    }
+   },
+   "n_days": 1,
+   "total_modis": 0.0,
+   "total_viirs": 17.95
+  },
+  {
+   "cell_id": "R-0077C01398",
+   "south": -7.7,
+   "west": 139.8,
+   "north": -7.6,
+   "east": 139.9,
+   "years": {
+    "2024": {
+     "modis": 0.0,
+     "viirs": 94.43,
+     "n_days": 2
+    },
+    "2019": {
+     "modis": 0.0,
+     "viirs": 6.47,
+     "n_days": 1
+    },
+    "2025": {
+     "modis": 0.0,
+     "viirs": 5.2,
+     "n_days": 1
+    }
+   },
+   "n_days": 4,
+   "total_modis": 0.0,
+   "total_viirs": 106.1
+  },
+  {
+   "cell_id": "R-0077C01399",
+   "south": -7.7,
+   "west": 139.9,
+   "north": -7.6,
+   "east": 140.0,
+   "years": {
+    "2023": {
+     "modis": 0.0,
+     "viirs": 16.2,
+     "n_days": 1
+    }
+   },
+   "n_days": 1,
+   "total_modis": 0.0,
+   "total_viirs": 16.2
+  },
+  {
+   "cell_id": "R-0077C01401",
+   "south": -7.7,
+   "west": 140.1,
+   "north": -7.6,
+   "east": 140.2,
+   "years": {
+    "2019": {
+     "modis": 0.0,
+     "viirs": 10.17,
+     "n_days": 1
+    },
+    "2020": {
+     "modis": 0.0,
+     "viirs": 9.93,
+     "n_days": 1
+    }
+   },
+   "n_days": 2,
+   "total_modis": 0.0,
+   "total_viirs": 20.1
+  },
+  {
+   "cell_id": "R-0077C01402",
+   "south": -7.7,
+   "west": 140.2,
+   "north": -7.6,
+   "east": 140.3,
+   "years": {
+    "2019": {
+     "modis": 0.0,
+     "viirs": 18.82,
+     "n_days": 1
+    }
+   },
+   "n_days": 1,
+   "total_modis": 0.0,
+   "total_viirs": 18.82
+  },
+  {
+   "cell_id": "R-0077C01404",
+   "south": -7.7,
+   "west": 140.4,
+   "north": -7.6,
+   "east": 140.5,
+   "years": {
+    "2022": {
+     "modis": 0.0,
+     "viirs": 5.35,
+     "n_days": 1
+    }
+   },
+   "n_days": 1,
+   "total_modis": 0.0,
+   "total_viirs": 5.35
+  },
+  {
+   "cell_id": "R-0077C01405",
+   "south": -7.7,
+   "west": 140.5,
+   "north": -7.6,
+   "east": 140.6,
+   "years": {
+    "2018": {
+     "modis": 0.0,
+     "viirs": 25.0,
+     "n_days": 2
+    },
+    "2024": {
+     "modis": 0.0,
+     "viirs": 11.57,
+     "n_days": 1
+    },
+    "2023": {
+     "modis": 0.0,
+     "viirs": 10.77,
+     "n_days": 1
+    }
+   },
+   "n_days": 4,
+   "total_modis": 0.0,
+   "total_viirs": 47.34
+  },
+  {
+   "cell_id": "R-0077C01407",
+   "south": -7.7,
+   "west": 140.7,
+   "north": -7.6,
+   "east": 140.8,
+   "years": {
+    "2026": {
+     "modis": 0.0,
+     "viirs": 5.25,
+     "n_days": 1
+    }
+   },
+   "n_days": 1,
+   "total_modis": 0.0,
+   "total_viirs": 5.25
+  },
+  {
+   "cell_id": "R-0076C01380",
+   "south": -7.6,
+   "west": 138.0,
+   "north": -7.5,
+   "east": 138.1,
+   "years": {
+    "2021": {
+     "modis": 0.0,
+     "viirs": 8.0,
+     "n_days": 1
+    }
+   },
+   "n_days": 1,
+   "total_modis": 0.0,
+   "total_viirs": 8.0
+  },
+  {
+   "cell_id": "R-0076C01383",
+   "south": -7.6,
+   "west": 138.3,
+   "north": -7.5,
+   "east": 138.4,
+   "years": {
+    "2018": {
+     "modis": 0.0,
+     "viirs": 13.47,
+     "n_days": 1
+    }
+   },
+   "n_days": 1,
+   "total_modis": 0.0,
+   "total_viirs": 13.47
+  },
+  {
+   "cell_id": "R-0076C01388",
+   "south": -7.6,
+   "west": 138.8,
+   "north": -7.5,
+   "east": 138.9,
+   "years": {
+    "2019": {
+     "modis": 0.0,
+     "viirs": 10.17,
+     "n_days": 1
+    },
+    "2024": {
+     "modis": 0.0,
+     "viirs": 7.83,
+     "n_days": 1
+    }
+   },
+   "n_days": 2,
+   "total_modis": 0.0,
+   "total_viirs": 18.0
+  },
+  {
+   "cell_id": "R-0076C01390",
+   "south": -7.6,
+   "west": 139.0,
+   "north": -7.5,
+   "east": 139.1,
+   "years": {
+    "2026": {
+     "modis": 0.0,
+     "viirs": 13.9,
+     "n_days": 1
+    }
+   },
+   "n_days": 1,
+   "total_modis": 0.0,
+   "total_viirs": 13.9
+  },
+  {
+   "cell_id": "R-0076C01392",
+   "south": -7.6,
+   "west": 139.2,
+   "north": -7.5,
+   "east": 139.3,
+   "years": {
+    "2023": {
+     "modis": 0.0,
+     "viirs": 26.8,
+     "n_days": 1
+    }
+   },
+   "n_days": 1,
+   "total_modis": 0.0,
+   "total_viirs": 26.8
+  },
+  {
+   "cell_id": "R-0076C01393",
+   "south": -7.6,
+   "west": 139.3,
+   "north": -7.5,
+   "east": 139.4,
+   "years": {
+    "2018": {
+     "modis": 0.0,
+     "viirs": 7.93,
+     "n_days": 1
+    }
+   },
+   "n_days": 1,
+   "total_modis": 0.0,
+   "total_viirs": 7.93
+  },
+  {
+   "cell_id": "R-0076C01394",
+   "south": -7.6,
+   "west": 139.4,
+   "north": -7.5,
+   "east": 139.5,
+   "years": {
+    "2018": {
+     "modis": 0.0,
+     "viirs": 9.9,
+     "n_days": 1
+    }
+   },
+   "n_days": 1,
+   "total_modis": 0.0,
+   "total_viirs": 9.9
+  },
+  {
+   "cell_id": "R-0076C01395",
+   "south": -7.6,
+   "west": 139.5,
+   "north": -7.5,
+   "east": 139.6,
+   "years": {
+    "2023": {
+     "modis": 0.0,
+     "viirs": 26.8,
+     "n_days": 1
+    },
+    "2025": {
+     "modis": 0.0,
+     "viirs": 14.35,
+     "n_days": 2
+    }
+   },
+   "n_days": 3,
+   "total_modis": 0.0,
+   "total_viirs": 41.15
+  },
+  {
+   "cell_id": "R-0076C01396",
+   "south": -7.6,
+   "west": 139.6,
+   "north": -7.5,
+   "east": 139.7,
+   "years": {
+    "2019": {
+     "modis": 0.0,
+     "viirs": 10.17,
+     "n_days": 1
+    }
+   },
+   "n_days": 1,
+   "total_modis": 0.0,
+   "total_viirs": 10.17
+  },
+  {
+   "cell_id": "R-0076C01397",
+   "south": -7.6,
+   "west": 139.7,
+   "north": -7.5,
+   "east": 139.8,
+   "years": {
+    "2018": {
+     "modis": 0.0,
+     "viirs": 13.37,
+     "n_days": 1
+    }
+   },
+   "n_days": 1,
+   "total_modis": 0.0,
+   "total_viirs": 13.37
+  },
+  {
+   "cell_id": "R-0076C01398",
+   "south": -7.6,
+   "west": 139.8,
+   "north": -7.5,
+   "east": 139.9,
+   "years": {
+    "2023": {
+     "modis": 0.0,
+     "viirs": 14.7,
+     "n_days": 1
+    },
+    "2022": {
+     "modis": 0.0,
+     "viirs": 16.47,
+     "n_days": 1
+    },
+    "2018": {
+     "modis": 0.0,
+     "viirs": 7.2,
+     "n_days": 1
+    }
+   },
+   "n_days": 3,
+   "total_modis": 0.0,
+   "total_viirs": 38.37
+  },
+  {
+   "cell_id": "R-0076C01399",
+   "south": -7.6,
+   "west": 139.9,
+   "north": -7.5,
+   "east": 140.0,
+   "years": {
+    "2018": {
+     "modis": 0.0,
+     "viirs": 17.95,
+     "n_days": 1
+    },
+    "2022": {
+     "modis": 0.0,
+     "viirs": 8.35,
+     "n_days": 1
+    }
+   },
+   "n_days": 2,
+   "total_modis": 0.0,
+   "total_viirs": 26.3
+  },
+  {
+   "cell_id": "R-0076C01403",
+   "south": -7.6,
+   "west": 140.3,
+   "north": -7.5,
+   "east": 140.4,
+   "years": {
+    "2018": {
+     "modis": 0.0,
+     "viirs": 13.37,
+     "n_days": 1
+    },
+    "2025": {
+     "modis": 0.0,
+     "viirs": 9.5,
+     "n_days": 1
+    }
+   },
+   "n_days": 2,
+   "total_modis": 0.0,
+   "total_viirs": 22.87
+  },
+  {
+   "cell_id": "R-0076C01405",
+   "south": -7.6,
+   "west": 140.5,
+   "north": -7.5,
+   "east": 140.6,
+   "years": {
+    "2020": {
+     "modis": 0.0,
+     "viirs": 6.1,
+     "n_days": 1
+    },
+    "2023": {
+     "modis": 0.0,
+     "viirs": 4.45,
+     "n_days": 1
+    }
+   },
+   "n_days": 2,
+   "total_modis": 0.0,
+   "total_viirs": 10.55
+  },
+  {
+   "cell_id": "R-0076C01406",
+   "south": -7.6,
+   "west": 140.6,
+   "north": -7.5,
+   "east": 140.7,
+   "years": {
+    "2018": {
+     "modis": 0.0,
+     "viirs": 7.77,
+     "n_days": 1
+    },
+    "2026": {
+     "modis": 0.0,
+     "viirs": 7.8,
+     "n_days": 1
+    }
+   },
+   "n_days": 2,
+   "total_modis": 0.0,
+   "total_viirs": 15.57
+  },
+  {
+   "cell_id": "R-0076C01407",
+   "south": -7.6,
+   "west": 140.7,
+   "north": -7.5,
+   "east": 140.8,
+   "years": {
+    "2024": {
+     "modis": 0.0,
+     "viirs": 53.1,
+     "n_days": 2
+    },
+    "2023": {
+     "modis": 0.0,
+     "viirs": 10.77,
+     "n_days": 1
+    }
+   },
+   "n_days": 3,
+   "total_modis": 0.0,
+   "total_viirs": 63.87
+  },
+  {
+   "cell_id": "R-0075C01381",
+   "south": -7.5,
+   "west": 138.1,
+   "north": -7.4,
+   "east": 138.2,
+   "years": {
+    "2021": {
+     "modis": 0.0,
+     "viirs": 7.1,
+     "n_days": 1
+    },
+    "2023": {
+     "modis": 0.0,
+     "viirs": 4.5,
+     "n_days": 1
+    }
+   },
+   "n_days": 2,
+   "total_modis": 0.0,
+   "total_viirs": 11.6
+  },
+  {
+   "cell_id": "R-0075C01382",
+   "south": -7.5,
+   "west": 138.2,
+   "north": -7.4,
+   "east": 138.3,
+   "years": {
+    "2023": {
+     "modis": 0.0,
+     "viirs": 26.8,
+     "n_days": 1
+    },
+    "2021": {
+     "modis": 0.0,
+     "viirs": 15.9,
+     "n_days": 1
+    }
+   },
+   "n_days": 2,
+   "total_modis": 0.0,
+   "total_viirs": 42.7
+  },
+  {
+   "cell_id": "R-0075C01383",
+   "south": -7.5,
+   "west": 138.3,
+   "north": -7.4,
+   "east": 138.4,
+   "years": {
+    "2020": {
+     "modis": 0.0,
+     "viirs": 3.3,
+     "n_days": 1
+    }
+   },
+   "n_days": 1,
+   "total_modis": 0.0,
+   "total_viirs": 3.3
+  },
+  {
+   "cell_id": "R-0075C01384",
+   "south": -7.5,
+   "west": 138.4,
+   "north": -7.4,
+   "east": 138.5,
+   "years": {
+    "2023": {
+     "modis": 0.0,
+     "viirs": 6.97,
+     "n_days": 1
+    },
+    "2022": {
+     "modis": 0.0,
+     "viirs": 4.25,
+     "n_days": 1
+    }
+   },
+   "n_days": 2,
+   "total_modis": 0.0,
+   "total_viirs": 11.22
+  },
+  {
+   "cell_id": "R-0075C01386",
+   "south": -7.5,
+   "west": 138.6,
+   "north": -7.4,
+   "east": 138.7,
+   "years": {
+    "2018": {
+     "modis": 0.0,
+     "viirs": 22.55,
+     "n_days": 2
+    }
+   },
+   "n_days": 2,
+   "total_modis": 0.0,
+   "total_viirs": 22.55
+  },
+  {
+   "cell_id": "R-0075C01391",
+   "south": -7.5,
+   "west": 139.1,
+   "north": -7.4,
+   "east": 139.2,
+   "years": {
+    "2023": {
+     "modis": 0.0,
+     "viirs": 15.63,
+     "n_days": 2
+    }
+   },
+   "n_days": 2,
+   "total_modis": 0.0,
+   "total_viirs": 15.63
+  },
+  {
+   "cell_id": "R-0075C01396",
+   "south": -7.5,
+   "west": 139.6,
+   "north": -7.4,
+   "east": 139.7,
+   "years": {
+    "2026": {
+     "modis": 0.0,
+     "viirs": 21.85,
+     "n_days": 1
+    },
+    "2018": {
+     "modis": 0.0,
+     "viirs": 7.93,
+     "n_days": 1
+    },
+    "2022": {
+     "modis": 0.0,
+     "viirs": 5.75,
+     "n_days": 1
+    }
+   },
+   "n_days": 3,
+   "total_modis": 0.0,
+   "total_viirs": 35.53
+  },
+  {
+   "cell_id": "R-0075C01397",
+   "south": -7.5,
+   "west": 139.7,
+   "north": -7.4,
+   "east": 139.8,
+   "years": {
+    "2026": {
+     "modis": 0.0,
+     "viirs": 8.1,
+     "n_days": 1
+    }
+   },
+   "n_days": 1,
+   "total_modis": 0.0,
+   "total_viirs": 8.1
+  },
+  {
+   "cell_id": "R-0075C01400",
+   "south": -7.5,
+   "west": 140.0,
+   "north": -7.4,
+   "east": 140.1,
+   "years": {
+    "2026": {
+     "modis": 0.0,
+     "viirs": 9.53,
+     "n_days": 1
+    }
+   },
+   "n_days": 1,
+   "total_modis": 0.0,
+   "total_viirs": 9.53
+  },
+  {
+   "cell_id": "R-0075C01401",
+   "south": -7.5,
+   "west": 140.1,
+   "north": -7.4,
+   "east": 140.2,
+   "years": {
+    "2023": {
+     "modis": 0.0,
+     "viirs": 8.4,
+     "n_days": 1
+    }
+   },
+   "n_days": 1,
+   "total_modis": 0.0,
+   "total_viirs": 8.4
+  },
+  {
+   "cell_id": "R-0075C01402",
+   "south": -7.5,
+   "west": 140.2,
+   "north": -7.4,
+   "east": 140.3,
+   "years": {
+    "2018": {
+     "modis": 0.0,
+     "viirs": 6.75,
+     "n_days": 1
+    }
+   },
+   "n_days": 1,
+   "total_modis": 0.0,
+   "total_viirs": 6.75
+  },
+  {
+   "cell_id": "R-0075C01403",
+   "south": -7.5,
+   "west": 140.3,
+   "north": -7.4,
+   "east": 140.4,
+   "years": {
+    "2022": {
+     "modis": 0.0,
+     "viirs": 13.55,
+     "n_days": 1
+    }
+   },
+   "n_days": 1,
+   "total_modis": 0.0,
+   "total_viirs": 13.55
+  },
+  {
+   "cell_id": "R-0075C01405",
+   "south": -7.5,
+   "west": 140.5,
+   "north": -7.4,
+   "east": 140.6,
+   "years": {
+    "2026": {
+     "modis": 0.0,
+     "viirs": 33.37,
+     "n_days": 2
+    }
+   },
+   "n_days": 2,
+   "total_modis": 0.0,
+   "total_viirs": 33.37
+  },
+  {
+   "cell_id": "R-0074C01380",
+   "south": -7.4,
+   "west": 138.0,
+   "north": -7.3,
+   "east": 138.1,
+   "years": {
+    "2018": {
+     "modis": 0.0,
+     "viirs": 4.1,
+     "n_days": 1
+    }
+   },
+   "n_days": 1,
+   "total_modis": 0.0,
+   "total_viirs": 4.1
+  },
+  {
+   "cell_id": "R-0074C01383",
+   "south": -7.4,
+   "west": 138.3,
+   "north": -7.3,
+   "east": 138.4,
+   "years": {
+    "2021": {
+     "modis": 0.0,
+     "viirs": 3.95,
+     "n_days": 1
+    }
+   },
+   "n_days": 1,
+   "total_modis": 0.0,
+   "total_viirs": 3.95
+  },
+  {
+   "cell_id": "R-0074C01386",
+   "south": -7.4,
+   "west": 138.6,
+   "north": -7.3,
+   "east": 138.7,
+   "years": {
+    "2023": {
+     "modis": 0.0,
+     "viirs": 17.27,
+     "n_days": 1
+    },
+    "2018": {
+     "modis": 0.0,
+     "viirs": 5.75,
+     "n_days": 1
+    }
+   },
+   "n_days": 2,
+   "total_modis": 0.0,
+   "total_viirs": 23.02
+  },
+  {
+   "cell_id": "R-0074C01389",
+   "south": -7.4,
+   "west": 138.9,
+   "north": -7.3,
+   "east": 139.0,
+   "years": {
+    "2018": {
+     "modis": 0.0,
+     "viirs": 53.38,
+     "n_days": 1
+    },
+    "2023": {
+     "modis": 0.0,
+     "viirs": 7.93,
+     "n_days": 1
+    }
+   },
+   "n_days": 2,
+   "total_modis": 0.0,
+   "total_viirs": 61.31
+  },
+  {
+   "cell_id": "R-0074C01390",
+   "south": -7.4,
+   "west": 139.0,
+   "north": -7.3,
+   "east": 139.1,
+   "years": {
+    "2019": {
+     "modis": 0.0,
+     "viirs": 6.45,
+     "n_days": 1
+    }
+   },
+   "n_days": 1,
+   "total_modis": 0.0,
+   "total_viirs": 6.45
+  },
+  {
+   "cell_id": "R-0074C01391",
+   "south": -7.4,
+   "west": 139.1,
+   "north": -7.3,
+   "east": 139.2,
+   "years": {
+    "2018": {
+     "modis": 0.0,
+     "viirs": 6.2,
+     "n_days": 1
+    }
+   },
+   "n_days": 1,
+   "total_modis": 0.0,
+   "total_viirs": 6.2
+  },
+  {
+   "cell_id": "R-0074C01392",
+   "south": -7.4,
+   "west": 139.2,
+   "north": -7.3,
+   "east": 139.3,
+   "years": {
+    "2023": {
+     "modis": 0.0,
+     "viirs": 7.93,
+     "n_days": 1
+    }
+   },
+   "n_days": 1,
+   "total_modis": 0.0,
+   "total_viirs": 7.93
+  },
+  {
+   "cell_id": "R-0074C01393",
+   "south": -7.4,
+   "west": 139.3,
+   "north": -7.3,
+   "east": 139.4,
+   "years": {
+    "2026": {
+     "modis": 0.0,
+     "viirs": 20.83,
+     "n_days": 2
+    }
+   },
+   "n_days": 2,
+   "total_modis": 0.0,
+   "total_viirs": 20.83
+  },
+  {
+   "cell_id": "R-0074C01396",
+   "south": -7.4,
+   "west": 139.6,
+   "north": -7.3,
+   "east": 139.7,
+   "years": {
+    "2026": {
+     "modis": 0.0,
+     "viirs": 13.9,
+     "n_days": 1
+    },
+    "2020": {
+     "modis": 0.0,
+     "viirs": 9.33,
+     "n_days": 1
+    }
+   },
+   "n_days": 2,
+   "total_modis": 0.0,
+   "total_viirs": 23.23
+  },
+  {
+   "cell_id": "R-0074C01397",
+   "south": -7.4,
+   "west": 139.7,
+   "north": -7.3,
+   "east": 139.8,
+   "years": {
+    "2018": {
+     "modis": 0.0,
+     "viirs": 53.38,
+     "n_days": 1
+    }
+   },
+   "n_days": 1,
+   "total_modis": 0.0,
+   "total_viirs": 53.38
+  },
+  {
+   "cell_id": "R-0074C01398",
+   "south": -7.4,
+   "west": 139.8,
+   "north": -7.3,
+   "east": 139.9,
+   "years": {
+    "2024": {
+     "modis": 0.0,
+     "viirs": 65.75,
+     "n_days": 1
+    },
+    "2020": {
+     "modis": 0.0,
+     "viirs": 7.83,
+     "n_days": 1
+    }
+   },
+   "n_days": 2,
+   "total_modis": 0.0,
+   "total_viirs": 73.58
+  },
+  {
+   "cell_id": "R-0074C01399",
+   "south": -7.4,
+   "west": 139.9,
+   "north": -7.3,
+   "east": 140.0,
+   "years": {
+    "2023": {
+     "modis": 0.0,
+     "viirs": 6.63,
+     "n_days": 1
+    }
+   },
+   "n_days": 1,
+   "total_modis": 0.0,
+   "total_viirs": 6.63
+  },
+  {
+   "cell_id": "R-0074C01404",
+   "south": -7.4,
+   "west": 140.4,
+   "north": -7.3,
+   "east": 140.5,
+   "years": {
+    "2019": {
+     "modis": 0.0,
+     "viirs": 8.33,
+     "n_days": 1
+    }
+   },
+   "n_days": 1,
+   "total_modis": 0.0,
+   "total_viirs": 8.33
+  },
+  {
+   "cell_id": "R-0074C01405",
+   "south": -7.4,
+   "west": 140.5,
+   "north": -7.3,
+   "east": 140.6,
+   "years": {
+    "2023": {
+     "modis": 0.0,
+     "viirs": 6.35,
+     "n_days": 1
+    },
+    "2018": {
+     "modis": 0.0,
+     "viirs": 5.1,
+     "n_days": 1
+    }
+   },
+   "n_days": 2,
+   "total_modis": 0.0,
+   "total_viirs": 11.45
+  },
+  {
+   "cell_id": "R-0073C01382",
+   "south": -7.3,
+   "west": 138.2,
+   "north": -7.2,
+   "east": 138.3,
+   "years": {
+    "2023": {
+     "modis": 0.0,
+     "viirs": 7.03,
+     "n_days": 1
+    }
+   },
+   "n_days": 1,
+   "total_modis": 0.0,
+   "total_viirs": 7.03
+  },
+  {
+   "cell_id": "R-0073C01387",
+   "south": -7.3,
+   "west": 138.7,
+   "north": -7.2,
+   "east": 138.8,
+   "years": {
+    "2024": {
+     "modis": 0.0,
+     "viirs": 19.82,
+     "n_days": 1
+    },
+    "2020": {
+     "modis": 0.0,
+     "viirs": 10.23,
+     "n_days": 1
+    }
+   },
+   "n_days": 2,
+   "total_modis": 0.0,
+   "total_viirs": 30.05
+  },
+  {
+   "cell_id": "R-0073C01388",
+   "south": -7.3,
+   "west": 138.8,
+   "north": -7.2,
+   "east": 138.9,
+   "years": {
+    "2019": {
+     "modis": 0.0,
+     "viirs": 7.8,
+     "n_days": 1
+    },
+    "2018": {
+     "modis": 0.0,
+     "viirs": 9.35,
+     "n_days": 2
+    }
+   },
+   "n_days": 3,
+   "total_modis": 0.0,
+   "total_viirs": 17.15
+  },
+  {
+   "cell_id": "R-0073C01389",
+   "south": -7.3,
+   "west": 138.9,
+   "north": -7.2,
+   "east": 139.0,
+   "years": {
+    "2023": {
+     "modis": 0.0,
+     "viirs": 14.7,
+     "n_days": 1
+    },
+    "2019": {
+     "modis": 0.0,
+     "viirs": 10.8,
+     "n_days": 2
+    }
+   },
+   "n_days": 3,
+   "total_modis": 0.0,
+   "total_viirs": 25.5
+  },
+  {
+   "cell_id": "R-0073C01390",
+   "south": -7.3,
+   "west": 139.0,
+   "north": -7.2,
+   "east": 139.1,
+   "years": {
+    "2020": {
+     "modis": 0.0,
+     "viirs": 8.95,
+     "n_days": 1
+    },
+    "2022": {
+     "modis": 0.0,
+     "viirs": 8.95,
+     "n_days": 1
+    }
+   },
+   "n_days": 2,
+   "total_modis": 0.0,
+   "total_viirs": 17.9
+  },
+  {
+   "cell_id": "R-0073C01391",
+   "south": -7.3,
+   "west": 139.1,
+   "north": -7.2,
+   "east": 139.2,
+   "years": {
+    "2022": {
+     "modis": 0.0,
+     "viirs": 7.57,
+     "n_days": 1
+    },
+    "2023": {
+     "modis": 0.0,
+     "viirs": 3.3,
+     "n_days": 1
+    }
+   },
+   "n_days": 2,
+   "total_modis": 0.0,
+   "total_viirs": 10.87
+  },
+  {
+   "cell_id": "R-0073C01393",
+   "south": -7.3,
+   "west": 139.3,
+   "north": -7.2,
+   "east": 139.4,
+   "years": {
+    "2018": {
+     "modis": 0.0,
+     "viirs": 48.4,
+     "n_days": 1
+    },
+    "2023": {
+     "modis": 0.0,
+     "viirs": 14.97,
+     "n_days": 1
+    },
+    "2020": {
+     "modis": 0.0,
+     "viirs": 3.5,
+     "n_days": 1
+    }
+   },
+   "n_days": 3,
+   "total_modis": 0.0,
+   "total_viirs": 66.87
+  },
+  {
+   "cell_id": "R-0073C01396",
+   "south": -7.3,
+   "west": 139.6,
+   "north": -7.2,
+   "east": 139.7,
+   "years": {
+    "2018": {
+     "modis": 0.0,
+     "viirs": 197.7,
+     "n_days": 1
+    },
+    "2023": {
+     "modis": 0.0,
+     "viirs": 14.1,
+     "n_days": 1
+    }
+   },
+   "n_days": 2,
+   "total_modis": 0.0,
+   "total_viirs": 211.8
+  },
+  {
+   "cell_id": "R-0073C01399",
+   "south": -7.3,
+   "west": 139.9,
+   "north": -7.2,
+   "east": 140.0,
+   "years": {
+    "2020": {
+     "modis": 0.0,
+     "viirs": 9.2,
+     "n_days": 1
+    },
+    "2023": {
+     "modis": 0.0,
+     "viirs": 10.15,
+     "n_days": 2
+    }
+   },
+   "n_days": 3,
+   "total_modis": 0.0,
+   "total_viirs": 19.35
+  },
+  {
+   "cell_id": "R-0073C01401",
+   "south": -7.3,
+   "west": 140.1,
+   "north": -7.2,
+   "east": 140.2,
+   "years": {
+    "2018": {
+     "modis": 0.0,
+     "viirs": 13.47,
+     "n_days": 1
+    }
+   },
+   "n_days": 1,
+   "total_modis": 0.0,
+   "total_viirs": 13.47
+  },
+  {
+   "cell_id": "R-0073C01402",
+   "south": -7.3,
+   "west": 140.2,
+   "north": -7.2,
+   "east": 140.3,
+   "years": {
+    "2025": {
+     "modis": 0.0,
+     "viirs": 4.85,
+     "n_days": 1
+    }
+   },
+   "n_days": 1,
+   "total_modis": 0.0,
+   "total_viirs": 4.85
+  },
+  {
+   "cell_id": "R-0073C01404",
+   "south": -7.3,
+   "west": 140.4,
+   "north": -7.2,
+   "east": 140.5,
+   "years": {
+    "2018": {
+     "modis": 0.0,
+     "viirs": 7.93,
+     "n_days": 1
+    }
+   },
+   "n_days": 1,
+   "total_modis": 0.0,
+   "total_viirs": 7.93
+  },
+  {
+   "cell_id": "R-0073C01405",
+   "south": -7.3,
+   "west": 140.5,
+   "north": -7.2,
+   "east": 140.6,
+   "years": {
+    "2019": {
+     "modis": 0.0,
+     "viirs": 22.88,
+     "n_days": 1
+    },
+    "2022": {
+     "modis": 0.0,
+     "viirs": 3.25,
+     "n_days": 1
+    }
+   },
+   "n_days": 2,
+   "total_modis": 0.0,
+   "total_viirs": 26.13
+  },
+  {
+   "cell_id": "R-0073C01407",
+   "south": -7.3,
+   "west": 140.7,
+   "north": -7.2,
+   "east": 140.8,
+   "years": {
+    "2022": {
+     "modis": 0.0,
+     "viirs": 8.9,
+     "n_days": 1
+    }
+   },
+   "n_days": 1,
+   "total_modis": 0.0,
+   "total_viirs": 8.9
+  },
+  {
+   "cell_id": "R-0072C01380",
+   "south": -7.2,
+   "west": 138.0,
+   "north": -7.1,
+   "east": 138.1,
+   "years": {
+    "2018": {
+     "modis": 0.0,
+     "viirs": 48.4,
+     "n_days": 1
+    },
+    "2023": {
+     "modis": 0.0,
+     "viirs": 22.65,
+     "n_days": 1
+    }
+   },
+   "n_days": 2,
+   "total_modis": 0.0,
+   "total_viirs": 71.05
+  },
+  {
+   "cell_id": "R-0072C01381",
+   "south": -7.2,
+   "west": 138.1,
+   "north": -7.1,
+   "east": 138.2,
+   "years": {
+    "2026": {
+     "modis": 0.0,
+     "viirs": 16.82,
+     "n_days": 1
+    },
+    "2018": {
+     "modis": 0.0,
+     "viirs": 8.9,
+     "n_days": 1
+    }
+   },
+   "n_days": 2,
+   "total_modis": 0.0,
+   "total_viirs": 25.72
+  },
+  {
+   "cell_id": "R-0072C01382",
+   "south": -7.2,
+   "west": 138.2,
+   "north": -7.1,
+   "east": 138.3,
+   "years": {
+    "2020": {
+     "modis": 0.0,
+     "viirs": 6.5,
+     "n_days": 1
+    }
+   },
+   "n_days": 1,
+   "total_modis": 0.0,
+   "total_viirs": 6.5
+  },
+  {
+   "cell_id": "R-0072C01383",
+   "south": -7.2,
+   "west": 138.3,
+   "north": -7.1,
+   "east": 138.4,
+   "years": {
+    "2020": {
+     "modis": 0.0,
+     "viirs": 13.97,
+     "n_days": 1
+    }
+   },
+   "n_days": 1,
+   "total_modis": 0.0,
+   "total_viirs": 13.97
+  },
+  {
+   "cell_id": "R-0072C01386",
+   "south": -7.2,
+   "west": 138.6,
+   "north": -7.1,
+   "east": 138.7,
+   "years": {
+    "2019": {
+     "modis": 0.0,
+     "viirs": 22.88,
+     "n_days": 1
+    },
+    "2022": {
+     "modis": 0.0,
+     "viirs": 5.9,
+     "n_days": 1
+    }
+   },
+   "n_days": 2,
+   "total_modis": 0.0,
+   "total_viirs": 28.78
+  },
+  {
+   "cell_id": "R-0072C01387",
+   "south": -7.2,
+   "west": 138.7,
+   "north": -7.1,
+   "east": 138.8,
+   "years": {
+    "2024": {
+     "modis": 0.0,
+     "viirs": 19.82,
+     "n_days": 1
+    },
+    "2020": {
+     "modis": 0.0,
+     "viirs": 6.5,
+     "n_days": 1
+    }
+   },
+   "n_days": 2,
+   "total_modis": 0.0,
+   "total_viirs": 26.32
+  },
+  {
+   "cell_id": "R-0072C01388",
+   "south": -7.2,
+   "west": 138.8,
+   "north": -7.1,
+   "east": 138.9,
+   "years": {
+    "2026": {
+     "modis": 0.0,
+     "viirs": 9.53,
+     "n_days": 1
+    },
+    "2019": {
+     "modis": 0.0,
+     "viirs": 6.45,
+     "n_days": 1
+    }
+   },
+   "n_days": 2,
+   "total_modis": 0.0,
+   "total_viirs": 15.98
+  },
+  {
+   "cell_id": "R-0072C01390",
+   "south": -7.2,
+   "west": 139.0,
+   "north": -7.1,
+   "east": 139.1,
+   "years": {
+    "2021": {
+     "modis": 0.0,
+     "viirs": 8.0,
+     "n_days": 1
+    }
+   },
+   "n_days": 1,
+   "total_modis": 0.0,
+   "total_viirs": 8.0
+  },
+  {
+   "cell_id": "R-0072C01391",
+   "south": -7.2,
+   "west": 139.1,
+   "north": -7.1,
+   "east": 139.2,
+   "years": {
+    "2019": {
+     "modis": 0.0,
+     "viirs": 8.33,
+     "n_days": 1
+    }
+   },
+   "n_days": 1,
+   "total_modis": 0.0,
+   "total_viirs": 8.33
+  },
+  {
+   "cell_id": "R-0072C01392",
+   "south": -7.2,
+   "west": 139.2,
+   "north": -7.1,
+   "east": 139.3,
+   "years": {
+    "2018": {
+     "modis": 0.0,
+     "viirs": 4.1,
+     "n_days": 1
+    }
+   },
+   "n_days": 1,
+   "total_modis": 0.0,
+   "total_viirs": 4.1
+  },
+  {
+   "cell_id": "R-0072C01393",
+   "south": -7.2,
+   "west": 139.3,
+   "north": -7.1,
+   "east": 139.4,
+   "years": {
+    "2018": {
+     "modis": 0.0,
+     "viirs": 17.95,
+     "n_days": 1
+    },
+    "2019": {
+     "modis": 0.0,
+     "viirs": 21.9,
+     "n_days": 2
+    }
+   },
+   "n_days": 3,
+   "total_modis": 0.0,
+   "total_viirs": 39.85
+  },
+  {
+   "cell_id": "R-0072C01396",
+   "south": -7.2,
+   "west": 139.6,
+   "north": -7.1,
+   "east": 139.7,
+   "years": {
+    "2020": {
+     "modis": 0.0,
+     "viirs": 7.83,
+     "n_days": 1
+    },
+    "2018": {
+     "modis": 0.0,
+     "viirs": 5.1,
+     "n_days": 1
+    }
+   },
+   "n_days": 2,
+   "total_modis": 0.0,
+   "total_viirs": 12.93
+  },
+  {
+   "cell_id": "R-0072C01397",
+   "south": -7.2,
+   "west": 139.7,
+   "north": -7.1,
+   "east": 139.8,
+   "years": {
+    "2018": {
+     "modis": 0.0,
+     "viirs": 3.85,
+     "n_days": 1
+    }
+   },
+   "n_days": 1,
+   "total_modis": 0.0,
+   "total_viirs": 3.85
+  },
+  {
+   "cell_id": "R-0072C01398",
+   "south": -7.2,
+   "west": 139.8,
+   "north": -7.1,
+   "east": 139.9,
+   "years": {
+    "2026": {
+     "modis": 0.0,
+     "viirs": 16.55,
+     "n_days": 1
+    }
+   },
+   "n_days": 1,
+   "total_modis": 0.0,
+   "total_viirs": 16.55
+  },
+  {
+   "cell_id": "R-0072C01399",
+   "south": -7.2,
+   "west": 139.9,
+   "north": -7.1,
+   "east": 140.0,
+   "years": {
+    "2024": {
+     "modis": 0.0,
+     "viirs": 19.82,
+     "n_days": 1
+    }
+   },
+   "n_days": 1,
+   "total_modis": 0.0,
+   "total_viirs": 19.82
+  },
+  {
+   "cell_id": "R-0072C01400",
+   "south": -7.2,
+   "west": 140.0,
+   "north": -7.1,
+   "east": 140.1,
+   "years": {
+    "2025": {
+     "modis": 0.0,
+     "viirs": 6.9,
+     "n_days": 1
+    }
+   },
+   "n_days": 1,
+   "total_modis": 0.0,
+   "total_viirs": 6.9
+  },
+  {
+   "cell_id": "R-0072C01401",
+   "south": -7.2,
+   "west": 140.1,
+   "north": -7.1,
+   "east": 140.2,
+   "years": {
+    "2019": {
+     "modis": 0.0,
+     "viirs": 18.82,
+     "n_days": 1
+    }
+   },
+   "n_days": 1,
+   "total_modis": 0.0,
+   "total_viirs": 18.82
+  },
+  {
+   "cell_id": "R-0072C01403",
+   "south": -7.2,
+   "west": 140.3,
+   "north": -7.1,
+   "east": 140.4,
+   "years": {
+    "2018": {
+     "modis": 0.0,
+     "viirs": 8.9,
+     "n_days": 1
+    }
+   },
+   "n_days": 1,
+   "total_modis": 0.0,
+   "total_viirs": 8.9
+  },
+  {
+   "cell_id": "R-0072C01404",
+   "south": -7.2,
+   "west": 140.4,
+   "north": -7.1,
+   "east": 140.5,
+   "years": {
+    "2018": {
+     "modis": 0.0,
+     "viirs": 48.4,
+     "n_days": 1
+    }
+   },
+   "n_days": 1,
+   "total_modis": 0.0,
+   "total_viirs": 48.4
+  },
+  {
+   "cell_id": "R-0072C01405",
+   "south": -7.2,
+   "west": 140.5,
+   "north": -7.1,
+   "east": 140.6,
+   "years": {
+    "2018": {
+     "modis": 0.0,
+     "viirs": 14.6,
+     "n_days": 1
+    }
+   },
+   "n_days": 1,
+   "total_modis": 0.0,
+   "total_viirs": 14.6
+  },
+  {
+   "cell_id": "R-0071C01380",
+   "south": -7.1,
+   "west": 138.0,
+   "north": -7.0,
+   "east": 138.1,
+   "years": {
+    "2018": {
+     "modis": 0.0,
+     "viirs": 61.7,
+     "n_days": 1
+    }
+   },
+   "n_days": 1,
+   "total_modis": 0.0,
+   "total_viirs": 61.7
+  },
+  {
+   "cell_id": "R-0071C01381",
+   "south": -7.1,
+   "west": 138.1,
+   "north": -7.0,
+   "east": 138.2,
+   "years": {
+    "2023": {
+     "modis": 0.0,
+     "viirs": 14.7,
+     "n_days": 1
+    }
+   },
+   "n_days": 1,
+   "total_modis": 0.0,
+   "total_viirs": 14.7
+  },
+  {
+   "cell_id": "R-0071C01384",
+   "south": -7.1,
+   "west": 138.4,
+   "north": -7.0,
+   "east": 138.5,
+   "years": {
+    "2026": {
+     "modis": 0.0,
+     "viirs": 7.1,
+     "n_days": 1
+    }
+   },
+   "n_days": 1,
+   "total_modis": 0.0,
+   "total_viirs": 7.1
+  },
+  {
+   "cell_id": "R-0071C01385",
+   "south": -7.1,
+   "west": 138.5,
+   "north": -7.0,
+   "east": 138.6,
+   "years": {
+    "2022": {
+     "modis": 0.0,
+     "viirs": 9.37,
+     "n_days": 1
+    }
+   },
+   "n_days": 1,
+   "total_modis": 0.0,
+   "total_viirs": 9.37
+  },
+  {
+   "cell_id": "R-0071C01386",
+   "south": -7.1,
+   "west": 138.6,
+   "north": -7.0,
+   "east": 138.7,
+   "years": {
+    "2023": {
+     "modis": 0.0,
+     "viirs": 14.97,
+     "n_days": 1
+    },
+    "2022": {
+     "modis": 0.0,
+     "viirs": 5.35,
+     "n_days": 1
+    }
+   },
+   "n_days": 2,
+   "total_modis": 0.0,
+   "total_viirs": 20.32
+  },
+  {
+   "cell_id": "R-0071C01388",
+   "south": -7.1,
+   "west": 138.8,
+   "north": -7.0,
+   "east": 138.9,
+   "years": {
+    "2020": {
+     "modis": 0.0,
+     "viirs": 10.23,
+     "n_days": 1
+    }
+   },
+   "n_days": 1,
+   "total_modis": 0.0,
+   "total_viirs": 10.23
+  },
+  {
+   "cell_id": "R-0071C01389",
+   "south": -7.1,
+   "west": 138.9,
+   "north": -7.0,
+   "east": 139.0,
+   "years": {
+    "2019": {
+     "modis": 0.0,
+     "viirs": 18.82,
+     "n_days": 1
+    }
+   },
+   "n_days": 1,
+   "total_modis": 0.0,
+   "total_viirs": 18.82
+  },
+  {
+   "cell_id": "R-0071C01392",
+   "south": -7.1,
+   "west": 139.2,
+   "north": -7.0,
+   "east": 139.3,
+   "years": {
+    "2018": {
+     "modis": 0.0,
+     "viirs": 16.2,
+     "n_days": 1
+    },
+    "2024": {
+     "modis": 0.0,
+     "viirs": 4.35,
+     "n_days": 1
+    }
+   },
+   "n_days": 2,
+   "total_modis": 0.0,
+   "total_viirs": 20.55
+  },
+  {
+   "cell_id": "R-0071C01393",
+   "south": -7.1,
+   "west": 139.3,
+   "north": -7.0,
+   "east": 139.4,
+   "years": {
+    "2023": {
+     "modis": 0.0,
+     "viirs": 44.25,
+     "n_days": 1
+    }
+   },
+   "n_days": 1,
+   "total_modis": 0.0,
+   "total_viirs": 44.25
+  },
+  {
+   "cell_id": "R-0071C01395",
+   "south": -7.1,
+   "west": 139.5,
+   "north": -7.0,
+   "east": 139.6,
+   "years": {
+    "2023": {
+     "modis": 0.0,
+     "viirs": 33.05,
+     "n_days": 2
+    }
+   },
+   "n_days": 2,
+   "total_modis": 0.0,
+   "total_viirs": 33.05
+  },
+  {
+   "cell_id": "R-0071C01396",
+   "south": -7.1,
+   "west": 139.6,
+   "north": -7.0,
+   "east": 139.7,
+   "years": {
+    "2018": {
+     "modis": 0.0,
+     "viirs": 6.75,
+     "n_days": 1
+    }
+   },
+   "n_days": 1,
+   "total_modis": 0.0,
+   "total_viirs": 6.75
+  },
+  {
+   "cell_id": "R-0071C01397",
+   "south": -7.1,
+   "west": 139.7,
+   "north": -7.0,
+   "east": 139.8,
+   "years": {
+    "2018": {
+     "modis": 0.0,
+     "viirs": 25.38,
+     "n_days": 1
+    }
+   },
+   "n_days": 1,
+   "total_modis": 0.0,
+   "total_viirs": 25.38
+  },
+  {
+   "cell_id": "R-0071C01402",
+   "south": -7.1,
+   "west": 140.2,
+   "north": -7.0,
+   "east": 140.3,
+   "years": {
+    "2018": {
+     "modis": 0.0,
+     "viirs": 3.85,
+     "n_days": 1
+    }
+   },
+   "n_days": 1,
+   "total_modis": 0.0,
+   "total_viirs": 3.85
+  },
+  {
+   "cell_id": "R-0071C01404",
+   "south": -7.1,
+   "west": 140.4,
+   "north": -7.0,
+   "east": 140.5,
+   "years": {
+    "2018": {
+     "modis": 0.0,
+     "viirs": 48.4,
+     "n_days": 1
+    }
+   },
+   "n_days": 1,
+   "total_modis": 0.0,
+   "total_viirs": 48.4
+  },
+  {
+   "cell_id": "R-0071C01406",
+   "south": -7.1,
+   "west": 140.6,
+   "north": -7.0,
+   "east": 140.7,
+   "years": {
+    "2020": {
+     "modis": 0.0,
+     "viirs": 13.97,
+     "n_days": 1
+    },
+    "2024": {
+     "modis": 0.0,
+     "viirs": 7.83,
+     "n_days": 1
+    },
+    "2023": {
+     "modis": 0.0,
+     "viirs": 4.45,
+     "n_days": 1
+    }
+   },
+   "n_days": 3,
+   "total_modis": 0.0,
+   "total_viirs": 26.25
+  },
+  {
+   "cell_id": "R-0071C01407",
+   "south": -7.1,
+   "west": 140.7,
+   "north": -7.0,
+   "east": 140.8,
+   "years": {
+    "2022": {
+     "modis": 0.0,
+     "viirs": 9.37,
+     "n_days": 1
+    },
+    "2026": {
+     "modis": 0.0,
+     "viirs": 8.1,
+     "n_days": 1
+    }
+   },
+   "n_days": 2,
+   "total_modis": 0.0,
+   "total_viirs": 17.47
+  },
+  {
+   "cell_id": "R-0070C01381",
+   "south": -7.0,
+   "west": 138.1,
+   "north": -6.9,
+   "east": 138.2,
+   "years": {
+    "2024": {
+     "modis": 0.0,
+     "viirs": 45.3,
+     "n_days": 1
+    },
+    "2018": {
+     "modis": 0.0,
+     "viirs": 6.05,
+     "n_days": 1
+    }
+   },
+   "n_days": 2,
+   "total_modis": 0.0,
+   "total_viirs": 51.35
+  },
+  {
+   "cell_id": "R-0070C01384",
+   "south": -7.0,
+   "west": 138.4,
+   "north": -6.9,
+   "east": 138.5,
+   "years": {
+    "2023": {
+     "modis": 0.0,
+     "viirs": 22.53,
+     "n_days": 2
+    }
+   },
+   "n_days": 2,
+   "total_modis": 0.0,
+   "total_viirs": 22.53
+  },
+  {
+   "cell_id": "R-0070C01388",
+   "south": -7.0,
+   "west": 138.8,
+   "north": -6.9,
+   "east": 138.9,
+   "years": {
+    "2022": {
+     "modis": 0.0,
+     "viirs": 13.55,
+     "n_days": 1
+    },
+    "2023": {
+     "modis": 0.0,
+     "viirs": 16.2,
+     "n_days": 1
+    }
+   },
+   "n_days": 2,
+   "total_modis": 0.0,
+   "total_viirs": 29.75
+  },
+  {
+   "cell_id": "R-0070C01389",
+   "south": -7.0,
+   "west": 138.9,
+   "north": -6.9,
+   "east": 139.0,
+   "years": {
+    "2022": {
+     "modis": 0.0,
+     "viirs": 7.83,
+     "n_days": 1
+    },
+    "2023": {
+     "modis": 0.0,
+     "viirs": 5.8,
+     "n_days": 1
+    }
+   },
+   "n_days": 2,
+   "total_modis": 0.0,
+   "total_viirs": 13.63
+  },
+  {
+   "cell_id": "R-0070C01390",
+   "south": -7.0,
+   "west": 139.0,
+   "north": -6.9,
+   "east": 139.1,
+   "years": {
+    "2018": {
+     "modis": 0.0,
+     "viirs": 75.07,
+     "n_days": 2
+    }
+   },
+   "n_days": 2,
+   "total_modis": 0.0,
+   "total_viirs": 75.07
+  },
+  {
+   "cell_id": "R-0070C01391",
+   "south": -7.0,
+   "west": 139.1,
+   "north": -6.9,
+   "east": 139.2,
+   "years": {
+    "2023": {
+     "modis": 0.0,
+     "viirs": 7.73,
+     "n_days": 1
+    }
+   },
+   "n_days": 1,
+   "total_modis": 0.0,
+   "total_viirs": 7.73
+  },
+  {
+   "cell_id": "R-0070C01393",
+   "south": -7.0,
+   "west": 139.3,
+   "north": -6.9,
+   "east": 139.4,
+   "years": {
+    "2019": {
+     "modis": 0.0,
+     "viirs": 7.1,
+     "n_days": 1
+    }
+   },
+   "n_days": 1,
+   "total_modis": 0.0,
+   "total_viirs": 7.1
+  },
+  {
+   "cell_id": "R-0070C01395",
+   "south": -7.0,
+   "west": 139.5,
+   "north": -6.9,
+   "east": 139.6,
+   "years": {
+    "2018": {
+     "modis": 0.0,
+     "viirs": 9.9,
+     "n_days": 1
+    }
+   },
+   "n_days": 1,
+   "total_modis": 0.0,
+   "total_viirs": 9.9
+  },
+  {
+   "cell_id": "R-0070C01396",
+   "south": -7.0,
+   "west": 139.6,
+   "north": -6.9,
+   "east": 139.7,
+   "years": {
+    "2020": {
+     "modis": 0.0,
+     "viirs": 9.33,
+     "n_days": 1
+    }
+   },
+   "n_days": 1,
+   "total_modis": 0.0,
+   "total_viirs": 9.33
+  },
+  {
+   "cell_id": "R-0070C01401",
+   "south": -7.0,
+   "west": 140.1,
+   "north": -6.9,
+   "east": 140.2,
+   "years": {
+    "2018": {
+     "modis": 0.0,
+     "viirs": 9.9,
+     "n_days": 1
+    }
+   },
+   "n_days": 1,
+   "total_modis": 0.0,
+   "total_viirs": 9.9
+  },
+  {
+   "cell_id": "R-0070C01406",
+   "south": -7.0,
+   "west": 140.6,
+   "north": -6.9,
+   "east": 140.7,
+   "years": {
+    "2022": {
+     "modis": 0.0,
+     "viirs": 8.95,
+     "n_days": 1
+    }
+   },
+   "n_days": 1,
+   "total_modis": 0.0,
+   "total_viirs": 8.95
+  },
+  {
+   "cell_id": "R-0069C01380",
+   "south": -6.9,
+   "west": 138.0,
+   "north": -6.8,
+   "east": 138.1,
+   "years": {
+    "2019": {
+     "modis": 0.0,
+     "viirs": 8.33,
+     "n_days": 1
+    }
+   },
+   "n_days": 1,
+   "total_modis": 0.0,
+   "total_viirs": 8.33
+  },
+  {
+   "cell_id": "R-0069C01382",
+   "south": -6.9,
+   "west": 138.2,
+   "north": -6.8,
+   "east": 138.3,
+   "years": {
+    "2018": {
+     "modis": 0.0,
+     "viirs": 23.28,
+     "n_days": 2
+    }
+   },
+   "n_days": 2,
+   "total_modis": 0.0,
+   "total_viirs": 23.28
+  },
+  {
+   "cell_id": "R-0069C01383",
+   "south": -6.9,
+   "west": 138.3,
+   "north": -6.8,
+   "east": 138.4,
+   "years": {
+    "2024": {
+     "modis": 0.0,
+     "viirs": 19.82,
+     "n_days": 1
+    },
+    "2019": {
+     "modis": 0.0,
+     "viirs": 15.4,
+     "n_days": 1
+    }
+   },
+   "n_days": 2,
+   "total_modis": 0.0,
+   "total_viirs": 35.22
+  },
+  {
+   "cell_id": "R-0069C01385",
+   "south": -6.9,
+   "west": 138.5,
+   "north": -6.8,
+   "east": 138.6,
+   "years": {
+    "2019": {
+     "modis": 0.0,
+     "viirs": 10.1,
+     "n_days": 1
+    }
+   },
+   "n_days": 1,
+   "total_modis": 0.0,
+   "total_viirs": 10.1
+  },
+  {
+   "cell_id": "R-0069C01386",
+   "south": -6.9,
+   "west": 138.6,
+   "north": -6.8,
+   "east": 138.7,
+   "years": {
+    "2022": {
+     "modis": 0.0,
+     "viirs": 15.43,
+     "n_days": 1
+    }
+   },
+   "n_days": 1,
+   "total_modis": 0.0,
+   "total_viirs": 15.43
+  },
+  {
+   "cell_id": "R-0069C01387",
+   "south": -6.9,
+   "west": 138.7,
+   "north": -6.8,
+   "east": 138.8,
+   "years": {
+    "2022": {
+     "modis": 0.0,
+     "viirs": 6.1,
+     "n_days": 1
+    },
+    "2020": {
+     "modis": 0.0,
+     "viirs": 4.95,
+     "n_days": 1
+    }
+   },
+   "n_days": 2,
+   "total_modis": 0.0,
+   "total_viirs": 11.05
+  },
+  {
+   "cell_id": "R-0069C01388",
+   "south": -6.9,
+   "west": 138.8,
+   "north": -6.8,
+   "east": 138.9,
+   "years": {
+    "2019": {
+     "modis": 0.0,
+     "viirs": 25.52,
+     "n_days": 2
+    }
+   },
+   "n_days": 2,
+   "total_modis": 0.0,
+   "total_viirs": 25.52
+  },
+  {
+   "cell_id": "R-0069C01389",
+   "south": -6.9,
+   "west": 138.9,
+   "north": -6.8,
+   "east": 139.0,
+   "years": {
+    "2026": {
+     "modis": 0.0,
+     "viirs": 25.6,
+     "n_days": 2
+    }
+   },
+   "n_days": 2,
+   "total_modis": 0.0,
+   "total_viirs": 25.6
+  },
+  {
+   "cell_id": "R-0069C01390",
+   "south": -6.9,
+   "west": 139.0,
+   "north": -6.8,
+   "east": 139.1,
+   "years": {
+    "2020": {
+     "modis": 0.0,
+     "viirs": 9.3,
+     "n_days": 1
+    },
+    "2018": {
+     "modis": 0.0,
+     "viirs": 16.3,
+     "n_days": 2
+    }
+   },
+   "n_days": 3,
+   "total_modis": 0.0,
+   "total_viirs": 25.6
+  },
+  {
+   "cell_id": "R-0069C01392",
+   "south": -6.9,
+   "west": 139.2,
+   "north": -6.8,
+   "east": 139.3,
+   "years": {
+    "2023": {
+     "modis": 0.0,
+     "viirs": 15.1,
+     "n_days": 1
+    },
+    "2020": {
+     "modis": 0.0,
+     "viirs": 5.3,
+     "n_days": 1
+    }
+   },
+   "n_days": 2,
+   "total_modis": 0.0,
+   "total_viirs": 20.4
+  },
+  {
+   "cell_id": "R-0069C01394",
+   "south": -6.9,
+   "west": 139.4,
+   "north": -6.8,
+   "east": 139.5,
+   "years": {
+    "2026": {
+     "modis": 0.0,
+     "viirs": 16.55,
+     "n_days": 1
+    }
+   },
+   "n_days": 1,
+   "total_modis": 0.0,
+   "total_viirs": 16.55
+  },
+  {
+   "cell_id": "R-0069C01395",
+   "south": -6.9,
+   "west": 139.5,
+   "north": -6.8,
+   "east": 139.6,
+   "years": {
+    "2021": {
+     "modis": 0.0,
+     "viirs": 38.98,
+     "n_days": 1
+    }
+   },
+   "n_days": 1,
+   "total_modis": 0.0,
+   "total_viirs": 38.98
+  },
+  {
+   "cell_id": "R-0069C01399",
+   "south": -6.9,
+   "west": 139.9,
+   "north": -6.8,
+   "east": 140.0,
+   "years": {
+    "2018": {
+     "modis": 0.0,
+     "viirs": 60.68,
+     "n_days": 2
+    }
+   },
+   "n_days": 2,
+   "total_modis": 0.0,
+   "total_viirs": 60.68
+  },
+  {
+   "cell_id": "R-0069C01401",
+   "south": -6.9,
+   "west": 140.1,
+   "north": -6.8,
+   "east": 140.2,
+   "years": {
+    "2019": {
+     "modis": 0.0,
+     "viirs": 7.8,
+     "n_days": 1
+    }
+   },
+   "n_days": 1,
+   "total_modis": 0.0,
+   "total_viirs": 7.8
+  },
+  {
+   "cell_id": "R-0069C01403",
+   "south": -6.9,
+   "west": 140.3,
+   "north": -6.8,
+   "east": 140.4,
+   "years": {
+    "2023": {
+     "modis": 0.0,
+     "viirs": 8.4,
+     "n_days": 1
+    }
+   },
+   "n_days": 1,
+   "total_modis": 0.0,
+   "total_viirs": 8.4
+  },
+  {
+   "cell_id": "R-0069C01406",
+   "south": -6.9,
+   "west": 140.6,
+   "north": -6.8,
+   "east": 140.7,
+   "years": {
+    "2026": {
+     "modis": 0.0,
+     "viirs": 8.1,
+     "n_days": 1
+    }
+   },
+   "n_days": 1,
+   "total_modis": 0.0,
+   "total_viirs": 8.1
+  },
+  {
+   "cell_id": "R-0069C01407",
+   "south": -6.9,
+   "west": 140.7,
+   "north": -6.8,
+   "east": 140.8,
+   "years": {
+    "2024": {
+     "modis": 0.0,
+     "viirs": 45.3,
+     "n_days": 1
+    },
+    "2019": {
+     "modis": 0.0,
+     "viirs": 15.4,
+     "n_days": 1
+    },
+    "2025": {
+     "modis": 0.0,
+     "viirs": 14.3,
+     "n_days": 1
+    },
+    "2018": {
+     "modis": 0.0,
+     "viirs": 7.2,
+     "n_days": 1
+    },
+    "2023": {
+     "modis": 0.0,
+     "viirs": 6.63,
+     "n_days": 1
+    }
+   },
+   "n_days": 5,
+   "total_modis": 0.0,
+   "total_viirs": 88.83
+  }
+ ]
 }
