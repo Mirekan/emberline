@@ -1,8 +1,17 @@
+import { useEffect, useState } from "react";
 import { useAoi } from "../App";
+import { api, Preset } from "../api";
+import { PRESET_NAMES } from "../presets";
 
 // Planned view for historical anomaly markers.
 export default function Anomalies() {
-  const { series, lang } = useAoi();
+  const { aoi, setAoi, series, lang } = useAoi();
+  const [presets, setPresets] = useState<Preset[]>([]);
+
+  useEffect(() => {
+    api.presets().then(r => setPresets(r.presets)).catch(() => {});
+  }, []);
+
   return (
     <div>
       <div style={{ display: "flex", alignItems: "baseline", justifyContent: "space-between", gap: 20, flexWrap: "wrap" }}>
@@ -14,6 +23,49 @@ export default function Anomalies() {
         </div>
         <span className="state-chip chip-neutral mono" style={{ fontSize: 11 }}>
           {lang === "id" ? "DIRENCANAKAN" : "PLANNED"}
+        </span>
+      </div>
+
+      <div
+        className="card"
+        style={{
+          marginTop: 18,
+          marginBottom: 16,
+          padding: "12px 18px",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          gap: 16,
+          flexWrap: "wrap",
+          background: "var(--surface)",
+          border: "1px solid var(--line)",
+        }}
+      >
+        <label style={{ display: "inline-flex", alignItems: "center", gap: 10, fontSize: 13, fontWeight: 600, color: "var(--ink)" }}>
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" style={{ color: "var(--ember)" }}>
+            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+            <circle cx="12" cy="10" r="3" />
+          </svg>
+          <span style={{ color: "var(--ink2)", fontSize: 12 }}>
+            {lang === "id" ? "Pilih Wilayah Pantauan:" : "Select Monitored Region:"}
+          </span>
+          <select
+            className="glass-select"
+            value={aoi}
+            aria-label={lang === "id" ? "Pilih wilayah pantauan" : "Select monitored region"}
+            onChange={e => setAoi(e.target.value)}
+            style={{ minWidth: 260, fontWeight: 600 }}
+          >
+            {presets.map(p => (
+              <option key={p.id} value={p.id}>
+                {PRESET_NAMES[lang]?.[p.id] ?? p.name}
+              </option>
+            ))}
+          </select>
+        </label>
+
+        <span className="state-chip chip-neutral mono" style={{ fontSize: 11 }}>
+          AOI: {aoi}
         </span>
       </div>
 
