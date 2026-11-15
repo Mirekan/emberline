@@ -817,9 +817,54 @@ export default function FireMap() {
     return { label: isEn ? "High" : "Tinggi", color: "#EF4444", bg: "rgba(239, 68, 68, 0.32)" };
   }
 
+  const cellCountsByCoord = useMemo(() => {
+    const counts = new Map<string, { total: number; viirs: number; modis: number }>();
+    if (!det || det.detections.length === 0) {
+      if (!grid) return counts;
+      for (const cell of grid.cells) {
+        const key = `${cell.south.toFixed(1)},${cell.west.toFixed(1)}`;
+        counts.set(key, {
+          total: cell.detection_count,
+          viirs: cell.total_viirs || 0,
+          modis: cell.total_modis || 0,
+        });
+      }
+      return counts;
+    }
+
+    const step = grid?.cell_deg ?? 0.1;
+    for (const d of det.detections) {
+      if (detYear !== "all" && !d.date.startsWith(detYear)) continue;
+      if (detSensor !== "all" && d.sensor !== detSensor) continue;
+      if (d.frp < minFrp) continue;
+
+      const cellSouth = Math.round(Math.floor(d.lat / step) * step * 10) / 10;
+      const cellWest = Math.round(Math.floor(d.lon / step) * step * 10) / 10;
+      const key = `${cellSouth.toFixed(1)},${cellWest.toFixed(1)}`;
+
+      const curr = counts.get(key);
+      if (curr) {
+        curr.total += 1;
+        if (d.sensor === "viirs") curr.viirs += 1;
+        else if (d.sensor === "modis") curr.modis += 1;
+      } else {
+        counts.set(key, {
+          total: 1,
+          viirs: d.sensor === "viirs" ? 1 : 0,
+          modis: d.sensor === "modis" ? 1 : 0,
+        });
+      }
+    }
+    return counts;
+  }, [det, grid, detYear, detSensor, minFrp]);
+
   const maxCount = useMemo(() => {
-    return grid && grid.cells.length > 0 ? Math.max(0, ...grid.cells.map(c => c.detection_count)) : 0;
-  }, [grid]);
+    let max = 0;
+    for (const v of cellCountsByCoord.values()) {
+      if (v.total > max) max = v.total;
+    }
+    return max;
+  }, [cellCountsByCoord]);
 
   const cellsByCoordMap = useMemo(() => {
     const m = new Map<string, GridCell>();
@@ -831,15 +876,16 @@ export default function FireMap() {
   }, [grid]);
 
   const activeGridCellCount = useMemo(() => {
-    if (!grid) return 0;
-    return grid.cells.filter(c => {
-      if (c.detection_count === 0) return false;
-      const intensity = maxCount > 0 ? Math.log1p(c.detection_count) / Math.log1p(maxCount) : 0;
-      if (riskFilter === "danger" && intensity < 0.66) return false;
-      if (riskFilter === "alert" && intensity < 0.33) return false;
-      return true;
-    }).length;
-  }, [grid, riskFilter, maxCount]);
+    let count = 0;
+    for (const v of cellCountsByCoord.values()) {
+      if (v.total === 0) continue;
+      const intensity = maxCount > 0 ? Math.log1p(v.total) / Math.log1p(maxCount) : 0;
+      if (riskFilter === "danger" && intensity < 0.66) continue;
+      if (riskFilter === "alert" && intensity < 0.33) continue;
+      count += 1;
+    }
+    return count;
+  }, [cellCountsByCoord, riskFilter, maxCount]);
 
   // Render 0.1° density grid overlay across the full rectangular Indonesia bounds
   useEffect(() => {
@@ -895,8 +941,9 @@ export default function FireMap() {
       const key = `${cell.south.toFixed(1)},${cell.west.toFixed(1)}`;
       cellsByCoord.set(key, cell);
 
-      const count = cell.detection_count;
-      if (count === 0) continue; // Unpopulated cells already rendered in the white base grid
+      const cellData = cellCountsByCoord.get(key);
+      const count = cellData?.total ?? 0;
+      if (count === 0) continue; // Unpopulated cells in this year/filter remain in the base standby grid
 
       const intensity = maxCount > 0 ? Math.log1p(count) / Math.log1p(maxCount) : 0;
       if (riskFilter === "danger" && intensity < 0.66) continue;
@@ -919,11 +966,12 @@ export default function FireMap() {
           bubblingMouseEvents: false,
         },
       );
+      const yearText = detYear === "all" ? (lang === "id" ? "Semua tahun" : "All years") : (lang === "id" ? `Tahun ${detYear}` : `Year ${detYear}`);
       area.bindTooltip(
         `<div style="font-size:11px; line-height:1.4;">
           <div style="font-weight:700; color:${density.color}; margin-bottom:2px;">${lang === "id" ? "Kepadatan observasi" : "Observation density"}: ${density.label}</div>
           <div>${count.toLocaleString(lang === "id" ? "id-ID" : "en-US")} ${lang === "id" ? "observasi satelit" : "satellite observations"}</div>
-          <div style="font-size:10px; color:#aaa;">${lang === "id" ? "Klik untuk fokus sel" : "Click to focus cell"}</div>
+          <div style="font-size:10px; color:#94A3B8;">${cell.cell_id} · ${yearText}</div>
         </div>`
       );
       area.on("click", (e) => {
@@ -978,14 +1026,16 @@ export default function FireMap() {
 
     // 5. If a cell is selected, render a prominent highlight rectangle over it
     if (selectedCell) {
-      const isObs = selectedCell.detection_count > 0;
+      const selectedData = cellCountsByCoord.get(`${selectedCell.south.toFixed(1)},${selectedCell.west.toFixed(1)}`);
+      const count = selectedData?.total ?? 0;
+      const isObs = count > 0;
       const highlight = L.rectangle(
         [[selectedCell.south, selectedCell.west], [selectedCell.north, selectedCell.east]],
         {
           renderer: canvasRenderer,
           color: "#FFFFFF",
           weight: 2.5,
-          fillColor: isObs ? getCellDensity(selectedCell.detection_count, maxCount).color : "#FFFFFF",
+          fillColor: isObs ? getCellDensity(count, maxCount).color : "#FFFFFF",
           fillOpacity: 0.55,
           interactive: false,
         }
@@ -995,7 +1045,7 @@ export default function FireMap() {
 
     layer.addTo(map);
     gridLayerRef.current = layer;
-  }, [grid, gridOn, selectedCell, maxCount, mapReady, aoi, presets, lang, riskFilter, gridOpacity]);
+  }, [grid, gridOn, selectedCell, maxCount, mapReady, aoi, presets, lang, riskFilter, gridOpacity, cellCountsByCoord, detYear]);
 
   const detRows = useMemo(() => {
     if (!det) return [];
@@ -1016,20 +1066,25 @@ export default function FireMap() {
         const step = grid.cell_deg ?? 0.1;
         const cellSouth = Math.round(Math.floor(d.lat / step) * step * 10) / 10;
         const cellWest = Math.round(Math.floor(d.lon / step) * step * 10) / 10;
-        const c = cellsByCoordMap.get(`${cellSouth.toFixed(1)},${cellWest.toFixed(1)}`);
-        if (!c || c.detection_count === 0) return false;
-        const intensity = maxCount > 0 ? Math.log1p(c.detection_count) / Math.log1p(maxCount) : 0;
+        const count = cellCountsByCoord.get(`${cellSouth.toFixed(1)},${cellWest.toFixed(1)}`)?.total ?? 0;
+        if (count === 0) return false;
+        const intensity = maxCount > 0 ? Math.log1p(count) / Math.log1p(maxCount) : 0;
         if (riskFilter === "danger" && intensity < 0.66) return false;
         if (riskFilter === "alert" && intensity < 0.33) return false;
       }
       return true;
     });
-  }, [det, detYear, detSensor, minFrp, selectedCell, riskFilter, grid, maxCount, cellsByCoordMap, lang]);
+  }, [det, detYear, detSensor, minFrp, selectedCell, riskFilter, grid, maxCount, cellCountsByCoord, lang]);
 
   const detYears = useMemo(() => {
-    if (!det) return [];
+    if (!det || det.detections.length === 0) {
+      if (grid?.years && grid.years.length > 0) {
+        return [...grid.years].map(String).sort((a, b) => b.localeCompare(a));
+      }
+      return [];
+    }
     return [...new Set(det.detections.map(d => d.date.slice(0, 4)))].sort((a, b) => b.localeCompare(a));
-  }, [det]);
+  }, [det, grid]);
 
   // Render satellite detection dots at their true geographic coordinates with progressive disclosure
   useEffect(() => {
@@ -1211,6 +1266,15 @@ export default function FireMap() {
           Z{currentZoom} · {viewMode === "grid" ? (lang === "id" ? "Grid 0,1°" : "Density") : (currentZoom < 7 ? (lang === "id" ? "Makro" : "Macro") : (lang === "id" ? "Mikro" : "Micro"))}
         </span>
 
+        {/* Active Year Filter Pill */}
+        <span
+          className={"state-chip mono" + (detYear === "all" ? " chip-neutral" : " chip-amber")}
+          style={{ fontSize: 10, padding: "2px 7px", height: 26, display: "inline-flex", alignItems: "center", borderRadius: 6, fontWeight: 700 }}
+          title={lang === "id" ? `Tahun observasi aktif: ${detYear === "all" ? "Semua tahun" : detYear}` : `Active observation year: ${detYear === "all" ? "All years" : detYear}`}
+        >
+          {detYear === "all" ? (lang === "id" ? "Semua Tahun" : "All Years") : detYear}
+        </span>
+
         <div style={{ width: 1, height: 18, background: "var(--line-strong)", margin: "0 2px" }} />
 
         {/* Advanced Settings Gear Button */}
@@ -1342,7 +1406,10 @@ export default function FireMap() {
           {/* Observation Year Filter */}
           <div className="map-contrast-row">
             <div className="map-contrast-label">
-              <span>{lang === "id" ? "Tahun Observasi:" : "Observation Year:"}</span>
+              <span>{lang === "id" ? "Tahun Observasi (Grid & Titik):" : "Observation Year (Grid & Dots):"}</span>
+              <span className="mono" style={{ fontSize: 10, color: "var(--ink2)" }}>
+                {detYear === "all" ? (lang === "id" ? "Semua tahun" : "All years") : detYear}
+              </span>
             </div>
             <select
               className="glass-select"
@@ -1357,6 +1424,11 @@ export default function FireMap() {
                 </option>
               ))}
             </select>
+            <div className="map-contrast-hint">
+              {lang === "id"
+                ? "Memfilter kepadatan grid 0,1° dan sebaran titik api satelit berdasarkan tahun observasi yang dipilih."
+                : "Filters both 0.1° density grid and satellite hotspot dots according to the selected observation year."}
+            </div>
           </div>
 
           {/* Min FRP Threshold Filter */}
@@ -1589,51 +1661,61 @@ export default function FireMap() {
         </div>
 
         {/* Selected Cell Inspection Card */}
-        {selectedCell && (
-          <div style={{
-            margin: "0 14px 8px", padding: 10,
-            background: "var(--sunken)", borderRadius: 8,
-            border: "1px solid var(--line)",
-            borderLeft: `4px solid ${getCellDensity(selectedCell.detection_count, maxCount).color}`,
-          }}>
-            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 6 }}>
-              <span style={{ fontSize: 11, fontWeight: 700, color: "var(--ink)" }}>
-                {lang === "id" ? "Inspeksi Sel Terfokus" : "Focused Cell Inspection"}
-              </span>
-              <span style={{
-                fontSize: 10, fontWeight: 700,
-                color: getCellDensity(selectedCell.detection_count, maxCount).color,
-                background: getCellDensity(selectedCell.detection_count, maxCount).bg,
-                padding: "2px 8px", borderRadius: 4,
-              }}>
-                {lang === "id" ? "Kepadatan" : "Density"}: {getCellDensity(selectedCell.detection_count, maxCount).label}
-              </span>
+        {selectedCell && (() => {
+          const cellKey = `${selectedCell.south.toFixed(1)},${selectedCell.west.toFixed(1)}`;
+          const cellData = cellCountsByCoord.get(cellKey);
+          const cellCount = cellData ? cellData.total : (det ? 0 : selectedCell.detection_count);
+          const cellViirs = cellData ? cellData.viirs : (det ? 0 : selectedCell.total_viirs);
+          const cellModis = cellData ? cellData.modis : (det ? 0 : selectedCell.total_modis);
+          const density = getCellDensity(cellCount, maxCount);
+          const yearLabel = detYear === "all" ? (lang === "id" ? "Semua tahun" : "All years") : (lang === "id" ? `Tahun ${detYear}` : `Year ${detYear}`);
+
+          return (
+            <div style={{
+              margin: "0 14px 8px", padding: 10,
+              background: "var(--sunken)", borderRadius: 8,
+              border: "1px solid var(--line)",
+              borderLeft: `4px solid ${density.color}`,
+            }}>
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 6 }}>
+                <span style={{ fontSize: 11, fontWeight: 700, color: "var(--ink)" }}>
+                  {lang === "id" ? "Inspeksi Sel Terfokus" : "Focused Cell Inspection"}
+                </span>
+                <span style={{
+                  fontSize: 10, fontWeight: 700,
+                  color: density.color,
+                  background: density.bg,
+                  padding: "2px 8px", borderRadius: 4,
+                }}>
+                  {lang === "id" ? "Kepadatan" : "Density"}: {density.label}
+                </span>
+              </div>
+              <div style={{ fontSize: 10.5, color: "var(--ink2)", marginBottom: 4 }}>
+                {lang === "id" ? "Sel:" : "Cell:"} <span className="mono">{selectedCell.cell_id}</span> (0,1° ≈ 11 km) · <span className="mono">{yearLabel}</span>
+              </div>
+              <div style={{ fontSize: 10.5, color: "var(--ink2)", marginBottom: 8 }}>
+                {lang === "id" ? "Observasi Satelit:" : "Satellite Observations:"} <b>{cellCount.toLocaleString(lang === "id" ? "id-ID" : "en-US")}</b> {lang === "id" ? "titik" : "points"} ({cellViirs} VIIRS · {cellModis} MODIS)
+              </div>
+              <button
+                type="button"
+                className="seg-btn"
+                onClick={() => {
+                  setSelectedCell(null);
+                  const p = presets.find(pp => pp.id === aoi);
+                  if (p) {
+                    mapRef.current?.flyToBounds([[p.south, p.west], [p.north, p.east]], { padding: [50, 50], duration: 0.8 });
+                  }
+                }}
+                style={{
+                  width: "100%", padding: "5px 10px", fontSize: 10.5,
+                  fontWeight: 600, background: "var(--surface)", display: "block", textAlign: "center",
+                }}
+              >
+                {lang === "id" ? "Lepas Fokus Sel (Tampilkan Semua)" : "Reset Cell Focus (Show All)"}
+              </button>
             </div>
-            <div style={{ fontSize: 10.5, color: "var(--ink2)", marginBottom: 4 }}>
-              {lang === "id" ? "Sel:" : "Cell:"} <span className="mono">{selectedCell.cell_id}</span> (0,1° ≈ 11 km)
-            </div>
-            <div style={{ fontSize: 10.5, color: "var(--ink2)", marginBottom: 8 }}>
-              {lang === "id" ? "Observasi Satelit:" : "Satellite Observations:"} <b>{selectedCell.detection_count.toLocaleString(lang === "id" ? "id-ID" : "en-US")}</b> {lang === "id" ? "titik" : "points"} ({selectedCell.total_viirs} VIIRS · {selectedCell.total_modis} MODIS)
-            </div>
-            <button
-              type="button"
-              className="seg-btn"
-              onClick={() => {
-                setSelectedCell(null);
-                const p = presets.find(pp => pp.id === aoi);
-                if (p) {
-                  mapRef.current?.flyToBounds([[p.south, p.west], [p.north, p.east]], { padding: [50, 50], duration: 0.8 });
-                }
-              }}
-              style={{
-                width: "100%", padding: "5px 10px", fontSize: 10.5,
-                fontWeight: 600, background: "var(--surface)", display: "block", textAlign: "center",
-              }}
-            >
-              {lang === "id" ? "Lepas Fokus Sel (Tampilkan Semua)" : "Reset Cell Focus (Show All)"}
-            </button>
-          </div>
-        )}
+          );
+        })()}
 
         {/* Grid Kepadatan Observasi 0.1° Card */}
         <div style={{
