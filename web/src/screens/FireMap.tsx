@@ -408,8 +408,24 @@ export default function FireMap() {
   const filterBarRef = useRef<HTMLDivElement>(null);
   const contrastPopoverRef = useRef<HTMLDivElement>(null);
   const [isFs, setIsFs] = useState(false);
-  const [sidebarOpen, setSidebarOpen] = useState(true);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
   const [mapReady, setMapReady] = useState(false);
+
+  const toggleSidebar = () => {
+    setSidebarOpen(prev => {
+      const next = !prev;
+      if (next) setContrastPopoverOpen(false);
+      return next;
+    });
+  };
+
+  const toggleContrastPopover = () => {
+    setContrastPopoverOpen(prev => {
+      const next = !prev;
+      if (next) setSidebarOpen(false);
+      return next;
+    });
+  };
 
   // AI Telemetry Context Inspector & Grok Integration
   const [selectedDetection, setSelectedDetection] = useState<Detection | null>(null);
@@ -594,7 +610,7 @@ export default function FireMap() {
       renderer: canvasRenderer,
     });
 
-    L.control.zoom({ position: "topright" }).addTo(map);
+    L.control.zoom({ position: "bottomright" }).addTo(map);
 
     // Fast Topography basemap (OpenStreetMap) with 3-tile buffer
     const tileLayer = L.tileLayer(
@@ -1113,7 +1129,7 @@ export default function FireMap() {
         <button
           type="button"
           className={"map-segmented-btn" + (sidebarOpen ? " active" : "")}
-          onClick={() => setSidebarOpen(o => !o)}
+          onClick={toggleSidebar}
           title={lang === "id" ? "Buka / sembunyikan daftar 38 provinsi" : "Open / close 38 provinces drawer"}
           style={{ fontWeight: 700, padding: "4px 10px", gap: 6 }}
         >
@@ -1181,46 +1197,19 @@ export default function FireMap() {
             <option value="modis">MODIS 1km</option>
           </select>
 
-          {/* Risk Level Filter */}
-          <select
-            className="map-filter-select"
-            value={riskFilter}
-            onChange={e => setRiskFilter(e.target.value as any)}
-            title={lang === "id" ? "Filter tingkat risiko kebakaran" : "Filter fire risk level"}
-            style={{
-              fontWeight: 600,
-              color: riskFilter === "danger" ? "#EF4444" : riskFilter === "alert" ? "#F97316" : "var(--ink)",
-            }}
-          >
-            <option value="all">{lang === "id" ? "Semua Risiko" : "All Risk"}</option>
-            <option value="danger">{lang === "id" ? "Bahaya Saja (Merah)" : "Danger Only (Red)"}</option>
-            <option value="alert">{lang === "id" ? "Siaga & Bahaya (Oranye+)" : "Alert & Danger (Orange+)"}</option>
-          </select>
-
           {/* Contrast & Advanced Settings Button */}
           <button
             type="button"
             className={"map-segmented-btn" + (contrastPopoverOpen ? " active" : "")}
-            onClick={() => setContrastPopoverOpen(o => !o)}
-            title={lang === "id" ? "Buka pengaturan kontras warna, opasitas, dan filter lanjutan" : "Open color contrast, opacity, and advanced filters"}
-            style={{ border: "1px solid var(--line-strong)" }}
+            onClick={toggleContrastPopover}
+            title={lang === "id" ? "Pengaturan Kontras & Filter" : "Contrast & Filter Settings"}
+            style={{ border: "1px solid var(--line-strong)", padding: "4px 8px" }}
           >
-            <span>⚙</span>
-            <span>{lang === "id" ? "Kontras & Filter" : "Contrast & Filters"}</span>
-            {minFrp > 0 && <span style={{ width: 6, height: 6, borderRadius: "50%", background: "var(--ember)", display: "inline-block" }} />}
+            <span style={{ fontSize: 13 }}>⚙</span>
+            {(minFrp > 0 || riskFilter !== "all") && (
+              <span style={{ width: 6, height: 6, borderRadius: "50%", background: "var(--ember)", display: "inline-block" }} />
+            )}
           </button>
-        </div>
-
-        {/* Dynamic Count Metric Badge */}
-        <div className="map-stat-badge">
-          <span style={{ color: "var(--ember)", fontWeight: 700 }}>
-            {detRows.length.toLocaleString(lang === "id" ? "id-ID" : "en-US")}
-          </span>
-          <span>{lang === "id" ? "titik" : "points"}</span>
-          <span>·</span>
-          <span>
-            {activeGridCellCount.toLocaleString(lang === "id" ? "id-ID" : "en-US")} {lang === "id" ? "sel" : "cells"}
-          </span>
         </div>
       </div>
 
@@ -1509,9 +1498,7 @@ export default function FireMap() {
                   ? (lang === "id"
                       ? `${detRows.length.toLocaleString("id-ID")} titik dalam sel ${selectedCell.cell_id} (${detYear === "all" ? "Semua tahun" : `Tahun ${detYear}`})`
                       : `${detRows.length.toLocaleString("en-US")} points in cell ${selectedCell.cell_id} (${detYear === "all" ? "All years" : `Year ${detYear}`})`)
-                  : (lang === "id"
-                      ? `${detRows.length.toLocaleString("id-ID")} observasi titik satelit (${detYear === "all" ? "Semua tahun" : `Tahun ${detYear}`})`
-                      : `${detRows.length.toLocaleString("en-US")} satellite hotspot observations (${detYear === "all" ? "All years" : `Year ${detYear}`})`)}
+                  : null}
               </div>
               <div style={{ display: "flex", gap: 8, marginTop: 4 }}>
                 <select
@@ -1547,11 +1534,6 @@ export default function FireMap() {
                 <span style={{ marginLeft: "auto", color: "var(--ink3)", fontSize: 10 }}>Radius ∝ √FRP</span>
               </div>
 
-              <div style={{ fontSize: 10, color: "var(--ink3)", marginTop: 5, lineHeight: 1.4 }}>
-                {lang === "id"
-                  ? "Menyebar alami pada koordinat asli satelit. Klik titik mana saja di peta untuk detail FRP & sensor."
-                  : "Naturally distributed at native satellite coordinates. Click any point on map for FRP & sensor details."}
-              </div>
             </>
           ) : null}
         </div>
@@ -1730,19 +1712,7 @@ export default function FireMap() {
 
 
 
-      {/* Scientific Honesty Chip (Guardrail FR-UI-12) */}
-      <span
-        className="state-chip chip-ok"
-        style={{
-          position: "absolute", right: 16, bottom: 16, zIndex: 890,
-          background: "var(--surface)", boxShadow: "var(--shadow-sm)",
-          padding: "5px 12px", fontSize: 11,
-        }}
-      >
-        {lang === "id"
-          ? "Hotspot = observasi termal satelit, bukan kepastian kebakaran fisik · Radius ∝ FRP (MW)"
-          : "Hotspot = spaceborne thermal observation, not proof of physical fire · Radius ∝ FRP (MW)"}
-      </span>
+
 
       {/* Floating Shortcut to Open AI Drawer if Hotspot is Selected and Drawer is Closed */}
       {selectedDetection && !isAiDrawerOpen && (
