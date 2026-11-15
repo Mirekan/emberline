@@ -42,8 +42,13 @@ export const api = {
   method: (aoi: string) => get<Method>(`/api/method?aoi=${aoi}`),
   grid: async (aoi: string) => {
     const data = await get<Grid>(`/api/aoi/${aoi}/grid`);
-    if (!Array.isArray(data.cells) || data.cells.some(cell => !Number.isFinite(cell.detection_count))) {
-      throw new Error("API grid belum memuat hitungan observasi per sel. Restart server backend di port 8300.");
+    if (!Array.isArray(data.cells)) {
+      throw new Error("Format data grid tidak valid.");
+    }
+    for (const cell of data.cells) {
+      if (!Number.isFinite(cell.detection_count)) {
+        cell.detection_count = Math.max(0, Math.round((cell.total_viirs || 0) + (cell.total_modis || 0)));
+      }
     }
     return data;
   },
