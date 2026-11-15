@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useEffect, useState } from "react";
+import React, { createContext, lazy, Suspense, useContext, useEffect, useState } from "react";
 import { motion, MotionConfig } from "framer-motion";
 import { api, Series } from "./api";
 import { HomeIcon, MapIcon, CalendarIcon, CrisisIcon, ChartIcon, ResearchIcon, FlameMark, SunIcon, MoonIcon } from "./components/Icons";
@@ -9,6 +9,8 @@ import Seasons from "./screens/Seasons";
 import MethodScreen from "./screens/MethodScreen";
 import FireMap from "./screens/FireMap";
 import Anomalies from "./screens/Anomalies";
+
+const EmberStage = lazy(() => import("./components/EmberStage"));
 
 const TABS = [
   ["overview", "Overview", HomeIcon],
@@ -24,10 +26,11 @@ type Ctx = {
   aoi: string;
   setAoi: (a: string) => void;
   series: Series | null;
+  theme: "light" | "dark";
   calFilter: string | null;
   setCalFilter: (f: string | null) => void;
 };
-const AoiContext = createContext<Ctx>({ aoi: "riau", setAoi: () => {}, series: null, calFilter: null, setCalFilter: () => {} });
+const AoiContext = createContext<Ctx>({ aoi: "riau", setAoi: () => {}, series: null, theme: "light", calFilter: null, setCalFilter: () => {} });
 export const useAoi = () => useContext(AoiContext);
 
 export default function App() {
@@ -36,19 +39,15 @@ export default function App() {
   const [series, setSeries] = useState<Series | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [calFilter, setCalFilter] = useState<string | null>(null);
-  const [theme, setTheme] = useState<"light" | "dark" | "system">(() => {
-    return (localStorage.getItem("emberline-theme") as "light" | "dark" | "system") || "system";
+  const [theme, setTheme] = useState<"light" | "dark">(() => {
+    const savedTheme = localStorage.getItem("emberline-theme");
+    if (savedTheme === "light" || savedTheme === "dark") return savedTheme;
+    return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
   });
 
   useEffect(() => {
-    const root = document.documentElement;
-    if (theme === "system") {
-      root.removeAttribute("data-theme");
-      localStorage.removeItem("emberline-theme");
-    } else {
-      root.setAttribute("data-theme", theme);
-      localStorage.setItem("emberline-theme", theme);
-    }
+    document.documentElement.setAttribute("data-theme", theme);
+    localStorage.setItem("emberline-theme", theme);
   }, [theme]);
 
   const toggleTheme = () => {
@@ -76,9 +75,14 @@ export default function App() {
     : "Memuat data observasi satelit…";
 
   return (
-    <AoiContext.Provider value={{ aoi, setAoi, series, calFilter, setCalFilter }}>
+    <AoiContext.Provider value={{ aoi, setAoi, series, theme, calFilter, setCalFilter }}>
       <MotionConfig reducedMotion="user">
         <div className="app">
+          {tab === "overview" && (
+            <Suspense fallback={<div className="ember-stage" aria-hidden="true"><div className="ember-stage-fallback" /></div>}>
+              <EmberStage theme={theme} />
+            </Suspense>
+          )}
           <header className="topbar">
             <div className="brand">
               <FlameMark size={32} />
@@ -123,8 +127,9 @@ export default function App() {
               <button
                 className="theme-toggle"
                 onClick={toggleTheme}
-                title={`Toggle Light / Dark mode (current: ${theme})`}
-                aria-label="Toggle visual theme"
+                title={`Switch to ${theme === "dark" ? "light" : "dark"} mode`}
+                aria-label={`Switch to ${theme === "dark" ? "light" : "dark"} mode`}
+                aria-pressed={theme === "dark"}
               >
                 {theme === "dark" ? <SunIcon /> : <MoonIcon />}
               </button>
@@ -167,7 +172,12 @@ export default function App() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ type: "spring", stiffness: 320, damping: 30 }}
               >
-                {tab === "overview" && <Overview goCalendar={() => setTab("firecalendar")} />}
+                {tab === "overview" && (
+                  <Overview
+                    goCalendar={() => setTab("firecalendar")}
+                    goMethod={() => setTab("methodology")}
+                  />
+                )}
                 {tab === "firemap" && <FireMap />}
                 {tab === "firecalendar" && <CalendarScreen goMap={() => setTab("firemap")} />}
                 {tab === "anomalies" && <Anomalies />}

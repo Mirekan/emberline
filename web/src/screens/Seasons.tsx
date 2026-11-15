@@ -4,7 +4,7 @@ import { seasonsOption, init } from "../echarts";
 import { useAoi } from "../App";
 
 export default function Seasons() {
-  const { aoi } = useAoi();
+  const { aoi, theme } = useAoi();
   const [cal, setCal] = useState<Awaited<ReturnType<typeof api.calendar>> | null>(null);
   const [loading, setLoading] = useState(true);
   const [err, setErr] = useState<string | null>(null);
@@ -37,7 +37,7 @@ export default function Seasons() {
         chart.current?.dispose();
       };
     }
-  }, [cal]);
+  }, [cal, theme]);
 
   return (
     <div>
