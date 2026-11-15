@@ -149,14 +149,6 @@ export default function App() {
 
             <div className="topbar-actions">
               <button
-                className="glossary-trigger"
-                onClick={() => setTab("methodology")}
-                title={lang === "id" ? "Buka glosarium dan definisi istilah sains" : "Inspect plain-language definitions for every scientific term"}
-              >
-                <ResearchIcon /> <span>{t("nav_glossary")}</span>
-              </button>
-
-              <button
                 className="lang-toggle-btn"
                 onClick={toggleLang}
                 title={t("nav_lang_toggle")}
