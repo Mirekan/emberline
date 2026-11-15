@@ -154,8 +154,8 @@ export const ISLANDS: IslandRegion[] = [
 // Indonesia Territorial Bounds (Sabang to Merauke, Miangas to Rote)
 // Formatted with widescreen 16:9 margin so fullscreen viewports never collide with bounds constraints
 const INDONESIA_BOUNDS: L.LatLngBoundsLiteral = [
-  [12.0, 92.0],   // North-West
-  [-13.5, 143.5], // South-East
+  [14.0, 90.0],   // North-West
+  [-16.0, 156.0], // South-East
 ];
 
 export default function FireMap() {
@@ -464,8 +464,8 @@ export default function FireMap() {
     const canvasRenderer = L.canvas({ padding: 0.5 });
     const layer = L.layerGroup();
 
-    // 1. Full rectangular bounds of Indonesia (95°E to 141°E, 11°S to 6°N) - no cuts or gaps
-    const bounds = grid.bounds ?? { south: -11.0, west: 95.0, north: 6.0, east: 141.0 };
+    // 1. Full rectangular bounds of Indonesia & New Guinea (94°E to 152°E, 12°S to 8°N) - no cuts or gaps
+    const bounds = grid.bounds ?? { south: -12.0, west: 94.0, north: 8.0, east: 152.0 };
     const step = grid.cell_deg ?? 0.1;
 
     // Full rectangular white background overlay for unmonitored / white grid area

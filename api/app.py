@@ -220,8 +220,8 @@ def _generate_indonesia_mosaic_grid():
         return _CACHED_INDONESIA_MOSAIC_GRID
 
     cell_deg = 0.1
-    bounds = {"south": -11.0, "west": 95.0, "north": 6.0, "east": 141.0}
-    scale_note = "0.1-degree full rectangular grid across Indonesia (95°E to 141°E, 11°S to 6°N). Areas without observations are white standby."
+    bounds = {"south": -12.0, "west": 94.0, "north": 8.0, "east": 152.0}
+    scale_note = "0.1-degree full rectangular grid across Indonesia and New Guinea (94°E to 152°E, 12°S to 8°N). Areas without observations are white standby."
 
     # 1. Merge artifact observation counts where available across monitored regions
     merged_cells = {}
