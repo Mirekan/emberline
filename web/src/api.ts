@@ -18,8 +18,8 @@ export type Preset = { id: string; name: string; west: number; south: number; ea
 export type Method = Envelope & { split: { train_years: string[]; test_years: string[] }; coefficients: Record<string, number>; interval: Record<string, unknown>; metrics: Record<string, number | string>; stress_tests: { pseudo_transition?: string; status: string; shift_naive?: number; shift_harmonized?: number; error_ratio?: number | string; reason?: string }[]; limitations: string[]; citations: string };
 
 export type GridYear = { modis: number; viirs: number; n_days: number };
-export type GridCell = { cell_id: string; south: number; west: number; north: number; east: number; years: Record<string, GridYear>; n_days: number; total_modis: number; total_viirs: number; detection_count: number };
-export type Grid = { cell_deg: number; years: string[]; n_cells: number; scale_note: string; cells: GridCell[] };
+export type GridCell = { cell_id: string; south: number; west: number; north: number; east: number; years?: Record<string, GridYear>; n_days: number; total_modis: number; total_viirs: number; detection_count: number; has_data?: boolean };
+export type Grid = { cell_deg: number; bounds?: { south: number; west: number; north: number; east: number }; years: string[]; n_cells: number; scale_note: string; cells: GridCell[] };
 
 export type Detection = { date: string; lat: number; lon: number; frp: number; sensor: "modis" | "viirs"; conf: string; daynight: string };
 export type Detections = { n_detections: number; note: string; detections: Detection[] };

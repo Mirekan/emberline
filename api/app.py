@@ -211,9 +211,86 @@ def stress(aoi: str):
     return {**_envelope(aoi), **_load(aoi, "stress_test.json")}
 
 
+_CACHED_INDONESIA_MOSAIC_GRID = None
+
+
+def _generate_indonesia_mosaic_grid():
+    global _CACHED_INDONESIA_MOSAIC_GRID
+    if _CACHED_INDONESIA_MOSAIC_GRID is not None:
+        return _CACHED_INDONESIA_MOSAIC_GRID
+
+    cell_deg = 0.1
+    bounds = {"south": -12.0, "west": 94.0, "north": 8.0, "east": 152.0}
+    scale_note = "0.1-degree full rectangular grid across Indonesia and New Guinea (94°E to 152°E, 12°S to 8°N). Areas without observations are white standby."
+
+    # 1. Merge artifact observation counts where available across monitored regions
+    merged_cells = {}
+    years = set()
+    for path in sorted(ARTIFACTS.iterdir()):
+        if not path.is_dir() or path.name in ("all", "indonesia"):
+            continue
+        g_path = path / "grid.json"
+        d_path = path / "detections.json"
+        if not g_path.is_file() or not d_path.is_file():
+            continue
+        try:
+            g = json.loads(g_path.read_text(encoding="utf-8"))
+            dets = json.loads(d_path.read_text(encoding="utf-8")).get("detections", [])
+            years.update(g.get("years", []))
+
+            d_counts = {}
+            for d in dets:
+                l_idx = math.floor(d["lat"] / cell_deg + 1e-9)
+                o_idx = math.floor(d["lon"] / cell_deg + 1e-9)
+                d_counts[(l_idx, o_idx)] = d_counts.get((l_idx, o_idx), 0) + 1
+
+            for c in g.get("cells", []):
+                l_idx = math.floor(c["south"] / cell_deg + 1e-9)
+                o_idx = math.floor(c["west"] / cell_deg + 1e-9)
+                cid = f"R{l_idx:05d}C{o_idx:05d}"
+                cnt = d_counts.get((l_idx, o_idx), 0)
+                if cid in merged_cells:
+                    target = merged_cells[cid]
+                    target["has_data"] = True
+                    target["detection_count"] += cnt
+                    target["total_modis"] += c.get("total_modis", 0.0)
+                    target["total_viirs"] += c.get("total_viirs", 0.0)
+                    target["n_days"] = max(target["n_days"], c.get("n_days", 0))
+                else:
+                    merged_cells[cid] = {
+                        "cell_id": cid,
+                        "south": c["south"],
+                        "west": c["west"],
+                        "north": c["north"],
+                        "east": c["east"],
+                        "detection_count": cnt,
+                        "total_modis": c.get("total_modis", 0.0),
+                        "total_viirs": c.get("total_viirs", 0.0),
+                        "n_days": c.get("n_days", 0),
+                        "has_data": True,
+                    }
+        except Exception:
+            pass
+
+    cell_list = sorted(merged_cells.values(), key=lambda c: (c["south"], c["west"]))
+    _CACHED_INDONESIA_MOSAIC_GRID = {
+        "cell_deg": cell_deg,
+        "bounds": bounds,
+        "years": sorted(years),
+        "n_cells": 78200,
+        "n_monitored_cells": len(cell_list),
+        "scale_note": scale_note,
+        "cells": cell_list,
+    }
+    return _CACHED_INDONESIA_MOSAIC_GRID
+
+
 @app.get("/api/aoi/{aoi}/grid")
-def api_grid(aoi: str):
+def api_grid(aoi: str, coverage: str | None = None):
     """Per-cell observation counts and yearly raw FRP totals for the map."""
+    if aoi in ("indonesia", "nasional") or (aoi == "all" and coverage == "full"):
+        return _generate_indonesia_mosaic_grid()
+
     if aoi not in ("all", "indonesia"):
         return _grid_with_detection_counts(aoi)
 
