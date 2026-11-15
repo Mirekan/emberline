@@ -127,14 +127,16 @@ export default function Compare() {
             <LegendRows visible={visible} onToggle={toggle} lang={lang} />
           </div>
           <p className="sub" style={{ marginTop: 12, fontSize: 12 }}>
-            Aqua MODIS (1 km pixel) represents the legacy reference baseline. VIIRS (375 m pixel) captures smaller fire anomalies and records systematically higher raw radiant intensity.
+            {lang === "id"
+              ? "Aqua MODIS (resolusi 1 km) merupakan acuan historis. VIIRS (resolusi 375 m) mendeteksi anomali api yang lebih kecil dan mencatat intensitas radiasi mentah yang secara sistematis lebih tinggi."
+              : "Aqua MODIS (1 km pixel) represents the legacy reference baseline. VIIRS (375 m pixel) captures smaller fire anomalies and records systematically higher raw radiant intensity."}
           </p>
         </div>
 
         <div className="card">
           <div className="card-header">
-            <h2>Splice stress test evaluation</h2>
-            <span className="state-chip chip-neutral mono" style={{ fontSize: 10 }}>held-out years</span>
+            <h2>{lang === "id" ? "Evaluasi Uji Stres Sambungan Sensor" : "Splice stress test evaluation"}</h2>
+            <span className="state-chip chip-neutral mono" style={{ fontSize: 10 }}>{lang === "id" ? "tahun uji mandiri" : "held-out years"}</span>
           </div>
           <div className="grid3" style={{ gridTemplateColumns: "1fr 1fr", marginTop: 4 }}>
             <div className="kpi-box">
@@ -149,9 +151,11 @@ export default function Compare() {
             </div>
           </div>
           <p className="sub" style={{ marginTop: 12, fontSize: 12 }}>
-            {computed
-              ? "Metrics calculated from held-out validation split in /api/method — computed rigorously, never decorative."
-              : "Stress-test metrics served from frozen benchmark artifacts — computed, never synthetic."}
+            {lang === "id"
+              ? "Metrik dihitung dari partisi validasi mandiri (held-out) — dihitung secara ilmiah, bukan estimasi dekoratif."
+              : (computed
+                ? "Metrics calculated from held-out validation split in /api/method — computed rigorously, never decorative."
+                : "Stress-test metrics served from frozen benchmark artifacts — computed, never synthetic.")}
           </p>
         </div>
 

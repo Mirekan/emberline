@@ -17,7 +17,7 @@ export const DICTIONARY = {
     nav_theme_dark: "Ganti ke mode gelap",
     nav_theme_light: "Ganti ke mode terang",
     mock_badge: "DATA CONTOH / SINTETIS",
-    mock_badge_title: "Artefak tiruan aktif (Prinsip Kejujuran Ilmiah FR-UI-12)",
+    mock_badge_title: "Artefak tiruan aktif (Prinsip Kejujuran Ilmiah Satelit)",
 
     // Telemetry Provenance Bar
     prov_loading: "Memuat data observasi satelit…",
@@ -227,7 +227,7 @@ export const DICTIONARY = {
     nav_theme_dark: "Switch to dark mode",
     nav_theme_light: "Switch to light mode",
     mock_badge: "MOCK / SYNTHETIC",
-    mock_badge_title: "Synthetic fixture artifact active (Mandatory Guardrail FR-UI-12)",
+    mock_badge_title: "Synthetic fixture artifact active (Scientific Honesty Principle)",
 
     // Telemetry Provenance Bar
     prov_loading: "Loading satellite telemetry observations…",
