@@ -50,6 +50,7 @@ def run_match(data_root: Path, sources: tuple, slug: str, out_dir: Path):
               "conf_unknown_excluded": 0}
     # sensor -> (date, cell_id, daynight) -> [n, frp_sum, frp_max, scan_sum]
     agg = {s: defaultdict(lambda: [0, 0.0, 0.0, 0.0]) for s in sources}
+    dets: list = []
     dates_min, dates_max = None, None
 
     for source in sources:
@@ -89,6 +90,10 @@ def run_match(data_root: Path, sources: tuple, slug: str, out_dir: Path):
                 except ValueError:
                     continue
                 cid = grid.cell_id(lat, lon)
+                dets.append({"date": row["acq_date"], "lat": lat, "lon": lon,
+                             "frp": round(frp, 2),
+                             "sensor": "modis" if source.startswith("MODIS") else "viirs",
+                             "conf": conf, "daynight": row["daynight"]})
                 key = (row["acq_date"], cid, row["daynight"])
                 a = agg[source][key]
                 a[0] += 1; a[1] += frp
@@ -125,6 +130,13 @@ def run_match(data_root: Path, sources: tuple, slug: str, out_dir: Path):
             n_pairs += 1
             w.writerow([d, cid, dn, m[0], f"{m[1]:.2f}", f"{m[2]:.2f}", m_scan,
                         v[0], f"{v[1]:.2f}", f"{v[2]:.2f}", v_scan, one_sided])
+
+    detections_path = out_dir / "detections.json"
+    detections_path.write_text(json.dumps({
+        "n_detections": len(dets),
+        "note": "one entry = one validated satellite hotspot detection — an observation, not necessarily a fire",
+        "detections": dets,
+    }, separators=(",", ":")), encoding="utf-8")
 
     coverage = {
         "days_retrieved": sum(1 for st in mask.values() if st == "retrieved"),

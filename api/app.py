@@ -184,6 +184,18 @@ def stress(aoi: str):
     return {**_envelope(aoi), **_load(aoi, "stress_test.json")}
 
 
+@app.get("/api/aoi/{aoi}/grid")
+def api_grid(aoi: str):
+    """Per-cell yearly raw FRP totals (O-02 map layer). Raw sensor scale."""
+    return _load(aoi, "grid.json")
+
+
+@app.get("/api/aoi/{aoi}/detections")
+def api_detections(aoi: str):
+    """Validated hotspot detections — one entry = one satellite pixel, not one fire."""
+    return _load(aoi, "detections.json")
+
+
 @app.get("/api/aoi/{aoi}/export")
 def export(aoi: str, what: str = "series"):
     if what not in ("series", "windows", "calendar"):

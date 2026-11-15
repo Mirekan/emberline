@@ -17,6 +17,13 @@ export type Window = { start_md: string; end_md: string; wraps_new_year?: boolea
 export type Preset = { id: string; name: string; west: number; south: number; east: number; north: number; sources: string; start: string; end: string; artifact_status: string; mock: string | null };
 export type Method = Envelope & { split: { train_years: string[]; test_years: string[] }; coefficients: Record<string, number>; interval: Record<string, unknown>; metrics: Record<string, number | string>; stress_tests: { pseudo_transition?: string; status: string; shift_naive?: number; shift_harmonized?: number; error_ratio?: number | string; reason?: string }[]; limitations: string[]; citations: string };
 
+export type GridYear = { modis: number; viirs: number; n_days: number };
+export type GridCell = { cell_id: string; south: number; west: number; north: number; east: number; years: Record<string, GridYear>; n_days: number; total_modis: number; total_viirs: number };
+export type Grid = { cell_deg: number; years: string[]; n_cells: number; scale_note: string; cells: GridCell[] };
+
+export type Detection = { date: string; lat: number; lon: number; frp: number; sensor: "modis" | "viirs"; conf: string; daynight: string };
+export type Detections = { n_detections: number; note: string; detections: Detection[] };
+
 async function get<T>(path: string): Promise<T> {
   const res = await fetch(path);
   if (!res.ok) {
@@ -33,6 +40,8 @@ export const api = {
   calendar: (aoi: string) => get<Calendar>(`/api/aoi/${aoi}/calendar`),
   windows: (aoi: string) => get<{ windows: Window[] } & Envelope>(`/api/aoi/${aoi}/windows`),
   method: (aoi: string) => get<Method>(`/api/method?aoi=${aoi}`),
+  grid: (aoi: string) => get<Grid>(`/api/aoi/${aoi}/grid`),
+  detections: (aoi: string) => get<Detections>(`/api/aoi/${aoi}/detections`),
   analyze: (bbox: { west: number; south: number; east: number; north: number }) =>
     fetch("/api/aoi/analyze", { method: "POST", headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ bbox }) }).then(async r => {

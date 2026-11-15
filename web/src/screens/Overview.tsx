@@ -6,7 +6,9 @@ import { useAoi } from "../App";
 export default function Overview({ goCalendar }: { goCalendar: () => void }) {
   const { aoi, series } = useAoi();
   const [presets, setPresets] = useState<Preset[]>([]);
-  useEffect(() => { api.presets().then(r => setPresets(r.presets)).catch(() => {}); }, []);
+  useEffect(() => {
+    api.presets().then(r => setPresets(r.presets)).catch(() => {});
+  }, []);
 
   const preset = presets.find(p => p.id === aoi);
   const targetLabel = preset ? preset.name : `${aoi} (custom bbox)`;
@@ -16,24 +18,50 @@ export default function Overview({ goCalendar }: { goCalendar: () => void }) {
   const status = preset ? (preset.artifact_status === "available" ? "data ready" : "pending build") : null;
 
   return (
-    <div style={{ textAlign: "center", padding: "72px 16px 64px" }}>
-      <h1 style={{ fontFamily: "var(--font-display)", fontSize: "clamp(44px, 6vw, 84px)", fontWeight: 800, lineHeight: 1.05, letterSpacing: "-0.02em", color: "var(--ink)" }}>
+    <div style={{ textAlign: "center", padding: "72px 16px 64px", maxWidth: 1200, margin: "0 auto" }}>
+      <h1
+        style={{
+          fontFamily: "var(--font-display)",
+          fontSize: "clamp(38px, 5.5vw, 76px)",
+          fontWeight: 800,
+          lineHeight: 1.08,
+          letterSpacing: "-0.025em",
+          color: "var(--ink)",
+          maxWidth: 960,
+          margin: "0 auto",
+        }}
+      >
         See a fire record that no longer jumps when the satellite changes
       </h1>
-      <motion.button onClick={goCalendar}
-        whileHover={{ scale: 1.04, backgroundColor: "#DFDCD6" }}
-        whileTap={{ scale: 0.96 }}
+
+      <motion.button
+        onClick={goCalendar}
+        whileHover={{ scale: 1.03, backgroundColor: "var(--sunken)" }}
+        whileTap={{ scale: 0.97 }}
         transition={{ type: "spring", stiffness: 300, damping: 24 }}
-        style={{ marginTop: 48, padding: "30px 72px", fontSize: 42, fontWeight: 800, fontFamily: "var(--font-display)",
-          background: "#E7E5E1",
-          color: "var(--ink)", border: "1px solid var(--line)",
-          borderRadius: 16, cursor: "pointer", letterSpacing: "-0.01em" }}>
+        style={{
+          marginTop: 48,
+          padding: "24px 56px",
+          fontSize: "clamp(22px, 2.5vw, 32px)",
+          fontWeight: 800,
+          fontFamily: "var(--font-display)",
+          background: "var(--sunken)",
+          color: "var(--ink)",
+          border: "1px solid var(--line-strong)",
+          borderRadius: 16,
+          cursor: "pointer",
+          letterSpacing: "-0.01em",
+          boxShadow: "var(--shadow-sm)",
+        }}
+      >
         Explore the calendar →
       </motion.button>
-      <p className="sub mono" style={{ marginTop: 16, fontSize: 12 }}>
+
+      <p className="mono" style={{ marginTop: 28, fontSize: 13, color: "var(--ink2)" }}>
         Opens: {targetLabel}{span ? ` · ${span}` : ""}{status ? ` · ${status}` : ""}
       </p>
-      <p className="sub" style={{ marginTop: 20 }}>
+
+      <p style={{ marginTop: 14, fontSize: 14.5, color: "var(--ink3)", maxWidth: 640, margin: "14px auto 0", lineHeight: 1.5 }}>
         Honest hotspot history — MODIS &amp; VIIRS harmonized, with uncertainty, gaps flagged, never predicted.
       </p>
     </div>

@@ -30,6 +30,7 @@ import harmonize as harm_mod
 import metrics as metrics_mod
 import calendar as cal_mod
 import stress_test as stress_mod
+import grid_export as grid_mod
 
 ROOT = Path(__file__).resolve().parents[1]
 ARTIFACTS = ROOT / "artifacts"
@@ -109,6 +110,10 @@ def main(argv=None) -> int:
 
     # 5. stress tests
     stress_mod.run_stress(series, test_years, coverage, out_dir, run_id, args.fixture)
+
+    # 5.5 grid export (O-02 map layer — per-cell yearly raw FRP totals)
+    grid_mod.export_grid(matched_path, out_dir / "grid.json")
+    print(f"[run] grid.json -> artifacts/{args.aoi}/")
 
     # 6. manifest
     input_hashes = {}

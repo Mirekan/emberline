@@ -1,0 +1,32 @@
+{
+  "run_id": "PROTO-C01-v0.9_..._FIXTURE",
+  "model_version": "b2_simple_log_ratio_only",
+  "fixture": "FIXTURE_SYNTHETIC",
+  "mock": true,
+  "aoi_id": "riau",
+  "cell_deg": 0.1,
+  "years": [
+    "2012",
+    "2013"
+  ],
+  "scale_note": "raw sensor scale \u2014 per-cell harmonized does not exist",
+  "cells": [
+    {
+      "cell_id": "R-0001C01007",
+      "south": -0.1,
+      "west": 100.7,
+      "north": 0.0,
+      "east": 100.8,
+      "years": {
+        "2012": {
+          "modis": 3.2,
+          "viirs": 12.4,
+          "n_days": 340
+        }
+      },
+      "n_days": 340,
+      "total_modis": 3.2,
+      "total_viirs": 12.4
+    }
+  ]
+}

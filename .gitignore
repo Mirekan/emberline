@@ -41,3 +41,6 @@ artifacts/**/*.parquet
 # OS / editor noise
 .DS_Store
 *.swp
+
+# tool artifacts
+.agent/

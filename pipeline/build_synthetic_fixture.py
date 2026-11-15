@@ -16,6 +16,7 @@ Stdlib only. Run:  python pipeline/build_synthetic_fixture.py
 """
 from __future__ import annotations
 
+import argparse
 import csv
 import hashlib
 import json
@@ -25,11 +26,24 @@ from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-OUT = ROOT / "data" / "fixtures" / "FIXTURE_SYNTHETIC" / "riau"
-SLUG = "w100_s-2_e105_n1"
+
+AOI_CONFIGS = {
+    "riau": {
+        "slug": "w100_s-2_e105_n1",
+        "west": 100.0, "south": -2.0, "east": 105.0, "north": 1.0,
+        # Accurate peatland fire centers in Riau province (Pelalawan, Siak, Bengkalis, Kampar, Inhil)
+        "centers": [(102.4, 0.45), (102.0, 0.75), (101.8, 0.92), (101.5, 0.38), (102.9, -0.25)],
+    },
+    "central_kalimantan": {
+        "slug": "w113_s-3_e116_n0",
+        "west": 113.0, "south": -3.0, "east": 116.0, "north": 0.0,
+        # Accurate peatland fire centers in Central Kalimantan (Pulang Pisau MRP, Kapuas, Sebangau)
+        "centers": [(114.1, -2.3), (114.5, -2.6), (113.8, -2.0), (113.7, -2.5), (114.8, -2.2)],
+    },
+}
+
 START = date(2012, 1, 20)
 END = date(2026, 7, 31)
-WEST, SOUTH, EAST, NORTH = 100.0, -2.0, 105.0, 1.0
 SEED = 20261114
 
 OUT_COLUMNS = ["source", "satellite", "instrument", "acq_datetime_utc", "acq_date",
@@ -58,10 +72,12 @@ def conf_viirs(rnd) -> str:
     if u < 0.97: return "n"
     return "l"
 
-def gen_source(source: str, rnd):
+def gen_source(source: str, rnd, cfg: dict):
     rows = []
     is_modis = source.startswith("MODIS")
     day = START
+    west, south, east, north = cfg["west"], cfg["south"], cfg["east"], cfg["north"]
+    centers = cfg["centers"]
     while day <= END:
         s = season(day)
         if is_modis:
@@ -72,9 +88,9 @@ def gen_source(source: str, rnd):
         if rnd.random() < 0.03:
             n = 0
         for _ in range(n):
-            cx, cy = CENTERS[rnd.randrange(len(CENTERS))]
-            lat = round(min(max(cy + rnd.gauss(0, 0.35), SOUTH + 0.01), NORTH - 0.01), 5)
-            lon = round(min(max(cx + rnd.gauss(0, 0.45), WEST + 0.01), EAST - 0.01), 5)
+            cx, cy = centers[rnd.randrange(len(centers))]
+            lat = round(min(max(cy + rnd.gauss(0, 0.18), south + 0.01), north - 0.01), 5)
+            lon = round(min(max(cx + rnd.gauss(0, 0.22), west + 0.01), east - 0.01), 5)
             frp = round(max(0.2, rnd.expovariate(1 / 6.5)), 2)
             if is_modis:
                 sat = "Aqua" if rnd.random() < 0.58 else "Terra"
@@ -112,55 +128,53 @@ def write_norm(path: Path, rows):
         w.writeheader()
         w.writerows(rows)
 
-def main() -> int:
-    rnd = random.Random(SEED)
-    OUT.mkdir(parents=True, exist_ok=True)
+def build_for_aoi(aoi: str, rnd: random.Random) -> None:
+    cfg = AOI_CONFIGS[aoi]
+    slug = cfg["slug"]
+    out_dir = ROOT / "data" / "fixtures" / "FIXTURE_SYNTHETIC" / aoi
+    out_dir.mkdir(parents=True, exist_ok=True)
     rel_files = {}
     ledgers = []
     for source in ("MODIS_SP", "VIIRS_SNPP_SP"):
-        rows = gen_source(source, rnd)
-        rel = f"data/fixtures/FIXTURE_SYNTHETIC/riau/{source}/{SLUG}/normalized.csv"
+        rows = gen_source(source, rnd, cfg)
+        rel = f"data/fixtures/FIXTURE_SYNTHETIC/{aoi}/{source}/{slug}/normalized.csv"
         write_norm(ROOT / rel, rows)
         body = (ROOT / rel).read_bytes()
         rel_files[rel] = hashlib.sha256(body).hexdigest()
-        print(f"[fixture] {source}: {len(rows)} rows -> {rel}")
+        print(f"[fixture] {aoi} {source}: {len(rows)} rows -> {rel}")
 
-    # Ledger: every requested day retrieved (ok/ok_empty by day), plus 3 failed
-    # windows to exercise retrieval-gap states downstream.
+    bbox_str = f"{cfg['west']},{cfg['south']},{cfg['east']},{cfg['north']}"
     window = START
     day_status = {}
     while window <= END:
         we = min(window + timedelta(days=4), END)
-        day_rows = 0
         d = window
         while d <= we:
-            # reconstructed from what gen_source produced is expensive; mark ok_empty
-            # unless the season says detections are plausible (approximation is fine:
-            # the ledger only drives missingness masks, not row contents).
             s = season(d)
             day_status[d] = "ok_empty" if s < 0.10 and rnd.random() < 0.6 else "ok"
             d += timedelta(days=1)
         status = "ok_empty" if all(v == "ok_empty" for v in day_status.values() if True) else "ok"
-        rel = f"data/fixtures/FIXTURE_SYNTHETIC/riau/MODIS_SP/{SLUG}/{window.isoformat()}_{we.isoformat()}.csv"
-        ledgers.append({"action": "fetch", "source": "MODIS_SP", "bbox": "100,-2,105,1",
+        rel = f"data/fixtures/FIXTURE_SYNTHETIC/{aoi}/MODIS_SP/{slug}/{window.isoformat()}_{we.isoformat()}.csv"
+        ledgers.append({"action": "fetch", "source": "MODIS_SP", "bbox": bbox_str,
                         "window_start": window.isoformat(), "window_end": we.isoformat(),
                         "days": (we - window).days + 1, "path": rel, "status": status,
                         "sha256": rel_files.get(rel, "")})
         window = we + timedelta(days=1)
     for fw in ((date(2013, 6, 10), date(2013, 6, 14)), (date(2017, 11, 3), date(2017, 11, 7)),
                (date(2021, 1, 2), date(2021, 1, 6))):
-        ledgers.append({"action": "fetch", "source": "MODIS_SP", "bbox": "100,-2,105,1",
+        ledgers.append({"action": "fetch", "source": "MODIS_SP", "bbox": bbox_str,
                         "window_start": fw[0].isoformat(), "window_end": fw[1].isoformat(),
                         "days": (fw[1] - fw[0]).days + 1,
-                        "path": f"data/fixtures/FIXTURE_SYNTHETIC/riau/MODIS_SP/{SLUG}/{fw[0].isoformat()}_{fw[1].isoformat()}.csv",
+                        "path": f"data/fixtures/FIXTURE_SYNTHETIC/{aoi}/MODIS_SP/{slug}/{fw[0].isoformat()}_{fw[1].isoformat()}.csv",
                         "status": "failed", "error": "HTTP 503; retried after 30s (synthetic)"})
-    led_path = OUT / "fetch_ledger.jsonl"
+    led_path = out_dir / "fetch_ledger.jsonl"
     with led_path.open("w", encoding="utf-8") as fh:
         for e in ledgers:
             fh.write(json.dumps(e) + "\n")
 
     prov = {
         "fixture_id": "FIXTURE_SYNTHETIC",
+        "aoi": aoi,
         "created_utc": datetime.now(timezone.utc).isoformat(timespec="seconds"),
         "built_by": "pipeline/build_synthetic_fixture.py",
         "seed": SEED,
@@ -170,7 +184,19 @@ def main() -> int:
                      "whenever fixture data is served."),
         "shape": "seasonal Aug-Oct peak + small Feb bump; 3 failed windows for gap states",
     }
-    (OUT / "provenance.json").write_text(json.dumps(prov, indent=2), encoding="utf-8")
+    (out_dir / "provenance.json").write_text(json.dumps(prov, indent=2), encoding="utf-8")
+    print(f"[fixture] {aoi} ledger -> {led_path.relative_to(ROOT).as_posix()}")
+
+def main() -> int:
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--aoi", default="all", choices=["riau", "central_kalimantan", "all"])
+    args = ap.parse_args()
+    rnd = random.Random(SEED)
+    aois = ["riau", "central_kalimantan"] if args.aoi == "all" else [args.aoi]
+    for a in aois:
+        build_for_aoi(a, rnd)
+    print(f"[fixture] label   -> FIXTURE_SYNTHETIC (never a claimed result)")
+    return 0
     print(f"[fixture] ledger  -> {led_path.relative_to(ROOT).as_posix()}")
     print(f"[fixture] label   -> FIXTURE_SYNTHETIC (never a claimed result)")
     return 0

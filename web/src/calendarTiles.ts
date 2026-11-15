@@ -66,3 +66,45 @@ export function monthTiles(years: CalYearT[], yearSel: string): Tile[] {
 }
 
 export { MONTH_ABBR };
+
+/* ---- Raw-sensor tiles (user: "belom ada konteks atau milih buat viirs atau modis") ----
+   Built client-side from series.days — raw instrument scale, NOT MODIS-equivalent. */
+
+export type RawField = "raw_modis_frp_mw" | "raw_viirs_frp_mw";
+type Day = { date: string; raw_modis_frp_mw: number | null; raw_viirs_frp_mw: number | null };
+
+function tilesFromDays(days: Day[], keyOf: (d: Day) => string, labelOf: (k: string) => string, field: RawField): Tile[] {
+  const groups = new Map<string, { vals: number[]; gaps: number; count: number }>();
+  for (const d of days) {
+    const k = keyOf(d);
+    const g = groups.get(k) ?? { vals: [], gaps: 0, count: 0 };
+    g.count++;
+    const v = d[field];
+    if (v == null) g.gaps++;
+    else g.vals.push(v);
+    groups.set(k, g);
+  }
+  const raw = [...groups.entries()].sort((a, b) => a[0].localeCompare(b[0])).map(([k, g]) => ({
+    key: k, label: labelOf(k),
+    total: Math.round(g.vals.reduce((a, b) => a + b, 0)),
+    activeDays: g.vals.filter(v => v > 0).length,
+    gapDays: g.gaps, days: g.count,
+    isGap: g.count > 0 && g.gaps === g.count,
+  }));
+  const max = Math.max(0, ...raw.map(t => t.total));
+  return raw.map(t => ({ ...t, fill: t.isGap ? "#DCDAD4" : fillFor(t.total, max) }));
+}
+
+/** One tile per year, summed from the RAW sensor column (no harmonization). */
+export function yearTilesFromDays(days: Day[], monthSel: string, field: RawField): Tile[] {
+  return tilesFromDays(
+    days.filter(d => monthSel === "all" || d.date.slice(5, 7) === monthSel),
+    d => d.date.slice(0, 4), k => k, field);
+}
+
+/** One tile per month, summed from the RAW sensor column (no harmonization). */
+export function monthTilesFromDays(days: Day[], yearSel: string, field: RawField): Tile[] {
+  return tilesFromDays(
+    days.filter(d => yearSel === "all" || d.date.slice(0, 4) === yearSel),
+    d => d.date.slice(5, 7), k => MONTH_ABBR[Number(k) - 1], field);
+}
