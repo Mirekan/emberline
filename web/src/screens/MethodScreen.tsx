@@ -4,7 +4,7 @@ import { api, Method } from "../api";
 import { useAoi } from "../App";
 
 export default function MethodScreen() {
-  const { aoi, setAoi } = useAoi();
+  const { aoi, setAoi, lang } = useAoi();
   const [m, setM] = useState<Method | null>(null);
   const [loading, setLoading] = useState(true);
   const [err, setErr] = useState<string | null>(null);
@@ -79,18 +79,18 @@ export default function MethodScreen() {
               <table>
                 <thead>
                   <tr>
-                    <th>Statistical Metric &amp; Error Standard</th>
-                    <th>B0 · Naive splice</th>
-                    <th>B1 · Global ratio</th>
-                    <th>B2 · Harmonized</th>
+                    <th>{lang === "id" ? "Metrik Statistik & Standar Galat" : "Statistical Metric & Error Standard"}</th>
+                    <th>{lang === "id" ? "Sambungan Mentah (Tanpa Kalibrasi)" : "Naive Handover (Uncalibrated)"}</th>
+                    <th>{lang === "id" ? "Rasio Terkalibrasi (Metode Terpilih)" : "Calibrated Ratio (Accepted)"}</th>
+                    <th>{lang === "id" ? "Model Non-linear (Uji Regresi)" : "Non-linear Model (Mapping Test)"}</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr>
-                    <td style={{ fontWeight: 600 }}>Level shift error ratio (ideal: 1.00×)</td>
+                    <td style={{ fontWeight: 600 }}>{lang === "id" ? "Rasio galat lonjakan skala (ideal: 1,00×)" : "Level shift error ratio (ideal: 1.00×)"}</td>
                     <td className="mono">{fmt(m.metrics.b0_naive_splice_level_shift ?? "N/A:not_computed")}</td>
-                    <td className="mono">{fmt(m.metrics.b1_naive_splice_level_shift ?? "N/A:not_computed")}</td>
-                    <td className="mono" style={{ color: "var(--ok)", fontWeight: 700 }}>{fmt(m.metrics.b2_naive_splice_level_shift ?? "N/A:not_computed")}</td>
+                    <td className="mono" style={{ color: "var(--ok)", fontWeight: 700 }}>{fmt(m.metrics.b1_naive_splice_level_shift ?? "N/A:not_computed")}</td>
+                    <td className="mono">{fmt(m.metrics.b2_naive_splice_level_shift ?? "N/A:not_computed")}</td>
                   </tr>
                   <tr>
                     <td style={{ fontWeight: 600 }}>Mean log-ratio bias</td>

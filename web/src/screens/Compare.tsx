@@ -138,14 +138,14 @@ export default function Compare() {
           </div>
           <div className="grid3" style={{ gridTemplateColumns: "1fr 1fr", marginTop: 4 }}>
             <div className="kpi-box">
-              <div className="kpi-label">B0 · Naive splice</div>
+              <div className="kpi-label">{lang === "id" ? "Sambungan Tanpa Kalibrasi" : "Naive Handover"}</div>
               <div className="kpi-val" style={{ color: "var(--ember)" }}>{fmtX(b0)}</div>
-              <div className="kpi-sub">Level shift error (ideal: 1.00×)</div>
+              <div className="kpi-sub">{lang === "id" ? "Galat lonjakan skala (ideal: 1,00×)" : "Level shift error (ideal: 1.00×)"}</div>
             </div>
             <div className="kpi-box">
-              <div className="kpi-label">B2 · Harmonized</div>
+              <div className="kpi-label">{lang === "id" ? "Estimasi Terharmonisasi" : "Harmonized Estimate"}</div>
               <div className="kpi-val" style={{ color: "var(--ok)" }}>{fmtX(b2)}</div>
-              <div className="kpi-sub">Level shift error (ideal: 1.00×)</div>
+              <div className="kpi-sub">{lang === "id" ? "Galat lonjakan skala (ideal: 1,00×)" : "Level shift error (ideal: 1.00×)"}</div>
             </div>
           </div>
           <p className="sub" style={{ marginTop: 12, fontSize: 12 }}>
