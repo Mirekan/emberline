@@ -352,7 +352,7 @@ const INDONESIA_BOUNDS: L.LatLngBoundsLiteral = [
   [-16.0, 156.0], // South-East
 ];
 
-export default function FireMap() {
+export default function FireMap({ goCalendar }: { goCalendar: () => void }) {
   const { aoi, setAoi, calFilter, lang, t } = useAoi();
   const containerRef = useRef<HTMLDivElement>(null);
   const mapEl = useRef<HTMLDivElement>(null);
@@ -1235,6 +1235,14 @@ export default function FireMap() {
     if (!p) return null;
     return p.artifact_status === "available" ? t("map_status_ready") : t("map_status_queued");
   };
+  // Calendar for the selected cell: current AOI if it covers the cell centre, else first ready preset that does.
+  const cellPreset = useMemo(() => {
+    if (!selectedCell) return undefined;
+    const lat = (selectedCell.south + selectedCell.north) / 2;
+    const lon = (selectedCell.west + selectedCell.east) / 2;
+    const covers = (p: Preset) => p.artifact_status === "available" && lat >= p.south && lat <= p.north && lon >= p.west && lon <= p.east;
+    return presets.find(p => p.id === aoi && covers(p)) ?? presets.find(covers);
+  }, [selectedCell, presets, aoi]);
 
   return (
     <div
@@ -1558,7 +1566,12 @@ export default function FireMap() {
           zIndex: 900,
           display: "flex",
           flexDirection: "column",
-          gap: 6,
+          gap: 4,
+          padding: 6,
+          background: "var(--surface)",
+          border: "1px solid var(--line)",
+          borderRadius: 10,
+          boxShadow: "var(--shadow-md)",
         }}
       >
         <button
@@ -1566,8 +1579,7 @@ export default function FireMap() {
           onClick={toggleFullscreen}
           className="seg-btn"
           style={{
-            background: "var(--surface)",
-            boxShadow: "var(--shadow-sm)",
+            background: "transparent",
             padding: "6px 10px",
             fontSize: 11,
             fontWeight: 600,
@@ -1614,13 +1626,6 @@ export default function FireMap() {
               ✕
             </button>
           </div>
-          <input
-            type="text"
-            value={q}
-            onChange={e => setQ(e.target.value)}
-            placeholder={t("map_search_placeholder")}
-            style={{ width: "100%", borderRadius: 8, padding: "8px 12px" }}
-          />
         </div>
 
         {calFilter && (
@@ -1689,6 +1694,13 @@ export default function FireMap() {
                     : `${detRows.length.toLocaleString("en-US")} points in cell ${selectedCell.cell_id} (${detYear === "all" ? "All years" : `Year ${detYear}`})`}
                 </div>
               )}
+              {!selectedCell && (
+                <div style={{ fontSize: 10.5, color: "var(--ink2)", marginBottom: 6 }}>
+                  {lang === "id"
+                    ? `${detRows.length.toLocaleString("id-ID")} observasi titik satelit (${detYear === "all" ? "Semua tahun" : `Tahun ${detYear}`})`
+                    : `${detRows.length.toLocaleString("en-US")} satellite hotspot observations (${detYear === "all" ? "All years" : `Year ${detYear}`})`}
+                </div>
+              )}
               <div style={{ display: "flex", alignItems: "center", gap: 12, marginTop: 4, fontSize: 11, color: "var(--ink2)" }}>
                 <span style={{ display: "inline-flex", alignItems: "center", gap: 5 }}>
                   <i style={{ width: 10, height: 10, borderRadius: "50%", background: "#EF4444", display: "inline-block" }} /> VIIRS 375m
@@ -1739,6 +1751,24 @@ export default function FireMap() {
               <div style={{ fontSize: 10.5, color: "var(--ink2)", marginBottom: 8 }}>
                 {lang === "id" ? "Observasi Satelit:" : "Satellite Observations:"} <b>{cellCount.toLocaleString(lang === "id" ? "id-ID" : "en-US")}</b> {lang === "id" ? "titik" : "points"} ({cellViirs} VIIRS · {cellModis} MODIS)
               </div>
+              {cellPreset ? (
+                <button
+                  type="button"
+                  className="seg-btn active"
+                  onClick={() => { setAoi(cellPreset.id); goCalendar(); }}
+                  style={{
+                    width: "100%", padding: "6px 10px", fontSize: 10.5, marginBottom: 6,
+                    fontWeight: 600, background: "var(--ember-sub)", color: "var(--ember)",
+                    display: "block", textAlign: "center",
+                  }}
+                >
+                  {lang === "id" ? "Buka Kalender Kebakaran" : "Open Fire Calendar"}: {cellPreset.name}
+                </button>
+              ) : (
+                <div style={{ fontSize: 10, color: "var(--ink3)", marginBottom: 6 }}>
+                  {lang === "id" ? "Belum ada kalender kebakaran untuk sel ini." : "No fire calendar covers this cell yet."}
+                </div>
+              )}
               <button
                 type="button"
                 className="seg-btn"
@@ -1808,6 +1838,16 @@ export default function FireMap() {
               <span>{lang === "id" ? "Tinggi" : "High"}</span>
             </div>
           </div>
+        </div>
+
+        <div style={{ padding: "0 14px 8px" }}>
+          <input
+            type="text"
+            value={q}
+            onChange={e => setQ(e.target.value)}
+            placeholder={t("map_search_placeholder")}
+            style={{ width: "100%", boxSizing: "border-box", borderRadius: 8, padding: "8px 12px" }}
+          />
         </div>
 
         <div style={{ flex: 1, overflowY: "auto", overscrollBehavior: "contain", scrollBehavior: "smooth", padding: "0 8px 8px" }}>

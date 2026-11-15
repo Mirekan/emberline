@@ -201,7 +201,7 @@ export default function App() {
                     goMap={() => setTab("firemap")}
                   />
                 )}
-                {tab === "firemap" && <FireMap />}
+                {tab === "firemap" && <FireMap goCalendar={() => setTab("firecalendar")} />}
                 {tab === "firecalendar" && <CalendarScreen goMap={() => setTab("firemap")} />}
                 {tab === "analytics" && <Compare />}
                 {tab === "methodology" && <MethodScreen />}
@@ -209,12 +209,12 @@ export default function App() {
             </div>
           </main>
 
-          <footer className="footer">
+          {tab !== "firemap" && <footer className="footer">
             <div className="boundary-line">
               <b>{t("footer_disclosure_label")}</b> {t("footer_disclosure_text")}
             </div>
             <div className="meta-right">{t("footer_credit")}</div>
-          </footer>
+          </footer>}
         </div>
       </MotionConfig>
     </AoiContext.Provider>
