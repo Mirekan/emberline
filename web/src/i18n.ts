@@ -65,6 +65,32 @@ export const DICTIONARY = {
     hud_note: "Skor 24/100 dan 38 provinsi mengikuti visual demo new-ui, bukan hasil analisis EmberLine.",
     hud_aria: "Ilustrasi gauge 24 dari 100, status Aman. Bukan skor risiko EmberLine.",
 
+    // Scrollytelling Story Acts
+    story_progress_label: "CERITA",
+    story_aria_section: "Cerita observasi EmberLine dalam tiga tahap",
+    story_act1_eyebrow: "Deteksi",
+    story_act1_title: "Panas permukaan",
+    story_act1_emphasis: "terbaca dari orbit.",
+    story_act1_body:
+      "MODIS dan VIIRS menangkap anomali termal. EmberLine menyatukan observasi historis sambil mempertahankan perbedaan sensor dan celah pengamatan.",
+    story_act2_eyebrow: "Analisa",
+    story_act2_title: "Dari sensor berbeda",
+    story_act2_emphasis: "ke rekam yang utuh.",
+    story_act2_body:
+      "Harmonisasi membantu membandingkan deret waktu. Ketidakpastian dan batas metodologi tetap ditampilkan agar pola historis tidak disalahartikan sebagai prediksi.",
+    story_act3_eyebrow: "Kesiapsiagaan",
+    story_act3_title: "Pahami rekamnya.",
+    story_act3_emphasis: "Siapkan langkah.",
+    story_act3_body:
+      "Saat bara visual mendingin menjadi hijau, ceritanya beralih dari deteksi ke pemahaman. Data EmberLine bersifat historis dan deskriptif—untuk kondisi terkini, ikuti informasi resmi BPBD setempat.",
+    story_act3_chip_historical: "Historis, bukan prediksi",
+    story_act3_chip_agency: "Informasi resmi BPBD",
+    story_risk_safe: "Aman",
+    story_risk_advisory: "Waspada",
+    story_risk_warning: "Siaga",
+    story_risk_danger: "Bahaya",
+    story_risk_scale_aria: "Skala ilustrasi: Aman, Waspada, Siaga, Bahaya",
+
     // FireMap Screen
     map_fullscreen: "Layar Penuh",
     map_exit_fullscreen: "Keluar Layar Penuh",
@@ -274,6 +300,32 @@ export const DICTIONARY = {
     hud_context_val: "Historical",
     hud_note: "Score 24/100 and 38 provinces follow the new-ui demo visual, not EmberLine analysis results.",
     hud_aria: "Illustrative gauge 24 of 100, Safe status. Not an EmberLine risk score.",
+
+    // Scrollytelling Story Acts
+    story_progress_label: "STORY",
+    story_aria_section: "EmberLine observation story in three acts",
+    story_act1_eyebrow: "Detection",
+    story_act1_title: "Surface heat",
+    story_act1_emphasis: "read from orbit.",
+    story_act1_body:
+      "MODIS and VIIRS capture thermal anomalies. EmberLine harmonizes historical observations while preserving sensor differences and observation gaps.",
+    story_act2_eyebrow: "Analysis",
+    story_act2_title: "From different sensors",
+    story_act2_emphasis: "to a coherent record.",
+    story_act2_body:
+      "Harmonization helps compare time series. Uncertainties and methodological boundaries remain visible so historical patterns are not mistaken for forecasts.",
+    story_act3_eyebrow: "Readiness",
+    story_act3_title: "Understand the record.",
+    story_act3_emphasis: "Prepare your response.",
+    story_act3_body:
+      "As visual embers cool into green, the journey shifts from detection to understanding. EmberLine data is historical and descriptive—for current conditions, consult official local authorities.",
+    story_act3_chip_historical: "Historical, not predictive",
+    story_act3_chip_agency: "Official local authority updates",
+    story_risk_safe: "Safe",
+    story_risk_advisory: "Advisory",
+    story_risk_warning: "Warning",
+    story_risk_danger: "Danger",
+    story_risk_scale_aria: "Illustrative scale: Safe, Advisory, Warning, Danger",
 
     // FireMap Screen
     map_fullscreen: "Fullscreen",
