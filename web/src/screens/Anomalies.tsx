@@ -29,6 +29,9 @@ export default function Anomalies() {
       <div
         className="card"
         style={{
+          position: "relative",
+          zIndex: 100,
+          overflow: "visible",
           marginTop: 18,
           marginBottom: 16,
           padding: "12px 18px",

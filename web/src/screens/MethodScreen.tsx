@@ -63,6 +63,9 @@ export default function MethodScreen() {
         <div
           className="card"
           style={{
+            position: "relative",
+            zIndex: 100,
+            overflow: "visible",
             marginTop: 18,
             marginBottom: 20,
             padding: "12px 18px",

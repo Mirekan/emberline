@@ -122,6 +122,7 @@ export default function SearchableRegionSelect({
       style={{
         position: "relative",
         display: "inline-block",
+        zIndex: isOpen ? 1000 : 1,
         ...style,
       }}
     >
@@ -206,13 +207,13 @@ export default function SearchableRegionSelect({
             position: "absolute",
             top: "calc(100% + 6px)",
             left: 0,
-            zIndex: 2200,
+            zIndex: 9999,
             width: 360,
             maxWidth: "92vw",
             background: "var(--surface)",
             border: "1px solid var(--line)",
             borderRadius: 10,
-            boxShadow: "0 12px 32px rgba(0, 0, 0, 0.18)",
+            boxShadow: "0 16px 40px rgba(0, 0, 0, 0.28)",
             padding: "10px",
             display: "flex",
             flexDirection: "column",
