@@ -423,7 +423,46 @@ def api_detections(
                 "detections": all_dets,
             }
     else:
-        data = _load(aoi, "detections.json")
+        det_path = ARTIFACTS / aoi / "detections.json"
+        if not det_path.is_file():
+            p_match = None
+            try:
+                for p_item in presets().get("presets", []):
+                    if p_item.get("id") == aoi:
+                        p_match = p_item
+                        break
+            except Exception:
+                pass
+            all_dets = []
+            all_path = ARTIFACTS / "all" / "detections.json"
+            if all_path.exists():
+                try:
+                    all_dets = json.loads(all_path.read_text(encoding="utf-8")).get("detections", [])
+                except Exception:
+                    pass
+            if not all_dets:
+                for d in sorted(ARTIFACTS.glob("*")):
+                    if d.is_dir() and d.name != "all" and (d / "detections.json").exists():
+                        try:
+                            all_dets.extend(json.loads((d / "detections.json").read_text(encoding="utf-8")).get("detections", []))
+                        except Exception:
+                            pass
+            if p_match:
+                bbox = (p_match["west"], p_match["south"], p_match["east"], p_match["north"])
+                filtered = _filter_detections(all_dets, bbox)
+                data = {
+                    "n_detections": len(filtered),
+                    "note": f"FIRMS satellite detections within {p_match.get('name', aoi)} bounds.",
+                    "detections": filtered,
+                }
+            else:
+                data = {
+                    "n_detections": 0,
+                    "note": f"No detections available for {aoi}.",
+                    "detections": [],
+                }
+        else:
+            data = _load(aoi, "detections.json")
 
     if bounds is not None:
         data["detections"] = _filter_detections(data["detections"], bounds)

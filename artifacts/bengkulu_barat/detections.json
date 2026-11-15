@@ -1,0 +1,33 @@
+{
+ "n_detections": 3,
+ "note": "FIRMS satellite detections for Bengkulu west - coastal gap fill between jambi and south_sumatra (probe first).",
+ "detections": [
+  {
+   "date": "2025-08-15",
+   "lat": -2.01118,
+   "lon": 102.98906,
+   "frp": 27.16,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2013-10-24",
+   "lat": -2.01589,
+   "lon": 102.93873,
+   "frp": 25.46,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2019-10-17",
+   "lat": -2.01791,
+   "lon": 102.99013,
+   "frp": 15.65,
+   "sensor": "viirs",
+   "conf": "n",
+   "daynight": "N"
+  }
+ ]
+}

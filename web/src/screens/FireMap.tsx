@@ -177,6 +177,48 @@ const REGIONS: { name: string; center: [number, number]; preset?: string }[] = [
   { name: "Papua Pegunungan", center: [-4.2478, 139.3725] },
 ];
 
+export const PROVINCE_TO_PRESET: Record<string, string> = {
+  "Kalimantan Tengah": "central_kalimantan",
+  "Riau": "riau",
+  "Sumatera Selatan": "south_sumatra",
+  "Jambi": "jambi",
+  "Papua Selatan (Merauke)": "merauke",
+  "Aceh": "sumut_aceh",
+  "Sumatera Utara": "sumut_aceh",
+  "Sumatera Barat": "bengkulu_barat",
+  "Bengkulu": "bengkulu_barat",
+  "Lampung": "lampung",
+  "Kepulauan Riau": "riau",
+  "Kepulauan Bangka Belitung": "south_sumatra",
+  "Banten": "jawa",
+  "DKI Jakarta": "jawa",
+  "Jawa Barat": "jawa",
+  "Jawa Tengah": "jawa",
+  "DI Yogyakarta": "jawa",
+  "Jawa Timur": "jawa",
+  "Bali": "ntb",
+  "Nusa Tenggara Barat": "ntb",
+  "Nusa Tenggara Timur": "ntt",
+  "Kalimantan Barat": "kalbar",
+  "Kalimantan Selatan": "central_kalimantan",
+  "Kalimantan Timur": "kaltim",
+  "Kalimantan Utara": "kaltim",
+  "Sulawesi Utara": "sulsel",
+  "Gorontalo": "sulsel",
+  "Sulawesi Tengah": "sulsel",
+  "Sulawesi Selatan": "sulsel",
+  "Sulawesi Barat": "sulsel",
+  "Sulawesi Tenggara": "sulsel",
+  "Maluku": "maluku",
+  "Maluku Utara": "maluku",
+  "Papua": "merauke",
+  "Papua Barat": "papua_barat",
+  "Papua Barat Daya": "papua_barat",
+  "Papua Tengah": "merauke",
+  "Papua Pegunungan": "merauke",
+  "Papua Selatan": "merauke",
+};
+
 export type IslandRegion = {
   id: string;
   name: string;
@@ -328,6 +370,17 @@ export default function FireMap() {
     south_sumatra: "Sumatera Selatan",
     jambi: "Jambi",
     merauke: "Papua Selatan (Merauke)",
+    kalbar: "Kalimantan Barat",
+    kaltim: "Kalimantan Timur",
+    sulsel: "Sulawesi Selatan",
+    ntt: "Nusa Tenggara Timur",
+    ntb: "Nusa Tenggara Barat",
+    sumut_aceh: "Sumatera Utara",
+    lampung: "Lampung",
+    papua_barat: "Papua Barat",
+    maluku: "Maluku",
+    jawa: "Jawa",
+    bengkulu_barat: "Bengkulu",
   };
 
   const [q, setQ] = useState("");
@@ -367,7 +420,17 @@ export default function FireMap() {
   const [keySavedStatus, setKeySavedStatus] = useState<string | null>(null);
   const lastClickedDetectionRef = useRef<Detection | null>(null);
   const aiDrawerRef = useRef<HTMLDivElement>(null);
+  const aiAnswerRef = useRef<HTMLDivElement>(null);
   const langRef = useRef(lang);
+
+  // Smoothly scroll down to AI answer when response arrives
+  useEffect(() => {
+    if (aiResponse) {
+      setTimeout(() => {
+        aiAnswerRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+      }, 100);
+    }
+  }, [aiResponse]);
 
   useEffect(() => {
     langRef.current = lang;
@@ -442,10 +505,13 @@ export default function FireMap() {
 
   // Sync selected region name when global AOI changes
   useEffect(() => {
+    if (selName && (PROVINCE_TO_PRESET[selName] === aoi || PROVINCE_TO_PRESET[selName.replace(/ \(.*\)/, "")] === aoi)) {
+      return;
+    }
     if (PRESET_NAMES[aoi] && PRESET_NAMES[aoi] !== selName) {
       setSelName(PRESET_NAMES[aoi]);
     }
-  }, [aoi]);
+  }, [aoi, selName]);
 
   // Fullscreen event listener to dynamically resize the map
   useEffect(() => {
@@ -941,10 +1007,11 @@ export default function FireMap() {
 
   const flyTo = (r: (typeof REGIONS)[number]) => {
     setSelName(r.name);
-    if (r.preset) {
-      lastAoiRef.current = r.preset;
-      setAoi(r.preset);
-      const p = presets.find(pp => pp.id === r.preset);
+    const targetPreset = r.preset || PROVINCE_TO_PRESET[r.name] || PROVINCE_TO_PRESET[r.name.replace(/ \(.*\)/, "")];
+    if (targetPreset) {
+      lastAoiRef.current = targetPreset;
+      setAoi(targetPreset);
+      const p = presets.find(pp => pp.id === targetPreset);
       if (p) {
         mapRef.current?.flyToBounds([[p.south, p.west], [p.north, p.east]], {
           padding: [50, 50],
@@ -960,7 +1027,8 @@ export default function FireMap() {
     return REGIONS.filter(r => r.name.toLowerCase().includes(q.toLowerCase()));
   }, [q]);
   const chipFor = (r: (typeof REGIONS)[number]) => {
-    const p = presets.find(pp => pp.id === r.preset);
+    const presetId = r.preset || PROVINCE_TO_PRESET[r.name] || PROVINCE_TO_PRESET[r.name.replace(/ \(.*\)/, "")];
+    const p = presets.find(pp => pp.id === presetId);
     if (!p) return null;
     return p.artifact_status === "available" ? t("map_status_ready") : t("map_status_queued");
   };
@@ -1685,7 +1753,7 @@ export default function FireMap() {
                 </div>
 
                 {/* 1. DIRECT AI ANSWER CONTAINER (HIGHLIGHTED FRONT & CENTER) */}
-                <div className="ai-direct-answer-container">
+                <div className="ai-direct-answer-container" ref={aiAnswerRef}>
                   <div className="ai-direct-answer-header">
                     <span className="ai-direct-answer-badge">
                       {lang === "id"

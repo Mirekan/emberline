@@ -1,0 +1,8169 @@
+{
+ "n_detections": 907,
+ "note": "FIRMS satellite detections for East/North Kalimantan - Mahakam and northeast coast.",
+ "detections": [
+  {
+   "date": "2019-03-28",
+   "lat": -0.2957,
+   "lon": 116.60378,
+   "frp": 58.41,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2018-10-11",
+   "lat": -0.52083,
+   "lon": 117.16079,
+   "frp": 56.66,
+   "sensor": "viirs",
+   "conf": "n",
+   "daynight": "N"
+  },
+  {
+   "date": "2025-06-13",
+   "lat": -1.81725,
+   "lon": 114.05367,
+   "frp": 55.06,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2016-04-29",
+   "lat": -1.53958,
+   "lon": 116.34489,
+   "frp": 53.18,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2018-11-30",
+   "lat": -0.80579,
+   "lon": 116.53023,
+   "frp": 52.87,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2013-09-29",
+   "lat": 0.0262,
+   "lon": 116.95655,
+   "frp": 51.98,
+   "sensor": "modis",
+   "conf": "48",
+   "daynight": "D"
+  },
+  {
+   "date": "2015-03-04",
+   "lat": -1.31232,
+   "lon": 116.03664,
+   "frp": 48.38,
+   "sensor": "modis",
+   "conf": "43",
+   "daynight": "D"
+  },
+  {
+   "date": "2022-10-16",
+   "lat": -0.1038,
+   "lon": 116.27107,
+   "frp": 47.95,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2019-08-02",
+   "lat": 0.83163,
+   "lon": 117.22256,
+   "frp": 47.91,
+   "sensor": "modis",
+   "conf": "78",
+   "daynight": "D"
+  },
+  {
+   "date": "2017-10-08",
+   "lat": 0.4432,
+   "lon": 117.22859,
+   "frp": 44.74,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2022-08-24",
+   "lat": -1.24338,
+   "lon": 116.21125,
+   "frp": 44.05,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2019-10-13",
+   "lat": -0.55915,
+   "lon": 116.37942,
+   "frp": 43.6,
+   "sensor": "modis",
+   "conf": "45",
+   "daynight": "D"
+  },
+  {
+   "date": "2020-09-09",
+   "lat": -0.61863,
+   "lon": 116.49651,
+   "frp": 42.45,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2017-09-14",
+   "lat": 0.79767,
+   "lon": 117.37819,
+   "frp": 42.12,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2013-10-30",
+   "lat": -0.45233,
+   "lon": 117.13911,
+   "frp": 41.3,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2025-08-24",
+   "lat": -0.42178,
+   "lon": 116.69659,
+   "frp": 41.14,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2015-09-01",
+   "lat": 0.79796,
+   "lon": 117.1497,
+   "frp": 40.71,
+   "sensor": "modis",
+   "conf": "33",
+   "daynight": "D"
+  },
+  {
+   "date": "2012-09-17",
+   "lat": -0.03994,
+   "lon": 116.62465,
+   "frp": 40.44,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2025-09-25",
+   "lat": -1.72075,
+   "lon": 115.97859,
+   "frp": 40.42,
+   "sensor": "viirs",
+   "conf": "n",
+   "daynight": "N"
+  },
+  {
+   "date": "2018-09-22",
+   "lat": -0.56085,
+   "lon": 116.8148,
+   "frp": 40.41,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2018-10-05",
+   "lat": -0.56868,
+   "lon": 116.51575,
+   "frp": 40.32,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2022-09-26",
+   "lat": -0.71815,
+   "lon": 116.70317,
+   "frp": 39.77,
+   "sensor": "viirs",
+   "conf": "n",
+   "daynight": "N"
+  },
+  {
+   "date": "2022-08-01",
+   "lat": 0.99441,
+   "lon": 117.16319,
+   "frp": 39.68,
+   "sensor": "modis",
+   "conf": "35",
+   "daynight": "N"
+  },
+  {
+   "date": "2017-10-26",
+   "lat": -1.45248,
+   "lon": 115.6032,
+   "frp": 39.21,
+   "sensor": "viirs",
+   "conf": "n",
+   "daynight": "D"
+  },
+  {
+   "date": "2014-08-31",
+   "lat": -0.39851,
+   "lon": 117.10623,
+   "frp": 38.86,
+   "sensor": "viirs",
+   "conf": "n",
+   "daynight": "D"
+  },
+  {
+   "date": "2012-11-06",
+   "lat": -0.31747,
+   "lon": 117.12791,
+   "frp": 38.44,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2017-09-26",
+   "lat": -0.45127,
+   "lon": 116.8477,
+   "frp": 38.37,
+   "sensor": "modis",
+   "conf": "94",
+   "daynight": "D"
+  },
+  {
+   "date": "2021-10-14",
+   "lat": 0.63475,
+   "lon": 117.37602,
+   "frp": 38.03,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2023-10-08",
+   "lat": 0.93559,
+   "lon": 117.17042,
+   "frp": 37.79,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2021-09-16",
+   "lat": -1.36812,
+   "lon": 116.05742,
+   "frp": 37.64,
+   "sensor": "viirs",
+   "conf": "n",
+   "daynight": "N"
+  },
+  {
+   "date": "2018-09-23",
+   "lat": -1.25397,
+   "lon": 116.0868,
+   "frp": 37.55,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2021-07-28",
+   "lat": -1.42606,
+   "lon": 116.51858,
+   "frp": 37.51,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2019-09-22",
+   "lat": -0.43682,
+   "lon": 116.57412,
+   "frp": 37.46,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2017-08-30",
+   "lat": -0.56619,
+   "lon": 116.33462,
+   "frp": 37.15,
+   "sensor": "viirs",
+   "conf": "n",
+   "daynight": "D"
+  },
+  {
+   "date": "2023-12-12",
+   "lat": 1.04564,
+   "lon": 117.27758,
+   "frp": 37.08,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2018-09-29",
+   "lat": 0.40369,
+   "lon": 117.34708,
+   "frp": 36.82,
+   "sensor": "viirs",
+   "conf": "n",
+   "daynight": "D"
+  },
+  {
+   "date": "2024-10-03",
+   "lat": -0.66629,
+   "lon": 116.67624,
+   "frp": 36.66,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2025-09-30",
+   "lat": -0.34982,
+   "lon": 116.80159,
+   "frp": 36.62,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2022-10-07",
+   "lat": -0.11914,
+   "lon": 116.86019,
+   "frp": 35.87,
+   "sensor": "modis",
+   "conf": "77",
+   "daynight": "N"
+  },
+  {
+   "date": "2022-08-26",
+   "lat": -0.42108,
+   "lon": 116.86049,
+   "frp": 35.81,
+   "sensor": "modis",
+   "conf": "78",
+   "daynight": "N"
+  },
+  {
+   "date": "2019-08-31",
+   "lat": -1.73355,
+   "lon": 116.26315,
+   "frp": 35.78,
+   "sensor": "viirs",
+   "conf": "n",
+   "daynight": "D"
+  },
+  {
+   "date": "2017-06-28",
+   "lat": 0.38298,
+   "lon": 116.97106,
+   "frp": 35.7,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2024-10-03",
+   "lat": -1.40546,
+   "lon": 115.98379,
+   "frp": 35.65,
+   "sensor": "modis",
+   "conf": "76",
+   "daynight": "D"
+  },
+  {
+   "date": "2022-02-22",
+   "lat": -0.59525,
+   "lon": 116.58617,
+   "frp": 35.64,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2022-08-18",
+   "lat": 0.85879,
+   "lon": 117.02368,
+   "frp": 35.58,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2016-10-08",
+   "lat": -0.43894,
+   "lon": 117.0505,
+   "frp": 35.46,
+   "sensor": "viirs",
+   "conf": "n",
+   "daynight": "D"
+  },
+  {
+   "date": "2022-09-11",
+   "lat": -1.81703,
+   "lon": 114.05143,
+   "frp": 35.18,
+   "sensor": "modis",
+   "conf": "37",
+   "daynight": "D"
+  },
+  {
+   "date": "2025-09-16",
+   "lat": -1.54924,
+   "lon": 115.99737,
+   "frp": 35.01,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2024-08-15",
+   "lat": 0.6967,
+   "lon": 117.07854,
+   "frp": 34.77,
+   "sensor": "viirs",
+   "conf": "n",
+   "daynight": "N"
+  },
+  {
+   "date": "2025-08-19",
+   "lat": -0.54539,
+   "lon": 117.27528,
+   "frp": 34.76,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2013-11-29",
+   "lat": -1.7246,
+   "lon": 116.09468,
+   "frp": 34.66,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2016-08-23",
+   "lat": -1.48012,
+   "lon": 116.22801,
+   "frp": 34.59,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2024-08-10",
+   "lat": -0.57704,
+   "lon": 116.83954,
+   "frp": 34.51,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2014-02-19",
+   "lat": -0.2466,
+   "lon": 116.98258,
+   "frp": 34.44,
+   "sensor": "viirs",
+   "conf": "n",
+   "daynight": "N"
+  },
+  {
+   "date": "2019-08-25",
+   "lat": -1.66433,
+   "lon": 116.28887,
+   "frp": 34.4,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2025-09-09",
+   "lat": 1.20988,
+   "lon": 117.43626,
+   "frp": 34.09,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2020-08-23",
+   "lat": 0.84685,
+   "lon": 117.21803,
+   "frp": 33.82,
+   "sensor": "viirs",
+   "conf": "n",
+   "daynight": "D"
+  },
+  {
+   "date": "2014-10-07",
+   "lat": -0.551,
+   "lon": 116.98047,
+   "frp": 33.77,
+   "sensor": "modis",
+   "conf": "44",
+   "daynight": "D"
+  },
+  {
+   "date": "2024-09-08",
+   "lat": -1.4736,
+   "lon": 115.68292,
+   "frp": 33.61,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2013-03-04",
+   "lat": -1.83719,
+   "lon": 114.03243,
+   "frp": 33.33,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2015-11-07",
+   "lat": -0.42719,
+   "lon": 117.01726,
+   "frp": 33.29,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2025-12-11",
+   "lat": -1.49432,
+   "lon": 116.06859,
+   "frp": 33.19,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2024-08-23",
+   "lat": -1.55066,
+   "lon": 116.35002,
+   "frp": 33.18,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2012-09-30",
+   "lat": 0.57316,
+   "lon": 117.27855,
+   "frp": 33.16,
+   "sensor": "viirs",
+   "conf": "n",
+   "daynight": "N"
+  },
+  {
+   "date": "2023-10-01",
+   "lat": -0.52487,
+   "lon": 116.73445,
+   "frp": 33.09,
+   "sensor": "modis",
+   "conf": "47",
+   "daynight": "N"
+  },
+  {
+   "date": "2025-07-26",
+   "lat": -1.79888,
+   "lon": 114.02585,
+   "frp": 32.95,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2024-02-27",
+   "lat": 0.92809,
+   "lon": 117.36358,
+   "frp": 32.89,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2018-12-09",
+   "lat": 0.66901,
+   "lon": 116.97807,
+   "frp": 32.8,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2019-10-18",
+   "lat": -0.15878,
+   "lon": 116.57341,
+   "frp": 32.79,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2023-09-10",
+   "lat": -0.33972,
+   "lon": 116.85239,
+   "frp": 32.77,
+   "sensor": "modis",
+   "conf": "31",
+   "daynight": "N"
+  },
+  {
+   "date": "2013-08-30",
+   "lat": 0.90533,
+   "lon": 116.9978,
+   "frp": 32.66,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2026-02-27",
+   "lat": -0.10577,
+   "lon": 116.80396,
+   "frp": 32.57,
+   "sensor": "modis",
+   "conf": "92",
+   "daynight": "D"
+  },
+  {
+   "date": "2020-08-30",
+   "lat": -0.18326,
+   "lon": 117.25475,
+   "frp": 32.55,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2023-12-14",
+   "lat": 0.69239,
+   "lon": 117.02157,
+   "frp": 32.39,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2024-08-10",
+   "lat": -1.63684,
+   "lon": 116.0551,
+   "frp": 32.27,
+   "sensor": "modis",
+   "conf": "36",
+   "daynight": "D"
+  },
+  {
+   "date": "2014-05-29",
+   "lat": 0.82036,
+   "lon": 117.16931,
+   "frp": 32.27,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2020-02-22",
+   "lat": 0.67275,
+   "lon": 117.42035,
+   "frp": 32.25,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2025-09-23",
+   "lat": -0.43298,
+   "lon": 117.04992,
+   "frp": 32.24,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2019-11-02",
+   "lat": -1.57055,
+   "lon": 116.05201,
+   "frp": 32.06,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2024-07-24",
+   "lat": 1.05846,
+   "lon": 117.35473,
+   "frp": 32.01,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2016-08-24",
+   "lat": 0.73774,
+   "lon": 117.1471,
+   "frp": 31.91,
+   "sensor": "modis",
+   "conf": "31",
+   "daynight": "N"
+  },
+  {
+   "date": "2013-10-03",
+   "lat": 0.44335,
+   "lon": 117.48098,
+   "frp": 31.82,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2023-09-29",
+   "lat": 0.79737,
+   "lon": 116.90414,
+   "frp": 31.78,
+   "sensor": "viirs",
+   "conf": "n",
+   "daynight": "D"
+  },
+  {
+   "date": "2012-09-16",
+   "lat": -1.33526,
+   "lon": 116.11403,
+   "frp": 31.61,
+   "sensor": "viirs",
+   "conf": "n",
+   "daynight": "N"
+  },
+  {
+   "date": "2019-09-15",
+   "lat": -1.59954,
+   "lon": 116.35294,
+   "frp": 31.48,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2015-03-25",
+   "lat": -0.55943,
+   "lon": 116.81553,
+   "frp": 31.16,
+   "sensor": "modis",
+   "conf": "89",
+   "daynight": "D"
+  },
+  {
+   "date": "2018-08-06",
+   "lat": 0.4235,
+   "lon": 117.24703,
+   "frp": 31.07,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2012-09-16",
+   "lat": -0.1804,
+   "lon": 116.64453,
+   "frp": 31.01,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2018-09-07",
+   "lat": -1.45163,
+   "lon": 115.94174,
+   "frp": 30.99,
+   "sensor": "modis",
+   "conf": "39",
+   "daynight": "N"
+  },
+  {
+   "date": "2014-09-14",
+   "lat": -1.52239,
+   "lon": 116.02799,
+   "frp": 30.97,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2023-08-13",
+   "lat": -0.22146,
+   "lon": 116.63157,
+   "frp": 30.96,
+   "sensor": "modis",
+   "conf": "35",
+   "daynight": "D"
+  },
+  {
+   "date": "2019-09-12",
+   "lat": -1.89279,
+   "lon": 114.30816,
+   "frp": 30.93,
+   "sensor": "modis",
+   "conf": "40",
+   "daynight": "N"
+  },
+  {
+   "date": "2012-09-29",
+   "lat": 0.61316,
+   "lon": 117.21446,
+   "frp": 30.88,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2017-09-16",
+   "lat": -0.53176,
+   "lon": 116.68227,
+   "frp": 30.8,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2025-02-22",
+   "lat": -1.31355,
+   "lon": 115.91032,
+   "frp": 30.44,
+   "sensor": "modis",
+   "conf": "93",
+   "daynight": "N"
+  },
+  {
+   "date": "2021-09-20",
+   "lat": 0.0457,
+   "lon": 116.82542,
+   "frp": 30.26,
+   "sensor": "modis",
+   "conf": "63",
+   "daynight": "N"
+  },
+  {
+   "date": "2020-08-29",
+   "lat": 1.01092,
+   "lon": 117.23217,
+   "frp": 30.1,
+   "sensor": "modis",
+   "conf": "32",
+   "daynight": "N"
+  },
+  {
+   "date": "2024-08-26",
+   "lat": -1.52895,
+   "lon": 116.06668,
+   "frp": 30.08,
+   "sensor": "modis",
+   "conf": "54",
+   "daynight": "D"
+  },
+  {
+   "date": "2013-09-21",
+   "lat": -1.7094,
+   "lon": 116.03125,
+   "frp": 30.07,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2018-09-28",
+   "lat": -0.11808,
+   "lon": 116.55352,
+   "frp": 29.96,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2016-10-10",
+   "lat": -1.49308,
+   "lon": 116.10914,
+   "frp": 29.95,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2017-09-21",
+   "lat": -1.59651,
+   "lon": 116.00036,
+   "frp": 29.86,
+   "sensor": "viirs",
+   "conf": "n",
+   "daynight": "D"
+  },
+  {
+   "date": "2025-09-11",
+   "lat": -1.62819,
+   "lon": 116.26602,
+   "frp": 29.77,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2023-10-29",
+   "lat": 0.74476,
+   "lon": 117.24295,
+   "frp": 29.74,
+   "sensor": "modis",
+   "conf": "70",
+   "daynight": "D"
+  },
+  {
+   "date": "2016-08-05",
+   "lat": 0.88547,
+   "lon": 117.20525,
+   "frp": 29.72,
+   "sensor": "viirs",
+   "conf": "n",
+   "daynight": "N"
+  },
+  {
+   "date": "2022-10-01",
+   "lat": -0.38586,
+   "lon": 116.85686,
+   "frp": 29.7,
+   "sensor": "modis",
+   "conf": "88",
+   "daynight": "D"
+  },
+  {
+   "date": "2014-10-11",
+   "lat": -1.3719,
+   "lon": 115.98896,
+   "frp": 29.61,
+   "sensor": "viirs",
+   "conf": "n",
+   "daynight": "N"
+  },
+  {
+   "date": "2023-11-04",
+   "lat": -1.59622,
+   "lon": 115.95993,
+   "frp": 29.54,
+   "sensor": "modis",
+   "conf": "33",
+   "daynight": "D"
+  },
+  {
+   "date": "2014-09-11",
+   "lat": -1.65549,
+   "lon": 116.04925,
+   "frp": 29.53,
+   "sensor": "viirs",
+   "conf": "n",
+   "daynight": "D"
+  },
+  {
+   "date": "2020-04-03",
+   "lat": -1.57009,
+   "lon": 115.96332,
+   "frp": 29.53,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2021-09-26",
+   "lat": -1.50876,
+   "lon": 116.26471,
+   "frp": 29.46,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2016-07-31",
+   "lat": 0.89459,
+   "lon": 117.26356,
+   "frp": 29.4,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2015-08-13",
+   "lat": -0.54294,
+   "lon": 116.62972,
+   "frp": 29.32,
+   "sensor": "viirs",
+   "conf": "n",
+   "daynight": "D"
+  },
+  {
+   "date": "2019-03-09",
+   "lat": -1.78328,
+   "lon": 114.05862,
+   "frp": 29.28,
+   "sensor": "viirs",
+   "conf": "n",
+   "daynight": "N"
+  },
+  {
+   "date": "2023-03-14",
+   "lat": -1.4608,
+   "lon": 116.16152,
+   "frp": 29.27,
+   "sensor": "modis",
+   "conf": "95",
+   "daynight": "D"
+  },
+  {
+   "date": "2025-02-10",
+   "lat": -1.58579,
+   "lon": 116.05534,
+   "frp": 29.15,
+   "sensor": "viirs",
+   "conf": "n",
+   "daynight": "N"
+  },
+  {
+   "date": "2013-08-14",
+   "lat": -0.32515,
+   "lon": 116.71474,
+   "frp": 29.13,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2012-10-22",
+   "lat": -0.41987,
+   "lon": 116.16595,
+   "frp": 29.1,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2013-08-09",
+   "lat": -1.30768,
+   "lon": 115.91893,
+   "frp": 29.1,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2015-09-15",
+   "lat": -1.42986,
+   "lon": 116.09063,
+   "frp": 29.01,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2022-09-29",
+   "lat": 0.76696,
+   "lon": 116.9071,
+   "frp": 28.92,
+   "sensor": "modis",
+   "conf": "60",
+   "daynight": "D"
+  },
+  {
+   "date": "2019-10-06",
+   "lat": 0.83448,
+   "lon": 117.10845,
+   "frp": 28.92,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2016-03-12",
+   "lat": -0.42685,
+   "lon": 116.50815,
+   "frp": 28.91,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2017-03-09",
+   "lat": -0.46804,
+   "lon": 116.8933,
+   "frp": 28.9,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2013-10-28",
+   "lat": 0.7954,
+   "lon": 116.95547,
+   "frp": 28.75,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2018-09-16",
+   "lat": 0.73908,
+   "lon": 117.421,
+   "frp": 28.68,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2016-09-14",
+   "lat": 0.86725,
+   "lon": 117.36735,
+   "frp": 28.67,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2025-09-10",
+   "lat": -1.47878,
+   "lon": 116.09617,
+   "frp": 28.64,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2019-09-17",
+   "lat": 0.64375,
+   "lon": 117.26793,
+   "frp": 28.59,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2020-09-25",
+   "lat": 0.68377,
+   "lon": 117.24896,
+   "frp": 28.52,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2020-09-20",
+   "lat": -0.4462,
+   "lon": 117.1484,
+   "frp": 28.43,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2026-02-25",
+   "lat": -1.53695,
+   "lon": 115.83249,
+   "frp": 28.4,
+   "sensor": "modis",
+   "conf": "30",
+   "daynight": "D"
+  },
+  {
+   "date": "2015-09-16",
+   "lat": 0.52309,
+   "lon": 117.18273,
+   "frp": 28.34,
+   "sensor": "viirs",
+   "conf": "n",
+   "daynight": "D"
+  },
+  {
+   "date": "2012-09-08",
+   "lat": 0.82218,
+   "lon": 117.12105,
+   "frp": 28.25,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2013-09-15",
+   "lat": -1.34141,
+   "lon": 116.11244,
+   "frp": 28.22,
+   "sensor": "viirs",
+   "conf": "n",
+   "daynight": "N"
+  },
+  {
+   "date": "2024-09-07",
+   "lat": -1.36823,
+   "lon": 116.00231,
+   "frp": 28.19,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2019-10-26",
+   "lat": -1.62908,
+   "lon": 116.35192,
+   "frp": 28.07,
+   "sensor": "modis",
+   "conf": "67",
+   "daynight": "D"
+  },
+  {
+   "date": "2023-03-01",
+   "lat": -1.60322,
+   "lon": 116.17985,
+   "frp": 28.06,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2024-09-23",
+   "lat": -1.64243,
+   "lon": 116.32744,
+   "frp": 27.92,
+   "sensor": "modis",
+   "conf": "71",
+   "daynight": "D"
+  },
+  {
+   "date": "2019-09-18",
+   "lat": -0.43252,
+   "lon": 116.67263,
+   "frp": 27.81,
+   "sensor": "viirs",
+   "conf": "n",
+   "daynight": "N"
+  },
+  {
+   "date": "2017-09-05",
+   "lat": 0.82485,
+   "lon": 117.45488,
+   "frp": 27.79,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2017-09-24",
+   "lat": 0.6538,
+   "lon": 117.52928,
+   "frp": 27.69,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2016-02-23",
+   "lat": 1.01214,
+   "lon": 117.4493,
+   "frp": 27.52,
+   "sensor": "modis",
+   "conf": "75",
+   "daynight": "N"
+  },
+  {
+   "date": "2021-09-10",
+   "lat": 0.78768,
+   "lon": 117.20843,
+   "frp": 27.47,
+   "sensor": "modis",
+   "conf": "33",
+   "daynight": "D"
+  },
+  {
+   "date": "2015-07-16",
+   "lat": 0.37477,
+   "lon": 117.22306,
+   "frp": 27.36,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2017-10-25",
+   "lat": 1.04213,
+   "lon": 116.7975,
+   "frp": 27.24,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2014-09-24",
+   "lat": 0.52484,
+   "lon": 117.02199,
+   "frp": 27.19,
+   "sensor": "viirs",
+   "conf": "n",
+   "daynight": "D"
+  },
+  {
+   "date": "2025-08-15",
+   "lat": -0.29468,
+   "lon": 116.67099,
+   "frp": 27.16,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2025-09-03",
+   "lat": -1.26127,
+   "lon": 116.12564,
+   "frp": 27.07,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2012-09-19",
+   "lat": -0.58457,
+   "lon": 116.61364,
+   "frp": 27.05,
+   "sensor": "viirs",
+   "conf": "n",
+   "daynight": "N"
+  },
+  {
+   "date": "2013-10-09",
+   "lat": -1.35882,
+   "lon": 116.11525,
+   "frp": 27.0,
+   "sensor": "viirs",
+   "conf": "n",
+   "daynight": "N"
+  },
+  {
+   "date": "2022-07-12",
+   "lat": -0.56854,
+   "lon": 116.74788,
+   "frp": 26.96,
+   "sensor": "modis",
+   "conf": "57",
+   "daynight": "N"
+  },
+  {
+   "date": "2021-09-19",
+   "lat": 0.68443,
+   "lon": 116.96534,
+   "frp": 26.96,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2025-08-29",
+   "lat": -1.36647,
+   "lon": 116.3016,
+   "frp": 26.95,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2022-10-05",
+   "lat": -1.43577,
+   "lon": 115.84601,
+   "frp": 26.87,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2023-11-09",
+   "lat": -1.47871,
+   "lon": 115.76135,
+   "frp": 26.8,
+   "sensor": "modis",
+   "conf": "87",
+   "daynight": "N"
+  },
+  {
+   "date": "2025-09-04",
+   "lat": -1.68485,
+   "lon": 116.036,
+   "frp": 26.8,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2017-07-25",
+   "lat": 0.61742,
+   "lon": 117.33789,
+   "frp": 26.79,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2015-09-26",
+   "lat": 0.96986,
+   "lon": 116.98836,
+   "frp": 26.76,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2016-02-19",
+   "lat": -1.47971,
+   "lon": 115.86988,
+   "frp": 26.63,
+   "sensor": "modis",
+   "conf": "69",
+   "daynight": "D"
+  },
+  {
+   "date": "2023-09-16",
+   "lat": -0.38841,
+   "lon": 116.6058,
+   "frp": 26.61,
+   "sensor": "viirs",
+   "conf": "n",
+   "daynight": "N"
+  },
+  {
+   "date": "2026-03-17",
+   "lat": -0.15174,
+   "lon": 116.78304,
+   "frp": 26.56,
+   "sensor": "modis",
+   "conf": "48",
+   "daynight": "D"
+  },
+  {
+   "date": "2019-10-01",
+   "lat": -0.22412,
+   "lon": 117.17671,
+   "frp": 26.56,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2015-08-02",
+   "lat": 0.43495,
+   "lon": 117.03824,
+   "frp": 26.55,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2021-09-18",
+   "lat": 0.92515,
+   "lon": 117.15754,
+   "frp": 26.54,
+   "sensor": "viirs",
+   "conf": "n",
+   "daynight": "N"
+  },
+  {
+   "date": "2017-09-14",
+   "lat": -0.65983,
+   "lon": 116.94109,
+   "frp": 26.53,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2016-02-16",
+   "lat": -0.50463,
+   "lon": 116.7534,
+   "frp": 26.37,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2025-03-05",
+   "lat": -1.43002,
+   "lon": 115.99799,
+   "frp": 26.34,
+   "sensor": "modis",
+   "conf": "46",
+   "daynight": "N"
+  },
+  {
+   "date": "2013-09-02",
+   "lat": -1.63207,
+   "lon": 115.98781,
+   "frp": 26.34,
+   "sensor": "viirs",
+   "conf": "n",
+   "daynight": "D"
+  },
+  {
+   "date": "2015-09-22",
+   "lat": -1.30236,
+   "lon": 115.69437,
+   "frp": 26.21,
+   "sensor": "viirs",
+   "conf": "n",
+   "daynight": "N"
+  },
+  {
+   "date": "2024-08-02",
+   "lat": -1.62006,
+   "lon": 116.06394,
+   "frp": 26.17,
+   "sensor": "viirs",
+   "conf": "n",
+   "daynight": "D"
+  },
+  {
+   "date": "2023-08-25",
+   "lat": -0.55227,
+   "lon": 116.6777,
+   "frp": 26.15,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2025-08-13",
+   "lat": -1.62047,
+   "lon": 115.91125,
+   "frp": 26.15,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2012-09-04",
+   "lat": 0.94548,
+   "lon": 116.9102,
+   "frp": 26.13,
+   "sensor": "modis",
+   "conf": "92",
+   "daynight": "N"
+  },
+  {
+   "date": "2024-08-30",
+   "lat": -0.27269,
+   "lon": 117.08331,
+   "frp": 26.12,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2025-10-17",
+   "lat": -0.19296,
+   "lon": 116.7492,
+   "frp": 26.09,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2017-09-22",
+   "lat": 0.51437,
+   "lon": 116.96726,
+   "frp": 26.08,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2016-09-13",
+   "lat": -0.27628,
+   "lon": 116.64472,
+   "frp": 25.99,
+   "sensor": "viirs",
+   "conf": "n",
+   "daynight": "D"
+  },
+  {
+   "date": "2021-10-18",
+   "lat": -0.42181,
+   "lon": 116.29551,
+   "frp": 25.85,
+   "sensor": "modis",
+   "conf": "42",
+   "daynight": "N"
+  },
+  {
+   "date": "2020-09-19",
+   "lat": -1.458,
+   "lon": 116.17028,
+   "frp": 25.83,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2023-08-31",
+   "lat": -1.87768,
+   "lon": 116.12543,
+   "frp": 25.81,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2023-09-07",
+   "lat": -0.11947,
+   "lon": 116.59153,
+   "frp": 25.81,
+   "sensor": "viirs",
+   "conf": "n",
+   "daynight": "N"
+  },
+  {
+   "date": "2016-11-27",
+   "lat": -0.64383,
+   "lon": 117.01342,
+   "frp": 25.7,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2021-08-13",
+   "lat": -1.54816,
+   "lon": 116.07496,
+   "frp": 25.66,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2023-10-19",
+   "lat": -1.69384,
+   "lon": 116.01575,
+   "frp": 25.65,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2023-03-06",
+   "lat": 0.54852,
+   "lon": 117.26765,
+   "frp": 25.64,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2013-08-27",
+   "lat": -0.60144,
+   "lon": 116.69623,
+   "frp": 25.61,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2015-08-07",
+   "lat": -0.40158,
+   "lon": 116.64511,
+   "frp": 25.61,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2022-08-12",
+   "lat": -1.4314,
+   "lon": 116.03319,
+   "frp": 25.57,
+   "sensor": "modis",
+   "conf": "76",
+   "daynight": "D"
+  },
+  {
+   "date": "2014-09-06",
+   "lat": -1.66726,
+   "lon": 115.78438,
+   "frp": 25.56,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2020-09-07",
+   "lat": 0.66034,
+   "lon": 117.46483,
+   "frp": 25.49,
+   "sensor": "viirs",
+   "conf": "n",
+   "daynight": "D"
+  },
+  {
+   "date": "2020-09-23",
+   "lat": 0.56728,
+   "lon": 117.19709,
+   "frp": 25.48,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2025-10-03",
+   "lat": -1.65119,
+   "lon": 116.07221,
+   "frp": 25.42,
+   "sensor": "modis",
+   "conf": "99",
+   "daynight": "N"
+  },
+  {
+   "date": "2016-08-27",
+   "lat": -1.32278,
+   "lon": 116.09567,
+   "frp": 25.39,
+   "sensor": "modis",
+   "conf": "56",
+   "daynight": "D"
+  },
+  {
+   "date": "2025-09-08",
+   "lat": 0.73482,
+   "lon": 117.22284,
+   "frp": 25.39,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2013-09-07",
+   "lat": -0.42051,
+   "lon": 117.13463,
+   "frp": 25.37,
+   "sensor": "viirs",
+   "conf": "n",
+   "daynight": "N"
+  },
+  {
+   "date": "2020-08-18",
+   "lat": 0.7604,
+   "lon": 117.4018,
+   "frp": 25.29,
+   "sensor": "modis",
+   "conf": "75",
+   "daynight": "N"
+  },
+  {
+   "date": "2023-09-21",
+   "lat": -1.43885,
+   "lon": 116.00419,
+   "frp": 25.27,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2017-02-22",
+   "lat": -1.16606,
+   "lon": 116.07497,
+   "frp": 25.19,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2022-08-29",
+   "lat": 0.84827,
+   "lon": 117.22857,
+   "frp": 25.09,
+   "sensor": "viirs",
+   "conf": "n",
+   "daynight": "N"
+  },
+  {
+   "date": "2020-09-22",
+   "lat": -1.46057,
+   "lon": 116.22588,
+   "frp": 24.98,
+   "sensor": "modis",
+   "conf": "50",
+   "daynight": "N"
+  },
+  {
+   "date": "2015-02-18",
+   "lat": 0.46316,
+   "lon": 117.39498,
+   "frp": 24.97,
+   "sensor": "modis",
+   "conf": "72",
+   "daynight": "N"
+  },
+  {
+   "date": "2022-10-29",
+   "lat": -1.25684,
+   "lon": 115.8562,
+   "frp": 24.95,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2013-08-24",
+   "lat": -0.40695,
+   "lon": 116.54202,
+   "frp": 24.87,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2025-10-06",
+   "lat": 0.847,
+   "lon": 117.13131,
+   "frp": 24.83,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2020-11-07",
+   "lat": -1.41989,
+   "lon": 116.14834,
+   "frp": 24.8,
+   "sensor": "modis",
+   "conf": "81",
+   "daynight": "D"
+  },
+  {
+   "date": "2021-07-19",
+   "lat": -0.19854,
+   "lon": 116.52407,
+   "frp": 24.73,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2021-03-05",
+   "lat": -1.27673,
+   "lon": 116.17036,
+   "frp": 24.64,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2012-03-03",
+   "lat": -0.6165,
+   "lon": 116.33968,
+   "frp": 24.62,
+   "sensor": "modis",
+   "conf": "82",
+   "daynight": "D"
+  },
+  {
+   "date": "2018-09-23",
+   "lat": -0.43672,
+   "lon": 116.71695,
+   "frp": 24.61,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2023-09-22",
+   "lat": -1.6178,
+   "lon": 116.00635,
+   "frp": 24.55,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2021-08-25",
+   "lat": -1.47855,
+   "lon": 115.96401,
+   "frp": 24.52,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2014-11-03",
+   "lat": 1.06997,
+   "lon": 117.23571,
+   "frp": 24.5,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2018-03-05",
+   "lat": 0.74084,
+   "lon": 117.32146,
+   "frp": 24.47,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2022-10-14",
+   "lat": -1.46814,
+   "lon": 116.26382,
+   "frp": 24.47,
+   "sensor": "viirs",
+   "conf": "n",
+   "daynight": "D"
+  },
+  {
+   "date": "2012-08-16",
+   "lat": -1.51651,
+   "lon": 116.08578,
+   "frp": 24.46,
+   "sensor": "modis",
+   "conf": "36",
+   "daynight": "N"
+  },
+  {
+   "date": "2013-10-08",
+   "lat": -0.34931,
+   "lon": 116.99566,
+   "frp": 24.46,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2020-09-23",
+   "lat": -0.31336,
+   "lon": 116.84122,
+   "frp": 24.46,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2016-08-22",
+   "lat": -1.5811,
+   "lon": 116.02794,
+   "frp": 24.42,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2024-02-21",
+   "lat": -0.082,
+   "lon": 116.83839,
+   "frp": 24.42,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2019-09-01",
+   "lat": -0.60288,
+   "lon": 116.90363,
+   "frp": 24.34,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2016-09-14",
+   "lat": 0.85681,
+   "lon": 117.18637,
+   "frp": 24.26,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2024-08-14",
+   "lat": -1.66848,
+   "lon": 116.20618,
+   "frp": 24.17,
+   "sensor": "modis",
+   "conf": "57",
+   "daynight": "D"
+  },
+  {
+   "date": "2025-09-09",
+   "lat": 0.75124,
+   "lon": 117.25457,
+   "frp": 24.13,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2025-10-13",
+   "lat": 0.92511,
+   "lon": 116.96638,
+   "frp": 24.11,
+   "sensor": "modis",
+   "conf": "72",
+   "daynight": "N"
+  },
+  {
+   "date": "2018-09-09",
+   "lat": 1.09031,
+   "lon": 117.10427,
+   "frp": 24.1,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2017-08-14",
+   "lat": -0.40335,
+   "lon": 116.59812,
+   "frp": 24.08,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2021-08-10",
+   "lat": -1.4411,
+   "lon": 115.90955,
+   "frp": 24.03,
+   "sensor": "viirs",
+   "conf": "n",
+   "daynight": "N"
+  },
+  {
+   "date": "2014-09-26",
+   "lat": -0.43194,
+   "lon": 116.57802,
+   "frp": 23.95,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2024-09-20",
+   "lat": -1.59083,
+   "lon": 116.16775,
+   "frp": 23.93,
+   "sensor": "modis",
+   "conf": "35",
+   "daynight": "N"
+  },
+  {
+   "date": "2019-09-15",
+   "lat": -1.3741,
+   "lon": 116.02635,
+   "frp": 23.9,
+   "sensor": "viirs",
+   "conf": "n",
+   "daynight": "D"
+  },
+  {
+   "date": "2021-09-24",
+   "lat": 0.79705,
+   "lon": 117.58508,
+   "frp": 23.85,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2018-09-30",
+   "lat": -1.63486,
+   "lon": 115.91035,
+   "frp": 23.82,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2014-08-29",
+   "lat": -0.49398,
+   "lon": 117.02754,
+   "frp": 23.8,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2015-10-09",
+   "lat": 0.54237,
+   "lon": 117.27441,
+   "frp": 23.78,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2012-08-26",
+   "lat": -0.23315,
+   "lon": 116.6616,
+   "frp": 23.69,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2025-08-24",
+   "lat": -0.42536,
+   "lon": 116.88516,
+   "frp": 23.69,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2021-09-20",
+   "lat": -1.41546,
+   "lon": 116.05192,
+   "frp": 23.66,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2024-08-19",
+   "lat": -0.36944,
+   "lon": 116.79113,
+   "frp": 23.66,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2026-06-07",
+   "lat": -1.69116,
+   "lon": 116.15386,
+   "frp": 23.64,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2013-08-20",
+   "lat": -0.37106,
+   "lon": 116.4819,
+   "frp": 23.62,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2019-08-24",
+   "lat": -0.10756,
+   "lon": 116.83293,
+   "frp": 23.62,
+   "sensor": "viirs",
+   "conf": "n",
+   "daynight": "D"
+  },
+  {
+   "date": "2026-07-05",
+   "lat": -0.15984,
+   "lon": 116.73046,
+   "frp": 23.59,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2015-09-09",
+   "lat": -1.54106,
+   "lon": 116.06445,
+   "frp": 23.58,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2021-09-09",
+   "lat": -1.35279,
+   "lon": 116.02801,
+   "frp": 23.5,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2024-10-17",
+   "lat": -0.39983,
+   "lon": 116.62257,
+   "frp": 23.46,
+   "sensor": "viirs",
+   "conf": "n",
+   "daynight": "D"
+  },
+  {
+   "date": "2012-09-20",
+   "lat": -1.39957,
+   "lon": 115.96216,
+   "frp": 23.4,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2019-08-31",
+   "lat": 0.73651,
+   "lon": 117.43401,
+   "frp": 23.39,
+   "sensor": "viirs",
+   "conf": "n",
+   "daynight": "N"
+  },
+  {
+   "date": "2022-07-30",
+   "lat": 0.80956,
+   "lon": 117.16567,
+   "frp": 23.38,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2017-09-10",
+   "lat": -0.2635,
+   "lon": 116.64133,
+   "frp": 23.36,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2021-09-28",
+   "lat": 0.8795,
+   "lon": 117.33195,
+   "frp": 23.34,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2023-09-12",
+   "lat": -1.58983,
+   "lon": 115.59915,
+   "frp": 23.34,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2024-09-10",
+   "lat": 1.03422,
+   "lon": 116.99822,
+   "frp": 23.33,
+   "sensor": "viirs",
+   "conf": "n",
+   "daynight": "D"
+  },
+  {
+   "date": "2020-09-21",
+   "lat": -0.55214,
+   "lon": 116.94979,
+   "frp": 23.25,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2018-09-13",
+   "lat": -1.16442,
+   "lon": 115.75338,
+   "frp": 23.24,
+   "sensor": "modis",
+   "conf": "97",
+   "daynight": "D"
+  },
+  {
+   "date": "2022-01-03",
+   "lat": 0.71708,
+   "lon": 117.11994,
+   "frp": 23.23,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2019-09-04",
+   "lat": 0.82141,
+   "lon": 116.81517,
+   "frp": 23.12,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2023-09-23",
+   "lat": 0.82968,
+   "lon": 117.3021,
+   "frp": 23.1,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2020-03-05",
+   "lat": -1.54068,
+   "lon": 115.79378,
+   "frp": 23.09,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2013-03-02",
+   "lat": -1.26444,
+   "lon": 116.02725,
+   "frp": 23.07,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2021-09-03",
+   "lat": -1.67606,
+   "lon": 116.19814,
+   "frp": 23.06,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2021-08-07",
+   "lat": 0.90001,
+   "lon": 117.21734,
+   "frp": 23.05,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2025-08-15",
+   "lat": -0.00129,
+   "lon": 116.83956,
+   "frp": 23.03,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2018-05-29",
+   "lat": -1.68138,
+   "lon": 114.09222,
+   "frp": 23.02,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2017-10-05",
+   "lat": 0.91796,
+   "lon": 117.18062,
+   "frp": 22.99,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2017-08-31",
+   "lat": 0.55488,
+   "lon": 117.2859,
+   "frp": 22.97,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2023-02-24",
+   "lat": 0.74321,
+   "lon": 117.26125,
+   "frp": 22.96,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2014-03-09",
+   "lat": -1.96153,
+   "lon": 114.41854,
+   "frp": 22.92,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2017-09-22",
+   "lat": 0.78508,
+   "lon": 117.26387,
+   "frp": 22.89,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2025-03-23",
+   "lat": -1.59662,
+   "lon": 116.11961,
+   "frp": 22.86,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2018-06-02",
+   "lat": -0.18087,
+   "lon": 116.87771,
+   "frp": 22.75,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2019-01-25",
+   "lat": -0.40625,
+   "lon": 116.74395,
+   "frp": 22.74,
+   "sensor": "viirs",
+   "conf": "n",
+   "daynight": "N"
+  },
+  {
+   "date": "2024-09-20",
+   "lat": -1.99816,
+   "lon": 114.50839,
+   "frp": 22.72,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2023-09-27",
+   "lat": -0.5636,
+   "lon": 116.76463,
+   "frp": 22.71,
+   "sensor": "modis",
+   "conf": "71",
+   "daynight": "D"
+  },
+  {
+   "date": "2013-10-03",
+   "lat": -1.24448,
+   "lon": 115.74881,
+   "frp": 22.71,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2025-08-18",
+   "lat": -1.51687,
+   "lon": 116.07237,
+   "frp": 22.69,
+   "sensor": "viirs",
+   "conf": "n",
+   "daynight": "N"
+  },
+  {
+   "date": "2012-08-15",
+   "lat": -1.98696,
+   "lon": 114.07818,
+   "frp": 22.67,
+   "sensor": "modis",
+   "conf": "97",
+   "daynight": "N"
+  },
+  {
+   "date": "2013-09-19",
+   "lat": -1.69554,
+   "lon": 115.90423,
+   "frp": 22.66,
+   "sensor": "viirs",
+   "conf": "n",
+   "daynight": "N"
+  },
+  {
+   "date": "2018-09-19",
+   "lat": 0.73737,
+   "lon": 117.01911,
+   "frp": 22.65,
+   "sensor": "modis",
+   "conf": "58",
+   "daynight": "D"
+  },
+  {
+   "date": "2013-09-26",
+   "lat": -0.47404,
+   "lon": 116.81669,
+   "frp": 22.65,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2016-10-27",
+   "lat": 0.67008,
+   "lon": 116.94954,
+   "frp": 22.62,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2014-10-17",
+   "lat": -0.40374,
+   "lon": 116.22441,
+   "frp": 22.54,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2016-08-14",
+   "lat": -0.76713,
+   "lon": 117.08515,
+   "frp": 22.53,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2017-09-19",
+   "lat": -1.43951,
+   "lon": 116.04769,
+   "frp": 22.52,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2020-10-07",
+   "lat": 0.69649,
+   "lon": 117.41381,
+   "frp": 22.52,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2021-10-14",
+   "lat": -0.46714,
+   "lon": 116.74595,
+   "frp": 22.47,
+   "sensor": "viirs",
+   "conf": "n",
+   "daynight": "N"
+  },
+  {
+   "date": "2025-09-16",
+   "lat": 0.62451,
+   "lon": 116.74652,
+   "frp": 22.46,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2014-08-19",
+   "lat": -0.23517,
+   "lon": 116.5077,
+   "frp": 22.45,
+   "sensor": "modis",
+   "conf": "90",
+   "daynight": "N"
+  },
+  {
+   "date": "2022-03-03",
+   "lat": -0.19822,
+   "lon": 116.77864,
+   "frp": 22.45,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2022-08-12",
+   "lat": -1.20428,
+   "lon": 115.94977,
+   "frp": 22.37,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2021-03-07",
+   "lat": -0.5986,
+   "lon": 116.9485,
+   "frp": 22.33,
+   "sensor": "viirs",
+   "conf": "n",
+   "daynight": "N"
+  },
+  {
+   "date": "2018-07-22",
+   "lat": 0.79527,
+   "lon": 117.26592,
+   "frp": 22.32,
+   "sensor": "viirs",
+   "conf": "n",
+   "daynight": "D"
+  },
+  {
+   "date": "2017-08-25",
+   "lat": -0.31017,
+   "lon": 116.89838,
+   "frp": 22.31,
+   "sensor": "modis",
+   "conf": "46",
+   "daynight": "N"
+  },
+  {
+   "date": "2014-02-05",
+   "lat": -1.59397,
+   "lon": 115.85539,
+   "frp": 22.31,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2023-09-01",
+   "lat": -0.06621,
+   "lon": 116.8394,
+   "frp": 22.3,
+   "sensor": "modis",
+   "conf": "56",
+   "daynight": "D"
+  },
+  {
+   "date": "2013-09-02",
+   "lat": 0.85925,
+   "lon": 117.25419,
+   "frp": 22.27,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2024-03-13",
+   "lat": 0.665,
+   "lon": 117.20174,
+   "frp": 22.23,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2025-08-27",
+   "lat": 0.86535,
+   "lon": 117.10612,
+   "frp": 22.15,
+   "sensor": "viirs",
+   "conf": "n",
+   "daynight": "D"
+  },
+  {
+   "date": "2021-08-19",
+   "lat": 0.76437,
+   "lon": 117.26895,
+   "frp": 22.07,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2025-10-07",
+   "lat": 0.5949,
+   "lon": 116.99736,
+   "frp": 22.02,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2019-02-22",
+   "lat": -0.24978,
+   "lon": 116.46916,
+   "frp": 22.0,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2022-09-15",
+   "lat": -0.2423,
+   "lon": 116.67461,
+   "frp": 21.95,
+   "sensor": "modis",
+   "conf": "49",
+   "daynight": "N"
+  },
+  {
+   "date": "2018-03-17",
+   "lat": -1.70633,
+   "lon": 116.08046,
+   "frp": 21.91,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2021-08-18",
+   "lat": -0.40653,
+   "lon": 117.21357,
+   "frp": 21.91,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2014-08-21",
+   "lat": -1.48334,
+   "lon": 116.23751,
+   "frp": 21.89,
+   "sensor": "viirs",
+   "conf": "n",
+   "daynight": "N"
+  },
+  {
+   "date": "2022-09-06",
+   "lat": -1.48152,
+   "lon": 115.87658,
+   "frp": 21.89,
+   "sensor": "viirs",
+   "conf": "n",
+   "daynight": "N"
+  },
+  {
+   "date": "2016-09-23",
+   "lat": 0.93752,
+   "lon": 117.23516,
+   "frp": 21.87,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2022-11-01",
+   "lat": -1.3986,
+   "lon": 116.00625,
+   "frp": 21.87,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2018-09-17",
+   "lat": 0.4545,
+   "lon": 117.24478,
+   "frp": 21.85,
+   "sensor": "modis",
+   "conf": "97",
+   "daynight": "D"
+  },
+  {
+   "date": "2021-08-16",
+   "lat": 0.84921,
+   "lon": 117.3757,
+   "frp": 21.84,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2025-10-18",
+   "lat": -1.46664,
+   "lon": 116.07326,
+   "frp": 21.83,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2014-12-11",
+   "lat": -1.57321,
+   "lon": 116.00384,
+   "frp": 21.82,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2017-08-16",
+   "lat": -1.43243,
+   "lon": 116.05697,
+   "frp": 21.78,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2020-08-30",
+   "lat": -1.67462,
+   "lon": 114.03682,
+   "frp": 21.78,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2022-08-28",
+   "lat": -1.67802,
+   "lon": 116.29431,
+   "frp": 21.74,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2021-09-23",
+   "lat": 0.76256,
+   "lon": 117.01404,
+   "frp": 21.72,
+   "sensor": "modis",
+   "conf": "32",
+   "daynight": "D"
+  },
+  {
+   "date": "2019-10-07",
+   "lat": -1.43385,
+   "lon": 115.91498,
+   "frp": 21.71,
+   "sensor": "modis",
+   "conf": "72",
+   "daynight": "N"
+  },
+  {
+   "date": "2020-08-25",
+   "lat": -0.39336,
+   "lon": 116.84472,
+   "frp": 21.7,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2025-09-22",
+   "lat": -1.82257,
+   "lon": 115.94319,
+   "frp": 21.67,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2014-08-16",
+   "lat": 0.8537,
+   "lon": 116.76196,
+   "frp": 21.63,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2020-09-16",
+   "lat": -0.46736,
+   "lon": 116.30429,
+   "frp": 21.57,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2023-10-17",
+   "lat": 0.8809,
+   "lon": 117.1051,
+   "frp": 21.53,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2012-10-08",
+   "lat": -1.27023,
+   "lon": 116.48351,
+   "frp": 21.5,
+   "sensor": "viirs",
+   "conf": "n",
+   "daynight": "D"
+  },
+  {
+   "date": "2014-09-09",
+   "lat": -0.45337,
+   "lon": 116.54115,
+   "frp": 21.5,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2024-02-16",
+   "lat": -1.28119,
+   "lon": 116.28729,
+   "frp": 21.47,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2024-09-14",
+   "lat": 0.85099,
+   "lon": 117.3854,
+   "frp": 21.47,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2014-09-12",
+   "lat": -1.61737,
+   "lon": 116.19875,
+   "frp": 21.42,
+   "sensor": "modis",
+   "conf": "34",
+   "daynight": "N"
+  },
+  {
+   "date": "2013-09-02",
+   "lat": 1.04875,
+   "lon": 117.22635,
+   "frp": 21.42,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2012-10-01",
+   "lat": -0.21218,
+   "lon": 116.9044,
+   "frp": 21.41,
+   "sensor": "viirs",
+   "conf": "n",
+   "daynight": "N"
+  },
+  {
+   "date": "2025-09-19",
+   "lat": -0.51891,
+   "lon": 117.18837,
+   "frp": 21.39,
+   "sensor": "modis",
+   "conf": "31",
+   "daynight": "N"
+  },
+  {
+   "date": "2022-08-28",
+   "lat": -1.43782,
+   "lon": 116.22708,
+   "frp": 21.39,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2017-10-17",
+   "lat": 0.93348,
+   "lon": 117.16268,
+   "frp": 21.38,
+   "sensor": "viirs",
+   "conf": "n",
+   "daynight": "D"
+  },
+  {
+   "date": "2012-04-02",
+   "lat": 0.84965,
+   "lon": 117.04877,
+   "frp": 21.37,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2015-09-17",
+   "lat": -1.66131,
+   "lon": 114.06583,
+   "frp": 21.37,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2019-09-29",
+   "lat": 0.5016,
+   "lon": 117.07439,
+   "frp": 21.35,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2015-08-29",
+   "lat": -0.52792,
+   "lon": 117.13416,
+   "frp": 21.31,
+   "sensor": "viirs",
+   "conf": "n",
+   "daynight": "D"
+  },
+  {
+   "date": "2025-08-31",
+   "lat": 0.64482,
+   "lon": 117.13743,
+   "frp": 21.29,
+   "sensor": "modis",
+   "conf": "60",
+   "daynight": "D"
+  },
+  {
+   "date": "2012-09-07",
+   "lat": -0.2329,
+   "lon": 116.72372,
+   "frp": 21.29,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2020-09-08",
+   "lat": 0.69287,
+   "lon": 117.24604,
+   "frp": 21.28,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2012-10-03",
+   "lat": -0.25355,
+   "lon": 117.15737,
+   "frp": 21.27,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2019-10-11",
+   "lat": -1.33644,
+   "lon": 116.01085,
+   "frp": 21.26,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2019-08-30",
+   "lat": 1.0535,
+   "lon": 117.23781,
+   "frp": 21.23,
+   "sensor": "modis",
+   "conf": "35",
+   "daynight": "D"
+  },
+  {
+   "date": "2021-03-12",
+   "lat": -0.37647,
+   "lon": 117.13138,
+   "frp": 21.22,
+   "sensor": "viirs",
+   "conf": "n",
+   "daynight": "N"
+  },
+  {
+   "date": "2019-09-02",
+   "lat": -1.51682,
+   "lon": 115.95873,
+   "frp": 21.2,
+   "sensor": "modis",
+   "conf": "66",
+   "daynight": "D"
+  },
+  {
+   "date": "2016-02-14",
+   "lat": -0.14573,
+   "lon": 116.60707,
+   "frp": 21.19,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2013-08-21",
+   "lat": -0.5162,
+   "lon": 116.76282,
+   "frp": 21.18,
+   "sensor": "viirs",
+   "conf": "n",
+   "daynight": "D"
+  },
+  {
+   "date": "2020-10-01",
+   "lat": -1.73047,
+   "lon": 115.98116,
+   "frp": 21.18,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2019-09-11",
+   "lat": -0.56177,
+   "lon": 116.92195,
+   "frp": 21.16,
+   "sensor": "viirs",
+   "conf": "n",
+   "daynight": "D"
+  },
+  {
+   "date": "2021-11-11",
+   "lat": -1.4986,
+   "lon": 115.9764,
+   "frp": 21.13,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2018-05-17",
+   "lat": -1.50596,
+   "lon": 116.20973,
+   "frp": 21.12,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2016-08-20",
+   "lat": -1.44943,
+   "lon": 116.32638,
+   "frp": 21.11,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2022-10-02",
+   "lat": -0.20087,
+   "lon": 116.62699,
+   "frp": 21.08,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2024-09-19",
+   "lat": 1.04612,
+   "lon": 117.35898,
+   "frp": 21.07,
+   "sensor": "modis",
+   "conf": "46",
+   "daynight": "D"
+  },
+  {
+   "date": "2018-09-28",
+   "lat": 0.92762,
+   "lon": 116.99005,
+   "frp": 21.05,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2014-09-12",
+   "lat": -0.4092,
+   "lon": 117.25475,
+   "frp": 21.04,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2018-09-22",
+   "lat": -0.42525,
+   "lon": 116.86313,
+   "frp": 21.04,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2019-10-20",
+   "lat": -0.85783,
+   "lon": 116.80621,
+   "frp": 21.03,
+   "sensor": "modis",
+   "conf": "90",
+   "daynight": "D"
+  },
+  {
+   "date": "2016-09-01",
+   "lat": -1.58087,
+   "lon": 116.43074,
+   "frp": 21.03,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2023-09-22",
+   "lat": -0.42862,
+   "lon": 116.78874,
+   "frp": 21.02,
+   "sensor": "modis",
+   "conf": "36",
+   "daynight": "N"
+  },
+  {
+   "date": "2018-10-21",
+   "lat": 0.76697,
+   "lon": 117.57162,
+   "frp": 21.02,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2021-08-09",
+   "lat": -1.74202,
+   "lon": 116.12253,
+   "frp": 21.0,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2012-02-27",
+   "lat": 0.79472,
+   "lon": 117.13662,
+   "frp": 20.99,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2014-08-23",
+   "lat": -1.41626,
+   "lon": 115.87999,
+   "frp": 20.95,
+   "sensor": "modis",
+   "conf": "49",
+   "daynight": "N"
+  },
+  {
+   "date": "2023-10-08",
+   "lat": 0.98781,
+   "lon": 117.54163,
+   "frp": 20.94,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2022-09-26",
+   "lat": -0.45702,
+   "lon": 116.70087,
+   "frp": 20.93,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2020-09-22",
+   "lat": 0.94182,
+   "lon": 117.12507,
+   "frp": 20.91,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2023-09-11",
+   "lat": 0.66268,
+   "lon": 116.83625,
+   "frp": 20.9,
+   "sensor": "modis",
+   "conf": "74",
+   "daynight": "N"
+  },
+  {
+   "date": "2019-09-11",
+   "lat": -1.2147,
+   "lon": 116.17568,
+   "frp": 20.88,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2013-09-14",
+   "lat": -1.26916,
+   "lon": 116.10115,
+   "frp": 20.84,
+   "sensor": "viirs",
+   "conf": "n",
+   "daynight": "N"
+  },
+  {
+   "date": "2016-10-07",
+   "lat": -0.21584,
+   "lon": 116.83237,
+   "frp": 20.83,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2013-10-17",
+   "lat": 0.88762,
+   "lon": 117.03376,
+   "frp": 20.74,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2020-09-22",
+   "lat": -1.73281,
+   "lon": 114.00411,
+   "frp": 20.74,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2024-09-18",
+   "lat": -0.40982,
+   "lon": 117.20901,
+   "frp": 20.74,
+   "sensor": "viirs",
+   "conf": "n",
+   "daynight": "N"
+  },
+  {
+   "date": "2018-01-25",
+   "lat": -0.21198,
+   "lon": 116.46809,
+   "frp": 20.7,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2021-04-29",
+   "lat": 0.90728,
+   "lon": 117.09788,
+   "frp": 20.68,
+   "sensor": "viirs",
+   "conf": "n",
+   "daynight": "N"
+  },
+  {
+   "date": "2012-09-21",
+   "lat": 0.90072,
+   "lon": 117.21512,
+   "frp": 20.65,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2018-08-08",
+   "lat": -0.46229,
+   "lon": 117.25931,
+   "frp": 20.64,
+   "sensor": "modis",
+   "conf": "63",
+   "daynight": "D"
+  },
+  {
+   "date": "2016-08-17",
+   "lat": -1.39331,
+   "lon": 116.12288,
+   "frp": 20.63,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2012-03-12",
+   "lat": -1.33466,
+   "lon": 115.94698,
+   "frp": 20.61,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2014-11-01",
+   "lat": 1.14089,
+   "lon": 117.26598,
+   "frp": 20.57,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2017-09-08",
+   "lat": -1.57457,
+   "lon": 115.88634,
+   "frp": 20.49,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2024-09-20",
+   "lat": -1.35251,
+   "lon": 116.44606,
+   "frp": 20.48,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2023-10-16",
+   "lat": -0.43336,
+   "lon": 116.42384,
+   "frp": 20.46,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2012-03-11",
+   "lat": -1.44547,
+   "lon": 116.087,
+   "frp": 20.45,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2018-10-04",
+   "lat": -0.44066,
+   "lon": 116.96572,
+   "frp": 20.45,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2020-09-11",
+   "lat": -1.79742,
+   "lon": 115.96542,
+   "frp": 20.43,
+   "sensor": "viirs",
+   "conf": "n",
+   "daynight": "D"
+  },
+  {
+   "date": "2019-11-11",
+   "lat": -0.42526,
+   "lon": 116.76039,
+   "frp": 20.41,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2012-08-10",
+   "lat": -1.27892,
+   "lon": 115.9211,
+   "frp": 20.37,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2013-08-20",
+   "lat": 0.53499,
+   "lon": 116.96499,
+   "frp": 20.33,
+   "sensor": "modis",
+   "conf": "92",
+   "daynight": "D"
+  },
+  {
+   "date": "2022-09-01",
+   "lat": -1.88719,
+   "lon": 114.07771,
+   "frp": 20.3,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2025-09-19",
+   "lat": 0.80208,
+   "lon": 117.05799,
+   "frp": 20.27,
+   "sensor": "viirs",
+   "conf": "n",
+   "daynight": "D"
+  },
+  {
+   "date": "2017-04-10",
+   "lat": -0.30186,
+   "lon": 116.90792,
+   "frp": 20.26,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2026-05-08",
+   "lat": -1.66506,
+   "lon": 116.43182,
+   "frp": 20.23,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2023-10-05",
+   "lat": -0.6866,
+   "lon": 117.29694,
+   "frp": 20.2,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2021-08-29",
+   "lat": -1.41391,
+   "lon": 115.82975,
+   "frp": 20.17,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2022-09-25",
+   "lat": 0.85456,
+   "lon": 117.34777,
+   "frp": 20.16,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2024-09-01",
+   "lat": -1.49708,
+   "lon": 116.21292,
+   "frp": 20.15,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2024-10-13",
+   "lat": 0.73417,
+   "lon": 117.32447,
+   "frp": 20.15,
+   "sensor": "viirs",
+   "conf": "n",
+   "daynight": "D"
+  },
+  {
+   "date": "2020-02-26",
+   "lat": -1.36106,
+   "lon": 116.53311,
+   "frp": 20.13,
+   "sensor": "viirs",
+   "conf": "n",
+   "daynight": "N"
+  },
+  {
+   "date": "2019-08-31",
+   "lat": -1.46258,
+   "lon": 116.19585,
+   "frp": 20.12,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2012-09-09",
+   "lat": -1.57556,
+   "lon": 116.28818,
+   "frp": 20.11,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2017-06-03",
+   "lat": -1.33529,
+   "lon": 115.91135,
+   "frp": 20.1,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2025-08-10",
+   "lat": 0.68125,
+   "lon": 117.20504,
+   "frp": 20.08,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2015-10-16",
+   "lat": -1.23414,
+   "lon": 115.93439,
+   "frp": 20.04,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2012-02-23",
+   "lat": 0.66672,
+   "lon": 117.47274,
+   "frp": 20.02,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2014-07-13",
+   "lat": -0.55572,
+   "lon": 116.40846,
+   "frp": 20.0,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2015-09-30",
+   "lat": 0.8692,
+   "lon": 117.46192,
+   "frp": 19.98,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2021-09-07",
+   "lat": -1.7995,
+   "lon": 114.07164,
+   "frp": 19.91,
+   "sensor": "viirs",
+   "conf": "n",
+   "daynight": "D"
+  },
+  {
+   "date": "2025-07-28",
+   "lat": -1.44148,
+   "lon": 116.08662,
+   "frp": 19.91,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2016-08-03",
+   "lat": -1.61464,
+   "lon": 116.502,
+   "frp": 19.9,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2014-09-24",
+   "lat": 1.04077,
+   "lon": 117.42386,
+   "frp": 19.89,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2012-08-27",
+   "lat": -1.4529,
+   "lon": 116.17172,
+   "frp": 19.88,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2024-02-04",
+   "lat": -0.07972,
+   "lon": 116.7736,
+   "frp": 19.87,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2018-09-08",
+   "lat": 0.74704,
+   "lon": 116.8967,
+   "frp": 19.85,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2022-09-17",
+   "lat": -0.43818,
+   "lon": 116.98475,
+   "frp": 19.85,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2018-09-10",
+   "lat": -0.36975,
+   "lon": 116.80342,
+   "frp": 19.84,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2025-08-20",
+   "lat": -1.57294,
+   "lon": 116.0681,
+   "frp": 19.83,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2021-10-20",
+   "lat": -0.25836,
+   "lon": 116.87729,
+   "frp": 19.81,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2018-09-03",
+   "lat": -1.56136,
+   "lon": 116.1381,
+   "frp": 19.79,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2025-10-05",
+   "lat": -1.97173,
+   "lon": 116.04792,
+   "frp": 19.77,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2021-03-11",
+   "lat": -1.57228,
+   "lon": 116.18142,
+   "frp": 19.74,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2022-09-07",
+   "lat": 0.80519,
+   "lon": 117.08441,
+   "frp": 19.74,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2020-09-02",
+   "lat": -1.68367,
+   "lon": 116.07822,
+   "frp": 19.73,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2013-07-28",
+   "lat": 0.64357,
+   "lon": 117.15804,
+   "frp": 19.72,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2025-07-22",
+   "lat": 1.08445,
+   "lon": 117.11162,
+   "frp": 19.72,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2013-09-12",
+   "lat": -1.46267,
+   "lon": 116.13551,
+   "frp": 19.71,
+   "sensor": "modis",
+   "conf": "39",
+   "daynight": "N"
+  },
+  {
+   "date": "2012-09-11",
+   "lat": -1.48229,
+   "lon": 115.88724,
+   "frp": 19.67,
+   "sensor": "modis",
+   "conf": "73",
+   "daynight": "N"
+  },
+  {
+   "date": "2015-08-30",
+   "lat": -0.52457,
+   "lon": 116.67256,
+   "frp": 19.66,
+   "sensor": "modis",
+   "conf": "31",
+   "daynight": "N"
+  },
+  {
+   "date": "2017-10-05",
+   "lat": -0.61263,
+   "lon": 116.67793,
+   "frp": 19.65,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2018-09-05",
+   "lat": -1.37107,
+   "lon": 116.0453,
+   "frp": 19.65,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2019-08-16",
+   "lat": -1.67132,
+   "lon": 116.18822,
+   "frp": 19.62,
+   "sensor": "modis",
+   "conf": "51",
+   "daynight": "D"
+  },
+  {
+   "date": "2024-02-26",
+   "lat": 0.03837,
+   "lon": 116.86098,
+   "frp": 19.62,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2020-09-19",
+   "lat": -1.6056,
+   "lon": 116.45222,
+   "frp": 19.61,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2020-10-01",
+   "lat": -1.16747,
+   "lon": 115.83774,
+   "frp": 19.61,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2025-02-14",
+   "lat": -1.60139,
+   "lon": 115.90878,
+   "frp": 19.61,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2020-11-10",
+   "lat": 0.67396,
+   "lon": 117.58938,
+   "frp": 19.59,
+   "sensor": "modis",
+   "conf": "37",
+   "daynight": "N"
+  },
+  {
+   "date": "2014-09-21",
+   "lat": -1.28455,
+   "lon": 116.10284,
+   "frp": 19.55,
+   "sensor": "viirs",
+   "conf": "n",
+   "daynight": "D"
+  },
+  {
+   "date": "2024-08-25",
+   "lat": -1.64346,
+   "lon": 116.39421,
+   "frp": 19.55,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2023-09-28",
+   "lat": -1.34924,
+   "lon": 116.47616,
+   "frp": 19.53,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2024-09-07",
+   "lat": -1.40962,
+   "lon": 115.95516,
+   "frp": 19.52,
+   "sensor": "viirs",
+   "conf": "n",
+   "daynight": "N"
+  },
+  {
+   "date": "2020-02-18",
+   "lat": -0.23916,
+   "lon": 116.9875,
+   "frp": 19.51,
+   "sensor": "modis",
+   "conf": "31",
+   "daynight": "D"
+  },
+  {
+   "date": "2017-08-27",
+   "lat": 1.15546,
+   "lon": 117.36093,
+   "frp": 19.47,
+   "sensor": "modis",
+   "conf": "49",
+   "daynight": "N"
+  },
+  {
+   "date": "2017-11-02",
+   "lat": -0.44677,
+   "lon": 116.6325,
+   "frp": 19.46,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2014-09-08",
+   "lat": -0.27462,
+   "lon": 117.10581,
+   "frp": 19.45,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2012-10-26",
+   "lat": 0.98207,
+   "lon": 116.84818,
+   "frp": 19.42,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2012-09-27",
+   "lat": -1.52797,
+   "lon": 116.27845,
+   "frp": 19.38,
+   "sensor": "modis",
+   "conf": "69",
+   "daynight": "N"
+  },
+  {
+   "date": "2025-08-13",
+   "lat": -1.51932,
+   "lon": 116.36935,
+   "frp": 19.37,
+   "sensor": "viirs",
+   "conf": "n",
+   "daynight": "D"
+  },
+  {
+   "date": "2016-09-12",
+   "lat": 0.82023,
+   "lon": 116.93308,
+   "frp": 19.33,
+   "sensor": "modis",
+   "conf": "32",
+   "daynight": "D"
+  },
+  {
+   "date": "2021-08-08",
+   "lat": 0.85365,
+   "lon": 117.67116,
+   "frp": 19.33,
+   "sensor": "modis",
+   "conf": "42",
+   "daynight": "D"
+  },
+  {
+   "date": "2018-09-02",
+   "lat": 0.73329,
+   "lon": 117.13744,
+   "frp": 19.31,
+   "sensor": "modis",
+   "conf": "99",
+   "daynight": "D"
+  },
+  {
+   "date": "2024-09-22",
+   "lat": -0.46094,
+   "lon": 116.73187,
+   "frp": 19.28,
+   "sensor": "modis",
+   "conf": "44",
+   "daynight": "N"
+  },
+  {
+   "date": "2022-08-29",
+   "lat": -0.54341,
+   "lon": 116.57253,
+   "frp": 19.28,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2016-08-07",
+   "lat": 0.83482,
+   "lon": 117.63763,
+   "frp": 19.27,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2024-09-09",
+   "lat": 0.9294,
+   "lon": 117.32729,
+   "frp": 19.27,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2013-08-21",
+   "lat": -0.63872,
+   "lon": 116.99566,
+   "frp": 19.24,
+   "sensor": "viirs",
+   "conf": "n",
+   "daynight": "N"
+  },
+  {
+   "date": "2016-09-03",
+   "lat": -1.67113,
+   "lon": 115.93537,
+   "frp": 19.23,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2017-08-27",
+   "lat": -0.21197,
+   "lon": 116.59921,
+   "frp": 19.22,
+   "sensor": "modis",
+   "conf": "59",
+   "daynight": "N"
+  },
+  {
+   "date": "2020-10-12",
+   "lat": -0.35802,
+   "lon": 116.66796,
+   "frp": 19.21,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2018-02-28",
+   "lat": -1.34904,
+   "lon": 116.18171,
+   "frp": 19.2,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2013-08-15",
+   "lat": -1.36842,
+   "lon": 116.05985,
+   "frp": 19.19,
+   "sensor": "modis",
+   "conf": "78",
+   "daynight": "D"
+  },
+  {
+   "date": "2015-10-13",
+   "lat": -0.50954,
+   "lon": 116.60179,
+   "frp": 19.18,
+   "sensor": "modis",
+   "conf": "92",
+   "daynight": "D"
+  },
+  {
+   "date": "2016-08-22",
+   "lat": -1.32073,
+   "lon": 116.16296,
+   "frp": 19.18,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2016-10-22",
+   "lat": -0.61632,
+   "lon": 116.61596,
+   "frp": 19.17,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2014-08-27",
+   "lat": 0.71593,
+   "lon": 117.1476,
+   "frp": 19.13,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2012-10-09",
+   "lat": -0.52297,
+   "lon": 116.39214,
+   "frp": 19.11,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2014-08-21",
+   "lat": -1.332,
+   "lon": 116.06881,
+   "frp": 19.11,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2014-02-27",
+   "lat": -0.23134,
+   "lon": 116.72342,
+   "frp": 19.1,
+   "sensor": "viirs",
+   "conf": "n",
+   "daynight": "D"
+  },
+  {
+   "date": "2020-10-11",
+   "lat": 0.7527,
+   "lon": 117.23907,
+   "frp": 19.08,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2017-08-30",
+   "lat": -0.41628,
+   "lon": 116.95391,
+   "frp": 19.07,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2013-09-18",
+   "lat": -0.4569,
+   "lon": 116.93691,
+   "frp": 19.04,
+   "sensor": "viirs",
+   "conf": "n",
+   "daynight": "D"
+  },
+  {
+   "date": "2016-09-27",
+   "lat": -1.35836,
+   "lon": 116.30128,
+   "frp": 19.03,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2021-10-10",
+   "lat": 0.15131,
+   "lon": 116.8185,
+   "frp": 19.02,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2022-10-23",
+   "lat": -1.54117,
+   "lon": 116.32687,
+   "frp": 18.97,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2018-08-04",
+   "lat": 0.57135,
+   "lon": 117.17924,
+   "frp": 18.96,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2021-09-05",
+   "lat": -1.43566,
+   "lon": 116.15939,
+   "frp": 18.96,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2021-09-26",
+   "lat": -0.10932,
+   "lon": 116.78433,
+   "frp": 18.95,
+   "sensor": "modis",
+   "conf": "35",
+   "daynight": "N"
+  },
+  {
+   "date": "2025-09-24",
+   "lat": 0.69822,
+   "lon": 117.33945,
+   "frp": 18.92,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2023-08-25",
+   "lat": -0.43558,
+   "lon": 116.70963,
+   "frp": 18.86,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2024-09-06",
+   "lat": -0.39179,
+   "lon": 116.91847,
+   "frp": 18.85,
+   "sensor": "modis",
+   "conf": "36",
+   "daynight": "D"
+  },
+  {
+   "date": "2023-09-28",
+   "lat": -0.23118,
+   "lon": 116.79784,
+   "frp": 18.85,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2012-07-30",
+   "lat": -0.44115,
+   "lon": 116.60581,
+   "frp": 18.84,
+   "sensor": "viirs",
+   "conf": "n",
+   "daynight": "D"
+  },
+  {
+   "date": "2022-08-24",
+   "lat": -0.7214,
+   "lon": 117.20299,
+   "frp": 18.84,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2023-09-19",
+   "lat": -0.22256,
+   "lon": 116.56605,
+   "frp": 18.84,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2013-09-28",
+   "lat": -0.67309,
+   "lon": 116.10881,
+   "frp": 18.83,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2018-09-20",
+   "lat": -1.42199,
+   "lon": 116.09517,
+   "frp": 18.81,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2013-09-21",
+   "lat": -0.38449,
+   "lon": 116.77538,
+   "frp": 18.8,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2016-09-04",
+   "lat": 0.90046,
+   "lon": 117.76256,
+   "frp": 18.79,
+   "sensor": "modis",
+   "conf": "78",
+   "daynight": "N"
+  },
+  {
+   "date": "2019-09-04",
+   "lat": 0.46514,
+   "lon": 117.51297,
+   "frp": 18.78,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2019-10-27",
+   "lat": -1.64959,
+   "lon": 116.05881,
+   "frp": 18.77,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2014-10-22",
+   "lat": -1.54717,
+   "lon": 116.33271,
+   "frp": 18.75,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2024-09-10",
+   "lat": -0.54241,
+   "lon": 116.92129,
+   "frp": 18.66,
+   "sensor": "viirs",
+   "conf": "n",
+   "daynight": "N"
+  },
+  {
+   "date": "2019-08-09",
+   "lat": -1.41259,
+   "lon": 116.24582,
+   "frp": 18.64,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2013-08-20",
+   "lat": -0.61826,
+   "lon": 116.84531,
+   "frp": 18.62,
+   "sensor": "modis",
+   "conf": "58",
+   "daynight": "D"
+  },
+  {
+   "date": "2023-05-16",
+   "lat": 1.00961,
+   "lon": 117.49442,
+   "frp": 18.61,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2025-08-30",
+   "lat": -0.47285,
+   "lon": 116.62416,
+   "frp": 18.6,
+   "sensor": "modis",
+   "conf": "92",
+   "daynight": "D"
+  },
+  {
+   "date": "2021-09-08",
+   "lat": 0.73971,
+   "lon": 117.24928,
+   "frp": 18.59,
+   "sensor": "modis",
+   "conf": "62",
+   "daynight": "N"
+  },
+  {
+   "date": "2018-09-27",
+   "lat": 0.83972,
+   "lon": 117.00605,
+   "frp": 18.59,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2015-09-21",
+   "lat": -1.56463,
+   "lon": 116.17134,
+   "frp": 18.57,
+   "sensor": "viirs",
+   "conf": "n",
+   "daynight": "D"
+  },
+  {
+   "date": "2022-02-24",
+   "lat": -0.34297,
+   "lon": 117.19727,
+   "frp": 18.57,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2016-09-04",
+   "lat": 0.84194,
+   "lon": 117.18001,
+   "frp": 18.56,
+   "sensor": "modis",
+   "conf": "81",
+   "daynight": "N"
+  },
+  {
+   "date": "2026-03-20",
+   "lat": -1.51351,
+   "lon": 116.04402,
+   "frp": 18.56,
+   "sensor": "modis",
+   "conf": "85",
+   "daynight": "N"
+  },
+  {
+   "date": "2024-08-26",
+   "lat": 0.99398,
+   "lon": 116.94185,
+   "frp": 18.54,
+   "sensor": "modis",
+   "conf": "62",
+   "daynight": "D"
+  },
+  {
+   "date": "2012-09-25",
+   "lat": -0.67353,
+   "lon": 116.87275,
+   "frp": 18.5,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2018-11-17",
+   "lat": -0.31205,
+   "lon": 116.54509,
+   "frp": 18.49,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2015-10-16",
+   "lat": -0.38391,
+   "lon": 116.4773,
+   "frp": 18.48,
+   "sensor": "modis",
+   "conf": "61",
+   "daynight": "N"
+  },
+  {
+   "date": "2021-10-02",
+   "lat": 0.84902,
+   "lon": 117.47624,
+   "frp": 18.47,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2019-02-18",
+   "lat": -1.55133,
+   "lon": 116.1426,
+   "frp": 18.46,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2015-09-17",
+   "lat": 0.09398,
+   "lon": 116.91234,
+   "frp": 18.43,
+   "sensor": "viirs",
+   "conf": "n",
+   "daynight": "N"
+  },
+  {
+   "date": "2019-09-19",
+   "lat": 0.82884,
+   "lon": 117.57546,
+   "frp": 18.42,
+   "sensor": "modis",
+   "conf": "71",
+   "daynight": "N"
+  },
+  {
+   "date": "2020-10-12",
+   "lat": -1.7531,
+   "lon": 116.4215,
+   "frp": 18.42,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2024-10-01",
+   "lat": 0.93701,
+   "lon": 116.73327,
+   "frp": 18.42,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2021-09-24",
+   "lat": -1.63148,
+   "lon": 116.23589,
+   "frp": 18.41,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2024-09-04",
+   "lat": 0.63775,
+   "lon": 117.35658,
+   "frp": 18.4,
+   "sensor": "modis",
+   "conf": "62",
+   "daynight": "D"
+  },
+  {
+   "date": "2023-10-16",
+   "lat": 0.99888,
+   "lon": 117.25312,
+   "frp": 18.39,
+   "sensor": "viirs",
+   "conf": "n",
+   "daynight": "D"
+  },
+  {
+   "date": "2016-06-15",
+   "lat": -1.49981,
+   "lon": 116.26305,
+   "frp": 18.36,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2024-11-12",
+   "lat": -1.62113,
+   "lon": 116.17052,
+   "frp": 18.32,
+   "sensor": "modis",
+   "conf": "56",
+   "daynight": "N"
+  },
+  {
+   "date": "2025-09-01",
+   "lat": -1.82176,
+   "lon": 114.13159,
+   "frp": 18.32,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2024-02-28",
+   "lat": -0.45765,
+   "lon": 116.90604,
+   "frp": 18.31,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2024-09-13",
+   "lat": 0.46116,
+   "lon": 116.66747,
+   "frp": 18.29,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2022-08-26",
+   "lat": -1.46681,
+   "lon": 116.05293,
+   "frp": 18.28,
+   "sensor": "modis",
+   "conf": "94",
+   "daynight": "N"
+  },
+  {
+   "date": "2025-09-16",
+   "lat": -1.51502,
+   "lon": 116.20594,
+   "frp": 18.28,
+   "sensor": "modis",
+   "conf": "68",
+   "daynight": "N"
+  },
+  {
+   "date": "2022-08-29",
+   "lat": 0.59771,
+   "lon": 117.14979,
+   "frp": 18.27,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2016-08-04",
+   "lat": -0.56639,
+   "lon": 116.76991,
+   "frp": 18.26,
+   "sensor": "viirs",
+   "conf": "n",
+   "daynight": "N"
+  },
+  {
+   "date": "2013-09-25",
+   "lat": 0.82072,
+   "lon": 117.29128,
+   "frp": 18.22,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2019-09-05",
+   "lat": -1.02127,
+   "lon": 116.02638,
+   "frp": 18.21,
+   "sensor": "modis",
+   "conf": "55",
+   "daynight": "N"
+  },
+  {
+   "date": "2022-08-31",
+   "lat": 0.5145,
+   "lon": 117.4657,
+   "frp": 18.2,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2014-08-31",
+   "lat": -0.56433,
+   "lon": 116.64947,
+   "frp": 18.18,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2014-10-08",
+   "lat": -0.32103,
+   "lon": 117.23146,
+   "frp": 18.18,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2014-09-23",
+   "lat": -1.60481,
+   "lon": 115.81716,
+   "frp": 18.17,
+   "sensor": "viirs",
+   "conf": "n",
+   "daynight": "D"
+  },
+  {
+   "date": "2019-09-23",
+   "lat": -0.61306,
+   "lon": 116.58937,
+   "frp": 18.17,
+   "sensor": "viirs",
+   "conf": "n",
+   "daynight": "D"
+  },
+  {
+   "date": "2016-10-02",
+   "lat": 0.63983,
+   "lon": 117.04569,
+   "frp": 18.14,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2021-08-22",
+   "lat": -1.66194,
+   "lon": 115.90865,
+   "frp": 18.14,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2012-08-25",
+   "lat": -1.61151,
+   "lon": 116.1591,
+   "frp": 18.13,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2013-08-16",
+   "lat": 0.87097,
+   "lon": 116.95006,
+   "frp": 18.11,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2015-08-06",
+   "lat": 0.70196,
+   "lon": 117.51901,
+   "frp": 18.08,
+   "sensor": "viirs",
+   "conf": "n",
+   "daynight": "D"
+  },
+  {
+   "date": "2022-10-08",
+   "lat": 0.54291,
+   "lon": 117.64298,
+   "frp": 18.08,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2026-02-17",
+   "lat": -0.37443,
+   "lon": 116.86823,
+   "frp": 18.07,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2012-11-25",
+   "lat": -0.49553,
+   "lon": 116.42148,
+   "frp": 18.05,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2015-09-23",
+   "lat": -0.54847,
+   "lon": 117.02278,
+   "frp": 18.04,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2013-09-27",
+   "lat": 0.93495,
+   "lon": 117.13283,
+   "frp": 18.03,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2014-09-16",
+   "lat": -1.47936,
+   "lon": 116.23913,
+   "frp": 18.03,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2022-10-22",
+   "lat": 0.8671,
+   "lon": 117.15898,
+   "frp": 18.01,
+   "sensor": "viirs",
+   "conf": "n",
+   "daynight": "N"
+  },
+  {
+   "date": "2015-07-16",
+   "lat": 0.92386,
+   "lon": 117.1466,
+   "frp": 17.99,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2018-10-05",
+   "lat": -0.57627,
+   "lon": 116.65881,
+   "frp": 17.99,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2012-09-14",
+   "lat": -0.36816,
+   "lon": 116.4005,
+   "frp": 17.98,
+   "sensor": "modis",
+   "conf": "78",
+   "daynight": "D"
+  },
+  {
+   "date": "2017-09-20",
+   "lat": -1.23786,
+   "lon": 116.24829,
+   "frp": 17.98,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2019-08-31",
+   "lat": -1.56473,
+   "lon": 116.07319,
+   "frp": 17.98,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2014-09-26",
+   "lat": -0.32512,
+   "lon": 116.75619,
+   "frp": 17.95,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2020-09-02",
+   "lat": -1.8313,
+   "lon": 114.14514,
+   "frp": 17.93,
+   "sensor": "viirs",
+   "conf": "n",
+   "daynight": "N"
+  },
+  {
+   "date": "2023-09-14",
+   "lat": -1.61536,
+   "lon": 116.21396,
+   "frp": 17.91,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2020-10-13",
+   "lat": 0.51969,
+   "lon": 117.21342,
+   "frp": 17.89,
+   "sensor": "viirs",
+   "conf": "n",
+   "daynight": "N"
+  },
+  {
+   "date": "2021-09-14",
+   "lat": -1.9938,
+   "lon": 114.13184,
+   "frp": 17.88,
+   "sensor": "viirs",
+   "conf": "n",
+   "daynight": "D"
+  },
+  {
+   "date": "2018-09-06",
+   "lat": 0.97344,
+   "lon": 117.53128,
+   "frp": 17.87,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2017-09-22",
+   "lat": -1.60767,
+   "lon": 116.02776,
+   "frp": 17.86,
+   "sensor": "modis",
+   "conf": "44",
+   "daynight": "N"
+  },
+  {
+   "date": "2013-10-07",
+   "lat": -1.63145,
+   "lon": 116.37757,
+   "frp": 17.86,
+   "sensor": "viirs",
+   "conf": "n",
+   "daynight": "N"
+  },
+  {
+   "date": "2023-09-10",
+   "lat": 1.05478,
+   "lon": 117.31607,
+   "frp": 17.85,
+   "sensor": "modis",
+   "conf": "87",
+   "daynight": "N"
+  },
+  {
+   "date": "2014-03-01",
+   "lat": -0.27233,
+   "lon": 117.13724,
+   "frp": 17.85,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2023-09-21",
+   "lat": -0.29123,
+   "lon": 116.60893,
+   "frp": 17.84,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2016-09-15",
+   "lat": -1.5005,
+   "lon": 116.30807,
+   "frp": 17.81,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2012-10-07",
+   "lat": 1.21207,
+   "lon": 117.09994,
+   "frp": 17.8,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2012-02-18",
+   "lat": -1.35918,
+   "lon": 116.11937,
+   "frp": 17.79,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2018-10-03",
+   "lat": -1.49621,
+   "lon": 116.07916,
+   "frp": 17.79,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2012-09-09",
+   "lat": -0.37161,
+   "lon": 117.27416,
+   "frp": 17.77,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2025-08-22",
+   "lat": -1.24697,
+   "lon": 116.48784,
+   "frp": 17.77,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2016-08-20",
+   "lat": -0.41928,
+   "lon": 117.42842,
+   "frp": 17.74,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2020-08-25",
+   "lat": -0.33418,
+   "lon": 116.60002,
+   "frp": 17.72,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2014-10-24",
+   "lat": -1.62223,
+   "lon": 116.03117,
+   "frp": 17.71,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2017-03-07",
+   "lat": 0.81603,
+   "lon": 117.16759,
+   "frp": 17.71,
+   "sensor": "viirs",
+   "conf": "n",
+   "daynight": "N"
+  },
+  {
+   "date": "2021-08-25",
+   "lat": -0.31999,
+   "lon": 117.23931,
+   "frp": 17.71,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2024-08-08",
+   "lat": -1.30076,
+   "lon": 116.12928,
+   "frp": 17.7,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2017-10-12",
+   "lat": 0.883,
+   "lon": 116.96451,
+   "frp": 17.68,
+   "sensor": "viirs",
+   "conf": "n",
+   "daynight": "N"
+  },
+  {
+   "date": "2021-09-29",
+   "lat": -1.53692,
+   "lon": 115.81875,
+   "frp": 17.68,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2013-08-28",
+   "lat": -0.45989,
+   "lon": 116.9933,
+   "frp": 17.66,
+   "sensor": "viirs",
+   "conf": "n",
+   "daynight": "N"
+  },
+  {
+   "date": "2017-03-11",
+   "lat": -1.33279,
+   "lon": 116.46843,
+   "frp": 17.66,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2017-12-31",
+   "lat": -0.17154,
+   "lon": 116.71103,
+   "frp": 17.66,
+   "sensor": "viirs",
+   "conf": "n",
+   "daynight": "D"
+  },
+  {
+   "date": "2018-09-18",
+   "lat": -0.29373,
+   "lon": 116.56647,
+   "frp": 17.65,
+   "sensor": "modis",
+   "conf": "53",
+   "daynight": "D"
+  },
+  {
+   "date": "2018-09-21",
+   "lat": 0.52853,
+   "lon": 116.74623,
+   "frp": 17.65,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2015-03-03",
+   "lat": 0.47284,
+   "lon": 116.73861,
+   "frp": 17.62,
+   "sensor": "viirs",
+   "conf": "n",
+   "daynight": "D"
+  },
+  {
+   "date": "2016-11-02",
+   "lat": 1.16067,
+   "lon": 117.33033,
+   "frp": 17.59,
+   "sensor": "modis",
+   "conf": "36",
+   "daynight": "D"
+  },
+  {
+   "date": "2017-01-25",
+   "lat": 1.0474,
+   "lon": 117.44894,
+   "frp": 17.58,
+   "sensor": "viirs",
+   "conf": "n",
+   "daynight": "N"
+  },
+  {
+   "date": "2022-09-22",
+   "lat": -0.27761,
+   "lon": 116.44367,
+   "frp": 17.58,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2012-09-16",
+   "lat": -1.28944,
+   "lon": 116.31976,
+   "frp": 17.57,
+   "sensor": "viirs",
+   "conf": "n",
+   "daynight": "N"
+  },
+  {
+   "date": "2014-09-05",
+   "lat": -1.50926,
+   "lon": 116.20523,
+   "frp": 17.55,
+   "sensor": "modis",
+   "conf": "97",
+   "daynight": "N"
+  },
+  {
+   "date": "2021-09-10",
+   "lat": 0.99768,
+   "lon": 117.39835,
+   "frp": 17.51,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2020-05-30",
+   "lat": -1.38982,
+   "lon": 115.67791,
+   "frp": 17.5,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2012-08-18",
+   "lat": -0.52618,
+   "lon": 116.74093,
+   "frp": 17.49,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2021-09-20",
+   "lat": 0.65905,
+   "lon": 117.18364,
+   "frp": 17.49,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2012-09-21",
+   "lat": 0.94547,
+   "lon": 117.39248,
+   "frp": 17.48,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2019-10-08",
+   "lat": -0.52695,
+   "lon": 116.6225,
+   "frp": 17.48,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2014-07-30",
+   "lat": -1.29846,
+   "lon": 115.93169,
+   "frp": 17.46,
+   "sensor": "modis",
+   "conf": "50",
+   "daynight": "N"
+  },
+  {
+   "date": "2023-08-04",
+   "lat": -1.702,
+   "lon": 116.17548,
+   "frp": 17.46,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2025-09-07",
+   "lat": 0.66865,
+   "lon": 117.39164,
+   "frp": 17.46,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2021-09-18",
+   "lat": -0.12582,
+   "lon": 116.43822,
+   "frp": 17.44,
+   "sensor": "viirs",
+   "conf": "n",
+   "daynight": "N"
+  },
+  {
+   "date": "2017-08-22",
+   "lat": -0.41057,
+   "lon": 116.97872,
+   "frp": 17.42,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2019-08-07",
+   "lat": -0.09242,
+   "lon": 116.4674,
+   "frp": 17.42,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2019-09-13",
+   "lat": -1.52567,
+   "lon": 116.06653,
+   "frp": 17.42,
+   "sensor": "viirs",
+   "conf": "n",
+   "daynight": "D"
+  },
+  {
+   "date": "2018-09-06",
+   "lat": -1.60101,
+   "lon": 115.92613,
+   "frp": 17.4,
+   "sensor": "modis",
+   "conf": "35",
+   "daynight": "N"
+  },
+  {
+   "date": "2014-06-16",
+   "lat": -1.8011,
+   "lon": 114.18325,
+   "frp": 17.4,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2015-08-17",
+   "lat": -1.57252,
+   "lon": 115.98545,
+   "frp": 17.4,
+   "sensor": "viirs",
+   "conf": "n",
+   "daynight": "N"
+  },
+  {
+   "date": "2018-08-28",
+   "lat": -1.74811,
+   "lon": 116.08922,
+   "frp": 17.4,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2014-10-03",
+   "lat": 0.98462,
+   "lon": 117.28323,
+   "frp": 17.37,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2022-09-29",
+   "lat": -1.4102,
+   "lon": 116.12446,
+   "frp": 17.37,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2018-10-09",
+   "lat": 0.65026,
+   "lon": 117.0036,
+   "frp": 17.34,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2024-10-15",
+   "lat": -1.69352,
+   "lon": 116.09051,
+   "frp": 17.33,
+   "sensor": "modis",
+   "conf": "95",
+   "daynight": "D"
+  },
+  {
+   "date": "2025-10-08",
+   "lat": 0.78703,
+   "lon": 116.85864,
+   "frp": 17.32,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2021-08-13",
+   "lat": -1.23227,
+   "lon": 115.96077,
+   "frp": 17.31,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2025-09-04",
+   "lat": -0.67126,
+   "lon": 117.09615,
+   "frp": 17.3,
+   "sensor": "modis",
+   "conf": "86",
+   "daynight": "D"
+  },
+  {
+   "date": "2022-09-10",
+   "lat": 0.63747,
+   "lon": 117.32288,
+   "frp": 17.3,
+   "sensor": "viirs",
+   "conf": "n",
+   "daynight": "D"
+  },
+  {
+   "date": "2023-09-16",
+   "lat": -1.70198,
+   "lon": 116.0067,
+   "frp": 17.28,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2022-09-27",
+   "lat": 0.78469,
+   "lon": 117.27074,
+   "frp": 17.26,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2015-04-05",
+   "lat": -1.55657,
+   "lon": 116.22558,
+   "frp": 17.25,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2017-02-07",
+   "lat": -0.12707,
+   "lon": 116.85647,
+   "frp": 17.24,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2015-09-03",
+   "lat": 0.58746,
+   "lon": 117.29833,
+   "frp": 17.21,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2016-10-07",
+   "lat": -1.66681,
+   "lon": 115.96603,
+   "frp": 17.2,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2020-09-30",
+   "lat": -1.24776,
+   "lon": 116.11211,
+   "frp": 17.2,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2015-08-27",
+   "lat": -1.4127,
+   "lon": 116.3027,
+   "frp": 17.19,
+   "sensor": "viirs",
+   "conf": "n",
+   "daynight": "D"
+  },
+  {
+   "date": "2018-10-14",
+   "lat": -0.52437,
+   "lon": 116.94375,
+   "frp": 17.19,
+   "sensor": "viirs",
+   "conf": "n",
+   "daynight": "D"
+  },
+  {
+   "date": "2025-09-30",
+   "lat": -1.44528,
+   "lon": 116.07378,
+   "frp": 17.18,
+   "sensor": "modis",
+   "conf": "99",
+   "daynight": "D"
+  },
+  {
+   "date": "2016-09-03",
+   "lat": -1.84528,
+   "lon": 115.71036,
+   "frp": 17.18,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2025-08-27",
+   "lat": 0.97517,
+   "lon": 117.18108,
+   "frp": 17.18,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2019-10-21",
+   "lat": 0.85618,
+   "lon": 117.39168,
+   "frp": 17.17,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2014-08-23",
+   "lat": -0.55523,
+   "lon": 116.83844,
+   "frp": 17.16,
+   "sensor": "modis",
+   "conf": "86",
+   "daynight": "D"
+  },
+  {
+   "date": "2026-06-27",
+   "lat": 0.4818,
+   "lon": 117.30345,
+   "frp": 17.14,
+   "sensor": "viirs",
+   "conf": "n",
+   "daynight": "D"
+  },
+  {
+   "date": "2013-09-12",
+   "lat": -1.61644,
+   "lon": 115.87664,
+   "frp": 17.13,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2016-10-06",
+   "lat": -0.13636,
+   "lon": 116.81706,
+   "frp": 17.13,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2020-10-18",
+   "lat": -0.13581,
+   "lon": 116.67061,
+   "frp": 17.09,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2021-07-08",
+   "lat": 1.04044,
+   "lon": 117.33379,
+   "frp": 17.08,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2025-10-08",
+   "lat": -0.41935,
+   "lon": 116.70326,
+   "frp": 17.07,
+   "sensor": "viirs",
+   "conf": "n",
+   "daynight": "D"
+  },
+  {
+   "date": "2016-02-27",
+   "lat": 0.46535,
+   "lon": 117.01329,
+   "frp": 17.05,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2018-08-23",
+   "lat": -1.13517,
+   "lon": 116.03463,
+   "frp": 17.03,
+   "sensor": "viirs",
+   "conf": "n",
+   "daynight": "N"
+  },
+  {
+   "date": "2021-05-20",
+   "lat": -0.40111,
+   "lon": 116.1993,
+   "frp": 17.03,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2018-08-23",
+   "lat": 0.76532,
+   "lon": 117.25269,
+   "frp": 17.02,
+   "sensor": "modis",
+   "conf": "37",
+   "daynight": "D"
+  },
+  {
+   "date": "2017-08-18",
+   "lat": -1.70907,
+   "lon": 116.04437,
+   "frp": 17.01,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2018-08-15",
+   "lat": -0.45538,
+   "lon": 117.29956,
+   "frp": 17.01,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2020-08-16",
+   "lat": -0.16588,
+   "lon": 116.75855,
+   "frp": 17.01,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2013-08-25",
+   "lat": -0.37378,
+   "lon": 116.7664,
+   "frp": 16.99,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2016-09-03",
+   "lat": -0.45612,
+   "lon": 116.66924,
+   "frp": 16.98,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2019-09-11",
+   "lat": -1.2874,
+   "lon": 115.87623,
+   "frp": 16.97,
+   "sensor": "modis",
+   "conf": "73",
+   "daynight": "D"
+  },
+  {
+   "date": "2012-02-13",
+   "lat": -1.51698,
+   "lon": 115.90286,
+   "frp": 16.96,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2020-08-22",
+   "lat": 0.73026,
+   "lon": 117.03539,
+   "frp": 16.95,
+   "sensor": "viirs",
+   "conf": "n",
+   "daynight": "D"
+  },
+  {
+   "date": "2022-09-15",
+   "lat": -0.44935,
+   "lon": 116.72634,
+   "frp": 16.95,
+   "sensor": "viirs",
+   "conf": "n",
+   "daynight": "D"
+  },
+  {
+   "date": "2024-02-23",
+   "lat": -1.88902,
+   "lon": 114.03828,
+   "frp": 16.94,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2021-11-06",
+   "lat": 0.96538,
+   "lon": 117.44554,
+   "frp": 16.91,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2019-11-20",
+   "lat": -1.58911,
+   "lon": 115.99181,
+   "frp": 16.9,
+   "sensor": "modis",
+   "conf": "77",
+   "daynight": "D"
+  },
+  {
+   "date": "2014-08-26",
+   "lat": -0.77222,
+   "lon": 116.86144,
+   "frp": 16.9,
+   "sensor": "viirs",
+   "conf": "n",
+   "daynight": "N"
+  },
+  {
+   "date": "2018-09-24",
+   "lat": 0.5437,
+   "lon": 117.20668,
+   "frp": 16.9,
+   "sensor": "viirs",
+   "conf": "n",
+   "daynight": "N"
+  },
+  {
+   "date": "2016-09-26",
+   "lat": -0.53561,
+   "lon": 116.53001,
+   "frp": 16.89,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2023-03-02",
+   "lat": 1.21198,
+   "lon": 116.85331,
+   "frp": 16.88,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2015-09-19",
+   "lat": -0.44568,
+   "lon": 116.9263,
+   "frp": 16.87,
+   "sensor": "viirs",
+   "conf": "n",
+   "daynight": "D"
+  },
+  {
+   "date": "2016-02-23",
+   "lat": 0.46402,
+   "lon": 117.1989,
+   "frp": 16.86,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2015-09-26",
+   "lat": 1.05604,
+   "lon": 117.41249,
+   "frp": 16.83,
+   "sensor": "viirs",
+   "conf": "n",
+   "daynight": "N"
+  },
+  {
+   "date": "2022-09-23",
+   "lat": -0.33792,
+   "lon": 116.32161,
+   "frp": 16.79,
+   "sensor": "modis",
+   "conf": "83",
+   "daynight": "D"
+  },
+  {
+   "date": "2021-06-25",
+   "lat": 0.63218,
+   "lon": 117.48778,
+   "frp": 16.76,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2025-09-29",
+   "lat": -0.44064,
+   "lon": 116.79745,
+   "frp": 16.74,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2025-09-21",
+   "lat": -0.48802,
+   "lon": 116.74257,
+   "frp": 16.72,
+   "sensor": "modis",
+   "conf": "42",
+   "daynight": "D"
+  },
+  {
+   "date": "2012-08-09",
+   "lat": 0.88545,
+   "lon": 117.12514,
+   "frp": 16.71,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2013-09-01",
+   "lat": -0.33999,
+   "lon": 117.02548,
+   "frp": 16.7,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2026-05-20",
+   "lat": -0.61708,
+   "lon": 117.14872,
+   "frp": 16.7,
+   "sensor": "viirs",
+   "conf": "n",
+   "daynight": "N"
+  },
+  {
+   "date": "2013-10-30",
+   "lat": -1.46456,
+   "lon": 115.96094,
+   "frp": 16.69,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2025-09-15",
+   "lat": 0.79242,
+   "lon": 117.02372,
+   "frp": 16.69,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2016-08-05",
+   "lat": -0.53189,
+   "lon": 116.34905,
+   "frp": 16.68,
+   "sensor": "viirs",
+   "conf": "n",
+   "daynight": "D"
+  },
+  {
+   "date": "2023-09-05",
+   "lat": -0.7171,
+   "lon": 117.27416,
+   "frp": 16.67,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2018-03-11",
+   "lat": -0.45631,
+   "lon": 116.59899,
+   "frp": 16.64,
+   "sensor": "modis",
+   "conf": "100",
+   "daynight": "D"
+  },
+  {
+   "date": "2013-09-05",
+   "lat": -0.38014,
+   "lon": 116.61398,
+   "frp": 16.62,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2024-08-30",
+   "lat": 0.7398,
+   "lon": 117.35175,
+   "frp": 16.62,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2025-03-06",
+   "lat": 0.43016,
+   "lon": 117.34615,
+   "frp": 16.62,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2016-08-14",
+   "lat": 0.87405,
+   "lon": 117.19306,
+   "frp": 16.61,
+   "sensor": "viirs",
+   "conf": "n",
+   "daynight": "N"
+  },
+  {
+   "date": "2024-09-11",
+   "lat": -1.64238,
+   "lon": 116.0874,
+   "frp": 16.61,
+   "sensor": "viirs",
+   "conf": "n",
+   "daynight": "N"
+  },
+  {
+   "date": "2021-09-11",
+   "lat": -1.42519,
+   "lon": 116.13457,
+   "frp": 16.6,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2012-09-24",
+   "lat": -0.11778,
+   "lon": 117.03013,
+   "frp": 16.59,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2024-09-29",
+   "lat": 0.82177,
+   "lon": 117.02227,
+   "frp": 16.59,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2017-10-12",
+   "lat": 0.65937,
+   "lon": 117.02907,
+   "frp": 16.58,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2019-10-17",
+   "lat": -1.60107,
+   "lon": 115.9006,
+   "frp": 16.58,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2013-04-11",
+   "lat": -0.08081,
+   "lon": 116.67989,
+   "frp": 16.57,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2015-08-23",
+   "lat": -1.62348,
+   "lon": 115.70537,
+   "frp": 16.57,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2020-08-17",
+   "lat": -0.41489,
+   "lon": 116.70762,
+   "frp": 16.57,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2016-09-25",
+   "lat": 0.97363,
+   "lon": 117.33262,
+   "frp": 16.56,
+   "sensor": "modis",
+   "conf": "77",
+   "daynight": "N"
+  },
+  {
+   "date": "2025-09-11",
+   "lat": -1.42723,
+   "lon": 116.46903,
+   "frp": 16.54,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2018-09-15",
+   "lat": 0.80605,
+   "lon": 117.14399,
+   "frp": 16.52,
+   "sensor": "viirs",
+   "conf": "n",
+   "daynight": "N"
+  },
+  {
+   "date": "2022-09-10",
+   "lat": 0.89872,
+   "lon": 117.00667,
+   "frp": 16.51,
+   "sensor": "viirs",
+   "conf": "n",
+   "daynight": "D"
+  },
+  {
+   "date": "2019-02-26",
+   "lat": 0.8658,
+   "lon": 116.97995,
+   "frp": 16.49,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2019-09-27",
+   "lat": -1.5045,
+   "lon": 116.14267,
+   "frp": 16.48,
+   "sensor": "viirs",
+   "conf": "n",
+   "daynight": "D"
+  },
+  {
+   "date": "2020-09-02",
+   "lat": 0.38259,
+   "lon": 117.187,
+   "frp": 16.48,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2023-08-26",
+   "lat": -1.4225,
+   "lon": 116.09504,
+   "frp": 16.47,
+   "sensor": "viirs",
+   "conf": "n",
+   "daynight": "D"
+  },
+  {
+   "date": "2025-08-29",
+   "lat": -0.51245,
+   "lon": 116.87745,
+   "frp": 16.47,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2012-08-20",
+   "lat": -1.50794,
+   "lon": 116.1562,
+   "frp": 16.46,
+   "sensor": "modis",
+   "conf": "87",
+   "daynight": "N"
+  },
+  {
+   "date": "2021-09-26",
+   "lat": -1.53379,
+   "lon": 116.03564,
+   "frp": 16.45,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2023-10-07",
+   "lat": -0.12625,
+   "lon": 116.47764,
+   "frp": 16.45,
+   "sensor": "viirs",
+   "conf": "n",
+   "daynight": "N"
+  },
+  {
+   "date": "2012-02-21",
+   "lat": 0.74034,
+   "lon": 117.01619,
+   "frp": 16.42,
+   "sensor": "viirs",
+   "conf": "n",
+   "daynight": "D"
+  },
+  {
+   "date": "2022-10-11",
+   "lat": -1.51534,
+   "lon": 116.11005,
+   "frp": 16.42,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2024-10-05",
+   "lat": 0.80283,
+   "lon": 117.15493,
+   "frp": 16.42,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2024-09-21",
+   "lat": -0.86517,
+   "lon": 116.61216,
+   "frp": 16.41,
+   "sensor": "modis",
+   "conf": "57",
+   "daynight": "N"
+  },
+  {
+   "date": "2012-10-19",
+   "lat": -1.60025,
+   "lon": 116.04353,
+   "frp": 16.41,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2025-08-19",
+   "lat": 1.06448,
+   "lon": 116.91043,
+   "frp": 16.39,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2018-09-02",
+   "lat": 0.76079,
+   "lon": 117.06829,
+   "frp": 16.37,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2024-09-09",
+   "lat": -1.34022,
+   "lon": 116.29647,
+   "frp": 16.37,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2015-03-11",
+   "lat": -1.46582,
+   "lon": 115.97782,
+   "frp": 16.36,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2019-09-30",
+   "lat": 0.01878,
+   "lon": 117.01763,
+   "frp": 16.36,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2016-09-08",
+   "lat": -0.59599,
+   "lon": 116.88128,
+   "frp": 16.35,
+   "sensor": "viirs",
+   "conf": "n",
+   "daynight": "D"
+  },
+  {
+   "date": "2022-04-11",
+   "lat": -1.5208,
+   "lon": 116.05761,
+   "frp": 16.34,
+   "sensor": "viirs",
+   "conf": "n",
+   "daynight": "N"
+  },
+  {
+   "date": "2016-09-29",
+   "lat": -0.28879,
+   "lon": 116.75922,
+   "frp": 16.33,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2016-11-01",
+   "lat": 0.77806,
+   "lon": 117.28524,
+   "frp": 16.33,
+   "sensor": "viirs",
+   "conf": "n",
+   "daynight": "D"
+  },
+  {
+   "date": "2012-09-09",
+   "lat": -0.63629,
+   "lon": 116.88596,
+   "frp": 16.31,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2014-09-18",
+   "lat": 0.958,
+   "lon": 117.08503,
+   "frp": 16.31,
+   "sensor": "viirs",
+   "conf": "n",
+   "daynight": "N"
+  },
+  {
+   "date": "2019-09-02",
+   "lat": -1.74791,
+   "lon": 115.88546,
+   "frp": 16.29,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2014-09-07",
+   "lat": -0.18121,
+   "lon": 117.05119,
+   "frp": 16.28,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2020-10-03",
+   "lat": -1.59083,
+   "lon": 116.08578,
+   "frp": 16.27,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2025-09-13",
+   "lat": -0.65783,
+   "lon": 116.54873,
+   "frp": 16.25,
+   "sensor": "modis",
+   "conf": "48",
+   "daynight": "D"
+  },
+  {
+   "date": "2024-09-20",
+   "lat": -0.22375,
+   "lon": 117.20011,
+   "frp": 16.25,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2012-09-27",
+   "lat": -1.48489,
+   "lon": 115.85112,
+   "frp": 16.23,
+   "sensor": "modis",
+   "conf": "99",
+   "daynight": "D"
+  },
+  {
+   "date": "2023-09-09",
+   "lat": -1.62444,
+   "lon": 116.33721,
+   "frp": 16.22,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2016-10-16",
+   "lat": -0.1586,
+   "lon": 116.53344,
+   "frp": 16.21,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2023-09-12",
+   "lat": -0.15256,
+   "lon": 116.86532,
+   "frp": 16.21,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2017-09-03",
+   "lat": -0.47267,
+   "lon": 116.30255,
+   "frp": 16.2,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2017-09-25",
+   "lat": -1.50446,
+   "lon": 115.98086,
+   "frp": 16.2,
+   "sensor": "viirs",
+   "conf": "n",
+   "daynight": "D"
+  },
+  {
+   "date": "2019-09-21",
+   "lat": -0.07733,
+   "lon": 116.85238,
+   "frp": 16.19,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2020-11-01",
+   "lat": -1.44566,
+   "lon": 115.80628,
+   "frp": 16.19,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2013-10-02",
+   "lat": 1.02759,
+   "lon": 117.20679,
+   "frp": 16.18,
+   "sensor": "modis",
+   "conf": "41",
+   "daynight": "D"
+  },
+  {
+   "date": "2025-02-26",
+   "lat": -1.4269,
+   "lon": 116.18503,
+   "frp": 16.16,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2018-04-01",
+   "lat": -0.4133,
+   "lon": 117.14912,
+   "frp": 16.15,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2016-10-30",
+   "lat": -0.32732,
+   "lon": 116.77793,
+   "frp": 16.13,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2021-07-26",
+   "lat": -1.30027,
+   "lon": 116.27679,
+   "frp": 16.13,
+   "sensor": "viirs",
+   "conf": "n",
+   "daynight": "N"
+  },
+  {
+   "date": "2022-09-14",
+   "lat": -1.59851,
+   "lon": 116.17412,
+   "frp": 16.12,
+   "sensor": "modis",
+   "conf": "93",
+   "daynight": "N"
+  },
+  {
+   "date": "2014-10-15",
+   "lat": 0.81795,
+   "lon": 117.49501,
+   "frp": 16.11,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2024-09-02",
+   "lat": 0.49885,
+   "lon": 117.22239,
+   "frp": 16.1,
+   "sensor": "modis",
+   "conf": "94",
+   "daynight": "D"
+  },
+  {
+   "date": "2021-03-18",
+   "lat": 0.79406,
+   "lon": 116.91328,
+   "frp": 16.1,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2022-10-14",
+   "lat": -0.30193,
+   "lon": 116.71234,
+   "frp": 16.1,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2012-09-11",
+   "lat": -1.50835,
+   "lon": 116.02742,
+   "frp": 16.08,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2017-09-15",
+   "lat": -1.58103,
+   "lon": 116.10619,
+   "frp": 16.07,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2016-11-09",
+   "lat": -1.57526,
+   "lon": 116.12851,
+   "frp": 16.05,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2017-03-10",
+   "lat": -0.41604,
+   "lon": 116.75667,
+   "frp": 16.05,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2025-09-11",
+   "lat": -0.51617,
+   "lon": 116.70079,
+   "frp": 16.04,
+   "sensor": "viirs",
+   "conf": "n",
+   "daynight": "N"
+  },
+  {
+   "date": "2018-09-30",
+   "lat": -0.2202,
+   "lon": 116.92904,
+   "frp": 16.03,
+   "sensor": "modis",
+   "conf": "49",
+   "daynight": "D"
+  },
+  {
+   "date": "2016-09-21",
+   "lat": 0.58233,
+   "lon": 117.22574,
+   "frp": 16.02,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2024-11-13",
+   "lat": -1.68012,
+   "lon": 116.11223,
+   "frp": 16.02,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2013-10-15",
+   "lat": -0.89672,
+   "lon": 116.92277,
+   "frp": 16.01,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2022-10-27",
+   "lat": -1.42998,
+   "lon": 116.1859,
+   "frp": 15.98,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2024-08-29",
+   "lat": -0.56364,
+   "lon": 116.5778,
+   "frp": 15.98,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2013-09-12",
+   "lat": 0.6601,
+   "lon": 117.33173,
+   "frp": 15.97,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2012-10-08",
+   "lat": 0.67274,
+   "lon": 117.29822,
+   "frp": 15.95,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2016-08-29",
+   "lat": -0.28287,
+   "lon": 116.86923,
+   "frp": 15.95,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2019-08-30",
+   "lat": -0.397,
+   "lon": 116.99274,
+   "frp": 15.94,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2024-09-03",
+   "lat": -1.50442,
+   "lon": 116.12005,
+   "frp": 15.93,
+   "sensor": "viirs",
+   "conf": "n",
+   "daynight": "N"
+  },
+  {
+   "date": "2018-09-11",
+   "lat": -1.38378,
+   "lon": 116.04718,
+   "frp": 15.91,
+   "sensor": "viirs",
+   "conf": "n",
+   "daynight": "N"
+  },
+  {
+   "date": "2017-09-25",
+   "lat": -0.62618,
+   "lon": 116.60976,
+   "frp": 15.89,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2022-09-25",
+   "lat": -0.54869,
+   "lon": 116.61749,
+   "frp": 15.89,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2015-06-19",
+   "lat": -1.37703,
+   "lon": 116.35376,
+   "frp": 15.88,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2022-09-09",
+   "lat": -1.62029,
+   "lon": 116.02798,
+   "frp": 15.88,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2019-06-04",
+   "lat": 1.05775,
+   "lon": 117.24378,
+   "frp": 15.87,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2015-09-11",
+   "lat": -1.88789,
+   "lon": 114.04009,
+   "frp": 15.86,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2023-07-26",
+   "lat": -0.18598,
+   "lon": 116.737,
+   "frp": 15.85,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2023-08-29",
+   "lat": -1.72038,
+   "lon": 116.26826,
+   "frp": 15.85,
+   "sensor": "viirs",
+   "conf": "n",
+   "daynight": "N"
+  },
+  {
+   "date": "2019-10-01",
+   "lat": -0.57444,
+   "lon": 116.97434,
+   "frp": 15.84,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2022-09-20",
+   "lat": -0.24963,
+   "lon": 116.76891,
+   "frp": 15.83,
+   "sensor": "modis",
+   "conf": "96",
+   "daynight": "N"
+  },
+  {
+   "date": "2012-08-22",
+   "lat": -1.64251,
+   "lon": 116.29537,
+   "frp": 15.82,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2020-09-17",
+   "lat": -0.08046,
+   "lon": 116.52712,
+   "frp": 15.82,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2020-10-10",
+   "lat": 0.73713,
+   "lon": 117.16767,
+   "frp": 15.8,
+   "sensor": "modis",
+   "conf": "45",
+   "daynight": "N"
+  },
+  {
+   "date": "2015-09-01",
+   "lat": -0.14851,
+   "lon": 116.95982,
+   "frp": 15.8,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2025-10-09",
+   "lat": -0.03085,
+   "lon": 117.25272,
+   "frp": 15.8,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2013-08-01",
+   "lat": -1.29372,
+   "lon": 116.05373,
+   "frp": 15.78,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2015-02-25",
+   "lat": 0.76998,
+   "lon": 117.33022,
+   "frp": 15.78,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2013-09-19",
+   "lat": -1.65944,
+   "lon": 115.80994,
+   "frp": 15.77,
+   "sensor": "modis",
+   "conf": "67",
+   "daynight": "D"
+  },
+  {
+   "date": "2019-10-16",
+   "lat": 0.60051,
+   "lon": 117.37704,
+   "frp": 15.77,
+   "sensor": "modis",
+   "conf": "85",
+   "daynight": "D"
+  },
+  {
+   "date": "2015-08-05",
+   "lat": -1.84298,
+   "lon": 114.07086,
+   "frp": 15.77,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2016-10-05",
+   "lat": 0.58262,
+   "lon": 117.35323,
+   "frp": 15.77,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2018-09-01",
+   "lat": -1.68313,
+   "lon": 115.86801,
+   "frp": 15.77,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2023-08-30",
+   "lat": -0.42116,
+   "lon": 116.89268,
+   "frp": 15.77,
+   "sensor": "viirs",
+   "conf": "n",
+   "daynight": "D"
+  },
+  {
+   "date": "2018-09-19",
+   "lat": -1.53847,
+   "lon": 116.33312,
+   "frp": 15.75,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2019-10-08",
+   "lat": -1.31217,
+   "lon": 116.29395,
+   "frp": 15.74,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2012-03-06",
+   "lat": 0.7038,
+   "lon": 117.48249,
+   "frp": 15.73,
+   "sensor": "modis",
+   "conf": "34",
+   "daynight": "D"
+  },
+  {
+   "date": "2022-08-08",
+   "lat": -0.26121,
+   "lon": 116.73215,
+   "frp": 15.73,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2023-09-15",
+   "lat": 0.70717,
+   "lon": 117.60083,
+   "frp": 15.73,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2022-09-16",
+   "lat": -0.42493,
+   "lon": 116.77098,
+   "frp": 15.72,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2022-10-03",
+   "lat": -1.98365,
+   "lon": 114.34907,
+   "frp": 15.7,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2014-10-16",
+   "lat": -0.41307,
+   "lon": 116.97143,
+   "frp": 15.69,
+   "sensor": "modis",
+   "conf": "60",
+   "daynight": "D"
+  },
+  {
+   "date": "2020-10-04",
+   "lat": -1.57758,
+   "lon": 115.92834,
+   "frp": 15.69,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2026-02-28",
+   "lat": -0.28895,
+   "lon": 116.57772,
+   "frp": 15.68,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2022-09-16",
+   "lat": -0.52371,
+   "lon": 116.51256,
+   "frp": 15.67,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2017-02-22",
+   "lat": -1.48846,
+   "lon": 116.40953,
+   "frp": 15.65,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2016-08-28",
+   "lat": -1.47681,
+   "lon": 115.76346,
+   "frp": 15.62,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2025-09-24",
+   "lat": 0.69786,
+   "lon": 117.57273,
+   "frp": 15.62,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2012-08-08",
+   "lat": -0.45306,
+   "lon": 116.69328,
+   "frp": 15.61,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2013-08-31",
+   "lat": -1.99047,
+   "lon": 114.22616,
+   "frp": 15.61,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2016-09-17",
+   "lat": -1.6327,
+   "lon": 116.22187,
+   "frp": 15.61,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2019-10-26",
+   "lat": -0.74814,
+   "lon": 116.81785,
+   "frp": 15.6,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2012-11-09",
+   "lat": -1.88947,
+   "lon": 114.31692,
+   "frp": 15.58,
+   "sensor": "modis",
+   "conf": "45",
+   "daynight": "N"
+  },
+  {
+   "date": "2021-10-09",
+   "lat": -1.66708,
+   "lon": 115.95637,
+   "frp": 15.58,
+   "sensor": "modis",
+   "conf": "51",
+   "daynight": "D"
+  },
+  {
+   "date": "2019-12-08",
+   "lat": -1.52131,
+   "lon": 115.89662,
+   "frp": 15.58,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2021-07-28",
+   "lat": 0.8636,
+   "lon": 117.49023,
+   "frp": 15.58,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2022-10-21",
+   "lat": -1.36159,
+   "lon": 115.8999,
+   "frp": 15.58,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2026-02-17",
+   "lat": 0.58321,
+   "lon": 117.32056,
+   "frp": 15.56,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2024-02-26",
+   "lat": 0.5867,
+   "lon": 117.14946,
+   "frp": 15.54,
+   "sensor": "modis",
+   "conf": "53",
+   "daynight": "D"
+  },
+  {
+   "date": "2016-10-15",
+   "lat": 1.14352,
+   "lon": 117.15996,
+   "frp": 15.54,
+   "sensor": "viirs",
+   "conf": "n",
+   "daynight": "N"
+  },
+  {
+   "date": "2017-08-14",
+   "lat": -1.52529,
+   "lon": 116.35926,
+   "frp": 15.53,
+   "sensor": "modis",
+   "conf": "87",
+   "daynight": "N"
+  },
+  {
+   "date": "2014-09-13",
+   "lat": 0.77205,
+   "lon": 117.31604,
+   "frp": 15.53,
+   "sensor": "viirs",
+   "conf": "n",
+   "daynight": "D"
+  },
+  {
+   "date": "2015-10-01",
+   "lat": -1.38671,
+   "lon": 116.05104,
+   "frp": 15.53,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2015-10-17",
+   "lat": -1.57732,
+   "lon": 115.53334,
+   "frp": 15.53,
+   "sensor": "viirs",
+   "conf": "n",
+   "daynight": "N"
+  },
+  {
+   "date": "2017-10-11",
+   "lat": -0.30728,
+   "lon": 116.79581,
+   "frp": 15.52,
+   "sensor": "viirs",
+   "conf": "n",
+   "daynight": "N"
+  },
+  {
+   "date": "2013-07-23",
+   "lat": -1.56482,
+   "lon": 115.78253,
+   "frp": 15.51,
+   "sensor": "modis",
+   "conf": "43",
+   "daynight": "D"
+  },
+  {
+   "date": "2014-08-17",
+   "lat": -0.42207,
+   "lon": 116.99291,
+   "frp": 15.51,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2017-11-13",
+   "lat": -1.37079,
+   "lon": 115.84776,
+   "frp": 15.51,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2018-09-28",
+   "lat": -1.37227,
+   "lon": 116.33016,
+   "frp": 15.51,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2020-03-13",
+   "lat": -0.20401,
+   "lon": 116.75154,
+   "frp": 15.48,
+   "sensor": "modis",
+   "conf": "89",
+   "daynight": "D"
+  },
+  {
+   "date": "2015-08-20",
+   "lat": -1.54007,
+   "lon": 116.14417,
+   "frp": 15.47,
+   "sensor": "viirs",
+   "conf": "n",
+   "daynight": "N"
+  },
+  {
+   "date": "2022-08-19",
+   "lat": 0.91528,
+   "lon": 116.83992,
+   "frp": 15.47,
+   "sensor": "viirs",
+   "conf": "n",
+   "daynight": "D"
+  },
+  {
+   "date": "2022-10-13",
+   "lat": 1.13423,
+   "lon": 117.14657,
+   "frp": 15.46,
+   "sensor": "viirs",
+   "conf": "n",
+   "daynight": "N"
+  },
+  {
+   "date": "2019-10-14",
+   "lat": -0.83681,
+   "lon": 116.44982,
+   "frp": 15.45,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2025-08-30",
+   "lat": 0.70611,
+   "lon": 117.35454,
+   "frp": 15.45,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2013-03-05",
+   "lat": -1.48501,
+   "lon": 116.03679,
+   "frp": 15.43,
+   "sensor": "viirs",
+   "conf": "n",
+   "daynight": "D"
+  },
+  {
+   "date": "2023-10-09",
+   "lat": -0.44948,
+   "lon": 116.62055,
+   "frp": 15.41,
+   "sensor": "modis",
+   "conf": "36",
+   "daynight": "D"
+  },
+  {
+   "date": "2024-04-17",
+   "lat": -1.40356,
+   "lon": 115.88966,
+   "frp": 15.41,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2025-02-24",
+   "lat": -1.33703,
+   "lon": 116.04936,
+   "frp": 15.41,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2014-10-10",
+   "lat": -1.70739,
+   "lon": 116.13863,
+   "frp": 15.4,
+   "sensor": "modis",
+   "conf": "42",
+   "daynight": "N"
+  },
+  {
+   "date": "2025-02-24",
+   "lat": 0.49637,
+   "lon": 117.31538,
+   "frp": 15.4,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2020-10-20",
+   "lat": -0.23771,
+   "lon": 116.75079,
+   "frp": 15.39,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2021-02-25",
+   "lat": -0.69385,
+   "lon": 116.78433,
+   "frp": 15.39,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2022-09-16",
+   "lat": -0.39491,
+   "lon": 117.32008,
+   "frp": 15.39,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2013-09-27",
+   "lat": -1.44021,
+   "lon": 116.17356,
+   "frp": 15.38,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2025-09-29",
+   "lat": 1.10419,
+   "lon": 117.3696,
+   "frp": 15.38,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2017-10-07",
+   "lat": 0.74385,
+   "lon": 116.96247,
+   "frp": 15.36,
+   "sensor": "viirs",
+   "conf": "n",
+   "daynight": "D"
+  },
+  {
+   "date": "2014-09-22",
+   "lat": -1.59176,
+   "lon": 116.38002,
+   "frp": 15.35,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2021-09-08",
+   "lat": -1.70828,
+   "lon": 116.09213,
+   "frp": 15.35,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2015-09-08",
+   "lat": 0.8654,
+   "lon": 117.2531,
+   "frp": 15.31,
+   "sensor": "modis",
+   "conf": "80",
+   "daynight": "N"
+  },
+  {
+   "date": "2018-09-29",
+   "lat": 0.95805,
+   "lon": 116.91636,
+   "frp": 15.3,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2021-09-16",
+   "lat": -0.52059,
+   "lon": 117.06033,
+   "frp": 15.3,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2023-10-11",
+   "lat": 0.59083,
+   "lon": 117.04365,
+   "frp": 15.3,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2024-08-08",
+   "lat": -0.64646,
+   "lon": 116.29847,
+   "frp": 15.29,
+   "sensor": "modis",
+   "conf": "80",
+   "daynight": "N"
+  },
+  {
+   "date": "2021-09-19",
+   "lat": 0.78231,
+   "lon": 117.20319,
+   "frp": 15.27,
+   "sensor": "modis",
+   "conf": "93",
+   "daynight": "N"
+  },
+  {
+   "date": "2024-08-05",
+   "lat": 0.9957,
+   "lon": 116.93942,
+   "frp": 15.27,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2013-09-18",
+   "lat": -0.3634,
+   "lon": 116.86312,
+   "frp": 15.25,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2017-07-09",
+   "lat": -0.33375,
+   "lon": 116.6104,
+   "frp": 15.25,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2012-09-11",
+   "lat": 0.93096,
+   "lon": 117.19902,
+   "frp": 15.22,
+   "sensor": "viirs",
+   "conf": "n",
+   "daynight": "N"
+  },
+  {
+   "date": "2020-09-18",
+   "lat": -1.31337,
+   "lon": 116.12342,
+   "frp": 15.21,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2017-08-23",
+   "lat": -0.25393,
+   "lon": 116.93184,
+   "frp": 15.2,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2017-10-13",
+   "lat": 0.8629,
+   "lon": 117.15489,
+   "frp": 15.2,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2019-09-05",
+   "lat": 0.88786,
+   "lon": 117.11958,
+   "frp": 15.2,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2016-09-10",
+   "lat": -1.70639,
+   "lon": 116.12345,
+   "frp": 15.19,
+   "sensor": "modis",
+   "conf": "41",
+   "daynight": "N"
+  },
+  {
+   "date": "2023-11-05",
+   "lat": 0.61487,
+   "lon": 117.43655,
+   "frp": 15.19,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2025-10-22",
+   "lat": 0.90411,
+   "lon": 117.19442,
+   "frp": 15.19,
+   "sensor": "viirs",
+   "conf": "n",
+   "daynight": "D"
+  },
+  {
+   "date": "2018-09-02",
+   "lat": -0.41479,
+   "lon": 116.77648,
+   "frp": 15.18,
+   "sensor": "modis",
+   "conf": "75",
+   "daynight": "D"
+  },
+  {
+   "date": "2013-09-19",
+   "lat": 0.93307,
+   "lon": 117.22974,
+   "frp": 15.17,
+   "sensor": "modis",
+   "conf": "45",
+   "daynight": "N"
+  },
+  {
+   "date": "2025-09-15",
+   "lat": 1.19423,
+   "lon": 116.98231,
+   "frp": 15.17,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2019-09-11",
+   "lat": 0.92432,
+   "lon": 117.32921,
+   "frp": 15.16,
+   "sensor": "modis",
+   "conf": "60",
+   "daynight": "D"
+  },
+  {
+   "date": "2013-09-08",
+   "lat": 0.62297,
+   "lon": 117.14495,
+   "frp": 15.16,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2017-08-14",
+   "lat": 0.77348,
+   "lon": 117.33573,
+   "frp": 15.16,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2022-08-28",
+   "lat": -0.10378,
+   "lon": 116.80583,
+   "frp": 15.16,
+   "sensor": "viirs",
+   "conf": "n",
+   "daynight": "N"
+  },
+  {
+   "date": "2023-09-14",
+   "lat": -1.7905,
+   "lon": 114.11886,
+   "frp": 15.16,
+   "sensor": "viirs",
+   "conf": "n",
+   "daynight": "D"
+  },
+  {
+   "date": "2019-08-03",
+   "lat": -1.39306,
+   "lon": 115.95428,
+   "frp": 15.13,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2020-09-06",
+   "lat": -1.35614,
+   "lon": 116.16404,
+   "frp": 15.13,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2022-09-27",
+   "lat": 0.59187,
+   "lon": 117.3139,
+   "frp": 15.13,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2023-08-15",
+   "lat": -0.35353,
+   "lon": 117.08493,
+   "frp": 15.13,
+   "sensor": "viirs",
+   "conf": "n",
+   "daynight": "D"
+  },
+  {
+   "date": "2012-05-10",
+   "lat": -0.6992,
+   "lon": 116.78393,
+   "frp": 15.1,
+   "sensor": "viirs",
+   "conf": "n",
+   "daynight": "D"
+  },
+  {
+   "date": "2018-10-28",
+   "lat": 0.99039,
+   "lon": 117.32185,
+   "frp": 15.1,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2022-08-29",
+   "lat": -0.21956,
+   "lon": 116.88977,
+   "frp": 15.09,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2012-10-25",
+   "lat": -0.40202,
+   "lon": 116.73392,
+   "frp": 15.08,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2018-02-05",
+   "lat": -1.63477,
+   "lon": 115.74609,
+   "frp": 15.08,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2020-10-05",
+   "lat": -1.67195,
+   "lon": 114.08064,
+   "frp": 15.07,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2012-10-25",
+   "lat": -0.2746,
+   "lon": 116.78275,
+   "frp": 15.06,
+   "sensor": "modis",
+   "conf": "51",
+   "daynight": "D"
+  },
+  {
+   "date": "2015-09-18",
+   "lat": 0.64443,
+   "lon": 117.54195,
+   "frp": 15.06,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2023-08-29",
+   "lat": -1.3451,
+   "lon": 115.90633,
+   "frp": 15.06,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2016-09-23",
+   "lat": -1.80911,
+   "lon": 114.11124,
+   "frp": 15.03,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2019-09-23",
+   "lat": -0.27613,
+   "lon": 116.51046,
+   "frp": 15.01,
+   "sensor": "modis",
+   "conf": "45",
+   "daynight": "D"
+  },
+  {
+   "date": "2021-10-28",
+   "lat": 0.43514,
+   "lon": 117.17771,
+   "frp": 15.01,
+   "sensor": "modis",
+   "conf": "59",
+   "daynight": "D"
+  },
+  {
+   "date": "2024-08-23",
+   "lat": -0.08633,
+   "lon": 116.78416,
+   "frp": 15.01,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2019-09-07",
+   "lat": -1.55923,
+   "lon": 115.98207,
+   "frp": 14.98,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2020-10-07",
+   "lat": -1.88357,
+   "lon": 114.2346,
+   "frp": 14.98,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2019-09-23",
+   "lat": 0.82476,
+   "lon": 117.45422,
+   "frp": 14.97,
+   "sensor": "modis",
+   "conf": "47",
+   "daynight": "N"
+  },
+  {
+   "date": "2017-09-07",
+   "lat": 0.69532,
+   "lon": 117.4304,
+   "frp": 14.96,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2017-09-12",
+   "lat": -1.30145,
+   "lon": 116.30409,
+   "frp": 14.96,
+   "sensor": "viirs",
+   "conf": "n",
+   "daynight": "N"
+  },
+  {
+   "date": "2014-08-30",
+   "lat": 0.65165,
+   "lon": 117.15325,
+   "frp": 14.93,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2016-08-18",
+   "lat": -0.68279,
+   "lon": 116.56548,
+   "frp": 14.91,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2012-03-15",
+   "lat": -1.44101,
+   "lon": 115.94283,
+   "frp": 14.9,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2021-08-26",
+   "lat": -1.49328,
+   "lon": 115.90711,
+   "frp": 14.89,
+   "sensor": "viirs",
+   "conf": "n",
+   "daynight": "D"
+  },
+  {
+   "date": "2024-09-15",
+   "lat": -1.95903,
+   "lon": 114.07718,
+   "frp": 14.89,
+   "sensor": "viirs",
+   "conf": "n",
+   "daynight": "D"
+  },
+  {
+   "date": "2024-09-08",
+   "lat": 0.75593,
+   "lon": 117.34089,
+   "frp": 14.88,
+   "sensor": "modis",
+   "conf": "54",
+   "daynight": "D"
+  },
+  {
+   "date": "2023-02-22",
+   "lat": 0.53134,
+   "lon": 117.38375,
+   "frp": 14.88,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2023-03-05",
+   "lat": -1.69562,
+   "lon": 115.9376,
+   "frp": 14.87,
+   "sensor": "modis",
+   "conf": "59",
+   "daynight": "D"
+  },
+  {
+   "date": "2023-10-02",
+   "lat": 0.00263,
+   "lon": 116.87515,
+   "frp": 14.87,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2017-09-19",
+   "lat": 1.03301,
+   "lon": 117.18372,
+   "frp": 14.86,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2022-09-17",
+   "lat": 0.81298,
+   "lon": 117.25946,
+   "frp": 14.86,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2023-08-07",
+   "lat": -1.51945,
+   "lon": 115.92595,
+   "frp": 14.86,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2014-09-28",
+   "lat": -1.38385,
+   "lon": 116.19346,
+   "frp": 14.85,
+   "sensor": "modis",
+   "conf": "56",
+   "daynight": "D"
+  },
+  {
+   "date": "2017-08-04",
+   "lat": 0.74026,
+   "lon": 116.98883,
+   "frp": 14.85,
+   "sensor": "modis",
+   "conf": "65",
+   "daynight": "D"
+  },
+  {
+   "date": "2017-09-21",
+   "lat": 0.80042,
+   "lon": 117.13643,
+   "frp": 14.85,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2026-07-27",
+   "lat": -0.47362,
+   "lon": 116.67183,
+   "frp": 14.84,
+   "sensor": "modis",
+   "conf": "33",
+   "daynight": "N"
+  },
+  {
+   "date": "2014-08-21",
+   "lat": -0.24707,
+   "lon": 116.8176,
+   "frp": 14.84,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2018-09-09",
+   "lat": 1.00386,
+   "lon": 117.34256,
+   "frp": 14.84,
+   "sensor": "viirs",
+   "conf": "n",
+   "daynight": "D"
+  },
+  {
+   "date": "2024-08-19",
+   "lat": -1.65724,
+   "lon": 116.01563,
+   "frp": 14.84,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2013-10-07",
+   "lat": 1.00432,
+   "lon": 117.47198,
+   "frp": 14.83,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2014-09-14",
+   "lat": -1.60947,
+   "lon": 115.96389,
+   "frp": 14.83,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2019-09-29",
+   "lat": -1.03705,
+   "lon": 116.3004,
+   "frp": 14.83,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2025-10-15",
+   "lat": -0.40449,
+   "lon": 117.20293,
+   "frp": 14.82,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2014-08-29",
+   "lat": -1.53565,
+   "lon": 116.01862,
+   "frp": 14.81,
+   "sensor": "viirs",
+   "conf": "n",
+   "daynight": "N"
+  },
+  {
+   "date": "2024-08-04",
+   "lat": -0.3017,
+   "lon": 116.98447,
+   "frp": 14.81,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2015-09-13",
+   "lat": -0.42388,
+   "lon": 116.79881,
+   "frp": 14.79,
+   "sensor": "modis",
+   "conf": "58",
+   "daynight": "D"
+  },
+  {
+   "date": "2014-09-08",
+   "lat": -0.61821,
+   "lon": 117.12953,
+   "frp": 14.78,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2019-09-01",
+   "lat": -0.59348,
+   "lon": 116.22455,
+   "frp": 14.78,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  },
+  {
+   "date": "2016-09-03",
+   "lat": -1.47657,
+   "lon": 116.36091,
+   "frp": 14.76,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2016-09-13",
+   "lat": -0.56635,
+   "lon": 116.92174,
+   "frp": 14.75,
+   "sensor": "viirs",
+   "conf": "n",
+   "daynight": "N"
+  },
+  {
+   "date": "2021-04-23",
+   "lat": 0.86876,
+   "lon": 117.26699,
+   "frp": 14.74,
+   "sensor": "viirs",
+   "conf": "n",
+   "daynight": "N"
+  },
+  {
+   "date": "2022-08-30",
+   "lat": -1.6547,
+   "lon": 116.30601,
+   "frp": 14.74,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2023-10-20",
+   "lat": -1.5044,
+   "lon": 116.13925,
+   "frp": 14.73,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2025-09-20",
+   "lat": 0.45358,
+   "lon": 117.17102,
+   "frp": 14.73,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2018-08-28",
+   "lat": -0.46208,
+   "lon": 116.79735,
+   "frp": 14.72,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "D"
+  },
+  {
+   "date": "2017-09-19",
+   "lat": -0.40016,
+   "lon": 116.67323,
+   "frp": 14.71,
+   "sensor": "modis",
+   "conf": "48",
+   "daynight": "D"
+  },
+  {
+   "date": "2018-09-16",
+   "lat": -0.56117,
+   "lon": 116.5636,
+   "frp": 14.71,
+   "sensor": "viirs",
+   "conf": "n",
+   "daynight": "D"
+  },
+  {
+   "date": "2023-10-04",
+   "lat": -0.45788,
+   "lon": 116.77576,
+   "frp": 14.7,
+   "sensor": "viirs",
+   "conf": "h",
+   "daynight": "N"
+  }
+ ]
+}
