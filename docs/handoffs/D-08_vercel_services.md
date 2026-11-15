@@ -55,9 +55,12 @@ all 200 and `/` 404.
 
 ## Outstanding
 
-- The old `emberline-u6pu` project still exists with `rootDirectory: api` and serves the D-07
-  broken build. Nothing references it now; delete or repoint it deliberately.
-- Repository changes are uncommitted: `vercel.json`, `.vercelignore`, `app.py`, `web/src/api.ts`,
-  `.gitignore` (`.vercel/`), deleted `web/src/.env.example`, plus the `requirements.txt` edit.
-- Deploys run from the CLI because the project is not git-connected from this checkout; a Git
-  connection would need `rootDirectory` left empty and `vercel.json` committed.
+- Repository changes were committed as `fa6cb83` and pushed. The project is git-connected
+  (`iwansal64/emberline`, production branch `main`), so pushes deploy automatically. A git
+  deployment of a commit lacking `vercel.json` fails with
+  `STATIC_BUILD_NO_OUT_DIR: No Output Directory named "public" found after the Build completed` —
+  with no services config Vercel falls back to a static build and looks for `public/`. `vercel.json`
+  must stay committed at the repository root.
+- Project `emberline-u6pu` still exists with `rootDirectory: api`, is git-connected to the same
+  repository, and rebuilds on every push, serving the D-07 broken build. Nothing references it;
+  delete or disconnect it deliberately.
