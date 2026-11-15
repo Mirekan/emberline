@@ -120,7 +120,7 @@ XAI_API_KEY=your_xai_grok_key_here
 
 # Pengaturan Lingkungan
 ENVIRONMENT=production
-CORS_ORIGINS=http://localhost:5173,https://yourdomain.com
+# CORS terbuka untuk semua origin browser; konfigurasi origin tidak diperlukan.
 ```
 
 ---
@@ -334,6 +334,6 @@ curl -f http://127.0.0.1:8300/api/aoi/presets || exit 1
      ```
    - Hentikan PID terkait sebelum memulai ulang Uvicorn.
 2. **CORS Error pada Browser**:
-   - Pastikan origin frontend (misal `http://localhost:5173` atau domain publik) sudah didaftarkan di middleware `CORSMiddleware` pada `api/app.py`.
+   - Backend mengizinkan semua origin browser melalui `CORSMiddleware`; redeploy setelah perubahan konfigurasi.
 3. **Data Tile Kalender Kosong**:
    - Pastikan file `baseline_series.csv` atau `harmonized_daily.csv` pada folder `artifacts/<aoi>/` memuat kolom observasi harian instrumen. Jalankan `python scripts/test_all_endpoints.py` untuk mengisolasi wilayah yang terdampak.

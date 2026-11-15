@@ -154,27 +154,20 @@ class MapArtifactTests(unittest.TestCase):
 
 
 class ApiBoundaryTests(unittest.TestCase):
-    def test_cors_allows_configured_frontend_only(self):
+    def test_cors_allows_any_origin(self):
         from fastapi.testclient import TestClient
 
         with TestClient(emberline_api.app) as client:
-            allowed = client.options(
-                "/api/health",
-                headers={
-                    "Origin": "http://localhost:5173",
-                    "Access-Control-Request-Method": "GET",
-                },
-            )
-            denied = client.options(
-                "/api/health",
-                headers={
-                    "Origin": "https://untrusted.example",
-                    "Access-Control-Request-Method": "GET",
-                },
-            )
-
-        self.assertEqual(allowed.headers.get("access-control-allow-origin"), "http://localhost:5173")
-        self.assertIsNone(denied.headers.get("access-control-allow-origin"))
+            for origin in ("http://localhost:5173", "https://untrusted.example"):
+                response = client.options(
+                    "/api/health",
+                    headers={
+                        "Origin": origin,
+                        "Access-Control-Request-Method": "GET",
+                    },
+                )
+                self.assertEqual(response.status_code, 200)
+                self.assertEqual(response.headers.get("access-control-allow-origin"), "*")
 
 
 if __name__ == "__main__":

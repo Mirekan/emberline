@@ -18,8 +18,8 @@ On macOS/Linux, use `.venv/bin/python` for the install command. The npm
 `serve` script selects the platform-specific Python executable from `.venv`.
 Stop the server with Ctrl+C.
 
-Set `EMBERLINE_CORS_ORIGINS` to the comma-separated frontend origins when the
-frontend is not served by Vite locally. Wildcard CORS is disabled.
+The API permits requests from any browser origin. No CORS environment variable
+is required.
 
 ## Endpoints
 
