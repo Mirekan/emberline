@@ -61,8 +61,126 @@ aois:
     start: 2012-01-20
     end: 2026-07-31
 
+  # ---- EXPANSION WAVE 2: full-Indonesia mosaic (DECISIONS.md AOI-PRESETS-EXPANSION,
+  # ---- approved by A 14 Nov 2026). Era profile (b): 2018-01-01..2026-07-31 —
+  # ---- straddles the frozen split (train <= 2020-10-08 = 3 years, test 5.6 years),
+  # ---- so every new tile carries full harmonization science. Fetch on Azure, one
+  # ---- process per tile, SEPARATE ledger per tile (B-05 race lesson) — see
+  # ---- docs/azure_fetch_runbook.md.
+
+  - id: kalbar
+    name: "West Kalimantan - Ketapang/Kubu Raya peatland frontier"
+    west: 109.0
+    south: -3.0
+    east: 114.0
+    north: 2.0
+    sources: MODIS_SP VIIRS_SNPP_SP
+    start: 2018-01-01
+    end: 2026-07-31
+  - id: kaltim
+    name: "East/North Kalimantan - Mahakam and northeast coast"
+    west: 114.0
+    south: -2.0
+    east: 119.0
+    north: 3.0
+    sources: MODIS_SP VIIRS_SNPP_SP
+    start: 2018-01-01
+    end: 2026-07-31
+  - id: papua_selatan
+    name: "South Papua - Mappi/Asmat savanna and agricultural fires"
+    west: 132.0
+    south: -9.0
+    east: 137.0
+    north: -4.0
+    sources: MODIS_SP VIIRS_SNPP_SP
+    start: 2018-01-01
+    end: 2026-07-31
+  - id: sulsel
+    name: "South Sulawesi - savanna and agricultural fires"
+    west: 119.0
+    south: -5.0
+    east: 124.0
+    north: 0.0
+    sources: MODIS_SP VIIRS_SNPP_SP
+    start: 2018-01-01
+    end: 2026-07-31
+  - id: ntt
+    name: "Timor/NTT - annual savanna fires (inverted season Jun-Oct)"
+    west: 120.0
+    south: -10.0
+    east: 125.0
+    north: -5.0
+    sources: MODIS_SP VIIRS_SNPP_SP
+    start: 2018-01-01
+    end: 2026-07-31
+  - id: ntb
+    name: "Sumbawa/NTB - annual savanna fires (inverted season)"
+    west: 115.0
+    south: -10.0
+    east: 120.0
+    north: -5.0
+    sources: MODIS_SP VIIRS_SNPP_SP
+    start: 2018-01-01
+    end: 2026-07-31
+  - id: sumut_aceh
+    name: "North Sumatra and Aceh - east-coast peatland"
+    west: 95.0
+    south: 1.0
+    east: 100.0
+    north: 6.0
+    sources: MODIS_SP VIIRS_SNPP_SP
+    start: 2018-01-01
+    end: 2026-07-31
+  - id: lampung
+    name: "Lampung - plantation and transmigration fires"
+    west: 103.0
+    south: -8.0
+    east: 108.0
+    north: -5.0
+    sources: MODIS_SP VIIRS_SNPP_SP
+    start: 2018-01-01
+    end: 2026-07-31
+  - id: papua_barat
+    name: "West Papua - Bird's Head (probe first: low expected density)"
+    west: 130.0
+    south: -6.0
+    east: 135.0
+    north: -1.0
+    sources: MODIS_SP VIIRS_SNPP_SP
+    start: 2018-01-01
+    end: 2026-07-31
+  - id: maluku
+    name: "Maluku - Halmahera/Seram (probe first: low expected density)"
+    west: 125.0
+    south: -8.0
+    east: 130.0
+    north: -3.0
+    sources: MODIS_SP VIIRS_SNPP_SP
+    start: 2018-01-01
+    end: 2026-07-31
+  - id: jawa
+    name: "West/Central Java - north-coast wetland and agricultural fires (probe first)"
+    west: 107.0
+    south: -8.0
+    east: 112.0
+    north: -3.0
+    sources: MODIS_SP VIIRS_SNPP_SP
+    start: 2018-01-01
+    end: 2026-07-31
+  - id: bengkulu_barat
+    name: "Bengkulu west - coastal gap fill between jambi and south_sumatra (probe first)"
+    west: 100.0
+    south: -5.0
+    east: 103.0
+    north: -2.0
+    sources: MODIS_SP VIIRS_SNPP_SP
+    start: 2018-01-01
+    end: 2026-07-31
+
 notes:
-  - riau and central_kalimantan are the two G1 AOIs (downloads complete or in flight)
-  - south_sumatra jambi merauke pending a density probe before full download
-  - do not extend end past 2026-07-31 (SP availability limit) without a new keyed availability probe
-  - every preset stays within the 5 deg bbox cap from config/grid.yaml
+  - "riau and central_kalimantan were the two G1 AOIs; all FIVE wave-1 presets are fetched and supported (B-06 handoff, 1,818,370 rows validated)"
+  - "wave-2 adds 12 tiles (full-Indonesia mosaic, AOI-PRESETS-EXPANSION approved by A). tier A fetch-first: kalbar kaltim papua_selatan sulsel ntt ntb sumut_aceh lampung. tier C probe-first (low expected density): papua_barat maluku jawa bengkulu_barat"
+  - "wave-2 era profile (b) 2018-01-01..2026-07-31 straddles the frozen split (train <= 2020-10-08 = 3 years, test 5.6 years) — full harmonization science per tile"
+  - "do not extend end past 2026-07-31 (SP availability limit) without a new keyed availability probe"
+  - "every preset stays within the 5 deg bbox cap from config/grid.yaml; boundary boxes include neighbouring-country/sea detections inside the rectangle — recorded, not hidden"
+  - "fetch on Azure: one process per tile, SEPARATE ledger per tile (B-05 race lesson) — see docs/azure_fetch_runbook.md"

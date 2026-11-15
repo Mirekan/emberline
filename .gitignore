@@ -39,6 +39,7 @@ data/raw/**
 
 # Scientific artifacts — small versioned JSONs are committed; heavy binaries are not.
 artifacts/**/*.parquet
+artifacts/**/*.db   # serving.db is DERIVED — rebuilt by make reproduce; sha256 in run_manifest
 
 # OS / editor noise
 .DS_Store

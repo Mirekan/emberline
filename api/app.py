@@ -193,6 +193,20 @@ def api_grid(aoi: str):
 @app.get("/api/aoi/{aoi}/detections")
 def api_detections(aoi: str):
     """Validated hotspot detections — one entry = one satellite pixel, not one fire."""
+    if aoi in ("all", "indonesia"):
+        all_dets = []
+        for p in sorted(ARTIFACTS.glob("*")):
+            if p.is_dir() and (p / "detections.json").exists():
+                try:
+                    data = json.loads((p / "detections.json").read_text(encoding="utf-8"))
+                    all_dets.extend(data.get("detections", []))
+                except Exception:
+                    pass
+        return {
+            "n_detections": len(all_dets),
+            "note": "Aggregated FIRMS satellite detections across all monitored Indonesian sentinel regions.",
+            "detections": all_dets,
+        }
     return _load(aoi, "detections.json")
 
 

@@ -5,17 +5,17 @@ import { api, Preset, Detections, Detection } from "../api";
 import { useAoi } from "../App";
 
 const REGIONS: { name: string; center: [number, number]; preset?: string }[] = [
-  { name: "Aceh", center: [4.6, 96.7], preset: "riau" },
-  { name: "Sumatera Utara", center: [2.2, 98.7], preset: "riau" },
-  { name: "Riau", center: [0.5, 102.3], preset: "riau" },
+  { name: "Aceh", center: [4.1, 96.5], preset: "riau" },
+  { name: "Sumatera Utara", center: [2.2, 99.8], preset: "riau" },
+  { name: "Riau", center: [0.5, 102.0], preset: "riau" },
   { name: "Kepulauan Riau", center: [0.9, 104.5], preset: "riau" },
-  { name: "Jambi", center: [-1.8, 103.0], preset: "jambi" },
-  { name: "Sumatera Selatan", center: [-3.3, 104.6], preset: "south_sumatra" },
+  { name: "Jambi", center: [-1.6, 103.5], preset: "jambi" },
+  { name: "Sumatera Selatan", center: [-3.4, 104.8], preset: "south_sumatra" },
   { name: "Bangka Belitung", center: [-2.5, 106.0], preset: "south_sumatra" },
-  { name: "Kalimantan Barat", center: [0.2, 109.5], preset: "central_kalimantan" },
-  { name: "Kalimantan Tengah", center: [-1.8, 113.8], preset: "central_kalimantan" },
-  { name: "Kalimantan Selatan", center: [-3.0, 115.5], preset: "central_kalimantan" },
-  { name: "Kalimantan Timur", center: [0.5, 116.5], preset: "central_kalimantan" },
+  { name: "Kalimantan Barat", center: [-1.2, 110.5], preset: "central_kalimantan" },
+  { name: "Kalimantan Tengah", center: [-2.2, 114.1], preset: "central_kalimantan" },
+  { name: "Kalimantan Selatan", center: [-3.2, 115.1], preset: "central_kalimantan" },
+  { name: "Kalimantan Timur", center: [-0.6, 116.8], preset: "central_kalimantan" },
   { name: "Kalimantan Utara", center: [2.5, 116.8], preset: "central_kalimantan" },
   { name: "Sulawesi Utara", center: [0.9, 124.2], preset: "central_kalimantan" },
   { name: "Gorontalo", center: [0.6, 122.4], preset: "central_kalimantan" },
@@ -23,7 +23,7 @@ const REGIONS: { name: string; center: [number, number]; preset?: string }[] = [
   { name: "Sulawesi Selatan", center: [-3.8, 119.9], preset: "central_kalimantan" },
   { name: "Maluku Utara", center: [1.6, 127.6], preset: "merauke" },
   { name: "Papua", center: [-4.0, 138.5], preset: "merauke" },
-  { name: "Papua Selatan (Merauke)", center: [-8.0, 139.0], preset: "merauke" },
+  { name: "Papua Selatan (Merauke)", center: [-8.0, 140.0], preset: "merauke" },
 ];
 
 export type IslandRegion = {
@@ -176,12 +176,13 @@ export default function FireMap() {
   });
   const [presets, setPresets] = useState<Preset[]>([]);
   const [det, setDet] = useState<Detections | null>(null);
-  const [detOn, setDetOn] = useState(false); // Default OFF so map loads clean without cluttering dots
-  const [detYear, setDetYear] = useState("2025");
+  const [detOn, setDetOn] = useState(true); // Default ON: FIRMS dots are immediately rendered on map load
+  const [detYear, setDetYear] = useState("all"); // Default to all years for full hotspot coverage
   const [detSensor, setDetSensor] = useState<"all" | "modis" | "viirs">("all");
   const [mapTheme, setMapTheme] = useState<"dark" | "osm">("dark");
   const [isFs, setIsFs] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(true);
+  const [mapReady, setMapReady] = useState(false);
 
   const visibleRowsRef = useRef<Detection[]>([]);
 
@@ -305,6 +306,7 @@ export default function FireMap() {
 
     tileLayerRef.current = tileLayer;
     mapRef.current = map;
+    setMapReady(true);
 
     // Track mouse coordinates directly via DOM ref & requestAnimationFrame
     // Eliminates 100% of React re-renders during mouse movement across fullscreen!
@@ -386,30 +388,21 @@ export default function FireMap() {
       clearTimeout(resizeTimer);
       map.remove();
       mapRef.current = null;
+      setMapReady(false);
     };
   }, []);
 
-  // Fetch telemetry artifacts for selected AOI
+  // Fetch telemetry artifacts for selected AOI directly
   useEffect(() => {
-    const p = presets.find(pp => pp.id === aoi);
-    if (p?.artifact_status === "available") {
-      api.detections(aoi).then(d => {
-        const byYear: Record<string, number> = {};
-        for (const x of d.detections) {
-          const y = x.date.slice(0, 4);
-          byYear[y] = (byYear[y] ?? 0) + 1;
-        }
-        const years = Object.keys(byYear).sort();
-        const best = years[years.length - 1] ?? "2025";
-        setDetYear(best);
+    const targetAoi = selName === null ? "all" : aoi;
+    api.detections(targetAoi)
+      .then(d => {
         setDet(d);
-      }).catch(() => {
+      })
+      .catch(() => {
         setDet(null);
       });
-    } else {
-      setDet(null);
-    }
-  }, [aoi, presets]);
+  }, [aoi, selName]);
 
   // Render Fire Dots ("Nitik-nitik" pinned solidly to the island, 100% netep, zero jitter)
   useEffect(() => {
@@ -460,7 +453,7 @@ export default function FireMap() {
 
     g.addTo(map);
     dotsLayerRef.current = g;
-  }, [det, detOn, detYear, detSensor]);
+  }, [det, detOn, detYear, detSensor, mapReady]);
 
   // Smoothly pan only when user explicitly switches AOI preset
   const lastAoiRef = useRef<string>(aoi);
@@ -492,7 +485,7 @@ export default function FireMap() {
 
   const flyTo = (r: (typeof REGIONS)[number]) => {
     setSelName(r.name);
-    mapRef.current?.flyTo(r.center, 8, { duration: 0.8 });
+    mapRef.current?.flyTo(r.center, 7, { duration: 0.8 });
     if (r.preset) setAoi(r.preset);
   };
 

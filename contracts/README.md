@@ -37,3 +37,30 @@ Fields come straight from the C-01 protocol (`config/params.yaml`). See
 - `harmonized = {lo_mw, estimate_mw, hi_mw}` — the interval is the uncertainty statement, not decoration; bounds are finite and ordered.
 - Every daily record separates day/night classes; `daynight: "all"` only in rollups.
 - Gaps carry `reason` ∈ `failed_request · unavailable_archive · outside_coverage · insufficient_support`.
+
+## Serving artifact — `artifacts/<aoi>/serving.db` (SQLite, DERIVED)
+
+**Producer: C-07 (`pipeline/serving_db.py`, rebuilt every `make reproduce`) · Consumer: D backend, any stack.**
+The canonical artifacts remain the CSV/JSON files; `serving.db` is a derived,
+git-ignored index (sha256 recorded in `run_manifest.json`) so the backend can
+serve indexed queries without CSV parsing at request time. Backend opens it
+**read-only** — it never writes science.
+
+Tables:
+
+| Table | Key | Contents |
+|---|---|---|
+| `meta` | key | run_id, git_sha, bbox/era, sources, train/test years, `stage_<id>` statuses, `missing_sources` (honest gaps) |
+| `accepted_series` | date (+idx position) | published daily series: `source_flag`, `value_mw`, `index_value`, raw harmonized/observed |
+| `calendar` | position (366) | median raw/smoothed, p10/p25/p75/p90, n_years, state (`populated`/`sparse`/`missing`) |
+| `windows` | id | critical-window runs + `meta` rows for threshold, years_eligible, activity |
+| `baselines` | (date, daynight) | observed MODIS/VIIRS + B0 + B1 predictions |
+| `harmonized_daily` | (date, daynight) | B2 estimate + lo/hi + role + flags |
+| `metrics` | (method, metric) | value or **NULL = N/A with `reason`** — never 0 |
+| `splice_stress` | (method, transition_date) | B2 **and** B1 rows: shifts, errors, error_ratio, notes |
+| `years` | year | era/valid days, eligible, active (DEC-3) |
+
+Semantics preserved from the protocol: `NULL` = explicit gap/N-A with reason,
+never 0; bounds finite/ordered; every row traces to `meta.run_id`. Deferred
+stages ⇒ their tables simply don't exist (check `meta.stage_*` +
+`missing_sources`) — the DB is never padded with synthetic rows.

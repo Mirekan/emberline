@@ -5,6 +5,7 @@
     "2020-10-09",
     "2026-07-31"
   ],
+  "method": "B2",
   "n_heldout_days": 2122,
   "negative_results_note": "error_ratio >= 1 or N/A entries stay visible in the demo and method page \u2014 valid negative results are evidence",
   "protocol_version": "PROTO-C01-v0.9",

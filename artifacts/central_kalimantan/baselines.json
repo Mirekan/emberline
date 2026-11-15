@@ -54,8 +54,8 @@
     "train_days": 6370
   },
   "pair_counts": {
-    "fitting_eligible_pairs": 15515,
-    "pairs_seen": 95777,
+    "fitting_eligible_pairs": 15569,
+    "pairs_seen": 96046,
     "zero_fill_days_ingested": 10614
   },
   "protocol_version": "PROTO-C01-v0.9",
@@ -154,7 +154,7 @@
       "eligible": true,
       "era_days": 365,
       "retrieval_fraction": 2.0,
-      "signal_days": 157,
+      "signal_days": 163,
       "year": "2023"
     },
     {
