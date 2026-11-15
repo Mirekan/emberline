@@ -3,7 +3,7 @@
 import type { Calendar } from "./api";
 
 const RAMP = ["#F8ECD4", "#F0D8A8", "#E5BE77", "#D59B47", "#C07A2A"];
-const MONTH_ABBR = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+const MONTH_ABBR = ["Jan", "Feb", "Mar", "Apr", "Mei", "Jun", "Jul", "Agu", "Sep", "Okt", "Nov", "Des"];
 const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
 type CalPos = Calendar["years"][0]["positions"][0];

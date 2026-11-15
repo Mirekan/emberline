@@ -58,16 +58,16 @@ export default function Seasons() {
 
       {loading && (
         <div className="status-panel loading" style={{ marginTop: 20 }}>
-          <div className="status-title">Loading seasonal climatology telemetry…</div>
-          <p className="status-desc">Calculating Day of Year (DOY 1–366) median and interquartile distribution across eligible years.</p>
+          <div className="status-title">Memuat data klimatologi musiman…</div>
+          <p className="status-desc">Menghitung distribusi median dan kuartil harian (DOY 1–366) dari tahun pengamatan yang valid.</p>
           <div className="skel" style={{ height: 320, marginTop: 10 }} />
         </div>
       )}
 
       {err && (
         <div className="status-panel failed" style={{ marginTop: 20 }}>
-          <div className="status-title">Could not load seasonal climatology</div>
-          <p className="status-desc">{err}</p>
+          <div className="status-title">Data Klimatologi Musiman Belum Tersedia</div>
+          <p className="status-desc">Data klimatologi musiman untuk wilayah ini sedang dalam tahap pemrosesan.</p>
         </div>
       )}
 

@@ -53,20 +53,20 @@ export default function MethodScreen() {
 
         {loading && (
           <div className="status-panel loading" style={{ marginTop: 20 }}>
-            <div className="status-title">Loading methodology validation benchmarks…</div>
-            <p className="status-desc">Evaluating baseline transition metrics and error distributions.</p>
+            <div className="status-title">Memuat data validasi metodologi…</div>
+            <p className="status-desc">Mengevaluasi metrik transisi sensor dan sebaran galat.</p>
             <div className="skel" style={{ height: 260, marginTop: 10 }} />
           </div>
         )}
 
         {err && (
           <div className="status-panel failed" style={{ marginTop: 20 }}>
-            <div className="status-title">Could not load methodology telemetry</div>
-            <p className="status-desc">{err}</p>
+            <div className="status-title">Data Metodologi Belum Tersedia</div>
+            <p className="status-desc">Data evaluasi metodologi untuk wilayah ini sedang dalam tahap pemrosesan.</p>
             {aoi !== "riau" && (
               <div style={{ marginTop: 12 }}>
                 <button className="btn secondary" onClick={() => setAoi("riau")}>
-                  Inspect Riau (Artifacts ready)
+                  Buka Riau (Data Siap)
                 </button>
               </div>
             )}

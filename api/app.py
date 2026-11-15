@@ -68,14 +68,14 @@ def _aoi_meta(aoi: str):
 def _load(aoi: str, name: str):
     p = ARTIFACTS / aoi / name
     if not p.exists():
-        raise HTTPException(404, detail=f"no artifact {name} for AOI '{aoi}' — run pipeline/run.py first")
+        raise HTTPException(404, detail=f"Data artefak '{name}' untuk wilayah '{aoi}' belum tersedia. Silakan pilih wilayah lain yang sudah siap.")
     return json.loads(p.read_text(encoding="utf-8"))
 
 
 def _series(aoi: str):
     p = ARTIFACTS / aoi / "harmonized_daily.csv"
     if not p.exists():
-        raise HTTPException(404, detail=f"no series artifact for AOI '{aoi}' — run pipeline/run.py first")
+        raise HTTPException(404, detail=f"Data deret waktu untuk wilayah '{aoi}' belum tersedia. Silakan pilih wilayah lain yang sudah siap.")
     rows = []
     with p.open(newline="", encoding="utf-8") as fh:
         for r in csv.DictReader(fh):
@@ -222,7 +222,7 @@ def export(aoi: str, what: str = "series"):
 def method(aoi: str | None = None):
     aoi = aoi or next((p.name for p in sorted(ARTIFACTS.glob("*")) if p.is_dir()), None)
     if aoi is None:
-        raise HTTPException(404, detail="no artifacts yet — run pipeline/run.py first")
+        raise HTTPException(404, detail="Belum ada data artefak yang tersedia. Silakan pilih wilayah lain yang sudah siap.")
     man = _load(aoi, "run_manifest.json")
     
     # Load model from model_manifest.json (new) or model.json (fallback)

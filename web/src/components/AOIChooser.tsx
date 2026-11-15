@@ -55,9 +55,9 @@ export default function AOIChooser() {
       <div className="card">
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 20 }}>
           <div>
-            <h2>Standard region presets</h2>
+            <h2>Pilihan Wilayah Standar</h2>
             <p className="sub" style={{ fontSize: 12, marginBottom: 12 }}>
-              Pre-computed satellite observation baselines with validated held-out test splits.
+              Basis data pengamatan satelit historis yang telah tervalidasi.
             </p>
             <div style={{ display: "grid", gap: 8 }}>
               {presets.map(p => {
@@ -81,7 +81,7 @@ export default function AOIChooser() {
                     <div style={{ display: "flex", justifyContent: "space-between", gap: 10, alignItems: "center" }}>
                       <span style={{ fontSize: 13.5, fontWeight: 600 }}>{p.name}</span>
                       <span className={"state-chip " + (p.artifact_status === "available" ? "chip-ok" : "chip-neutral")}>
-                        {p.artifact_status === "available" ? "Artifacts ready" : "Pending build"}
+                        {p.artifact_status === "available" ? "Data Siap" : "Dalam Antrean"}
                       </span>
                     </div>
                     <div className="mono" style={{ fontSize: 11, color: "var(--ink2)", marginTop: 4 }}>
@@ -92,7 +92,7 @@ export default function AOIChooser() {
               })}
               {presets.length === 0 && !err && (
                 <div className="status-panel loading">
-                  <div className="status-title">Loading presets…</div>
+                  <div className="status-title">Memuat daftar wilayah…</div>
                 </div>
               )}
             </div>

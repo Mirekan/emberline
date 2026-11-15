@@ -281,6 +281,43 @@ input, textarea, select { caret-color: var(--ember); }
 .content { flex: 1; padding: 28px 36px 48px; }
 .content-flush { padding: 0; }
 
+.overview-page { max-width: 1200px; margin: 0 auto; }
+.overview-hero {
+  min-height: max(560px, calc(100svh - 220px));
+  padding: 40px 16px;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  text-align: center;
+}
+.overview-hero h1 {
+  max-width: 960px; margin: 0; color: var(--ink);
+  font-family: var(--font-display); font-size: clamp(38px, 5.5vw, 76px);
+  font-weight: 800; line-height: 1.08; letter-spacing: -0.025em;
+}
+.overview-scroll-cue {
+  margin-top: 52px; color: var(--ink3); font-family: "IBM Plex Mono", monospace;
+  font-size: 11px; letter-spacing: 0.04em;
+}
+.overview-details {
+  min-height: max(500px, calc(100svh - 220px));
+  padding: 64px 8px 32px;
+  display: flex; flex-direction: column; justify-content: space-between; align-items: stretch;
+}
+.overview-copy { max-width: 700px; }
+.overview-eyebrow {
+  margin: 0 0 12px; color: var(--ember); font-family: "IBM Plex Mono", monospace;
+  font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase;
+}
+.overview-copy h2 { margin: 0; font-size: clamp(28px, 3.5vw, 44px); line-height: 1.12; }
+.overview-description { margin: 20px 0 0; max-width: 660px; color: var(--ink2); font-size: 16px; line-height: 1.7; }
+.overview-meta { margin: 24px 0 0; color: var(--ink2); font-size: 12px; }
+.overview-disclosure { margin: 12px 0 0; max-width: 640px; color: var(--ink3); font-size: 13px; line-height: 1.5; }
+.overview-cta {
+  align-self: flex-end; margin-top: 42px; padding: 16px 28px;
+  font-size: clamp(17px, 1.8vw, 22px); font-weight: 800; font-family: var(--font-display);
+  background: var(--sunken); color: var(--ink); border: 1px solid var(--line-strong);
+  border-radius: 14px; cursor: pointer; letter-spacing: -0.01em; box-shadow: var(--shadow-sm);
+}
+
 .footer {
   padding: 18px 28px 22px; background: var(--sunken); border-top: 1px solid var(--line);
   display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px;
@@ -534,6 +571,11 @@ tbody tr:hover { background: color-mix(in srgb, var(--sunken) 45%, transparent);
 }
 @media (max-width: 520px) {
   .content { padding: 18px 12px 30px; }
+  .overview-hero { min-height: max(480px, calc(100svh - 190px)); padding: 28px 8px; }
+  .overview-scroll-cue { margin-top: 38px; }
+  .overview-details { min-height: max(480px, calc(100svh - 190px)); padding: 44px 4px 18px; }
+  .overview-description { font-size: 15px; }
+  .overview-cta { margin-top: 32px; padding: 14px 20px; }
   .topbar { padding: 8px 12px; min-height: 56px; }
   .prov { padding: 6px 12px; }
   .footer { padding: 14px 12px 18px; }

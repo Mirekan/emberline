@@ -73,7 +73,7 @@ export default function App() {
         <span className="mono">{series.days.length.toLocaleString("en-US")} daily observations</span>
       </>
     )
-    : "Loading satellite telemetry artifacts…";
+    : "Memuat data observasi satelit…";
 
   return (
     <AoiContext.Provider value={{ aoi, setAoi, series, calFilter, setCalFilter }}>
@@ -148,14 +148,14 @@ export default function App() {
             <div key={tab} className="screen-fade">
               {error && tab === "analytics" && (
                 <div className="status-panel failed" style={{ marginBottom: 20 }}>
-                  <div className="status-title">Could not load telemetry artifacts</div>
+                  <div className="status-title">Data Pengamatan Belum Tersedia</div>
                   <p className="status-desc">
-                    {error} — Multi-sensor telemetry artifacts are currently compiled for Riau.
+                    Data observasi satelit multi-sensor untuk wilayah ini sedang dalam tahap pemrosesan.
                   </p>
                   {aoi !== "riau" && (
                     <div style={{ marginTop: 10 }}>
                       <button className="btn secondary" onClick={() => setAoi("riau")}>
-                        Return to Riau (Artifacts ready)
+                        Kembali ke Riau (Data Siap)
                       </button>
                     </div>
                   )}

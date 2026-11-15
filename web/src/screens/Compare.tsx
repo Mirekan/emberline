@@ -97,22 +97,10 @@ export default function Compare() {
               <LegendRows visible={visible} onToggle={toggle} />
             </div>
           </div>
-        ) : aoi !== "riau" ? (
-          <div className="status-panel failed" style={{ marginTop: 20 }}>
-            <div className="status-title">Artifacts pending build for this region</div>
-            <p className="status-desc">
-              Multi-sensor time series artifacts have not yet been pre-compiled for <span className="mono">{aoi}</span>. Pre-computed validation artifacts are currently active for Riau.
-            </p>
-            <div style={{ marginTop: 12 }}>
-              <button className="btn secondary" onClick={() => setAoi("riau")}>
-                Inspect Riau (Artifacts ready)
-              </button>
-            </div>
-          </div>
         ) : (
           <div className="status-panel loading" style={{ marginTop: 20 }}>
-            <div className="status-title">Loading telemetry time-series…</div>
-            <p className="status-desc">Rendering multi-sensor daily observations and empirical uncertainty bands.</p>
+            <div className="status-title">Memuat data deret waktu satelit…</div>
+            <p className="status-desc">Menyusun observasi multi-sensor dan pita rentang ketidakpastian empiris.</p>
             <div className="skel" style={{ height: 380, marginTop: 10 }} />
           </div>
         )}

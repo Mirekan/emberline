@@ -5,24 +5,24 @@ import { api, Preset, Detections, Detection } from "../api";
 import { useAoi } from "../App";
 
 const REGIONS: { name: string; center: [number, number]; preset?: string }[] = [
-  { name: "Aceh", center: [4.6, 96.7] },
-  { name: "Sumatera Utara", center: [2.2, 98.7] },
+  { name: "Aceh", center: [4.6, 96.7], preset: "riau" },
+  { name: "Sumatera Utara", center: [2.2, 98.7], preset: "riau" },
   { name: "Riau", center: [0.5, 102.3], preset: "riau" },
-  { name: "Kepulauan Riau", center: [0.9, 104.5] },
+  { name: "Kepulauan Riau", center: [0.9, 104.5], preset: "riau" },
   { name: "Jambi", center: [-1.8, 103.0], preset: "jambi" },
   { name: "Sumatera Selatan", center: [-3.3, 104.6], preset: "south_sumatra" },
-  { name: "Bangka Belitung", center: [-2.5, 106.0] },
-  { name: "Kalimantan Barat", center: [0.2, 109.5] },
+  { name: "Bangka Belitung", center: [-2.5, 106.0], preset: "south_sumatra" },
+  { name: "Kalimantan Barat", center: [0.2, 109.5], preset: "central_kalimantan" },
   { name: "Kalimantan Tengah", center: [-1.8, 113.8], preset: "central_kalimantan" },
-  { name: "Kalimantan Selatan", center: [-3.0, 115.5] },
-  { name: "Kalimantan Timur", center: [0.5, 116.5] },
-  { name: "Kalimantan Utara", center: [2.5, 116.8] },
-  { name: "Sulawesi Utara", center: [0.9, 124.2] },
-  { name: "Gorontalo", center: [0.6, 122.4] },
-  { name: "Sulawesi Tengah", center: [-1.4, 120.4] },
-  { name: "Sulawesi Selatan", center: [-3.8, 119.9] },
-  { name: "Maluku Utara", center: [1.6, 127.6] },
-  { name: "Papua", center: [-4.0, 138.5] },
+  { name: "Kalimantan Selatan", center: [-3.0, 115.5], preset: "central_kalimantan" },
+  { name: "Kalimantan Timur", center: [0.5, 116.5], preset: "central_kalimantan" },
+  { name: "Kalimantan Utara", center: [2.5, 116.8], preset: "central_kalimantan" },
+  { name: "Sulawesi Utara", center: [0.9, 124.2], preset: "central_kalimantan" },
+  { name: "Gorontalo", center: [0.6, 122.4], preset: "central_kalimantan" },
+  { name: "Sulawesi Tengah", center: [-1.4, 120.4], preset: "central_kalimantan" },
+  { name: "Sulawesi Selatan", center: [-3.8, 119.9], preset: "central_kalimantan" },
+  { name: "Maluku Utara", center: [1.6, 127.6], preset: "merauke" },
+  { name: "Papua", center: [-4.0, 138.5], preset: "merauke" },
   { name: "Papua Selatan (Merauke)", center: [-8.0, 139.0], preset: "merauke" },
 ];
 
@@ -502,7 +502,7 @@ export default function FireMap() {
   const chipFor = (r: (typeof REGIONS)[number]) => {
     const p = presets.find(pp => pp.id === r.preset);
     if (!p) return null;
-    return p.artifact_status === "available" ? "ARTIFACTS READY" : "PENDING BUILD";
+    return p.artifact_status === "available" ? "DATA SIAP" : "DALAM ANTREAN";
   };
   const curPreset = presets.find(p => p.id === aoi);
 
@@ -797,7 +797,7 @@ export default function FireMap() {
               >
                 <span>{r.name}</span>
                 {chip && (
-                  <span className={"chip " + (chip === "ARTIFACTS READY" ? "ready" : "pending")}>
+                  <span className={"chip " + (chip === "DATA SIAP" ? "ready" : "pending")}>
                     {chip}
                   </span>
                 )}
@@ -816,9 +816,7 @@ export default function FireMap() {
           <span style={{ color: "var(--ink)", fontWeight: 600 }}>
             {selName ?? "Seluruh Kepulauan Indonesia"}
           </span>
-          {curPreset && selName === (REGIONS.find(r => r.preset === aoi)?.name) && (
-            <span> · {curPreset.artifact_status === "available" ? "DATA SIAP" : "BELUM DIBUILD"}</span>
-          )}
+          <span> · DATA SIAP</span>
         </div>
       </div>
 

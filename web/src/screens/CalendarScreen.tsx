@@ -7,6 +7,14 @@ import Seasons from "./Seasons";
 
 const RAMP6 = ["#F8ECD4", "#F0D8A8", "#E5BE77", "#D59B47", "#C07A2A", "#9B4C12"];
 
+const PRESET_NAMES: Record<string, string> = {
+  riau: "Riau (Lahan Gambut Sumatera)",
+  central_kalimantan: "Kalimantan Tengah (Eks-PLG)",
+  south_sumatra: "Sumatera Selatan (Ogan Komering Ilir)",
+  jambi: "Jambi (Gambut & Perkebunan)",
+  merauke: "Merauke (Savana Musiman Papua)",
+};
+
 export default function CalendarScreen({ goMap }: { goMap: () => void }) {
   const { aoi, setAoi, setCalFilter, series } = useAoi();
   const [cal, setCal] = useState<Calendar | null>(null);
@@ -50,10 +58,10 @@ export default function CalendarScreen({ goMap }: { goMap: () => void }) {
   );
 
   const sensorLabel = sensor === "harm"
-    ? "Harmonized FRP-sum (MODIS-equivalent, MW)"
+    ? "Total FRP Terharmonisasi (Standar MODIS, MW)"
     : sensor === "modis"
-    ? "Raw MODIS FRP-sum (1 km scale, MW)"
-    : "Raw VIIRS FRP-sum (375 m scale, MW)";
+    ? "Total Mentah MODIS (Resolusi 1 km, MW)"
+    : "Total Mentah VIIRS (Resolusi 375 m, MW)";
 
   const readyPresets = presets.filter(p => p.artifact_status === "available");
 
@@ -65,49 +73,49 @@ export default function CalendarScreen({ goMap }: { goMap: () => void }) {
       peak,
       active: tiles.filter(t => !t.isGap && t.total > 0).length,
       gaps: tiles.reduce((a, t) => a + t.gapDays, 0),
-      unit: view === "yearly" ? "active years" : "active months",
-      peakUnit: view === "yearly" ? "year" : "month",
+      unit: view === "yearly" ? "tahun aktif" : "bulan aktif",
+      peakUnit: view === "yearly" ? "tahun" : "bulan",
       valueLabel: sensor === "harm"
-        ? "Total Harmonized FRP-sum (MW)"
-        : `Total Raw ${sensor === "modis" ? "MODIS" : "VIIRS"} FRP-sum (MW)`,
+        ? "Total Energi Terharmonisasi FRP (MW)"
+        : `Total Mentah ${sensor === "modis" ? "MODIS" : "VIIRS"} FRP (MW)`,
       span: view === "yearly"
-        ? (monthSel === "all" ? "full annual cycle" : `${MONTH_ABBR[Number(monthSel) - 1]} only`)
-        : (yearSel === "all" ? `all ${yearsAll.length} observation years` : `year ${yearSel}`),
+        ? (monthSel === "all" ? "siklus tahunan penuh" : `hanya bulan ${MONTH_ABBR[Number(monthSel) - 1]}`)
+        : (yearSel === "all" ? `seluruh ${yearsAll.length} tahun pengamatan` : `tahun ${yearSel}`),
     };
   }, [tiles, view, monthSel, yearSel, yearsAll.length, sensor]);
 
   const onTile = (t: Tile) => {
     const notes: string[] = [];
-    notes.push(`${t.activeDays} active day${t.activeDays === 1 ? "" : "s"} with FRP > 0 (out of ${t.days} observation positions)`);
+    notes.push(`${t.activeDays} hari aktif dengan deteksi FRP > 0 (dari ${t.days} hari pengamatan)`);
     if (t.isGap) {
-      notes.push("Entire interval is a satellite retrieval gap — no valid observations; never zero-filled.");
+      notes.push("Seluruh periode ini merupakan celah pengamatan satelit (tidak ada data, bukan nilai nol).");
     } else if (t.gapDays > 0) {
-      notes.push(`${t.gapDays} satellite retrieval-gap day${t.gapDays === 1 ? "" : "s"} — omitted from mean, never assumed zero.`);
+      notes.push(`${t.gapDays} hari celah pengamatan satelit (dilewati dari rata-rata, tidak diasumsikan nol).`);
     }
     if (view === "yearly" && monthSel !== "all") {
-      notes.push(`Restricted to seasonal month: ${MONTH_ABBR[Number(monthSel) - 1]}`);
+      notes.push(`Dibatasi untuk musim bulan: ${MONTH_ABBR[Number(monthSel) - 1]}`);
     }
     if (view === "monthly" && yearSel === "all") {
-      notes.push(`Climatological composite across ${yearsAll.length} observation years (${yearsAll[0]?.year}–${yearsAll[yearsAll.length - 1]?.year})`);
+      notes.push(`Komposit klimatologis sepanjang ${yearsAll.length} tahun pengamatan (${yearsAll[0]?.year}–${yearsAll[yearsAll.length - 1]?.year})`);
     }
     if (view === "monthly" && yearSel !== "all") {
-      notes.push(`Calendar Year: ${yearSel}`);
+      notes.push(`Tahun Kalender: ${yearSel}`);
     }
 
     setSel({
       key: t.key,
-      title: view === "yearly" ? `Year ${t.label}` : `${t.label} · ${yearSel === "all" ? "All years composite" : yearSel}`,
+      title: view === "yearly" ? `Tahun ${t.label}` : `Bulan ${t.label} · ${yearSel === "all" ? "Rata-rata semua tahun" : `Tahun ${yearSel}`}`,
       sub: sensor === "harm"
-        ? "Harmonized FRP-sum (MODIS-equivalent scale)"
-        : `${sensorLabel} — native sensor aperture, not cross-sensor adjusted`,
-      value: `${t.total.toLocaleString("en-US")} MW`,
+        ? "Total Energi FRP Terharmonisasi (Skala setara MODIS Aqua)"
+        : `${sensorLabel} — data instrumen mentah tanpa kalibrasi lintas sensor`,
+      value: `${t.total.toLocaleString("id-ID")} MW`,
       notes,
     });
   };
 
   const calFilterDesc = view === "yearly"
-    ? `Yearly · ${monthSel === "all" ? "all months" : `${MONTH_ABBR[Number(monthSel) - 1]} only`}`
-    : `Monthly · ${yearSel === "all" ? "all years" : yearSel}`;
+    ? `Tahunan · ${monthSel === "all" ? "semua bulan" : `bulan ${MONTH_ABBR[Number(monthSel) - 1]}`}`
+    : `Bulanan · ${yearSel === "all" ? "semua tahun" : yearSel}`;
 
   const goMapWithFilter = () => {
     setCalFilter(calFilterDesc);
@@ -117,61 +125,76 @@ export default function CalendarScreen({ goMap }: { goMap: () => void }) {
   return (
     <div>
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: 20, flexWrap: "wrap" }}>
-        <div>
+        <div style={{ maxWidth: 640 }}>
           <span className="state-chip chip-neutral" style={{ fontSize: 10, marginBottom: 4 }}>
-            TEMPORAL COMPARISON MATRIX
+            ANALISIS TREN TEMPORAL
           </span>
-          <h1>Fire activity temporal comparison</h1>
+          <h1>Kalender Riwayat &amp; Tren Kebakaran</h1>
           <p className="sub">
-            Each tile displays aggregated Fire Radiative Power (MW) per {view === "yearly" ? "calendar year" : "calendar month"}. Brighter intensity indicates elevated FRP-sum. Retrieval gaps are strictly distinguished from zero detections.
+            Setiap kotak menunjukkan akumulasi energi kebakaran (Fire Radiative Power / FRP dalam Megawatt) per {view === "yearly" ? "tahun" : "bulan"}. Warna yang semakin pekat menandakan aktivitas kebakaran yang lebih tinggi. Hari tanpa pengamatan satelit (celah data) dipisahkan dari hari tanpa titik api.
           </p>
           <button
             className="btn secondary"
             style={{ marginTop: 12, padding: "7px 15px", fontSize: 12.5 }}
             onClick={goMapWithFilter}
-            title="Inspect spatial hotspot distribution on the Fire Map with this temporal filter"
+            title="Lihat persebaran titik panas di Peta Titik Api dengan filter waktu ini"
           >
-            Inspect on Fire Map — {calFilterDesc} →
+            Lihat di Peta Titik Api — {calFilterDesc} →
           </button>
         </div>
 
         <div style={{ display: "flex", gap: 10, alignItems: "flex-end", flexWrap: "wrap" }}>
           <label style={{ display: "flex", flexDirection: "column", gap: 4 }}>
-            <span>Observation series</span>
+            <span>Wilayah Pengamatan</span>
+            <select
+              className="glass-select"
+              value={aoi}
+              onChange={e => { setAoi(e.target.value); setSel(null); }}
+            >
+              {presets.map(p => (
+                <option key={p.id} value={p.id}>
+                  {PRESET_NAMES[p.id] ?? p.name}
+                </option>
+              ))}
+            </select>
+          </label>
+
+          <label style={{ display: "flex", flexDirection: "column", gap: 4 }}>
+            <span>Pilihan Sensor</span>
             <select
               className="glass-select"
               value={sensor}
               onChange={e => { setSensor(e.target.value as any); setSel(null); }}
             >
-              <option value="harm">Harmonized (MODIS-equivalent, MW)</option>
-              <option value="modis">MODIS raw (1 km Aqua, MW)</option>
-              <option value="viirs">VIIRS raw (375 m S-NPP, MW)</option>
+              <option value="harm">Terharmonisasi (Standar MODIS Aqua, MW)</option>
+              <option value="modis">Mentah MODIS (Resolusi 1 km Aqua, MW)</option>
+              <option value="viirs">Mentah VIIRS (Resolusi 375 m S-NPP, MW)</option>
             </select>
           </label>
 
           <label style={{ display: "flex", flexDirection: "column", gap: 4 }}>
-            <span>Aggregation interval</span>
+            <span>Periode Tampilan</span>
             <select
               className="glass-select"
               value={view}
               onChange={e => { setView(e.target.value as any); setSel(null); }}
             >
-              <option value="yearly">Yearly comparison</option>
-              <option value="monthly">Monthly comparison</option>
+              <option value="yearly">Perbandingan Tahunan</option>
+              <option value="monthly">Perbandingan Bulanan</option>
             </select>
           </label>
 
           {view === "monthly" && (
             <label style={{ display: "flex", flexDirection: "column", gap: 4 }}>
-              <span>Target year</span>
+              <span>Pilihan Tahun</span>
               <select
                 className="glass-select"
                 value={yearSel}
                 onChange={e => { setYearSel(e.target.value); setSel(null); }}
               >
-                <option value="all">All observation years</option>
+                <option value="all">Semua Tahun (Rata-rata 2012–2026)</option>
                 {yearsAll.map(y => (
-                  <option key={y.year} value={String(y.year)}>{y.year}</option>
+                  <option key={y.year} value={String(y.year)}>Tahun {y.year}</option>
                 ))}
               </select>
             </label>
@@ -179,15 +202,15 @@ export default function CalendarScreen({ goMap }: { goMap: () => void }) {
 
           {view === "yearly" && (
             <label style={{ display: "flex", flexDirection: "column", gap: 4 }}>
-              <span>Seasonal scope</span>
+              <span>Pilihan Bulan</span>
               <select
                 className="glass-select"
                 value={monthSel}
                 onChange={e => { setMonthSel(e.target.value); setSel(null); }}
               >
-                <option value="all">All 12 months</option>
+                <option value="all">Sepanjang Tahun (12 Bulan)</option>
                 {MONTH_ABBR.map((m, i) => (
-                  <option key={m} value={String(i + 1).padStart(2, "0")}>{m}</option>
+                  <option key={m} value={String(i + 1).padStart(2, "0")}>Bulan {m}</option>
                 ))}
               </select>
             </label>
@@ -197,36 +220,41 @@ export default function CalendarScreen({ goMap }: { goMap: () => void }) {
 
       {sensor !== "harm" && cal && (
         <div className="boundary" style={{ marginTop: 18 }}>
-          <b>Sensor scale notice: Raw {sensor === "modis" ? "MODIS" : "VIIRS"} observations.</b>
+          <b>Catatan Skala Sensor: Data Mentah {sensor === "modis" ? "MODIS" : "VIIRS"}.</b>
           <p className="sub" style={{ marginTop: 2 }}>
-            Satellite sensor spatial apertures and detection thresholds differ fundamentally (MODIS 1 km vs VIIRS 375 m). Raw counts are NOT directly comparable across the 2012 handover without EmberLine harmonization.
+            Sensor satelit MODIS (1 km) dan VIIRS (375 m) memiliki resolusi spasial dan sensitivitas deteksi yang berbeda. Nilai mentah tidak dapat dibandingkan secara langsung antar tahun transisi 2012 tanpa proses harmonisasi EmberLine.
           </p>
         </div>
       )}
 
       {loading && (
         <div className="status-panel loading" style={{ marginTop: 20 }}>
-          <div className="status-title">Loading fire calendar telemetry…</div>
-          <p className="status-desc">Compiling multi-year observation matrix from satellite artifacts.</p>
+          <div className="status-title">Memuat data kalender kebakaran…</div>
+          <p className="status-desc">Menyusun matriks observasi satelit multi-tahun untuk wilayah terpilih.</p>
           <div className="skel" style={{ height: 28, marginTop: 8 }} />
         </div>
       )}
 
       {err && (
-        <div className="status-panel failed" style={{ marginTop: 20 }}>
-          <div className="status-title">Could not load fire calendar telemetry</div>
-          <p className="status-desc">{err}</p>
+        <div className="status-panel failed" style={{ marginTop: 20, padding: "18px 22px", borderRadius: 12 }}>
+          <div className="status-title" style={{ fontSize: 16, fontWeight: 700 }}>
+            Data Kalender Belum Tersedia untuk Wilayah Ini
+          </div>
+          <p className="status-desc" style={{ marginTop: 6, fontSize: 13.5, color: "var(--ink2)", lineHeight: 1.6 }}>
+            Data observasi satelit untuk wilayah ini sedang dalam tahap pemrosesan awal.
+            Silakan pilih salah satu wilayah Nusantara yang datanya sudah siap dipantau:
+          </p>
           {readyPresets.length > 0 && (
-            <div style={{ display: "flex", gap: 8, flexWrap: "wrap", alignItems: "center", marginTop: 10 }}>
-              <span style={{ fontSize: 12, color: "var(--ink2)" }}>Switch to region with generated artifacts:</span>
+            <div style={{ display: "flex", gap: 10, flexWrap: "wrap", alignItems: "center", marginTop: 14 }}>
+              <span style={{ fontSize: 12.5, fontWeight: 600, color: "var(--ink)" }}>Wilayah yang Siap:</span>
               {readyPresets.map(p => (
                 <button
                   key={p.id}
                   className="btn secondary"
-                  style={{ padding: "5px 12px", fontSize: 12 }}
+                  style={{ padding: "6px 14px", fontSize: 12.5, borderRadius: 8, fontWeight: 600 }}
                   onClick={() => setAoi(p.id)}
                 >
-                  Inspect {p.name}
+                  Buka {PRESET_NAMES[p.id] ?? p.name}
                 </button>
               ))}
             </div>
@@ -239,16 +267,16 @@ export default function CalendarScreen({ goMap }: { goMap: () => void }) {
           <div className="card">
             {summary && (
               <div className="cal-summary">
-                <span className="big">{summary.total.toLocaleString("en-US")}</span>
+                <span className="big">{summary.total.toLocaleString("id-ID")}</span>
                 <span className="unit">{summary.valueLabel}</span>
                 <span className="stat">
-                  Peak {summary.peakUnit}: <b>{summary.peak.label}</b> ({summary.peak.total.toLocaleString("en-US")} MW)
+                  Puncak {summary.peakUnit}: <b>{summary.peak.label}</b> ({summary.peak.total.toLocaleString("id-ID")} MW)
                 </span>
                 <span className="stat">
-                  <b>{summary.active}</b> {summary.unit} active
+                  <b>{summary.active}</b> {summary.unit}
                 </span>
                 <span className="stat">
-                  <b>{summary.gaps}</b> retrieval-gap days (never zero-filled)
+                  <b>{summary.gaps}</b> hari celah pengamatan satelit
                 </span>
               </div>
             )}
@@ -262,15 +290,15 @@ export default function CalendarScreen({ goMap }: { goMap: () => void }) {
                     className={"tile" + (t.isGap ? " gap" : "") + (isSelected ? " selected" : "")}
                     style={{ background: t.isGap ? undefined : t.fill }}
                     onClick={() => onTile(t)}
-                    aria-label={`Inspect ${t.label}: ${t.isGap ? "satellite retrieval gap" : `${t.total} MW FRP-sum`}`}
+                    aria-label={`Pemeriksaan ${t.label}: ${t.isGap ? "celah data satelit" : `${t.total.toLocaleString("id-ID")} MW FRP`}`}
                   >
                     <span className="tile-label">{t.label}</span>
                     <span className="tile-value">
-                      {t.isGap ? "Gap (no data)" : `${t.total.toLocaleString("en-US")} MW`}
+                      {t.isGap ? "Celah Data" : `${t.total.toLocaleString("id-ID")} MW`}
                     </span>
                     {t.gapDays > 0 && !t.isGap && (
                       <span className="tile-flags">
-                        {t.gapDays} gap day{t.gapDays === 1 ? "" : "s"}
+                        {t.gapDays} hari celah
                       </span>
                     )}
                   </button>
@@ -285,21 +313,21 @@ export default function CalendarScreen({ goMap }: { goMap: () => void }) {
                     <i key={i} style={{ background: c }} />
                   ))}
                 </span>
-                <span>FRP-sum gradient (low → high relative to view peak)</span>
+                <span>Gradien energi FRP (rendah → tinggi relatif terhadap puncak)</span>
               </span>
               <span className="item">
                 <i className="sw-gap" style={{ width: 14, height: 14, borderRadius: 3 }} />
-                <span>Retrieval gap (no overpass)</span>
+                <span>Celah data (satelit tidak melintas)</span>
               </span>
               <span className="item">
                 <i className="sw-zero" style={{ width: 14, height: 14, borderRadius: 3 }} />
-                <span>Valid 0 MW</span>
+                <span>Valid 0 MW (nihil titik panas)</span>
               </span>
             </div>
           </div>
 
           <div className="card">
-            <h2>Selected {view === "yearly" ? "calendar year" : "calendar month"} inspection</h2>
+            <h2>Pemeriksaan {view === "yearly" ? "Tahun" : "Bulan"} Terpilih</h2>
             <AnimatePresence initial={false} mode="wait">
               {sel ? (
                 <motion.div
@@ -315,10 +343,10 @@ export default function CalendarScreen({ goMap }: { goMap: () => void }) {
                   </div>
 
                   <div className="kpi-box" style={{ marginTop: 14 }}>
-                    <span className="kpi-label">FRP-sum aggregate</span>
+                    <span className="kpi-label">Akumulasi Energi Panas (FRP)</span>
                     <span className="kpi-val">{sel.value}</span>
                     <span className="kpi-sub">
-                      {sensor === "harm" ? "MODIS-equivalent calibrated energy" : "Raw instrument detection sum"}
+                      {sensor === "harm" ? "Energi terkalibrasi setara MODIS Aqua" : "Total deteksi instrumen mentah"}
                     </span>
                   </div>
 
@@ -350,9 +378,9 @@ export default function CalendarScreen({ goMap }: { goMap: () => void }) {
                   className="status-panel loading"
                   style={{ marginTop: 12 }}
                 >
-                  <div className="status-title">No period selected</div>
+                  <div className="status-title">Belum Ada Periode Terpilih</div>
                   <p className="status-desc">
-                    Click any {view === "yearly" ? "year" : "month"} tile in the matrix to inspect its full telemetry profile, active detection days, and retrieval gap audit.
+                    Klik salah satu kotak {view === "yearly" ? "tahun" : "bulan"} pada kalender untuk memeriksa rincian energi, hari aktif, dan kelengkapan data satelit.
                   </p>
                 </motion.div>
               )}
