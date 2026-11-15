@@ -312,10 +312,7 @@ export default function CalendarScreen({ goMap }: { goMap: () => void }) {
                         : `${tile.total.toLocaleString(lang === "id" ? "id-ID" : "en-US")} MW FRP`
                     }`}
                   >
-                    <span className="tile-label">
-                      <span>{tile.label}</span>
-                      {tile.isPeak && <span className="tile-peak-badge">{t("cal_tile_peak_badge")}</span>}
-                    </span>
+                    <span className="tile-label">{tile.label}</span>
                     <span className="tile-value">
                       {tile.isGap
                         ? t("cal_tile_gap_text")
