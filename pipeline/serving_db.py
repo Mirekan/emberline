@@ -156,8 +156,11 @@ def build(artifacts_dir: str | Path, aoi_id: str) -> dict:
         missing.append("windows.json")
 
     # -- baselines (B0/B1) + harmonized daily (B2) -----------------------------------
+    # Schema guard: legacy/foreign-schema artifacts (e.g. from other generators)
+    # are NOT converted — recorded as missing with a note, never guessed.
     base_rows = _read_csv(art / "baseline_series.csv")
-    if base_rows:
+    base_cols = set(base_rows[0]) if base_rows else set()
+    if base_rows and {"date", "daynight", "B0_naive_splice_mw", "B1_ratio_pred_mw"} <= base_cols:
         cur.execute("""CREATE TABLE baselines (
             date TEXT, daynight TEXT, role TEXT,
             modis_frp_sum_mw REAL, viirs_frp_sum_mw REAL,
@@ -168,11 +171,12 @@ def build(artifacts_dir: str | Path, aoi_id: str) -> dict:
                           _num(r["modis_frp_sum_mw"]), _num(r["viirs_frp_sum_mw"]),
                           _num(r["B0_naive_splice_mw"]), _num(r["B1_ratio_pred_mw"]))
                          for r in base_rows])
-    else:
-        missing.append("baseline_series.csv")
+    elif base_rows:
+        missing.append("baseline_series.csv:legacy-schema")
 
     harm_rows = _read_csv(art / "harmonized_daily.csv")
-    if harm_rows:
+    harm_cols = set(harm_rows[0]) if harm_rows else set()
+    if harm_rows and {"date", "daynight", "predicted_b2_mw", "lo_mw", "hi_mw"} <= harm_cols:
         cur.execute("""CREATE TABLE harmonized_daily (
             date TEXT, daynight TEXT, role TEXT, source_flag TEXT,
             n_cells_predicted INTEGER, observed_modis_mw REAL, predicted_b2_mw REAL,
@@ -180,10 +184,12 @@ def build(artifacts_dir: str | Path, aoi_id: str) -> dict:
             PRIMARY KEY (date, daynight))""")
         cur.executemany("INSERT INTO harmonized_daily VALUES (?,?,?,?,?,?,?,?,?,?)",
                         [(r["date"], r["daynight"], r["role"], r["source_flag"],
-                          int(r["n_cells_predicted"]), _num(r["observed_modis_mw"]),
+                          int(r.get("n_cells_predicted", 0) or 0), _num(r["observed_modis_mw"]),
                           _num(r["predicted_b2_mw"]), _num(r["lo_mw"]), _num(r["hi_mw"]),
                           r.get("flags", "")) for r in harm_rows])
         cur.execute("CREATE INDEX idx_harm_date ON harmonized_daily(date)")
+    elif harm_rows:
+        missing.append("harmonized_daily.csv:legacy-schema")
     else:
         missing.append("harmonized_daily.csv")
 

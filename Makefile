@@ -54,7 +54,7 @@ reproduce:
 reproduce-all:
 	@test -f pipeline/run.py || { echo "NOT READY: science pipeline runner missing — owner C-07"; exit 1; }
 	@$(PYTHON) -c "import yaml; print('\n'.join(a['id'] for a in yaml.safe_load(open('config/aois.yaml'))['aois']))" | \
-	    xargs -n1 -P$(P) -I{} $(PYTHON) -m pipeline.run --aoi {}
+	    xargs -P$(P) -I{} $(PYTHON) -m pipeline.run --aoi {}
 
 test:
 	@$(PYTHON) tests/test_api_series.py
