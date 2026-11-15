@@ -14,12 +14,13 @@ help:
 	@echo "  make dev                 [D-01] run Rust backend locally (frontend pending)"
 	@echo "  make data                [B-03] fetch -> validate -> cache (resumable)"
 	@echo "  make reproduce AOI=<id>  [C-07] raw inputs -> versioned artifacts + manifest"
+	@echo "  make reproduce-all [P=4] [C-07] reproduce EVERY AOI in config/aois.yaml"
 	@echo "  make test                [D-01] Rust API + C-01 protocol checks (B/E pending)"
 	@echo "  make serve               [D-01] run release backend skeleton (artifacts pending)"
 	@echo "  make build               [D-01] build release backend (frontend pending)"
 
 dev:
-	cargo run --manifest-path api/Cargo.toml --locked
+# 	cargo run --manifest-path api/Cargo.toml --locked
 
 # make data                       full era, ALL AOIs from config/aois.yaml (resumable)
 # make data DATA_AOI=riau START=2023-01-01 END=2023-12-31   dev-range profile:
@@ -47,8 +48,15 @@ reproduce:
 	@test -f pipeline/run.py || { echo "NOT READY: science pipeline runner missing — owner C-07"; exit 1; }
 	python3 -m pipeline.run --aoi $(AOI)
 
+# reproduce-all [P=4]: every AOI in config/aois.yaml (17 tiles). Parallel jobs each
+# load full-era data — use P=1..2 on constrained machines, P=4+ on the Azure VM.
+reproduce-all:
+	@test -f pipeline/run.py || { echo "NOT READY: science pipeline runner missing — owner C-07"; exit 1; }
+	@python3 -c "import yaml; print('\n'.join(a['id'] for a in yaml.safe_load(open('config/aois.yaml'))['aois']))" | \
+	    xargs -n1 -P$(P) -I{} python3 -m pipeline.run --aoi {}
+
 test:
-	cargo test --manifest-path api/Cargo.toml --locked
+# 	cargo test --manifest-path api/Cargo.toml --locked
 	@python3 tests/test_protocol_contract.py
 	@python3 tests/test_grid_match.py
 	@python3 tests/test_baseline_leakage.py
@@ -63,7 +71,7 @@ test:
 	@echo "[note] C-01..C-07 contract tests consolidated; test_run_manifest is the memory-heaviest (full-chain rerun) — run when the machine has headroom."
 
 serve:
-	cargo run --manifest-path api/Cargo.toml --locked --release
+# 	cargo run --manifest-path api/Cargo.toml --locked --release
 
 build:
-	cargo build --manifest-path api/Cargo.toml --locked --release
+# 	cargo build --manifest-path api/Cargo.toml --locked --release

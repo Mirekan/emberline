@@ -31,7 +31,7 @@ import numpy as np
 import pandas
 import yaml
 
-from pipeline import baselines, calendar, harmonize, metrics, splice_stress, windows
+from pipeline import baselines, calendar, harmonize, metrics, serving_db, splice_stress, windows
 from pipeline.match import run as match_run, write_outputs as match_write, read_table
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -89,6 +89,10 @@ def discover_inputs(aoi_id: str) -> dict:
 def run(aoi_id: str, run_ts: str | None = None, detections: list[Path] | None = None,
         mask_path: Path | None = None) -> dict:
     created = run_ts or datetime.now(timezone.utc).strftime("%Y%m%dT%H%MZ")
+    if run_ts:  # frozen clock -> fully deterministic provenance (tests/audit reruns)
+        created_utc = datetime.strptime(run_ts, "%Y%m%dT%H%MZ").replace(tzinfo=timezone.utc).isoformat(timespec="seconds")
+    else:
+        created_utc = datetime.now(timezone.utc).isoformat(timespec="seconds")
     inputs = discover_inputs(aoi_id)
     detections = detections or inputs["detections"]
     mask_path = mask_path or inputs["mask"]
@@ -162,6 +166,16 @@ def run(aoi_id: str, run_ts: str | None = None, detections: list[Path] | None = 
     stages["c06_calendar"] = {"status": cal["manifest"].get("status"), "outputs": cal["outputs"]}
     stages["c06_windows"] = {"status": windows.run(artifacts, artifacts)["manifest"].get("status")}
 
+    # -- stage 7: C-07 derived SQLite serving artifact ------------------------------------
+    serving_stats = serving_db.build(artifacts, aoi_id)
+    stages["c07_serving_db"] = {
+        "status": "ok",
+        "sha256": serving_stats["sha256"],
+        "tables": serving_stats["tables"],
+        "missing_sources": serving_stats["missing_sources"],
+        "outputs": {"db": serving_stats["db"]},
+    }
+
     # -- provenance manifest (F-19) ----------------------------------------------------------
     train_years = test_years = None
     if stages["c04_harmonize"].get("status") == "ok":
@@ -176,7 +190,7 @@ def run(aoi_id: str, run_ts: str | None = None, detections: list[Path] | None = 
         "task": "C-07",
         "run_id": f"{PROTOCOL_VERSION}_{git_sha()}_{created}",
         "git_sha": git_sha(),
-        "created_utc": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+        "created_utc": created_utc,
         "aoi_id": aoi_id,
         "aoi_bbox_date_range": {
             "bbox": inputs["bbox_str"],
@@ -192,6 +206,7 @@ def run(aoi_id: str, run_ts: str | None = None, detections: list[Path] | None = 
         "library_versions": {"numpy": np.__version__, "pandas": pandas.__version__,
                              "python": sys.version.split()[0]},
         "seeds": {"interval_bootstrap": BOOTSTRAP_SEED},
+        "serving_db_sha256": serving_stats["sha256"],
         "stage_statuses": stages,
         "honesty_note": "stage statuses are recorded verbatim — insufficient_data/deferred "
                         "stages are NOT failures or passes, they are the actual state",

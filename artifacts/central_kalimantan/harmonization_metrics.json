@@ -83,7 +83,7 @@
           "n": 12,
           "n_excluded": 0,
           "reason": "month-of-year means; months: 01,02,03,04,05,06,07,08,09,10,11,12",
-          "value": 0.996506
+          "value": 0.997384
         },
         "interval_coverage_empirical": {
           "n": 4244,
@@ -95,61 +95,61 @@
           "n": 4244,
           "n_excluded": 0,
           "reason": "",
-          "value": 0.351084
+          "value": 0.35344
         },
         "log_space_r2": {
           "n": 4244,
           "n_excluded": 0,
           "reason": "",
-          "value": -0.315598
+          "value": -0.309114
         },
         "mape_zero_actual_excluded": {
           "n": 779,
           "n_excluded": 3465,
           "reason": "",
-          "value": 1.839007
+          "value": 1.840998
         },
         "mean_log_ratio_bias": {
           "n": 4244,
           "n_excluded": 0,
           "reason": "",
-          "value": -0.868891
+          "value": -0.88194
         },
         "pearson_daily": {
           "n": 4244,
           "n_excluded": 0,
           "reason": "",
-          "value": 0.758089
+          "value": 0.760562
         },
         "pearson_weekly": {
           "n": 304,
           "n_excluded": 0,
           "reason": "",
-          "value": 0.97675
+          "value": 0.9788
         },
         "smape": {
-          "n": 2384,
-          "n_excluded": 1860,
+          "n": 2388,
+          "n_excluded": 1856,
           "reason": "",
-          "value": 1.660334
+          "value": 1.657035
         },
         "spearman_daily": {
           "n": 4244,
           "n_excluded": 0,
           "reason": "",
-          "value": 0.451076
+          "value": 0.458482
         },
         "spearman_weekly": {
           "n": 304,
           "n_excluded": 0,
           "reason": "",
-          "value": 0.801768
+          "value": 0.801861
         },
         "wasserstein_distance": {
           "n": 4244,
           "n_excluded": 0,
           "reason": "",
-          "value": 35.927651
+          "value": 37.02282
         }
       },
       "b1": {
@@ -157,7 +157,7 @@
           "n": 12,
           "n_excluded": 0,
           "reason": "month-of-year means; months: 01,02,03,04,05,06,07,08,09,10,11,12",
-          "value": 0.996506
+          "value": 0.997384
         },
         "interval_coverage_empirical": {
           "n": 4244,
@@ -169,61 +169,61 @@
           "n": 4244,
           "n_excluded": 0,
           "reason": "",
-          "value": 0.351084
+          "value": 0.35344
         },
         "log_space_r2": {
           "n": 4244,
           "n_excluded": 0,
           "reason": "",
-          "value": 0.036731
+          "value": 0.045465
         },
         "mape_zero_actual_excluded": {
           "n": 779,
           "n_excluded": 3465,
           "reason": "",
-          "value": 1.074859
+          "value": 1.073252
         },
         "mean_log_ratio_bias": {
           "n": 4244,
           "n_excluded": 0,
           "reason": "",
-          "value": -0.592603
+          "value": -0.604226
         },
         "pearson_daily": {
           "n": 4244,
           "n_excluded": 0,
           "reason": "",
-          "value": 0.758089
+          "value": 0.760562
         },
         "pearson_weekly": {
           "n": 304,
           "n_excluded": 0,
           "reason": "",
-          "value": 0.97675
+          "value": 0.9788
         },
         "smape": {
-          "n": 2384,
-          "n_excluded": 1860,
+          "n": 2388,
+          "n_excluded": 1856,
           "reason": "",
-          "value": 1.6575
+          "value": 1.654626
         },
         "spearman_daily": {
           "n": 4244,
           "n_excluded": 0,
           "reason": "",
-          "value": 0.451076
+          "value": 0.458482
         },
         "spearman_weekly": {
           "n": 304,
           "n_excluded": 0,
           "reason": "",
-          "value": 0.801763
+          "value": 0.801856
         },
         "wasserstein_distance": {
           "n": 4244,
           "n_excluded": 0,
           "reason": "",
-          "value": 8.38459
+          "value": 8.9785
         }
       },
       "b2": {
@@ -231,7 +231,7 @@
           "n": 12,
           "n_excluded": 0,
           "reason": "month-of-year means; months: 01,02,03,04,05,06,07,08,09,10,11,12",
-          "value": 0.996967
+          "value": 0.997716
         },
         "interval_coverage_empirical": {
           "n": 4244,
@@ -243,61 +243,61 @@
           "n": 4244,
           "n_excluded": 0,
           "reason": "",
-          "value": 0.351084
+          "value": 0.35344
         },
         "log_space_r2": {
           "n": 4244,
           "n_excluded": 0,
           "reason": "",
-          "value": -0.287969
+          "value": -0.281156
         },
         "mape_zero_actual_excluded": {
           "n": 779,
           "n_excluded": 3465,
           "reason": "",
-          "value": 1.665177
+          "value": 1.666274
         },
         "mean_log_ratio_bias": {
           "n": 4244,
           "n_excluded": 0,
           "reason": "",
-          "value": -0.85587
+          "value": -0.868763
         },
         "pearson_daily": {
           "n": 4244,
           "n_excluded": 0,
           "reason": "",
-          "value": 0.756012
+          "value": 0.758627
         },
         "pearson_weekly": {
           "n": 304,
           "n_excluded": 0,
           "reason": "",
-          "value": 0.97792
+          "value": 0.979985
         },
         "smape": {
-          "n": 2384,
-          "n_excluded": 1860,
+          "n": 2388,
+          "n_excluded": 1856,
           "reason": "",
-          "value": 1.656366
+          "value": 1.653044
         },
         "spearman_daily": {
           "n": 4244,
           "n_excluded": 0,
           "reason": "",
-          "value": 0.450708
+          "value": 0.458118
         },
         "spearman_weekly": {
           "n": 304,
           "n_excluded": 0,
           "reason": "",
-          "value": 0.80393
+          "value": 0.804021
         },
         "wasserstein_distance": {
           "n": 4244,
           "n_excluded": 0,
           "reason": "",
-          "value": 27.699439
+          "value": 28.673298
         }
       }
     },

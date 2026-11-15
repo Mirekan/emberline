@@ -1,6 +1,6 @@
 # Ingest evidence - w113_s-3_e116_n0 (B-05 / gate G1)
 
-Generated: 2026-11-14T15:36:33+00:00 by pipeline/validate.py
+Generated: 2026-11-15T04:40:43+00:00 by pipeline/validate.py
 
 ## MODIS_SP
 
@@ -32,12 +32,12 @@ Generated: 2026-11-14T15:36:33+00:00 by pipeline/validate.py
 ## VIIRS_SNPP_SP
 
 - requested range: 2012-01-20 .. 2026-07-31 (5307 days)
-- retrieval: 5307 retrieved / 0 failed / 1350 retrieved-with-zero-detections
-- days with detections: 3957
-- rows: raw 344336 -> kept 344336
+- retrieval: 5307 retrieved / 0 failed / 1345 retrieved-with-zero-detections
+- days with detections: 3962
+- rows: raw 345074 -> kept 345074
 - drops: none
-- hash: 1061 files checked, 0 mismatch
-- satellite: {'N': 344336}
+- hash: 1062 files checked, 0 mismatch
+- satellite: {'N': 345074}
 - detections span: 2012-01-20 .. 2026-07-31
 - per-year kept rows:
   - 2012: 25081
@@ -51,7 +51,7 @@ Generated: 2026-11-14T15:36:33+00:00 by pipeline/validate.py
   - 2020: 3946
   - 2021: 2351
   - 2022: 1881
-  - 2023: 23195
+  - 2023: 23933
   - 2024: 5506
   - 2025: 4443
   - 2026: 2588
