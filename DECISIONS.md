@@ -39,6 +39,7 @@ human, that limitation is disclosed here (small-team day-1 condition).**
 | INT-1 | Monorepo with path ownership; artifacts-as-interface (no cross-role imports); Makefile = single entry point; contracts-first | confirmed by A; D-01/D-02 artifacts landed as proposals (requirements.txt, contracts v0.1→FROZEN) | APPROVED 14 Nov |
 | INT-2 | Git discipline: single `main`, commit prefix `[task-id]`, push per task, one editor per shared file | D / A | APPROVED 14 Nov |
 | INT-3 | **Backend stack: Rust + actix-web replaces proposed FastAPI** (D-01 request; artifacts-as-interface makes this zero-impact on C — see earlier assessment). Rust api/ skeleton landed: health not_ready, sanitized 404, bind validation, clippy/fmt clean, 2 route tests | D requested; A confirmed in session | APPROVED 14 Nov |
+| INT-4 | **Backend stack final: FastAPI (Python) — menggantikan skeleton Rust** (D memilih saat implementasi; serving.db + artefak CSV/JSON stack-agnostic, nol perubahan sains; skeleton Rust 130 baris diarsipkan via git history) | D confirmed 15 Nov | APPROVED 15 Nov |
 
 ## Sign-offs (C-01 protocol, docs/method.md §8)
 
