@@ -397,7 +397,7 @@ export default function FireMap() {
     let cancelled = false;
     setGridLoading(true);
     setGridError("");
-    api.grid("all")
+    api.grid("indonesia")
       .then(data => {
         if (!cancelled) setGrid(data);
       })
@@ -452,7 +452,7 @@ export default function FireMap() {
     return grid && grid.cells.length > 0 ? Math.max(0, ...grid.cells.map(c => c.detection_count)) : 0;
   }, [grid]);
 
-  // Render 0.1° density grid overlay when toggled on
+  // Render 0.1° density grid overlay across Indonesia when toggled on
   useEffect(() => {
     const map = mapRef.current;
     if (!map) return;
@@ -460,20 +460,69 @@ export default function FireMap() {
     gridLayerRef.current = null;
     if (!gridOn || !grid || grid.cells.length === 0) return;
 
+    // High performance hardware-accelerated canvas renderer for the full 29,900-cell nationwide mosaic
+    const canvasRenderer = L.canvas({ padding: 0.5 });
     const layer = L.layerGroup();
     for (const cell of grid.cells) {
       const count = cell.detection_count;
       const isSelected = selectedCell?.cell_id === cell.cell_id;
-      if (count === 0 && !isSelected) continue; // Skip empty cells unless selected
-      const risk = getCellRisk(count, maxCount);
+      const hasData = cell.has_data ?? (count > 0);
 
+      // Area yang belum ada data / 0 observasi ditampilkan putih sesuai permintaan
+      if (!hasData || count === 0) {
+        const area = L.rectangle(
+          [[cell.south, cell.west], [cell.north, cell.east]],
+          {
+            renderer: canvasRenderer,
+            color: isSelected ? "#FFFFFF" : "rgba(255, 255, 255, 0.4)",
+            weight: isSelected ? 2.5 : 0.4,
+            fillColor: "#FFFFFF",
+            fillOpacity: isSelected ? 0.45 : 0.14,
+            interactive: true,
+            bubblingMouseEvents: false,
+          },
+        );
+        area.bindTooltip(
+          `<div style="font-size:11px; line-height:1.4;">
+            <div style="font-weight:700; color:#FFFFFF; margin-bottom:2px;">Status: ${lang === "id" ? "Belum Ada Data Satelit" : "No Satellite Data"}</div>
+            <div>0 ${lang === "id" ? "observasi satelit" : "observations"}</div>
+            <div style="font-size:10px; color:#aaa;">${lang === "id" ? "Wilayah standby pemantauan (putih)" : "Monitoring standby area (white)"}</div>
+          </div>`,
+          { sticky: true }
+        );
+        area.on("click", (e) => {
+          L.DomEvent.stopPropagation(e);
+          setSelectedCell(prev => {
+            if (prev?.cell_id === cell.cell_id) {
+              const p = presets.find(pp => pp.id === aoi);
+              if (p) {
+                map.flyToBounds([[p.south, p.west], [p.north, p.east]], { padding: [50, 50], duration: 0.8 });
+              }
+              return null;
+            } else {
+              map.flyToBounds([[cell.south, cell.west], [cell.north, cell.east]], {
+                padding: [80, 80],
+                maxZoom: 11,
+                duration: 0.8,
+              });
+              return cell;
+            }
+          });
+        });
+        area.addTo(layer);
+        continue;
+      }
+
+      // Area dengan data deteksi satelit ditampilkan gradasi densitas
+      const risk = getCellRisk(count, maxCount);
       const area = L.rectangle(
         [[cell.south, cell.west], [cell.north, cell.east]],
         {
+          renderer: canvasRenderer,
           color: isSelected ? "#FFFFFF" : risk.color,
-          weight: isSelected ? 2.5 : 0.6,
+          weight: isSelected ? 2.5 : 0.65,
           fillColor: risk.color,
-          fillOpacity: isSelected ? 0.45 : count === 0 ? 0.04 : 0.16 + (maxCount > 0 ? (Math.log1p(count) / Math.log1p(maxCount)) * 0.32 : 0),
+          fillOpacity: isSelected ? 0.55 : 0.22 + (maxCount > 0 ? (Math.log1p(count) / Math.log1p(maxCount)) * 0.4 : 0),
           interactive: true,
           bubblingMouseEvents: false,
         },
@@ -481,8 +530,8 @@ export default function FireMap() {
       area.bindTooltip(
         `<div style="font-size:11px; line-height:1.4;">
           <div style="font-weight:700; color:${risk.color}; margin-bottom:2px;">Status: ${risk.label}</div>
-          <div>${count.toLocaleString()} observasi satelit</div>
-          <div style="font-size:10px; color:#888;">Klik untuk fokus sel</div>
+          <div>${count.toLocaleString(lang === "id" ? "id-ID" : "en-US")} ${lang === "id" ? "observasi satelit" : "satellite observations"}</div>
+          <div style="font-size:10px; color:#aaa;">${lang === "id" ? "Klik untuk fokus sel" : "Click to focus cell"}</div>
         </div>`,
         { sticky: true }
       );
@@ -509,7 +558,7 @@ export default function FireMap() {
     }
     layer.addTo(map);
     gridLayerRef.current = layer;
-  }, [grid, gridOn, selectedCell, maxCount, mapReady, aoi, presets]);
+  }, [grid, gridOn, selectedCell, maxCount, mapReady, aoi, presets, lang]);
 
   const detRows = useMemo(() => {
     if (!det) return [];
@@ -975,26 +1024,38 @@ export default function FireMap() {
               {gridOn ? "Aktif" : "Nonaktif"}
             </button>
           </div>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 6, fontSize: 10, color: "var(--ink2)", textAlign: "center", marginTop: 4 }}>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(5, 1fr)", gap: 4, fontSize: 9.5, color: "var(--ink2)", textAlign: "center", marginTop: 4 }}>
+            <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 3 }}>
+              <span style={{ display: "inline-block", width: "100%", height: 4, borderRadius: 2, background: "#FFFFFF", border: "1px solid rgba(255, 255, 255, 0.6)" }} />
+              <span>{lang === "id" ? "Belum Ada" : "No Data"}</span>
+            </div>
             <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 3 }}>
               <span style={{ display: "inline-block", width: "100%", height: 4, borderRadius: 2, background: "#10B981" }} />
-              <span>Aman</span>
+              <span>{lang === "id" ? "Aman" : "Safe"}</span>
             </div>
             <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 3 }}>
               <span style={{ display: "inline-block", width: "100%", height: 4, borderRadius: 2, background: "#FACC15" }} />
-              <span>Waspada</span>
+              <span>{lang === "id" ? "Waspada" : "Warn"}</span>
             </div>
             <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 3 }}>
               <span style={{ display: "inline-block", width: "100%", height: 4, borderRadius: 2, background: "#F97316" }} />
-              <span>Siaga</span>
+              <span>{lang === "id" ? "Siaga" : "Alert"}</span>
             </div>
             <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 3 }}>
               <span style={{ display: "inline-block", width: "100%", height: 4, borderRadius: 2, background: "#EF4444" }} />
-              <span>Bahaya</span>
+              <span>{lang === "id" ? "Bahaya" : "Danger"}</span>
             </div>
           </div>
           <div style={{ fontSize: 10, color: "var(--ink3)", lineHeight: 1.4, marginTop: 7 }}>
-            {gridOn ? `${(grid?.n_cells ?? 1668).toLocaleString()} sel 0,1° aktif di seluruh wilayah sentinel Indonesia. Klik sel untuk fokus inspeksi.` : "Aktifkan bila ingin melihat agregasi densitas spasial (Aman, Waspada, Siaga, Bahaya)."}
+            {gridOn ? (
+              lang === "id"
+                ? `${(grid?.n_cells ?? 29900).toLocaleString("id-ID")} sel 0,1° aktif di seluruh kepulauan Indonesia. Wilayah yang belum ada data observasi ditandai putih.`
+                : `${(grid?.n_cells ?? 29900).toLocaleString("en-US")} 0.1° cells active across Indonesia. Areas without observation data are shown in white.`
+            ) : (
+              lang === "id"
+                ? "Aktifkan bila ingin melihat agregasi densitas spasial (Putih = Belum ada data, Berwarna = Densitas observasi)."
+                : "Enable to see spatial density aggregation across Indonesia."
+            )}
           </div>
         </div>
 
