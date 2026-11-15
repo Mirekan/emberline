@@ -76,25 +76,71 @@ def _series(aoi: str):
     p = ARTIFACTS / aoi / "harmonized_daily.csv"
     if not p.exists():
         raise HTTPException(404, detail=f"Data deret waktu untuk wilayah '{aoi}' belum tersedia. Silakan pilih wilayah lain yang sudah siap.")
-    rows = []
     with p.open(newline="", encoding="utf-8") as fh:
-        for r in csv.DictReader(fh):
-            for k in ("raw_modis_frp_mw", "raw_modis_n", "raw_viirs_frp_mw",
-                      "raw_viirs_n", "harmonized_lo_mw", "harmonized_estimate_mw",
-                      "harmonized_hi_mw"):
-                if r.get(k) == "":
-                    r[k] = None
-                else:
-                    try:
-                        r[k] = float(r[k]) if k.endswith("mw") else int(r[k])
-                    except ValueError:
-                        pass
+        raw_rows = list(csv.DictReader(fh))
+    if not raw_rows:
+        return []
+
+    # Handle Team C day/night paired format
+    if "daynight" in raw_rows[0]:
+        from collections import defaultdict
+        by_date = defaultdict(lambda: {
+            "date": "", "source_flag": "harmonized_viirs",
+            "raw_modis_frp_mw": 0.0, "raw_modis_n": 0,
+            "raw_viirs_frp_mw": None, "raw_viirs_n": None,
+            "harmonized_lo_mw": 0.0, "harmonized_estimate_mw": 0.0, "harmonized_hi_mw": 0.0,
+            "flags": set(), "gap_reason": None,
+        })
+        for r in raw_rows:
+            d = r["date"]
+            entry = by_date[d]
+            entry["date"] = d
+            entry["source_flag"] = r.get("source_flag") or "harmonized_viirs"
+            obs = float(r["observed_modis_mw"]) if r.get("observed_modis_mw") not in (None, "") else 0.0
+            pred = float(r["predicted_b2_mw"]) if r.get("predicted_b2_mw") not in (None, "") else 0.0
+            lo = float(r["lo_mw"]) if r.get("lo_mw") not in (None, "") else 0.0
+            hi = float(r["hi_mw"]) if r.get("hi_mw") not in (None, "") else 0.0
+            entry["raw_modis_frp_mw"] += obs
+            if obs > 0:
+                entry["raw_modis_n"] += 1
+            entry["harmonized_estimate_mw"] += pred
+            entry["harmonized_lo_mw"] += lo
+            entry["harmonized_hi_mw"] += hi
             if r.get("flags"):
-                r["flags"] = r["flags"].split("|") if "|" in r["flags"] else (
-                    [r["flags"]] if r["flags"] else [])
+                for fl in r["flags"].split("|"):
+                    if fl:
+                        entry["flags"].add(fl)
+
+        rows = []
+        for d in sorted(by_date.keys()):
+            item = by_date[d]
+            item["flags"] = sorted(list(item["flags"]))
+            item["raw_modis_frp_mw"] = round(item["raw_modis_frp_mw"], 2)
+            item["harmonized_estimate_mw"] = round(item["harmonized_estimate_mw"], 2)
+            item["harmonized_lo_mw"] = round(item["harmonized_lo_mw"], 2)
+            item["harmonized_hi_mw"] = round(item["harmonized_hi_mw"], 2)
+            rows.append(item)
+        return rows
+
+    # Standard per-day row format
+    rows = []
+    for r in raw_rows:
+        for k in ("raw_modis_frp_mw", "raw_modis_n", "raw_viirs_frp_mw",
+                  "raw_viirs_n", "harmonized_lo_mw", "harmonized_estimate_mw",
+                  "harmonized_hi_mw"):
+            val = r.get(k)
+            if val in (None, ""):
+                r[k] = None
             else:
-                r["flags"] = []
-            rows.append(r)
+                try:
+                    r[k] = float(val) if k.endswith("mw") else int(val)
+                except ValueError:
+                    pass
+        if r.get("flags"):
+            r["flags"] = r["flags"].split("|") if "|" in r["flags"] else [r["flags"]]
+        else:
+            r["flags"] = []
+        rows.append(r)
     return rows
 
 
