@@ -1,0 +1,71 @@
+{
+  "activity": {
+    "active_days_per_year": {
+      "2018": 66,
+      "2019": 70,
+      "2020": 42,
+      "2022": 38,
+      "2023": 70
+    },
+    "missing_years_note": "years absent from the accepted series are never counted inactive",
+    "rule": "years_active = year's daily index >= window threshold on >= 3 era days (DEC-3 PROVISIONAL; frozen with this artifact)",
+    "threshold_rule": "75th percentile of the smoothed climatology median curve (descriptive, NOT a safety threshold)",
+    "years_active": [
+      "2018",
+      "2019",
+      "2020",
+      "2022",
+      "2023"
+    ]
+  },
+  "aoi_id": "papua_barat",
+  "n_windows": 3,
+  "protocol_version": "PROTO-C01-v0.9",
+  "status": "ok",
+  "task": "C-06 windows",
+  "threshold": {
+    "meaning": "descriptive seasonal percentile \u2014 NOT a safety threshold; stated in UI and exports",
+    "percentile_of_smoothed_curve": 75,
+    "value": 0.368616
+  },
+  "windows": [
+    {
+      "end_month_day": "08-16",
+      "end_position": 229,
+      "length_days": 4,
+      "max_index_in_window": 0.473444,
+      "median_index_in_window": 0.439846,
+      "start_month_day": "08-13",
+      "start_position": 226,
+      "wraps_dec_jan": false
+    },
+    {
+      "end_month_day": "08-27",
+      "end_position": 240,
+      "length_days": 7,
+      "max_index_in_window": 0.416246,
+      "median_index_in_window": 0.41079,
+      "start_month_day": "08-21",
+      "start_position": 234,
+      "wraps_dec_jan": false
+    },
+    {
+      "end_month_day": "11-18",
+      "end_position": 323,
+      "length_days": 80,
+      "max_index_in_window": 0.859113,
+      "median_index_in_window": 0.585804,
+      "start_month_day": "08-31",
+      "start_position": 244,
+      "wraps_dec_jan": false
+    }
+  ],
+  "years_eligible": [
+    "2018",
+    "2019",
+    "2020",
+    "2022",
+    "2023",
+    "2026"
+  ]
+}

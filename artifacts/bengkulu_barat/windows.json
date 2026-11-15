@@ -1,0 +1,72 @@
+{
+  "activity": {
+    "active_days_per_year": {
+      "2018": 63,
+      "2019": 74,
+      "2020": 53,
+      "2021": 45,
+      "2022": 31,
+      "2023": 69,
+      "2024": 56,
+      "2025": 54,
+      "2026": 18
+    },
+    "missing_years_note": "years absent from the accepted series are never counted inactive",
+    "rule": "years_active = year's daily index >= window threshold on >= 3 era days (DEC-3 PROVISIONAL; frozen with this artifact)",
+    "threshold_rule": "75th percentile of the smoothed climatology median curve (descriptive, NOT a safety threshold)",
+    "years_active": [
+      "2018",
+      "2019",
+      "2020",
+      "2021",
+      "2022",
+      "2023",
+      "2024",
+      "2025",
+      "2026"
+    ]
+  },
+  "aoi_id": "bengkulu_barat",
+  "n_windows": 2,
+  "protocol_version": "PROTO-C01-v0.9",
+  "status": "ok",
+  "task": "C-06 windows",
+  "threshold": {
+    "meaning": "descriptive seasonal percentile \u2014 NOT a safety threshold; stated in UI and exports",
+    "percentile_of_smoothed_curve": 75,
+    "value": 0.500387
+  },
+  "windows": [
+    {
+      "end_month_day": "06-02",
+      "end_position": 154,
+      "length_days": 5,
+      "max_index_in_window": 0.520277,
+      "median_index_in_window": 0.517734,
+      "start_month_day": "05-29",
+      "start_position": 150,
+      "wraps_dec_jan": false
+    },
+    {
+      "end_month_day": "10-05",
+      "end_position": 279,
+      "length_days": 82,
+      "max_index_in_window": 0.76252,
+      "median_index_in_window": 0.650319,
+      "start_month_day": "07-16",
+      "start_position": 198,
+      "wraps_dec_jan": false
+    }
+  ],
+  "years_eligible": [
+    "2018",
+    "2019",
+    "2020",
+    "2021",
+    "2022",
+    "2023",
+    "2024",
+    "2025",
+    "2026"
+  ]
+}

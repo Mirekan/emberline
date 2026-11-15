@@ -1,0 +1,26 @@
+{
+  "protocol_version": "PROTO-C01-v0.9",
+  "task": "C-07",
+  "run_id": "PROTO-C01-v0.9_published_ntb",
+  "git_sha": "published",
+  "aoi_id": "ntb",
+  "sources": [
+    "MODIS_SP",
+    "VIIRS_SNPP_SP"
+  ],
+  "stage_statuses": {
+    "c04_harmonize": {
+      "status": "ok"
+    },
+    "c06_calendar": {
+      "status": "ok"
+    },
+    "c06_windows": {
+      "status": "ok"
+    },
+    "c07_serving_db": {
+      "status": "ok"
+    }
+  },
+  "honesty_note": "Derived from peer-reviewed harmonized daily FIRMS observations."
+}

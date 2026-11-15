@@ -1,0 +1,62 @@
+{
+  "activity": {
+    "active_days_per_year": {
+      "2018": 76,
+      "2019": 84,
+      "2020": 48,
+      "2021": 58,
+      "2022": 38,
+      "2023": 78,
+      "2024": 55,
+      "2025": 60,
+      "2026": 15
+    },
+    "missing_years_note": "years absent from the accepted series are never counted inactive",
+    "rule": "years_active = year's daily index >= window threshold on >= 3 era days (DEC-3 PROVISIONAL; frozen with this artifact)",
+    "threshold_rule": "75th percentile of the smoothed climatology median curve (descriptive, NOT a safety threshold)",
+    "years_active": [
+      "2018",
+      "2019",
+      "2020",
+      "2021",
+      "2022",
+      "2023",
+      "2024",
+      "2025",
+      "2026"
+    ]
+  },
+  "aoi_id": "kalbar",
+  "n_windows": 1,
+  "protocol_version": "PROTO-C01-v0.9",
+  "status": "ok",
+  "task": "C-06 windows",
+  "threshold": {
+    "meaning": "descriptive seasonal percentile \u2014 NOT a safety threshold; stated in UI and exports",
+    "percentile_of_smoothed_curve": 75,
+    "value": 0.570887
+  },
+  "windows": [
+    {
+      "end_month_day": "10-12",
+      "end_position": 286,
+      "length_days": 92,
+      "max_index_in_window": 0.911425,
+      "median_index_in_window": 0.760433,
+      "start_month_day": "07-13",
+      "start_position": 195,
+      "wraps_dec_jan": false
+    }
+  ],
+  "years_eligible": [
+    "2018",
+    "2019",
+    "2020",
+    "2021",
+    "2022",
+    "2023",
+    "2024",
+    "2025",
+    "2026"
+  ]
+}

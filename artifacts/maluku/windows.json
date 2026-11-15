@@ -1,0 +1,60 @@
+{
+  "activity": {
+    "active_days_per_year": {
+      "2018": 87,
+      "2019": 87,
+      "2020": 62,
+      "2021": 35,
+      "2022": 46,
+      "2023": 84,
+      "2024": 64,
+      "2025": 50
+    },
+    "missing_years_note": "years absent from the accepted series are never counted inactive",
+    "rule": "years_active = year's daily index >= window threshold on >= 3 era days (DEC-3 PROVISIONAL; frozen with this artifact)",
+    "threshold_rule": "75th percentile of the smoothed climatology median curve (descriptive, NOT a safety threshold)",
+    "years_active": [
+      "2018",
+      "2019",
+      "2020",
+      "2021",
+      "2022",
+      "2023",
+      "2024",
+      "2025"
+    ]
+  },
+  "aoi_id": "maluku",
+  "n_windows": 1,
+  "protocol_version": "PROTO-C01-v0.9",
+  "status": "ok",
+  "task": "C-06 windows",
+  "threshold": {
+    "meaning": "descriptive seasonal percentile \u2014 NOT a safety threshold; stated in UI and exports",
+    "percentile_of_smoothed_curve": 75,
+    "value": 0.466701
+  },
+  "windows": [
+    {
+      "end_month_day": "11-16",
+      "end_position": 321,
+      "length_days": 92,
+      "max_index_in_window": 0.897837,
+      "median_index_in_window": 0.662978,
+      "start_month_day": "08-17",
+      "start_position": 230,
+      "wraps_dec_jan": false
+    }
+  ],
+  "years_eligible": [
+    "2018",
+    "2019",
+    "2020",
+    "2021",
+    "2022",
+    "2023",
+    "2024",
+    "2025",
+    "2026"
+  ]
+}
