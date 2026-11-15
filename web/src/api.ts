@@ -35,6 +35,7 @@ export type HotspotAnalysisRequest = {
   region?: string;
   question?: string;
   api_key?: string;
+  lang?: string;
 };
 
 export type HotspotAnalysisResponse = {
