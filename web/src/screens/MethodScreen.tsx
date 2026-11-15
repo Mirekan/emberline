@@ -246,7 +246,7 @@ export default function MethodScreen() {
               </div>
             )}
 
-            <div className="grid2" style={{ marginTop: 18, gridTemplateColumns: "1fr 1fr" }}>
+            <div className="grid2 method-grid-layout" style={{ marginTop: 18 }}>
               <div className="card">
                 <h2>{lang === "id" ? "Batasan Metodologi" : "Methodological limitations"}</h2>
                 <ul style={{ listStyle: "none", padding: 0, marginTop: 12 }}>

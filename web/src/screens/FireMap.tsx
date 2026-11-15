@@ -1688,6 +1688,7 @@ export default function FireMap({ goCalendar }: { goCalendar: () => void }) {
       {/* Floating Sidebar Filter */}
       <div
         ref={sidebarRef}
+        className="map-sidebar-drawer"
         style={{
           position: "absolute",
           left: 14,
@@ -2008,6 +2009,7 @@ export default function FireMap({ goCalendar }: { goCalendar: () => void }) {
 
       {/* Real-time Cursor Coordinate Tracker — pinned to bottom-left even with the filter search panel */}
       <div
+        className="map-coord-tracker"
         style={{
           position: "absolute",
           left: 16,

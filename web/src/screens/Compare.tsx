@@ -142,7 +142,7 @@ export default function Compare() {
             <h2>{lang === "id" ? "Evaluasi Uji Stres Sambungan Sensor" : "Splice stress test evaluation"}</h2>
             <span className="state-chip chip-neutral mono" style={{ fontSize: 10 }}>{lang === "id" ? "tahun uji mandiri" : "held-out years"}</span>
           </div>
-          <div className="grid3" style={{ gridTemplateColumns: "1fr 1fr", marginTop: 4 }}>
+          <div className="grid3 compare-kpi-grid" style={{ marginTop: 4 }}>
             <div className="kpi-box">
               <div className="kpi-label">{lang === "id" ? "Sambungan Tanpa Kalibrasi" : "Naive Handover"}</div>
               <div className="kpi-val" style={{ color: "var(--ember)" }}>{fmtX(b0)}</div>

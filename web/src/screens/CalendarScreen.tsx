@@ -324,7 +324,7 @@ export default function CalendarScreen({ goMap }: { goMap: () => void }) {
       )}
 
       {!loading && !err && cal && yearsAll.length > 0 && (
-        <div className="grid2" style={{ marginTop: 18, gridTemplateColumns: "3fr 2fr" }}>
+        <div className="grid2 calendar-grid-layout" style={{ marginTop: 18 }}>
           <div className="card">
             {summary && (
               <div className="cal-summary">
