@@ -2878,3 +2878,178 @@ tbody tr:hover {
   background: #0F766E;
   transform: translateX(-50%) translateY(-1px);
 }
+
+/* ==========================================================================
+   Map Floating Filter HUD, View Mode Pills, and Basemap Contrast Controls
+   ========================================================================== */
+
+.map-filter-bar {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  z-index: 950;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  background: color-mix(in srgb, var(--surface) 94%, transparent);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--line-strong);
+  border-radius: 12px;
+  padding: 6px 10px;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.12), var(--shadow-sm);
+  max-width: calc(100% - 80px);
+}
+
+.map-filter-group {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.map-filter-select {
+  background: var(--surface);
+  color: var(--ink);
+  border: 1px solid var(--line-strong);
+  border-radius: 7px;
+  padding: 4px 8px;
+  font-size: 11px;
+  font-weight: 500;
+  height: 30px;
+  cursor: pointer;
+  outline: none;
+  transition: border-color 140ms ease, box-shadow 140ms ease;
+}
+
+.map-filter-select:hover {
+  border-color: var(--ink2);
+}
+
+.map-filter-select:focus {
+  border-color: var(--focus);
+  box-shadow: 0 0 0 2px var(--focus-ring);
+}
+
+.map-segmented-control {
+  display: inline-flex;
+  align-items: center;
+  background: var(--sunken);
+  border: 1px solid var(--line-strong);
+  border-radius: 8px;
+  padding: 2px;
+  gap: 2px;
+}
+
+.map-segmented-btn {
+  padding: 4px 9px;
+  font-size: 11px;
+  font-weight: 600;
+  border-radius: 6px;
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--ink2);
+  cursor: pointer;
+  height: 26px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  white-space: nowrap;
+  transition: all 140ms ease;
+}
+
+.map-segmented-btn:hover {
+  color: var(--ink);
+  background: color-mix(in srgb, var(--surface) 60%, transparent);
+}
+
+.map-segmented-btn.active {
+  background: var(--surface);
+  color: var(--ember);
+  border-color: var(--ember-border);
+  box-shadow: var(--shadow-sm);
+}
+
+.map-stat-badge {
+  font-size: 10.5px;
+  font-weight: 600;
+  padding: 3px 8px;
+  border-radius: 6px;
+  background: var(--sunken);
+  color: var(--ink2);
+  border: 1px solid var(--line);
+  white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* Basemap Contrast Modes applied to Leaflet's tile container */
+.basemap-muted .leaflet-tile-pane {
+  filter: saturate(0.38) contrast(1.12) brightness(0.96);
+}
+
+.basemap-dark .leaflet-tile-pane {
+  filter: invert(90%) hue-rotate(180deg) brightness(85%) contrast(120%);
+}
+
+/* Map Contrast & Settings Popover */
+.map-contrast-popover {
+  position: absolute;
+  top: 60px;
+  left: 14px;
+  z-index: 1050;
+  width: 330px;
+  background: var(--surface);
+  border: 1px solid var(--line-strong);
+  border-radius: 12px;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.18), var(--shadow-md);
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 13px;
+}
+
+.map-contrast-popover-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--ink);
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 8px;
+}
+
+.map-contrast-row {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.map-contrast-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--ink);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.map-contrast-hint {
+  font-size: 10px;
+  color: var(--ink3);
+  line-height: 1.35;
+}
+
+.map-range-slider {
+  width: 100%;
+  accent-color: var(--ember);
+  cursor: pointer;
+  height: 6px;
+}
+
