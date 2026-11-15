@@ -1,5 +1,7 @@
 # Secrets — never commit. FIRMS MAP_KEY lives only in local .env (human-filled).
 .env
+.env.*
+!.env.example
 *.key
 *.pem
 

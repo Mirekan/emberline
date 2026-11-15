@@ -1,151 +1,217 @@
-#!/usr/bin/env python3
-"""EmberLine science pipeline orchestrator (C-07) — PROTO-C01-v0.9.
+"""EmberLine C-07 — one-command reproducible pipeline + run manifest
+(PROTO-C01-v0.9, F-19).
 
-Raw validated caches -> matched units -> harmonized daily series (B0/B1/B2,
-training-only law) -> held-out metrics -> 366-day calendar + climatology ->
-critical windows -> splice stress tests -> versioned artifacts + run manifest.
+Owner: team member C. Contract test: tests/test_run_manifest.py.
 
-Usage:
-  python pipeline/run.py --aoi riau
-  python pipeline/run.py --aoi riau --data-root data/fixtures/FIXTURE_SYNTHETIC/riau \
-      --fixture FIXTURE_SYNTHETIC --sources MODIS_SP VIIRS_SNPP_SP
+Orchestrates the full science chain for one AOI and records PROVENANCE for
+every number it produces:
 
-Data root layout (as written by validate.py / the synthetic fixture builder):
-  <data_root>/<source>/<slug>/normalized.csv
-  <data_root>/fetch_ledger.jsonl
+    make reproduce AOI=riau        (or: python3 -m pipeline.run --aoi riau)
+
+    match -> baselines -> harmonize -> metrics -> splice_stress -> calendar -> windows
+
+Every stage's status (ok / insufficient_data / deferred) is recorded — a stage
+that honestly cannot run is NEVER skipped silently. The run manifest carries
+the F-19 provenance fields: run_id, git SHA, created UTC, AOI/bbox/date range,
+sources, SHA-256 input hashes, params hash, train/test years, metrics path,
+library versions and seeds. Re-running the same inputs yields the same params
+hash and artifact content (deterministic seeds; run_id timestamp aside).
 """
 from __future__ import annotations
 
-import argparse
 import csv
 import hashlib
 import json
 import subprocess
+import sys
 from datetime import datetime, timezone
 from pathlib import Path
 
-import emberline_proto as P
-import match as match_mod
-import harmonize as harm_mod
-import metrics as metrics_mod
-import calendar as cal_mod
-import stress_test as stress_mod
-import grid_export as grid_mod
+import numpy as np
+import pandas
+import yaml
+
+from pipeline import baselines, calendar, harmonize, metrics, splice_stress, windows
+from pipeline.match import run as match_run, write_outputs as match_write, read_table
 
 ROOT = Path(__file__).resolve().parents[1]
-ARTIFACTS = ROOT / "artifacts"
-AOIS_PATH = ROOT / "config" / "aois.yaml"
+PROTOCOL_VERSION = baselines.PROTOCOL_VERSION
+BOOTSTRAP_SEED = harmonize.BOOTSTRAP_SEED
 
 
-def _git_sha():
+def _sha256(path: Path) -> str:
+    digest = hashlib.sha256()
+    with path.open("rb") as handle:
+        for chunk in iter(lambda: handle.read(1 << 20), b""):
+            digest.update(chunk)
+    return digest.hexdigest()
+
+
+def git_sha() -> str:
     try:
-        out = subprocess.run(["git", "rev-parse", "HEAD"], cwd=ROOT,
-                             capture_output=True, text=True, timeout=10)
-        return out.stdout.strip() or "unknown"
+        return subprocess.run(["git", "rev-parse", "--short", "HEAD"],
+                              capture_output=True, text=True, cwd=ROOT, check=True).stdout.strip()
     except Exception:
         return "unknown"
 
 
-def _aoi_bbox(aoi: str):
-    if AOIS_PATH.exists():
-        current = None
-        for raw in AOIS_PATH.read_text(encoding="utf-8").splitlines():
-            line = raw.split("#", 1)[0].rstrip()
-            s = line.strip()
-            if s.startswith("- id:"):
-                current = s.split(":", 1)[1].strip()
+def _aoi_config(aoi_id: str) -> dict:
+    cfg = yaml.safe_load((ROOT / "config" / "aois.yaml").read_text())
+    for aoi in cfg.get("aois", []):
+        if aoi["id"] == aoi_id:
+            return aoi
+    raise FileNotFoundError(f"AOI '{aoi_id}' not in config/aois.yaml (B-02)")
+
+
+def _slug(bbox: dict) -> str:
+    def fmt(v):
+        return str(int(v)) if float(v) == int(v) else str(v).replace("-", "n")
+    # B's convention: w100_s-2_e105_n1 (minus kept for south/north)
+    return f"w{int(bbox['west'])}_s{int(bbox['south'])}_e{int(bbox['east'])}_n{int(bbox['north'])}"
+
+
+def discover_inputs(aoi_id: str) -> dict:
+    aoi = _aoi_config(aoi_id)
+    slug = _slug(aoi)
+    data = ROOT / "data"
+    return {
+        "aoi": aoi,
+        "detections": [
+            data / "processed" / "MODIS_SP" / slug / "normalized.csv",
+            data / "processed" / "VIIRS_SNPP_SP" / slug / "normalized.csv",
+        ],
+        "mask": data / "manifests" / f"retrieval_mask_{aoi_id}.csv",
+        "ledger": data / "manifests" / "fetch_ledger.jsonl",
+        "bbox_str": f"{int(aoi['west'])},{int(aoi['south'])},{int(aoi['east'])},{int(aoi['north'])}",
+    }
+
+
+def run(aoi_id: str, run_ts: str | None = None, detections: list[Path] | None = None,
+        mask_path: Path | None = None) -> dict:
+    created = run_ts or datetime.now(timezone.utc).strftime("%Y%m%dT%H%MZ")
+    inputs = discover_inputs(aoi_id)
+    detections = detections or inputs["detections"]
+    mask_path = mask_path or inputs["mask"]
+    artifacts = ROOT / "artifacts" / aoi_id
+    c02_dir = ROOT / "data" / "processed" / aoi_id / "c02"
+    stages: dict[str, dict] = {}
+
+    # -- stage 1: C-02 match ------------------------------------------------------
+    det_paths = [p for p in detections if p.exists()]
+    if not mask_path.exists() or not det_paths:
+        stages["c02_match"] = {"status": "skipped",
+                               "reason": f"missing inputs: detections={[str(p.name) for p in detections if not p.exists()]}, "
+                                         f"mask={'present' if mask_path.exists() else 'missing'}"}
+        pairs_path = None
+    else:
+        detections_rows: list[dict] = []
+        for p in det_paths:
+            detections_rows.extend(read_table(p))
+        # delivered window per source -> mask clipped so zero-fill never covers
+        # dates whose detections were not delivered (F-9: zeros need retrievals)
+        delivered_ranges: dict[str, tuple[str, str]] = {}
+        for row in detections_rows:
+            fam = "modis" if "modis" in str(row.get("source", "")).lower() else \
+                  ("viirs" if "viirs" in str(row.get("source", "")).lower() else None)
+            if fam is None:
                 continue
-            if current == aoi and s and ":" in s and not s.startswith("-"):
-                k, v = s.split(":", 1)
-                if k.strip() in ("west", "south", "east", "north"):
-                    yield float(v.strip())
-    return
+            day = str(row.get("acq_date") or str(row.get("acq_datetime_utc", ""))[:10])
+            lo, hi = delivered_ranges.get(fam, (day, day))
+            delivered_ranges[fam] = (min(lo, day), max(hi, day))
+        result = match_run(detections_rows, read_table(mask_path), aoi_id,
+                           float(inputs["aoi"]["west"]), float(inputs["aoi"]["south"]),
+                           float(inputs["aoi"]["east"]), float(inputs["aoi"]["north"]),
+                           delivered_ranges=delivered_ranges or None)
+        paths = match_write(result, c02_dir)
+        pairs_path = Path(paths["matched_pairs"])  # match_write returns strings
+        stages["c02_match"] = {"status": "ok", "outputs": paths,
+                               "pair_states": result["summary"]["pair_states"]}
 
+    # -- stage 2: C-03 baselines ----------------------------------------------------
+    stage_pairs = pairs_path or (c02_dir / "matched_pairs.csv")
+    zero_fill_csv = c02_dir / "zero_fill_days.csv"
+    if stage_pairs.exists():
+        b = baselines.run(stage_pairs, artifacts, aoi_id,
+                          zero_fill_csv=zero_fill_csv if zero_fill_csv.exists() else None)
+        stages["c03_baselines"] = {"status": b["manifest"]["outcome"].get("status"),
+                                   "outputs": b["outputs"]}
+    else:
+        stages["c03_baselines"] = {"status": "skipped", "reason": "no matched_pairs.csv"}
 
-def main(argv=None) -> int:
-    ap = argparse.ArgumentParser(description=__doc__)
-    ap.add_argument("--aoi", required=True)
-    ap.add_argument("--sources", nargs="+", default=["MODIS_SP", "VIIRS_SNPP_SP"])
-    ap.add_argument("--slug", default=None, help="bbox slug; default parsed from config/aois.yaml")
-    ap.add_argument("--data-root", default=None,
-                    help="override data root (e.g. a fixture dir); default data/processed")
-    ap.add_argument("--fixture", default=None, help="fixture label if data is synthetic")
-    args = ap.parse_args(argv)
+    # -- stage 3: C-04 harmonize ------------------------------------------------------
+    if stage_pairs.exists():
+        h = harmonize.run(stage_pairs, artifacts, aoi_id,
+                          zero_fill_csv=zero_fill_csv if zero_fill_csv.exists() else None)
+        stages["c04_harmonize"] = {"status": h["manifest"]["outcome"].get("status"),
+                                   "outputs": h["outputs"]}
+    else:
+        stages["c04_harmonize"] = {"status": "skipped", "reason": "no matched_pairs.csv"}
 
-    coords = list(_aoi_bbox(args.aoi))
-    slug = args.slug
-    if slug is None and len(coords) == 4:
-        w, s, e, n = coords
-        slug = f"w{w:g}_s{s:g}_e{e:g}_n{n:g}"
-    if slug is None:
-        raise SystemExit("ERROR: cannot derive slug — pass --slug")
+    # -- stages 4/5: C-05 metrics + stress ----------------------------------------------
+    series_b = artifacts / "baseline_series.csv"
+    series_h = artifacts / "harmonized_daily.csv"
+    m = metrics.run(series_b, series_h, stage_pairs if stage_pairs.exists() else None,
+                    artifacts, aoi_id)["manifest"]
+    stages["c05_metrics"] = {"status": m.get("status") or m.get("outcome", {}).get("status"),
+                             "outputs": {"metrics": str(artifacts / "harmonization_metrics.json")}}
+    stages["c05_splice_stress"] = {"status": splice_stress.run(series_b, series_h, artifacts, aoi_id)["manifest"].get("status")}
 
-    data_root = Path(args.data_root) if args.data_root else ROOT / "data" / "processed"
-    out_dir = ARTIFACTS / args.aoi
-    out_dir.mkdir(parents=True, exist_ok=True)
+    # -- stage 6: C-06 calendar + windows --------------------------------------------------
+    units_csv = c02_dir / "units_per_sensor.csv"
+    cal = calendar.run(series_h, units_csv if units_csv.exists() else None, artifacts, aoi_id)
+    stages["c06_calendar"] = {"status": cal["manifest"].get("status"), "outputs": cal["outputs"]}
+    stages["c06_windows"] = {"status": windows.run(artifacts, artifacts)["manifest"].get("status")}
 
-    # 1. match
-    matched_path, coverage = match_mod.run_match(data_root, tuple(args.sources), slug, out_dir)
-
-    # 2. harmonize
-    model, series, p95_ref, train_years, test_years = harm_mod.run_harmonize(
-        matched_path, coverage, out_dir, fixture=args.fixture)
-
-    run_ts = datetime.now(timezone.utc).strftime("%Y%m%dT%H%MZ")
-    run_id = f"{P.PROTO_ID}_{run_ts}_{model['method']}"
-    if args.fixture:
-        run_id += "_FIXTURE"
-
-    # 3. metrics (held-out)
-    metrics = metrics_mod.compute_metrics(series, test_years)
-    (out_dir / "metrics.json").write_text(json.dumps({
-        "run_id": run_id, "fixture": args.fixture, "metrics": metrics}, indent=2), encoding="utf-8")
-
-    # 4. calendar + windows
-    cal = cal_mod.run_calendar(series, p95_ref, train_years, model["split"]["eligible_years"],
-                               out_dir, run_id, model["method"], args.fixture)
-    (out_dir / "windows.json").write_text(json.dumps({
-        "run_id": run_id, "fixture": args.fixture,
-        "windows": cal["critical_windows"]}, indent=2), encoding="utf-8")
-
-    # 5. stress tests
-    stress_mod.run_stress(series, test_years, coverage, out_dir, run_id, args.fixture)
-
-    # 5.5 grid export (O-02 map layer — per-cell yearly raw FRP totals)
-    grid_mod.export_grid(matched_path, out_dir / "grid.json")
-    print(f"[run] grid.json -> artifacts/{args.aoi}/")
-
-    # 6. manifest
-    input_hashes = {}
-    for src in args.sources:
-        norm = data_root / src / slug / "normalized.csv"
-        if norm.exists():
-            try:
-                rel = norm.resolve().relative_to(ROOT).as_posix()
-            except ValueError:
-                rel = norm.resolve().as_posix()
-            input_hashes[rel] = hashlib.sha256(norm.read_bytes()).hexdigest()
+    # -- provenance manifest (F-19) ----------------------------------------------------------
+    train_years = test_years = None
+    if stages["c04_harmonize"].get("status") == "ok":
+        gate = json.loads((artifacts / "model_manifest.json").read_text())
+        outcome_model = gate["outcome"].get("model", {}).get("fit_inputs", {})
+        train_years = outcome_model.get("train_years")
+        test_years = outcome_model.get("test_years_recorded_never_fitted")
+    input_hashes = {str(p.relative_to(ROOT)): _sha256(p)
+                    for p in ([mask_path] if mask_path.exists() else []) + det_paths}
     manifest = {
-        "run_id": run_id,
-        "git_sha": _git_sha(),
+        "protocol_version": PROTOCOL_VERSION,
+        "task": "C-07",
+        "run_id": f"{PROTOCOL_VERSION}_{git_sha()}_{created}",
+        "git_sha": git_sha(),
         "created_utc": datetime.now(timezone.utc).isoformat(timespec="seconds"),
-        "aoi_bbox_date_range": {"aoi": args.aoi, "slug": slug, "bbox": coords or None,
-                                 "coverage": {"first": coverage["first_date"],
-                                               "last": coverage["last_date"]}},
-        "sources": args.sources,
+        "aoi_id": aoi_id,
+        "aoi_bbox_date_range": {
+            "bbox": inputs["bbox_str"],
+            "start": str(inputs["aoi"].get("start")),
+            "end": str(inputs["aoi"].get("end")),
+        },
+        "sources": ["MODIS_SP", "VIIRS_SNPP_SP"],
         "input_sha256": input_hashes,
-        "params_hash": hashlib.sha256((ROOT / "config" / "params.yaml").read_bytes()).hexdigest()
-                       if (ROOT / "config" / "params.yaml").exists() else None,
+        "params_hash": _sha256(ROOT / "config" / "params.yaml"),
         "train_years": train_years,
         "test_years": test_years,
-        "metrics_path": f"artifacts/{args.aoi}/metrics.json",
-        "library_versions": {"python": "stdlib-only", "numpy": "not-used", "pandas": "not-used"},
-        "seeds": {"bootstrap": 20261114},
-        "fixture": args.fixture,
-        "boundary": "Historical & descriptive — not predictive.",
+        "metrics_path": str(artifacts / "harmonization_metrics.json"),
+        "library_versions": {"numpy": np.__version__, "pandas": pandas.__version__,
+                             "python": sys.version.split()[0]},
+        "seeds": {"interval_bootstrap": BOOTSTRAP_SEED},
+        "stage_statuses": stages,
+        "honesty_note": "stage statuses are recorded verbatim — insufficient_data/deferred "
+                        "stages are NOT failures or passes, they are the actual state",
     }
-    (out_dir / "run_manifest.json").write_text(json.dumps(manifest, indent=2), encoding="utf-8")
-    print(f"[run] artifacts -> artifacts/{args.aoi}/ (run_id={run_id})")
+    artifacts.mkdir(parents=True, exist_ok=True)
+    manifest_path = artifacts / "run_manifest.json"
+    manifest_path.write_text(json.dumps(manifest, indent=2, sort_keys=True))
+    return {"manifest": manifest, "outputs": {"run_manifest": str(manifest_path)}}
+
+
+def main(argv: list[str] | None = None) -> int:  # pragma: no cover
+    import argparse
+
+    parser = argparse.ArgumentParser(description="C-07 one-command reproducible pipeline")
+    parser.add_argument("--aoi", required=True)
+    parser.add_argument("--out", default=None)
+    args = parser.parse_args(argv)
+    result = run(args.aoi)
+    print(json.dumps({k: result["manifest"][k] for k in
+                      ("run_id", "stage_statuses")}, indent=2, sort_keys=True))
     return 0
 
 

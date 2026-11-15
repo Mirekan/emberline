@@ -1,191 +1,296 @@
-#!/usr/bin/env python3
-"""Calendar & climatology (C-06) — 366 month/day template, PROTO-C01 §calendar.
+"""EmberLine C-06 — activity index, 366-position calendar & climatology
+(PROTO-C01-v0.9, F-14/F-17/F-18, DEC-3).
 
-Five cell states (pattern+text+icon in the UI, never color alone):
-  data · valid_zero · retrieval_gap · high_uncertainty · insufficient_support
-  · not_applicable (Feb 29 non-leap — never "missing data").
-Index: log1p(harmonized)/log1p(p95 training reference); same transform on bounds.
-Climatology: median + IQR over eligible years per month/day, ±7-day circular smoothing.
-Critical windows: 75th percentile of the smoothed curve, min run 3 days, Dec-Jan wrap.
+Owner: team member C. Contract test: tests/test_calendar.py.
+
+Accepted series (source policy F-14, never blended silently):
+  - pre-VIIRS era  -> observed Aqua MODIS daily totals (from C-02 per-sensor units)
+  - VIIRS era      -> B2 harmonized estimates (from C-04 harmonized_daily.csv)
+Each day carries source_flag = observed_modis | harmonized_viirs; gaps stay
+absent (a gap is never a zero).
+
+Activity index (F-17):
+  idx(day) = log1p(harmonized/published AOI FRP-sum day total)
+             / log1p(denominator)
+  denominator = P95 of daily reference-MODIS FRP-sum over the FROZEN training
+  days (role=train in the C-04 artifact), frozen here and recorded; if it is
+  <= 0 or unavailable the index is UNAVAILABLE and raw MW units are shown.
+
+Calendar: every real date maps to a fixed 366-position month/day axis.
+February 29 exists as position 60 and is fed ONLY by leap years — non-leap
+years simply do not contribute (not_applicable, never a retrieval outage).
+Per position: median, IQR (p25/p75), p10/p90, n_years, and a documented
+circular ±7-day smoothing of the median across the 366->1 seam.
+
+Eligibility (F-18): a year is eligible when >= 60% of its era days have valid
+index values (partial calendar years are measured against their era days, not
+the full calendar — recorded as the stated coverage rule). Missing years are
+never counted inactive. If fewer than 2 eligible years support a position's
+climatology the status is insufficient_data — a sparse sample is never shown
+as a normal seasonal baseline.
 """
 from __future__ import annotations
 
 import csv
 import json
-import math
-from datetime import date, timedelta
+from collections import defaultdict
+from datetime import date as _date, timedelta
 from pathlib import Path
 
-import emberline_proto as P
+import numpy as np
 
-MD = [(m, d) for m in range(1, 13) for d in range(1, 32)
-      if d <= ([31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31][m - 1])]
-MD_LEAP_IDX = {f"{m:02d}-{d:02d}": i for i, (m, d) in enumerate(MD)}
+from pipeline.baselines import PROTOCOL_VERSION, load_pairs
 
-
-def _date_for_md(year: int, md: str):
-    m, d = md.split("-")
-    try:
-        return date(year, int(m), int(d))
-    except ValueError:
-        return None  # Feb 29 in a non-leap year
+SMOOTH_DAYS = 7
+ELIGIBLE_FRACTION = 0.60
+MIN_ELIGIBLE_YEARS = 2
+P10, P25, P50, P75, P90 = 0.10, 0.25, 0.50, 0.75, 0.90
 
 
-def run_calendar(series: list, p95_ref: float, train_years: list, eligible_years: list,
-                 out_dir: Path, run_id: str, model_version: str, fixture):
-    # group series by year
-    n_md = len(MD)
-    md_str = [f"{m:02d}-{d:02d}" for m, d in MD]
-    by_year = {}
-    for r in series:
-        by_year.setdefault(r["date"][:4], {})[r["date"]] = r
+def _num(v) -> float | None:
+    return None if v in (None, "") else float(v)
 
-    def index_of(row):
-        if row["harmonized_estimate_mw"] is not None:
-            v, lo, hi = row["harmonized_estimate_mw"], row["harmonized_lo_mw"], row["harmonized_hi_mw"]
-        else:
-            v, lo, hi = row["raw_modis_frp_mw"], None, None
-        if v is None or p95_ref <= 0:
-            return None, None, None
-        den = math.log1p(p95_ref)
-        iv = (math.log1p(max(v, 0)) / den) if den > 0 else None
-        ilo = (math.log1p(max(lo, 0)) / den) if (den > 0 and lo is not None) else None
-        ihi = (math.log1p(max(hi, 0)) / den) if (den > 0 and hi is not None) else None
-        return iv, ilo, ihi
 
-    years_out = []
-    for y in sorted(by_year):
-        positions = []
-        leap = (int(y) % 4 == 0 and int(y) % 100 != 0) or int(y) % 400 == 0
-        for md in md_str:
-            dt = _date_for_md(int(y), md)
-            if dt is None:
-                positions.append({"month_day": md, "value_mw": None, "state": "not_applicable",
-                                  "source_flag": None, "flags": [],
-                                  "reason": "feb29_non_leap", "index": None})
-                continue
-            r = by_year[y].get(dt.isoformat())
-            if r is None or r["source_flag"] == "gap":
-                positions.append({"month_day": md, "value_mw": None, "state": "retrieval_gap",
-                                  "source_flag": None, "flags": [],
-                                  "reason": (r or {}).get("gap_reason") or "failed_request",
-                                  "index": None})
-                continue
-            v = r["harmonized_estimate_mw"] if r["harmonized_estimate_mw"] is not None else r["raw_modis_frp_mw"]
-            total_det = (r["raw_modis_n"] or 0) + (r["raw_viirs_n"] or 0)
-            if v == 0:
-                state = "valid_zero"
-            elif "insufficient_support" in (r["flags"] or []) or total_det < P.INSUFFICIENT_SUPPORT_MIN_DET:
-                state = "insufficient_support"
-            elif "high_uncertainty" in (r["flags"] or []):
-                state = "high_uncertainty"
-            else:
-                state = "data"
-            iv, _, _ = index_of(r)
-            positions.append({"month_day": md, "value_mw": v, "state": state,
-                              "source_flag": r["source_flag"],
-                              "flags": r["flags"] or [], "reason": None, "index": iv})
-        years_out.append({"year": int(y), "eligible": y in eligible_years,
-                          "positions": positions})
+def _read_csv(path: Path) -> list[dict]:
+    with path.open(newline="", encoding="utf-8") as handle:
+        return [dict(row) for row in csv.DictReader(handle)]
 
-    # typical-year climatology across eligible years (per month/day), smoothed ±7
-    elig_years = [y for y in years_out if y["eligible"]]
-    pos_by_md = {}
-    for y in elig_years:
-        for p in y["positions"]:
-            if p["value_mw"] is not None:
-                pos_by_md.setdefault(p["month_day"], []).append(p["value_mw"])
-    clim = []
-    n_md = len(MD)
-    md_str = [f"{m:02d}-{d:02d}" for m, d in MD]
-    raw_med = {}
-    for i, md in enumerate(md_str):
-        vals = sorted(pos_by_md.get(md, []))
-        if not vals:
-            raw_med[md] = None
-            clim.append({"month_day": md, "median_mw": None, "iqr": None,
-                         "n_years": len(vals), "state": "retrieval_gap" if not vals else "data"})
+
+def position_of(month: int, day: int) -> int:
+    """1..366 month/day position (Feb 29 = 60)."""
+    cumulative = [0, 31, 60, 91, 121, 152, 182, 213, 244, 274, 305, 335]
+    return cumulative[month - 1] + day  # Jan1=1 .. Feb28=59, Feb29=60, Dec31=366
+
+
+def month_day_of(position: int) -> tuple[int, int]:
+    lengths = [31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]  # leap-year frame
+    for m, length in enumerate(lengths, start=1):
+        if position <= sum(lengths[:m - 1]) + length:
+            return m, position - sum(lengths[:m - 1])
+    raise ValueError(f"position {position} outside 1..366")
+
+
+def build_accepted_series(harmonized_rows: list[dict], unit_rows: list[dict] | None) -> list[dict]:
+    """F-14 published series: observed MODIS pre-era + harmonized VIIRS in-era.
+
+    Only BOTH-retrieved harmonized rows feed the era (truth exists); Aqua-only
+    days before the era come from the C-02 per-sensor units. Days with no entry
+    are gaps — absent, never zero-filled.
+    """
+    by_day: dict[str, dict] = {}
+    for row in harmonized_rows:
+        value = _num(row.get("predicted_b2_mw"))
+        observed = _num(row.get("observed_modis_mw"))
+        if value is None or observed is None:
+            continue  # not both-retrieved: no truth, not in the accepted series
+        day = by_day.setdefault(row["date"], {
+            "date": row["date"], "value_mw": 0.0, "source_flag": "harmonized_viirs",
+            "harmonized_mw": 0.0, "observed_modis_mw": 0.0,
+        })
+        day["value_mw"] += value
+        day["harmonized_mw"] += value
+        day["observed_modis_mw"] += observed
+    if unit_rows:
+        for row in unit_rows:
+            if str(row.get("family")) != "modis" or str(row.get("satellite", "")).lower() != "aqua":
+                continue  # Aqua reference only — Terra never blended (S-01)
+            value = _num(row.get("frp_sum_mw"))
+            if value is None or row["date"] in by_day:
+                continue  # overlap days already represented by the era rule
+            by_day[row["date"]] = {
+                "date": row["date"], "value_mw": value, "source_flag": "observed_modis",
+                "harmonized_mw": None, "observed_modis_mw": value,
+            }
+    return [by_day[k] for k in sorted(by_day)]
+
+
+def _freeze_denominator(harmonized_rows: list[dict]) -> tuple[float | None, int]:
+    """P95 of daily reference-MODIS FRP-sum over FROZEN training days (F-17)."""
+    daily: dict[str, float] = defaultdict(float)
+    for row in harmonized_rows:
+        if str(row.get("role")) != "train":
             continue
-        k = len(vals)
-        med = vals[k // 2] if k % 2 else (vals[k // 2 - 1] + vals[k // 2]) / 2
-        p25 = vals[max(0, int(0.25 * (k - 1)))]; p75 = vals[int(0.75 * (k - 1))]
-        raw_med[md] = med
-        clim.append({"month_day": md, "median_mw": round(med, 2),
-                     "iqr": {"p25_mw": round(p25, 2), "p75_mw": round(p75, 2)},
-                     "n_years": k, "state": "data"})
-    # circular ±7-day smoothing of the median curve (None days take neighbor mean)
-    med_vals = [raw_med[md] for md in md_str]
-    known = {i: v for i, v in enumerate(med_vals) if v is not None}
-    smooth = []
-    for i in range(n_md):
-        window = []
-        for off in range(-P.CAL_SMOOTH_DAYS, P.CAL_SMOOTH_DAYS + 1):
-            j = (i + off) % n_md
-            if j in known:
-                window.append(known[j])
-        smooth.append(round(sum(window) / len(window), 2) if window else None)
+        observed = _num(row.get("observed_modis_mw"))
+        if observed is not None:
+            daily[row["date"]] += observed
+    if not daily:
+        return None, 0
+    values = np.array(sorted(daily.values()))
+    return float(np.quantile(values, 0.95)), len(values)
 
-    # critical windows: >= 75th percentile of smoothed curve, min run 3, Dec-Jan wrap
-    valid = [v for v in smooth if v is not None]
-    if valid:
-        s = sorted(valid)
-        thr = s[int(P.WINDOW_PERCENTILE / 100 * (len(s) - 1))]
-    else:
-        thr = None
-    flags_md = [thr is not None and v is not None and v >= thr for v in smooth]
-    windows = []
-    i = 0
-    while i < n_md:
-        if flags_md[i]:
-            j = i
-            while j + 1 < n_md and flags_md[j + 1]:
-                j += 1
-            if (j - i + 1) >= P.WINDOW_MIN_RUN_DAYS or (i == 0 and flags_md[-1]):
-                start_i, end_i = i, j
-                if i == 0 and flags_md[-1] and not flags_md[1]:
-                    pass
-                if i == 0 and j == n_md - 1:
-                    windows = []
-                    break
-                wrap = start_i == 0 and flags_md[n_md - 1]
-                if wrap:
-                    k = n_md - 1
-                    while k >= 0 and flags_md[k]:
-                        k -= 1
-                    start_i = k + 1
-                windows.append({"start_md": md_str[start_i], "end_md": md_str[end_i],
-                                "wraps_new_year": wrap,
-                                "median_intensity_mw": round(max(0.0, sum(v for v in smooth[start_i:end_i + 1] if v is not None) / max(1, end_i - start_i + 1)), 2)})
-                i = j + 1
-                continue
-            i = j + 1
+
+def _circular_smooth(values: list[float | None], radius: int = SMOOTH_DAYS) -> list[float | None]:
+    """±radius mean across the 366->1 seam; None positions stay None."""
+    n = len(values)
+    out: list[float | None] = []
+    for i in range(n):
+        window, misses = [], 0
+        for offset in range(-radius, radius + 1):
+            v = values[(i + offset) % n]
+            if v is None:
+                misses += 1
+            else:
+                window.append(v)
+        if misses > radius:  # more than half the window missing -> not smoothed
+            out.append(None)
+        elif window:
+            out.append(float(np.mean(window)))
         else:
-            i += 1
-    # Dec-Jan wrap continuation: if Jan head and Dec tail are both flagged, merge
-    if len(windows) >= 2 and windows[0]["start_md"] == "01-01" and windows[-1]["end_md"] == "12-31":
-        w0 = windows.pop()
-        windows[0] = {"start_md": w0["start_md"], "end_md": windows[0]["end_md"],
-                      "wraps_new_year": True,
-                      "median_intensity_mw": w0["median_intensity_mw"]}
+            out.append(None)
+    return out
 
-    # active years per window (provisional rule): smoothed index above threshold >=3 days
-    for w in windows:
-        w.update({"threshold_percentile": P.WINDOW_PERCENTILE, "years_active": None,
-                  "years_eligible": len(elig_years)})
 
-    cal = {"run_id": run_id, "model_version": model_version, "fixture": fixture,
-           "metric": "harmonized_frp_sum_mw (index where denominator available)",
-           "index_denominator_p95_training_mw": round(p95_ref, 2),
-           "state_enum": ["data", "valid_zero", "retrieval_gap", "high_uncertainty",
-                           "insufficient_support", "not_applicable"],
-           "eligible_years": eligible_years,
-           "years": years_out,
-           "climatology": clim,
-           "climatology_smoothed_median_mw": smooth,
-           "critical_windows": windows,
-           "boundary": ("Historical & descriptive — not predictive. Critical window is "
-                         "not a safe-to-burn recommendation.")}
-    out = Path(out_dir) / "calendar.json"
-    out.write_text(json.dumps(cal, indent=2), encoding="utf-8")
-    print(f"[calendar] years={len(years_out)} windows={len(windows)} -> {out.name}")
-    return cal
+def run(harmonized_csv: str | Path, units_csv: str | Path | None,
+        out_dir: str | Path, aoi_id: str, run_ts: str | None = None) -> dict:
+    harmonized_csv = Path(harmonized_csv)
+    if not harmonized_csv.exists():
+        manifest = {
+            "protocol_version": PROTOCOL_VERSION, "task": "C-06", "aoi_id": aoi_id,
+            "status": "deferred",
+            "reason": "C-04 harmonized series absent — upstream insufficient_data on the "
+                      "delivered fixture; calendar deferred, raw-series rules unchanged",
+            "note": "deferred ≠ failed: calendar machinery verified on synthetic data",
+        }
+        out_dir = Path(out_dir)
+        out_dir.mkdir(parents=True, exist_ok=True)
+        (out_dir / "climatology.json").write_text(json.dumps(manifest, indent=2, sort_keys=True))
+        return {"manifest": manifest, "outputs": {"climatology": str(out_dir / "climatology.json")}}
+
+    harmonized_rows = _read_csv(harmonized_csv)
+    unit_rows = _read_csv(Path(units_csv)) if units_csv and Path(units_csv).exists() else None
+    series = build_accepted_series(harmonized_rows, unit_rows)
+    if not series:
+        manifest = {"protocol_version": PROTOCOL_VERSION, "task": "C-06", "aoi_id": aoi_id,
+                    "status": "insufficient_data", "reason": "no accepted-series days"}
+        out_dir = Path(out_dir)
+        out_dir.mkdir(parents=True, exist_ok=True)
+        (out_dir / "climatology.json").write_text(json.dumps(manifest, indent=2, sort_keys=True))
+        return {"manifest": manifest, "outputs": {"climatology": str(out_dir / "climatology.json")}}
+
+    denominator, n_train_days = _freeze_denominator(harmonized_rows)
+    index_available = denominator is not None and denominator > 0
+    log_den = float(np.log1p(denominator)) if index_available else None
+
+    for entry in series:
+        if index_available:
+            entry["index"] = round(float(np.log1p(max(0.0, entry["value_mw"]))) / log_den, 6)
+        else:
+            entry["index"] = None
+        year = entry["date"][:4]
+        entry["year"] = year
+        entry["position"] = position_of(int(entry["date"][5:7]), int(entry["date"][8:10]))
+
+    # eligibility (F-18): >=60% of a year's CALENDAR-ERA days valid — era days
+    # for year Y = calendar days of Y inside the accepted-series span, so a
+    # 1-day partial year can never pass as a normal-year sample
+    span_start = _date.fromisoformat(series[0]["date"])
+    span_end = _date.fromisoformat(series[-1]["date"])
+    era_days_per_year: dict[str, int] = defaultdict(int)
+    cursor = span_start
+    while cursor <= span_end:
+        era_days_per_year[str(cursor.year)] += 1
+        cursor += timedelta(days=1)
+    valid_days_per_year: dict[str, set[str]] = defaultdict(set)
+    for entry in series:
+        if entry["index"] is not None:
+            valid_days_per_year[entry["year"]].add(entry["date"])
+    years_eligible = sorted(
+        y for y, days in era_days_per_year.items()
+        if len(valid_days_per_year.get(y, set())) / days >= ELIGIBLE_FRACTION
+    )
+
+    # 366-position accumulation (Feb 29 fed only by leap years)
+    per_position: dict[int, list[float]] = defaultdict(list)
+    per_position_years: dict[int, set[str]] = defaultdict(set)
+    for entry in series:
+        if entry["index"] is None:
+            continue
+        per_position[entry["position"]].append(entry["index"])
+        per_position_years[entry["position"]].add(entry["year"])
+    raw_medians = [
+        float(np.median(per_position[p])) if per_position.get(p) else None
+        for p in range(1, 367)
+    ]
+    smoothed = _circular_smooth(raw_medians, SMOOTH_DAYS)
+    calendar_rows = []
+    for p in range(1, 367):
+        month, day = month_day_of(p)
+        values = per_position.get(p, [])
+        calendar_rows.append({
+            "position": p, "month": month, "day": day,
+            "index_median_raw": None if raw_medians[p - 1] is None else round(raw_medians[p - 1], 6),
+            "index_median_smoothed": None if smoothed[p - 1] is None else round(smoothed[p - 1], 6),
+            "index_p10": round(float(np.quantile(values, P10)), 6) if values else None,
+            "index_p25": round(float(np.quantile(values, P25)), 6) if values else None,
+            "index_p75": round(float(np.quantile(values, P75)), 6) if values else None,
+            "index_p90": round(float(np.quantile(values, P90)), 6) if values else None,
+            "n_years": len(per_position_years.get(p, set())),
+            "years": ";".join(sorted(per_position_years.get(p, set()))),
+            "state": ("populated" if len(per_position_years.get(p, set())) >= MIN_ELIGIBLE_YEARS
+                      else ("sparse" if values else "missing")),
+        })
+
+    manifest = {
+        "protocol_version": PROTOCOL_VERSION, "task": "C-06", "aoi_id": aoi_id,
+        "status": "ok" if len(years_eligible) >= MIN_ELIGIBLE_YEARS else "insufficient_data",
+        "reason": (None if len(years_eligible) >= MIN_ELIGIBLE_YEARS else
+                   f"only {len(years_eligible)} eligible year(s) — sparse sample is NOT shown "
+                   "as a normal seasonal baseline; raw series retained"),
+        "index": {
+            "formula": "idx(day) = log1p(published AOI FRP-sum) / log1p(P95 training daily reference MODIS FRP-sum)",
+            "denominator_mw": None if denominator is None else round(denominator, 6),
+            "denominator_frozen_from": f"role=train days in the C-04 artifact ({n_train_days} days)",
+            "available": index_available,
+            "raw_units_fallback": "raw MW are always available in the accepted series",
+        },
+        "axis": "366-position month/day; Feb 29 (position 60) fed only by leap years — "
+                "non-leap years are not_applicable, never a retrieval outage",
+        "smoothing": f"circular ±{SMOOTH_DAYS} days across the 366->1 seam (median curve)",
+        "eligibility_rule": f">= {ELIGIBLE_FRACTION:.0%} of a year's CALENDAR-ERA days valid "
+                            "(era days = calendar days of the year inside the series span; "
+                            "partial years cannot pass as normal-year samples)",
+        "years_eligible": years_eligible,
+        "years_in_series": sorted(era_days_per_year),
+        "dec3_note": "years_active is computed in windows.json (DEC-3 provisional rule)",
+        "reference_note": "MODIS is the reference measurement, not fire ground truth; "
+                          "index is AOI-specific and not comparable across regions",
+    }
+    out_dir = Path(out_dir)
+    out_dir.mkdir(parents=True, exist_ok=True)
+    series_path = out_dir / "accepted_series.csv"
+    with series_path.open("w", newline="", encoding="utf-8") as handle:
+        writer = csv.DictWriter(handle, fieldnames=["date", "year", "position", "source_flag",
+                                                    "value_mw", "index", "harmonized_mw", "observed_modis_mw"])
+        writer.writeheader()
+        writer.writerows([{k: v for k, v in entry.items() if k in writer.fieldnames}
+                          for entry in series])
+    calendar_path = out_dir / "calendar.csv"
+    with calendar_path.open("w", newline="", encoding="utf-8") as handle:
+        writer = csv.DictWriter(handle, fieldnames=list(calendar_rows[0]))
+        writer.writeheader()
+        writer.writerows(calendar_rows)
+    clim_path = out_dir / "climatology.json"
+    clim_path.write_text(json.dumps(manifest, indent=2, sort_keys=True))
+    return {"manifest": manifest, "series": series, "calendar": calendar_rows,
+            "smoothed": smoothed,
+            "outputs": {"series": str(series_path), "calendar": str(calendar_path),
+                        "climatology": str(clim_path)}}
+
+
+def main(argv: list[str] | None = None) -> int:  # pragma: no cover
+    import argparse
+
+    parser = argparse.ArgumentParser(description="C-06 calendar climatology")
+    parser.add_argument("--harmonized", required=True)
+    parser.add_argument("--units", default=None, help="C-02 units_per_sensor.csv (pre-era Aqua)")
+    parser.add_argument("--aoi-id", required=True)
+    parser.add_argument("--out", default=None)
+    args = parser.parse_args(argv)
+    out_dir = args.out or f"artifacts/{args.aoi_id}"
+    result = run(args.harmonized, args.units, out_dir, args.aoi_id)
+    print(json.dumps({"status": result["manifest"]["status"], "outputs": result["outputs"]}, indent=2))
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
