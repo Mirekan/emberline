@@ -1,7 +1,7 @@
 import React, { createContext, lazy, Suspense, useContext, useEffect, useState } from "react";
 import { motion, MotionConfig } from "framer-motion";
 import { api, Series } from "./api";
-import { HomeIcon, MapIcon, CalendarIcon, CrisisIcon, ChartIcon, ResearchIcon, FlameMark, ContrastThemeIcon } from "./components/Icons";
+import { HomeIcon, MapIcon, CalendarIcon, ChartIcon, ResearchIcon, FlameMark, ContrastThemeIcon } from "./components/Icons";
 import { getTranslation, Lang, TranslationKey } from "./i18n";
 import Overview from "./screens/Overview";
 import CalendarScreen from "./screens/CalendarScreen";
@@ -9,7 +9,6 @@ import Compare from "./screens/Compare";
 import Seasons from "./screens/Seasons";
 import MethodScreen from "./screens/MethodScreen";
 import FireMap from "./screens/FireMap";
-import Anomalies from "./screens/Anomalies";
 
 const EmberStage = lazy(() => import("./components/EmberStage"));
 
@@ -17,7 +16,6 @@ const TAB_DEFS = [
   { id: "overview" as const, key: "nav_overview" as const, Icon: HomeIcon },
   { id: "firemap" as const, key: "nav_firemap" as const, Icon: MapIcon },
   { id: "firecalendar" as const, key: "nav_firecalendar" as const, Icon: CalendarIcon },
-  { id: "anomalies" as const, key: "nav_anomalies" as const, Icon: CrisisIcon },
   { id: "analytics" as const, key: "nav_analytics" as const, Icon: ChartIcon },
   { id: "methodology" as const, key: "nav_methodology" as const, Icon: ResearchIcon },
 ];
@@ -89,7 +87,7 @@ export default function App() {
   const seriesCacheRef = React.useRef<Map<string, Series>>(new Map());
 
   useEffect(() => {
-    if (tab === "firemap" || tab === "anomalies") return;
+    if (tab === "firemap") return;
     const cached = seriesCacheRef.current.get(aoi);
     if (cached) {
       setSeries(cached);
@@ -205,7 +203,6 @@ export default function App() {
                 )}
                 {tab === "firemap" && <FireMap />}
                 {tab === "firecalendar" && <CalendarScreen goMap={() => setTab("firemap")} />}
-                {tab === "anomalies" && <Anomalies />}
                 {tab === "analytics" && <Compare />}
                 {tab === "methodology" && <MethodScreen />}
               </motion.div>

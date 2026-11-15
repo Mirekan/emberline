@@ -181,30 +181,46 @@ export function compareOption(
   const font = getThemeFont(theme);
   const dark = isDarkMode(theme);
 
-  const all = [
-    {
-      name: "_lo",
-      type: "line",
-      symbol: "none",
-      silent: true,
-      stack: "u",
-      data: mk(lo),
-      lineStyle: { opacity: 0 },
-      areaStyle: { color: "transparent" },
-      z: 1,
-    },
-    {
-      name: "_span",
-      type: "line",
-      symbol: "none",
-      silent: true,
-      stack: "u",
-      data: mk(span),
-      lineStyle: { opacity: 0 },
-      areaStyle: { color: dark ? "rgba(167, 139, 250, 0.22)" : "rgba(76, 53, 150, 0.18)" },
-      z: 2,
-    },
-    {
+  const seriesList: any[] = [];
+
+  if (visible.harm) {
+    seriesList.push(
+      {
+        name: "_lo",
+        type: "line",
+        symbol: "none",
+        silent: true,
+        stack: "u",
+        data: mk(lo),
+        lineStyle: { opacity: 0 },
+        areaStyle: { color: "transparent" },
+        z: 1,
+      },
+      {
+        name: "_span",
+        type: "line",
+        symbol: "none",
+        silent: true,
+        stack: "u",
+        data: mk(span),
+        lineStyle: { opacity: 0 },
+        areaStyle: { color: dark ? "rgba(167, 139, 250, 0.22)" : "rgba(76, 53, 150, 0.18)" },
+        z: 2,
+      },
+      {
+        name: "Harmonized",
+        type: "line",
+        symbol: "none",
+        data: mk(days.map(d => d.harmonized_estimate_mw)),
+        lineStyle: { color: dark ? "#A78BFA" : "#483188", width: 3 },
+        itemStyle: { color: dark ? "#A78BFA" : "#483188" },
+        z: 8,
+      }
+    );
+  }
+
+  if (visible.modis) {
+    seriesList.push({
       name: "MODIS raw (reference)",
       type: "line",
       symbol: "none",
@@ -212,8 +228,11 @@ export function compareOption(
       lineStyle: { color: dark ? "#60A5FA" : "#1D5B9E", width: 1.6 },
       itemStyle: { color: dark ? "#60A5FA" : "#1D5B9E" },
       z: 5,
-    },
-    {
+    });
+  }
+
+  if (visible.viirs) {
+    seriesList.push({
       name: "VIIRS raw",
       type: "line",
       symbol: "none",
@@ -221,8 +240,11 @@ export function compareOption(
       lineStyle: { color: dark ? "#F59E0B" : "#B56D00", width: 1.6, type: [1, 4] },
       itemStyle: { color: dark ? "#F59E0B" : "#B56D00" },
       z: 6,
-    },
-    {
+    });
+  }
+
+  if (visible.naive) {
+    seriesList.push({
       name: "Naive splice (uncorrected)",
       type: "line",
       symbol: "none",
@@ -230,17 +252,8 @@ export function compareOption(
       lineStyle: { color: dark ? "#F472B6" : "#983C5C", width: 2, type: [6, 4] },
       itemStyle: { color: dark ? "#F472B6" : "#983C5C" },
       z: 7,
-    },
-    {
-      name: "Harmonized",
-      type: "line",
-      symbol: "none",
-      data: mk(days.map(d => d.harmonized_estimate_mw)),
-      lineStyle: { color: dark ? "#A78BFA" : "#483188", width: 3 },
-      itemStyle: { color: dark ? "#A78BFA" : "#483188" },
-      z: 8,
-    },
-  ];
+    });
+  }
 
   return {
     animation: !reduced,
@@ -264,7 +277,7 @@ export function compareOption(
       splitLine: { lineStyle: { color: getSplitLineColor(theme) } },
     },
     tooltip: { show: false },
-    series: visible.harm ? all : all.filter(s => !["Harmonized", "_lo", "_span"].includes(s.name)),
+    series: seriesList,
   };
 }
 

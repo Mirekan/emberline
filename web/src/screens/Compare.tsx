@@ -54,7 +54,7 @@ export default function Compare() {
     if (series && ref.current) {
       chart.current?.dispose();
       chart.current = init(ref.current);
-      chart.current.setOption(compareOption(series.days, visible, theme));
+      chart.current.setOption(compareOption(series.days, visible, theme), true);
       const ro = new ResizeObserver(() => chart.current?.resize());
       ro.observe(ref.current);
       return () => {
@@ -66,7 +66,7 @@ export default function Compare() {
 
   useEffect(() => {
     if (series && chart.current) {
-      chart.current.setOption(compareOption(series.days, visible, theme));
+      chart.current.setOption(compareOption(series.days, visible, theme), true);
     }
   }, [visible]); // eslint-disable-line react-hooks/exhaustive-deps
 
