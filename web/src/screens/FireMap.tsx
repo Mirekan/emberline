@@ -383,6 +383,16 @@ export default function FireMap() {
     bengkulu_barat: "Bengkulu",
   };
 
+  // Determine initial coordinates: focused on active province or whole Indonesia
+  function getInitialCoords(): { center: [number, number]; zoom: number } {
+    if (aoi === "central_kalimantan") return { center: [-1.8, 113.8], zoom: 7 };
+    if (aoi === "south_sumatra") return { center: [-3.3, 104.6], zoom: 7 };
+    if (aoi === "jambi") return { center: [-1.8, 103.0], zoom: 7 };
+    if (aoi === "riau") return { center: [0.6, 102.0], zoom: 7 };
+    if (aoi === "merauke") return { center: [-8.0, 139.0], zoom: 7 };
+    return { center: [-2.5, 118.0], zoom: 5 }; // Whole Indonesia center
+  }
+
   const [q, setQ] = useState("");
   const [selName, setSelName] = useState<string | null>(() => {
     return PRESET_NAMES[aoi] ?? "Kalimantan Tengah";
@@ -568,16 +578,6 @@ export default function FireMap() {
     } else {
       document.exitFullscreen().catch(() => { });
     }
-  };
-
-  // Determine initial coordinates: focused on active province or whole Indonesia
-  const getInitialCoords = (): { center: [number, number]; zoom: number } => {
-    if (aoi === "central_kalimantan") return { center: [-1.8, 113.8], zoom: 7 };
-    if (aoi === "south_sumatra") return { center: [-3.3, 104.6], zoom: 7 };
-    if (aoi === "jambi") return { center: [-1.8, 103.0], zoom: 7 };
-    if (aoi === "riau") return { center: [0.6, 102.0], zoom: 7 };
-    if (aoi === "merauke") return { center: [-8.0, 139.0], zoom: 7 };
-    return { center: [-2.5, 118.0], zoom: 5 }; // Whole Indonesia center
   };
 
   // Initialize Map locked to Indonesia territory (no global wander, seamless tiles)
