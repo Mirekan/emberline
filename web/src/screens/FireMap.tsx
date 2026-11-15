@@ -176,12 +176,13 @@ export default function FireMap() {
   });
   const [presets, setPresets] = useState<Preset[]>([]);
   const [det, setDet] = useState<Detections | null>(null);
-  const [detOn, setDetOn] = useState(false); // Default OFF so map loads clean without cluttering dots
-  const [detYear, setDetYear] = useState("2025");
+  const [detOn, setDetOn] = useState(true); // Default ON: FIRMS dots are immediately rendered on map load
+  const [detYear, setDetYear] = useState("all"); // Default to all years for full hotspot coverage
   const [detSensor, setDetSensor] = useState<"all" | "modis" | "viirs">("all");
   const [mapTheme, setMapTheme] = useState<"dark" | "osm">("dark");
   const [isFs, setIsFs] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(true);
+  const [mapReady, setMapReady] = useState(false);
 
   const visibleRowsRef = useRef<Detection[]>([]);
 
@@ -305,6 +306,7 @@ export default function FireMap() {
 
     tileLayerRef.current = tileLayer;
     mapRef.current = map;
+    setMapReady(true);
 
     // Track mouse coordinates directly via DOM ref & requestAnimationFrame
     // Eliminates 100% of React re-renders during mouse movement across fullscreen!
@@ -386,30 +388,20 @@ export default function FireMap() {
       clearTimeout(resizeTimer);
       map.remove();
       mapRef.current = null;
+      setMapReady(false);
     };
   }, []);
 
-  // Fetch telemetry artifacts for selected AOI
+  // Fetch telemetry artifacts for selected AOI directly
   useEffect(() => {
-    const p = presets.find(pp => pp.id === aoi);
-    if (p?.artifact_status === "available") {
-      api.detections(aoi).then(d => {
-        const byYear: Record<string, number> = {};
-        for (const x of d.detections) {
-          const y = x.date.slice(0, 4);
-          byYear[y] = (byYear[y] ?? 0) + 1;
-        }
-        const years = Object.keys(byYear).sort();
-        const best = years[years.length - 1] ?? "2025";
-        setDetYear(best);
+    api.detections(aoi)
+      .then(d => {
         setDet(d);
-      }).catch(() => {
+      })
+      .catch(() => {
         setDet(null);
       });
-    } else {
-      setDet(null);
-    }
-  }, [aoi, presets]);
+  }, [aoi]);
 
   // Render Fire Dots ("Nitik-nitik" pinned solidly to the island, 100% netep, zero jitter)
   useEffect(() => {
@@ -460,7 +452,7 @@ export default function FireMap() {
 
     g.addTo(map);
     dotsLayerRef.current = g;
-  }, [det, detOn, detYear, detSensor]);
+  }, [det, detOn, detYear, detSensor, mapReady]);
 
   // Smoothly pan only when user explicitly switches AOI preset
   const lastAoiRef = useRef<string>(aoi);
