@@ -281,7 +281,7 @@ export function compareOption(
   };
 }
 
-/* Seasons — climatology median + IQR band + critical-window band (stacked trick) */
+/* Seasons — climatology median + IQR band + critical-window band via markArea */
 export function seasonsOption(
   clim: { month_day: string; median_mw: number | null; iqr?: { p25_mw: number; p75_mw: number } | null; state: string }[],
   smooth: (number | null)[],
@@ -292,15 +292,20 @@ export function seasonsOption(
   const p25 = clim.map(c => (c.iqr ? c.iqr.p25_mw : null));
   const p75 = clim.map(c => (c.iqr ? c.iqr.p75_mw : null));
   const span = p75.map((v, i) => (v == null || p25[i] == null ? null : v - p25[i]));
-  const inWin = (s: string) =>
-    windows.some(w => {
-      if (!w.wraps_new_year) return s >= w.start_md && s <= w.end_md;
-      return s >= w.start_md || s <= w.end_md;
-    });
-  const wBase = md.map(() => 0);
-  const wSpan = md.map(s => (inWin(s) ? 100 : null));
   const font = getThemeFont(theme);
   const dark = isDarkMode(theme);
+
+  // Critical burning window zones rendered via non-intrusive markArea
+  const markAreaData = (windows || []).flatMap(w => {
+    if (!w.start_md || !w.end_md) return [];
+    if (!w.wraps_new_year) {
+      return [[{ xAxis: w.start_md }, { xAxis: w.end_md }]];
+    }
+    return [
+      [{ xAxis: w.start_md }, { xAxis: "12-31" }],
+      [{ xAxis: "01-01" }, { xAxis: w.end_md }],
+    ];
+  });
 
   return {
     animation: !reduced,
@@ -320,36 +325,25 @@ export function seasonsOption(
     },
     yAxis: {
       type: "value",
-      max: (v: { max: number }) => Math.ceil((v.max * 1.25) / 5) * 5,
+      min: 0,
+      max: (v: { max: number }) => {
+        if (!v.max || v.max <= 0) return 5;
+        if (v.max <= 1.5) return Math.ceil(v.max * 1.35 * 10) / 10;
+        if (v.max <= 5) return Math.ceil(v.max * 1.25 * 2) / 2;
+        if (v.max <= 20) return Math.ceil(v.max * 1.2);
+        return Math.ceil((v.max * 1.2) / 5) * 5;
+      },
       name: "FRP-sum (MW)",
       nameTextStyle: { color: font.color, fontSize: 11 },
-      axisLabel: { color: font.color, fontSize: 11 },
+      axisLabel: {
+        color: font.color,
+        fontSize: 11,
+        formatter: (val: number) => (val < 2 && val % 1 !== 0 ? val.toFixed(1) : String(val)),
+      },
       splitLine: { lineStyle: { color: getSplitLineColor(theme) } },
     },
     tooltip: { show: false },
     series: [
-      {
-        name: "_wb",
-        type: "line",
-        symbol: "none",
-        silent: true,
-        stack: "w",
-        data: wBase,
-        lineStyle: { opacity: 0 },
-        areaStyle: { color: "transparent" },
-        z: 0,
-      },
-      {
-        name: "_ws",
-        type: "line",
-        symbol: "none",
-        silent: true,
-        stack: "w",
-        data: wSpan,
-        lineStyle: { opacity: 0 },
-        areaStyle: { color: dark ? "rgba(240, 106, 56, 0.28)" : "rgba(214, 138, 63, 0.25)" },
-        z: 0,
-      },
       {
         name: "_p25",
         type: "line",
@@ -379,6 +373,13 @@ export function seasonsOption(
         data: smooth.map(v => (v == null ? null : v)),
         lineStyle: { color: dark ? "#F5F4EE" : "#141311", width: 3 },
         itemStyle: { color: dark ? "#F5F4EE" : "#141311" },
+        markArea: markAreaData.length > 0 ? {
+          silent: true,
+          itemStyle: {
+            color: dark ? "rgba(240, 106, 56, 0.25)" : "rgba(214, 138, 63, 0.22)",
+          },
+          data: markAreaData,
+        } : undefined,
         z: 6,
       },
     ],

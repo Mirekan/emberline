@@ -372,7 +372,9 @@ export default function FireMap() {
     merauke: "Papua Selatan (Merauke)",
     kalbar: "Kalimantan Barat",
     kaltim: "Kalimantan Timur",
+    papua_selatan: "Papua Selatan",
     sulsel: "Sulawesi Selatan",
+    sulteng_sulut: "Sulawesi Tengah",
     ntt: "Nusa Tenggara Timur",
     ntb: "Nusa Tenggara Barat",
     sumut_aceh: "Sumatera Utara",
@@ -825,6 +827,16 @@ export default function FireMap() {
     if (!det || det.detections.length === 0) {
       if (!grid) return counts;
       for (const cell of grid.cells) {
+        if (selName !== null && curPreset) {
+          if (
+            cell.south < curPreset.south ||
+            cell.north > curPreset.north ||
+            cell.west < curPreset.west ||
+            cell.east > curPreset.east
+          ) {
+            continue;
+          }
+        }
         const key = `${cell.south.toFixed(1)},${cell.west.toFixed(1)}`;
         counts.set(key, {
           total: cell.detection_count,
@@ -951,6 +963,16 @@ export default function FireMap() {
     // 3. Render active / monitored observation cells with heat & risk colors
     const cellsByCoord = new Map<string, GridCell>();
     for (const cell of grid.cells) {
+      if (selName !== null && curPreset) {
+        if (
+          cell.south < curPreset.south ||
+          cell.north > curPreset.north ||
+          cell.west < curPreset.west ||
+          cell.east > curPreset.east
+        ) {
+          continue;
+        }
+      }
       const key = `${cell.south.toFixed(1)},${cell.west.toFixed(1)}`;
       cellsByCoord.set(key, cell);
 
@@ -1861,7 +1883,11 @@ export default function FireMap() {
           color: "var(--ink2)",
         }}
       >
-        <span style={{ color: "var(--ink)", fontWeight: 600 }}>{lang === "id" ? "Wilayah: Indonesia" : "Region: Indonesia"}</span>
+        <span style={{ color: "var(--ink)", fontWeight: 600 }}>
+          {selName
+            ? (lang === "id" ? `Wilayah: ${selName}` : `Region: ${selName}`)
+            : (lang === "id" ? "Wilayah: Seluruh Indonesia" : "Region: All Indonesia")}
+        </span>
         <span ref={coordRef} className="mono" style={{ fontSize: 10.5 }}>
           {lang === "id" ? "Arahkan kursor ke peta" : "Hover cursor over map"}
         </span>
