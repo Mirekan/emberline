@@ -98,6 +98,21 @@ def _series(aoi: str):
             for interval in csv.DictReader(fh):
                 intervals_by_date.setdefault(interval["date"], []).append(interval)
 
+    # VIIRS daily FRP lookup from baseline_series.csv or harmonized_daily.csv
+    viirs_by_date = {}
+    baseline_path = aoi_dir / "baseline_series.csv"
+    if baseline_path.exists():
+        with baseline_path.open(newline="", encoding="utf-8") as fh:
+            for r in csv.DictReader(fh):
+                val = _number(r.get("viirs_frp_sum_mw"))
+                if val is not None:
+                    viirs_by_date[r["date"]] = viirs_by_date.get(r["date"], 0.0) + val
+    elif intervals_path.exists():
+        for dt, inters in intervals_by_date.items():
+            vals = [_number(i.get("raw_viirs_frp_mw")) for i in inters if i.get("raw_viirs_frp_mw") is not None]
+            if vals:
+                viirs_by_date[dt] = sum(vals)
+
     rows = []
     with accepted_path.open(newline="", encoding="utf-8") as fh:
         for accepted in csv.DictReader(fh):
@@ -117,12 +132,16 @@ def _series(aoi: str):
                     if flag and flag not in flags:
                         flags.append(flag)
 
+            raw_viirs = _number(accepted.get("observed_viirs_mw"))
+            if raw_viirs is None and accepted["date"] in viirs_by_date:
+                raw_viirs = round(viirs_by_date[accepted["date"]], 2)
+
             rows.append({
                 "date": accepted["date"],
                 "source_flag": accepted.get("source_flag") or "gap",
                 "raw_modis_frp_mw": _number(accepted.get("observed_modis_mw")),
                 "raw_modis_n": None,
-                "raw_viirs_frp_mw": _number(accepted.get("observed_viirs_mw")),
+                "raw_viirs_frp_mw": raw_viirs,
                 "raw_viirs_n": None,
                 "harmonized_lo_mw": sum_bound("lo_mw"),
                 "harmonized_estimate_mw": _number(accepted.get("harmonized_mw")),
