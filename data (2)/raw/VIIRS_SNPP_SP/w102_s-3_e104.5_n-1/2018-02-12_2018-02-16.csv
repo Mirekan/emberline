@@ -1,5 +1,0 @@
-latitude,longitude,bright_ti4,scan,track,acq_date,acq_time,satellite,instrument,confidence,version,bright_ti5,frp,daynight,type
--1.87602,103.55953,297.76,0.48,0.65,2018-02-13,1912,N,VIIRS,n,2,271.6,1.15,N,0
--1.91906,102.07557,330.58,0.5,0.49,2018-02-14,611,N,VIIRS,n,2,289.93,3.02,D,0
--2.10349,102.13947,333.86,0.38,0.58,2018-02-16,714,N,VIIRS,n,2,291.74,3.1,D,0
--1.35608,102.55439,356.25,0.41,0.61,2018-02-16,714,N,VIIRS,n,2,294.57,6.81,D,0

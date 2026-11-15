@@ -1,5 +1,0 @@
-latitude,longitude,brightness,scan,track,acq_date,acq_time,satellite,instrument,confidence,version,bright_t31,frp,daynight,type
--1.8884,115.8625,311.5,1.8,1.3,2025-11-17,144,Terra,MODIS,20,61.03,289.7,11.7,D,2
--1.1777,114.9601,309.4,1,1,2025-11-18,725,Aqua,MODIS,56,61.03,293.2,4.3,D,0
--1.1548,114.9931,311.5,1,1,2025-11-18,725,Aqua,MODIS,62,61.03,293.8,5.5,D,0
--1.8919,115.8599,307.1,1.6,1.2,2025-11-19,1343,Terra,MODIS,70,61.03,281,14.2,N,2

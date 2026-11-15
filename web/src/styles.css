@@ -21,6 +21,7 @@
 
 :root {
   /* Light Theme (NASA Telemetry Paper/Console) */
+  --topbar-height: 72px;
   color-scheme: light;
   --canvas: #F4F3EE;
   --surface: #FFFFFF;
@@ -270,12 +271,14 @@ select {
   background: var(--scroll-thumb);
   border-radius: 6px;
   border: 2px solid transparent;
+  -webkit-background-clip: content-box;
   background-clip: content-box;
 }
 
 *::-webkit-scrollbar-thumb:hover {
   background: var(--scroll-thumb-hover);
   border: 2px solid transparent;
+  -webkit-background-clip: content-box;
   background-clip: content-box;
 }
 
@@ -470,6 +473,7 @@ select {
   font-size: 13.5px;
   font-weight: 700;
   letter-spacing: 0.02em;
+  -webkit-user-select: none;
   user-select: none;
 }
 
@@ -527,6 +531,10 @@ select {
   padding: 0;
 }
 
+.content-overview {
+  padding: 0 36px;
+}
+
 .overview-page {
   position: relative;
   z-index: 1;
@@ -536,11 +544,12 @@ select {
 
 .ember-stage {
   position: fixed;
-  inset: 64px 0 0;
+  inset: var(--topbar-height) 0 0;
   z-index: 0;
   pointer-events: none;
   overflow: hidden;
   opacity: 0.96;
+  -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 70%, transparent 100%);
   mask-image: linear-gradient(to bottom, #000 0%, #000 70%, transparent 100%);
 }
 
@@ -567,7 +576,7 @@ select {
 
 .overview-hero {
   position: relative;
-  min-height: max(620px, calc(100svh - 190px));
+  min-height: calc(100svh - var(--topbar-height));
   padding: 48px 20px 34px;
   display: grid;
   grid-template-columns: minmax(0, 1.15fr) minmax(340px, 0.85fr);
@@ -862,8 +871,8 @@ select {
 
 .overview-story-sticky {
   position: sticky;
-  top: 64px;
-  height: calc(100svh - 64px);
+  top: var(--topbar-height);
+  height: calc(100svh - var(--topbar-height));
   min-height: 500px;
 }
 
@@ -1062,6 +1071,7 @@ select {
   border: 1px solid var(--line);
   border-radius: 18px;
   background: color-mix(in srgb, var(--surface) 75%, transparent);
+  -webkit-backdrop-filter: blur(14px);
   backdrop-filter: blur(14px);
 }
 
@@ -1091,8 +1101,8 @@ select {
 
 .overview-page .overview-details {
   position: relative;
-  min-height: min(680px, calc(100svh - 120px));
-  margin-top: 24px;
+  min-height: calc(100svh - var(--topbar-height));
+  margin-top: 0;
   padding: 60px 36px;
   border: 1px solid var(--line);
   border-radius: 22px;
@@ -2173,9 +2183,13 @@ tbody tr:hover {
     padding: 22px 18px 36px;
   }
 
+  .content-overview {
+    padding: 0 18px;
+  }
+
   .overview-hero {
     grid-template-columns: 1fr;
-    min-height: 0;
+    min-height: calc(100svh - var(--topbar-height));
     gap: 30px;
     padding: 54px 12px 30px;
   }
@@ -2225,12 +2239,20 @@ tbody tr:hover {
     padding: 18px 12px 30px;
   }
 
+  :root {
+    --topbar-height: 56px;
+  }
+
+  .content-overview {
+    padding: 0 12px;
+  }
+
   .ember-stage {
-    top: 56px;
+    top: var(--topbar-height);
   }
 
   .overview-hero {
-    min-height: 0;
+    min-height: calc(100svh - var(--topbar-height));
     padding: 40px 4px 24px;
     gap: 24px;
   }
@@ -2302,7 +2324,7 @@ tbody tr:hover {
   }
 
   .overview-page .overview-details {
-    min-height: 0;
+    min-height: calc(100svh - var(--topbar-height));
     padding: 30px 20px;
     border-radius: 18px;
   }
@@ -2327,8 +2349,8 @@ tbody tr:hover {
   }
 
   .overview-story-sticky {
-    top: 56px;
-    height: calc(100svh - 56px);
+    top: var(--topbar-height);
+    height: calc(100svh - var(--topbar-height));
     min-height: 450px;
   }
 
@@ -2421,6 +2443,7 @@ tbody tr:hover {
   flex-direction: column;
   z-index: 950;
   overflow: hidden;
+  -webkit-backdrop-filter: blur(8px);
   backdrop-filter: blur(8px);
   animation: ai-slide-in 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
