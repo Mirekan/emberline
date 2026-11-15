@@ -76,7 +76,7 @@ export const DICTIONARY = {
     // HUD / Gauge Card (Dynamic Telemetry)
     hud_kicker: "TELEMETRI SIKLUS HISTORIS",
     hud_demo: "SAINS C-06",
-    hud_safe: "Aman",
+    hud_safe: "Ilustrasi",
     hud_concept_coverage: "Indeks Hari Ini",
     hud_concept_val: "Siklus 366-Hari",
     hud_obs_label: "Puncak Musim",
@@ -333,7 +333,7 @@ export const DICTIONARY = {
     // HUD / Gauge Card (Dynamic Telemetry)
     hud_kicker: "HISTORICAL CYCLE TELEMETRY",
     hud_demo: "C-06 SCIENCE",
-    hud_safe: "Safe",
+    hud_safe: "Illustrative",
     hud_concept_coverage: "Today's Index",
     hud_concept_val: "366-Day Cycle",
     hud_obs_label: "Seasonal Peak",
