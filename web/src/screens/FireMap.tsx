@@ -159,7 +159,7 @@ const INDONESIA_BOUNDS: L.LatLngBoundsLiteral = [
 ];
 
 export default function FireMap() {
-  const { aoi, setAoi, calFilter } = useAoi();
+  const { aoi, setAoi, calFilter, lang, t } = useAoi();
   const containerRef = useRef<HTMLDivElement>(null);
   const mapEl = useRef<HTMLDivElement>(null);
   const mapRef = useRef<L.Map | null>(null);
@@ -592,7 +592,7 @@ export default function FireMap() {
   const chipFor = (r: (typeof REGIONS)[number]) => {
     const p = presets.find(pp => pp.id === r.preset);
     if (!p) return null;
-    return p.artifact_status === "available" ? "DATA SIAP" : "DALAM ANTREAN";
+    return p.artifact_status === "available" ? t("map_status_ready") : t("map_status_queued");
   };
   const curPreset = presets.find(p => p.id === aoi);
 
@@ -637,9 +637,9 @@ export default function FireMap() {
             alignItems: "center",
             gap: 6,
           }}
-          title={isFs ? "Keluar dari layar penuh" : "Buka layar penuh (Full Screen)"}
+          title={isFs ? t("map_exit_fullscreen") : t("map_fullscreen")}
         >
-          {isFs ? "Keluar Layar Penuh" : "Layar Penuh"}
+          {isFs ? t("map_exit_fullscreen") : t("map_fullscreen")}
         </button>
 
         <button
@@ -656,9 +656,9 @@ export default function FireMap() {
             alignItems: "center",
             gap: 6,
           }}
-          title={sidebarOpen ? "Sembunyikan panel agar peta leluasa" : "Buka panel filter wilayah"}
+          title={sidebarOpen ? t("map_close_panel") : t("map_open_panel")}
         >
-          {sidebarOpen ? "Tutup Panel" : "Buka Panel"}
+          {sidebarOpen ? t("map_close_panel") : t("map_open_panel")}
         </button>
 
         <button
@@ -707,7 +707,7 @@ export default function FireMap() {
             gap: 6,
           }}
         >
-          Filter Wilayah Indonesia
+          {t("map_filter_btn")}
         </button>
       )}
 
@@ -732,7 +732,7 @@ export default function FireMap() {
         <div style={{ padding: 14 }}>
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 6 }}>
             <span style={{ fontSize: 11, fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.04em", color: "var(--ink2)" }}>
-              Wilayah Indonesia
+              {t("map_filter_title")}
             </span>
             <div style={{ display: "flex", gap: 4 }}>
               <button
@@ -743,18 +743,18 @@ export default function FireMap() {
                   setSelName(null);
                   mapRef.current?.fitBounds([[6.0, 95.0], [-11.0, 141.0]], { padding: [30, 30] });
                 }}
-                title="Fokus ke seluruh kepulauan Indonesia"
+                title={lang === "id" ? "Fokus ke seluruh kepulauan Indonesia" : "Focus on all Indonesian archipelago"}
               >
-                Semua Wilayah
+                {t("map_all_regions")}
               </button>
               <button
                 type="button"
                 className="seg-btn"
                 style={{ fontSize: 10.5, padding: "2px 8px" }}
                 onClick={() => setSidebarOpen(false)}
-                title="Sembunyikan panel ini"
+                title={lang === "id" ? "Sembunyikan panel ini" : "Hide this panel"}
               >
-                Tutup
+                {t("map_inspector_close")}
               </button>
             </div>
           </div>
@@ -762,12 +762,12 @@ export default function FireMap() {
             type="text"
             value={q}
             onChange={e => setQ(e.target.value)}
-            placeholder="Cari provinsi (mis. Riau, Kalimantan)…"
+            placeholder={t("map_search_placeholder")}
             style={{ width: "100%", borderRadius: 8, padding: "8px 12px" }}
           />
           {/* Basemap switcher */}
           <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginTop: 8, fontSize: 11, color: "var(--ink2)" }}>
-            <span>Peta Dasar:</span>
+            <span>{t("map_basemap")}</span>
             <div style={{ display: "flex", gap: 4 }}>
               <button
                 type="button"
@@ -776,7 +776,7 @@ export default function FireMap() {
                 onClick={() => setMapTheme("dark")}
                 aria-pressed={mapTheme === "dark"}
               >
-                Gelap (Esri)
+                {t("map_basemap_dark")}
               </button>
               <button
                 type="button"
@@ -785,7 +785,7 @@ export default function FireMap() {
                 onClick={() => setMapTheme("osm")}
                 aria-pressed={mapTheme === "osm"}
               >
-                Topografi (OSM)
+                {t("map_basemap_osm")}
               </button>
             </div>
           </div>
@@ -935,7 +935,7 @@ export default function FireMap() {
               >
                 <span>{r.name}</span>
                 {chip && (
-                  <span className={"chip " + (chip === "DATA SIAP" ? "ready" : "pending")}>
+                  <span className={"chip " + (chip === t("map_status_ready") ? "ready" : "pending")}>
                     {chip}
                   </span>
                 )}
@@ -944,17 +944,17 @@ export default function FireMap() {
           })}
           {list.length === 0 && (
             <p style={{ padding: "8px 12px", fontSize: 12, color: "var(--ink3)" }}>
-              Tidak ada wilayah yang cocok dengan "{q}".
+              {lang === "id" ? `Tidak ada wilayah yang cocok dengan "${q}".` : `No regions match "${q}".`}
             </p>
           )}
         </div>
 
         <div style={{ borderTop: "1px solid var(--line)", padding: "10px 14px", fontSize: 10.5, color: "var(--ink3)" }}>
-          Wilayah Aktif:{" "}
+          {lang === "id" ? "Wilayah Aktif: " : "Active Region: "}
           <span style={{ color: "var(--ink)", fontWeight: 600 }}>
-            {selName ?? "Seluruh Kepulauan Indonesia"}
+            {selName ?? (lang === "id" ? "Seluruh Kepulauan Indonesia" : "All Indonesian Archipelago")}
           </span>
-          <span> · DATA SIAP</span>
+          <span> · {t("map_status_ready")}</span>
         </div>
       </div>
 
@@ -978,10 +978,10 @@ export default function FireMap() {
           transition: "left 0.2s ease",
         }}
       >
-        <span style={{ color: "var(--ink)", fontWeight: 600 }}>Wilayah: Indonesia</span>
+        <span style={{ color: "var(--ink)", fontWeight: 600 }}>{lang === "id" ? "Wilayah: Indonesia" : "Region: Indonesia"}</span>
         <span>·</span>
         <span ref={coordRef} className="mono">
-          Arahkan kursor ke peta untuk koordinat
+          {lang === "id" ? "Arahkan kursor ke peta untuk koordinat" : "Hover cursor over map for coordinates"}
         </span>
       </div>
 

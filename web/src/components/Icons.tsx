@@ -30,6 +30,9 @@ export const SunIcon = (p: React.SVGProps<SVGSVGElement>) => (
 export const MoonIcon = (p: React.SVGProps<SVGSVGElement>) => (
   <S {...p}><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" /></S>
 );
+export const GlobeIcon = (p: React.SVGProps<SVGSVGElement>) => (
+  <S {...p}><circle cx="12" cy="12" r="10" /><line x1="2" y1="12" x2="22" y2="12" /><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" /></S>
+);
 /** New brand mark (user's 2026 revamp): gradient flame, right-leaning tip, left lick,
  *  flame-shaped inner cutout (evenodd). Gradient id via useId — safe across instances. */
 export const FlameMark = ({ size = 40 }: { size?: number }) => {

@@ -1,7 +1,8 @@
 import React, { createContext, lazy, Suspense, useContext, useEffect, useState } from "react";
 import { motion, MotionConfig } from "framer-motion";
 import { api, Series } from "./api";
-import { HomeIcon, MapIcon, CalendarIcon, CrisisIcon, ChartIcon, ResearchIcon, FlameMark, SunIcon, MoonIcon } from "./components/Icons";
+import { HomeIcon, MapIcon, CalendarIcon, CrisisIcon, ChartIcon, ResearchIcon, FlameMark, SunIcon, MoonIcon, GlobeIcon } from "./components/Icons";
+import { getTranslation, Lang, TranslationKey } from "./i18n";
 import Overview from "./screens/Overview";
 import CalendarScreen from "./screens/CalendarScreen";
 import Compare from "./screens/Compare";
@@ -12,15 +13,15 @@ import Anomalies from "./screens/Anomalies";
 
 const EmberStage = lazy(() => import("./components/EmberStage"));
 
-const TABS = [
-  ["overview", "Overview", HomeIcon],
-  ["firemap", "Fire Map", MapIcon],
-  ["firecalendar", "Fire Calendar", CalendarIcon],
-  ["anomalies", "Anomalies", CrisisIcon],
-  ["analytics", "Analytics", ChartIcon],
-  ["methodology", "Methodology", ResearchIcon],
-] as const;
-type TabId = (typeof TABS)[number][0];
+const TAB_DEFS = [
+  { id: "overview" as const, key: "nav_overview" as const, Icon: HomeIcon },
+  { id: "firemap" as const, key: "nav_firemap" as const, Icon: MapIcon },
+  { id: "firecalendar" as const, key: "nav_firecalendar" as const, Icon: CalendarIcon },
+  { id: "anomalies" as const, key: "nav_anomalies" as const, Icon: CrisisIcon },
+  { id: "analytics" as const, key: "nav_analytics" as const, Icon: ChartIcon },
+  { id: "methodology" as const, key: "nav_methodology" as const, Icon: ResearchIcon },
+];
+type TabId = (typeof TAB_DEFS)[number]["id"];
 
 type Ctx = {
   aoi: string;
@@ -29,8 +30,23 @@ type Ctx = {
   theme: "light" | "dark";
   calFilter: string | null;
   setCalFilter: (f: string | null) => void;
+  lang: Lang;
+  setLang: (l: Lang) => void;
+  toggleLang: () => void;
+  t: (k: TranslationKey, params?: Record<string, string | number>) => string;
 };
-const AoiContext = createContext<Ctx>({ aoi: "riau", setAoi: () => {}, series: null, theme: "light", calFilter: null, setCalFilter: () => {} });
+const AoiContext = createContext<Ctx>({
+  aoi: "riau",
+  setAoi: () => {},
+  series: null,
+  theme: "light",
+  calFilter: null,
+  setCalFilter: () => {},
+  lang: "id",
+  setLang: () => {},
+  toggleLang: () => {},
+  t: (k: TranslationKey) => k,
+});
 export const useAoi = () => useContext(AoiContext);
 
 export default function App() {
@@ -39,6 +55,10 @@ export default function App() {
   const [series, setSeries] = useState<Series | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [calFilter, setCalFilter] = useState<string | null>(null);
+  const [lang, setLang] = useState<Lang>(() => {
+    const savedLang = localStorage.getItem("emberline-lang");
+    return savedLang === "en" || savedLang === "id" ? savedLang : "id";
+  });
   const [theme, setTheme] = useState<"light" | "dark">(() => {
     const savedTheme = localStorage.getItem("emberline-theme");
     if (savedTheme === "light" || savedTheme === "dark") return savedTheme;
@@ -50,9 +70,20 @@ export default function App() {
     localStorage.setItem("emberline-theme", theme);
   }, [theme]);
 
+  useEffect(() => {
+    document.documentElement.setAttribute("lang", lang);
+    localStorage.setItem("emberline-lang", lang);
+  }, [lang]);
+
   const toggleTheme = () => {
     setTheme(curr => (curr === "dark" ? "light" : "dark"));
   };
+
+  const toggleLang = () => {
+    setLang(curr => (curr === "id" ? "en" : "id"));
+  };
+
+  const t = (k: TranslationKey, params?: Record<string, string | number>) => getTranslation(lang, k, params);
 
   useEffect(() => {
     if (tab === "firemap" || tab === "anomalies") return; // backlog / live map screens
@@ -65,17 +96,17 @@ export default function App() {
   const provLeft = series
     ? (
       <>
-        <span>Run <span className="mono">{series.run_id.slice(-14)}</span></span>
+        <span>{t("prov_run")} <span className="mono">{series.run_id.slice(-14)}</span></span>
         <span className="prov-sep">|</span>
-        <span>Model <span className="mono">{series.model_version ?? "v1.0-harm"}</span></span>
+        <span>{t("prov_model")} <span className="mono">{series.model_version ?? "v1.0-harm"}</span></span>
         <span className="prov-sep">|</span>
-        <span className="mono">{series.days.length.toLocaleString("en-US")} daily observations</span>
+        <span className="mono">{series.days.length.toLocaleString(lang === "id" ? "id-ID" : "en-US")} {t("prov_daily_obs")}</span>
       </>
     )
-    : "Memuat data observasi satelit…";
+    : t("prov_loading");
 
   return (
-    <AoiContext.Provider value={{ aoi, setAoi, series, theme, calFilter, setCalFilter }}>
+    <AoiContext.Provider value={{ aoi, setAoi, series, theme, calFilter, setCalFilter, lang, setLang, toggleLang, t }}>
       <MotionConfig reducedMotion="user">
         <div className="app">
           {tab === "overview" && (
@@ -89,20 +120,20 @@ export default function App() {
               <span className="brand-word">EmberLine</span>
               <span className="brand-tag">SPACE APPS 2026</span>
               {isMock && (
-                <span className="mock-badge" title="Synthetic fixture artifact active (Mandatory Guardrail FR-UI-12)">
-                  <span className="mock-dot" /> MOCK / SYNTHETIC
+                <span className="mock-badge" title={t("mock_badge_title")}>
+                  <span className="mock-dot" /> {t("mock_badge")}
                 </span>
               )}
             </div>
 
             <nav className="iconnav" role="tablist" aria-label="Console Sections">
-              {TABS.map(([id, label, Icon]) => (
+              {TAB_DEFS.map(({ id, key, Icon }) => (
                 <button
                   key={id}
                   role="tab"
                   aria-selected={tab === id}
                   className={"iconnav-item" + (tab === id ? " active" : "")}
-                  onClick={() => setTab(id as TabId)}
+                  onClick={() => setTab(id)}
                 >
                   {tab === id && (
                     <motion.span
@@ -111,7 +142,7 @@ export default function App() {
                       transition={{ type: "spring", stiffness: 320, damping: 30 }}
                     />
                   )}
-                  <Icon /> <span>{label}</span>
+                  <Icon /> <span>{t(key)}</span>
                 </button>
               ))}
             </nav>
@@ -120,15 +151,28 @@ export default function App() {
               <button
                 className="glossary-trigger"
                 onClick={() => setTab("methodology")}
-                title="Inspect plain-language definitions for every scientific term"
+                title={lang === "id" ? "Buka glosarium dan definisi istilah sains" : "Inspect plain-language definitions for every scientific term"}
               >
-                <ResearchIcon /> <span>Inspect glossary</span>
+                <ResearchIcon /> <span>{t("nav_glossary")}</span>
               </button>
+
+              <button
+                className="lang-toggle"
+                onClick={toggleLang}
+                title={t("nav_lang_toggle")}
+                aria-label={t("nav_lang_toggle")}
+              >
+                <GlobeIcon width={14} height={14} />
+                <span className={`lang-code ${lang === "id" ? "active" : ""}`}>ID</span>
+                <span className="lang-sep">/</span>
+                <span className={`lang-code ${lang === "en" ? "active" : ""}`}>EN</span>
+              </button>
+
               <button
                 className="theme-toggle"
                 onClick={toggleTheme}
-                title={`Switch to ${theme === "dark" ? "light" : "dark"} mode`}
-                aria-label={`Switch to ${theme === "dark" ? "light" : "dark"} mode`}
+                title={theme === "dark" ? t("nav_theme_light") : t("nav_theme_dark")}
+                aria-label={theme === "dark" ? t("nav_theme_light") : t("nav_theme_dark")}
                 aria-pressed={theme === "dark"}
               >
                 {theme === "dark" ? <SunIcon /> : <MoonIcon />}
@@ -140,7 +184,7 @@ export default function App() {
             <div className="prov">
               <div className="prov-left">{provLeft}</div>
               <div className="prov-right">
-                <span className="state-chip chip-neutral" style={{ fontSize: 10 }}>Descriptive, not predictive</span>
+                <span className="state-chip chip-neutral" style={{ fontSize: 10 }}>{t("prov_descriptive")}</span>
                 <span className="prov-sep">|</span>
                 <span>NASA FIRMS</span>
                 <span className="prov-sep">|</span>
@@ -153,14 +197,14 @@ export default function App() {
             <div key={tab} className="screen-fade">
               {error && tab === "analytics" && (
                 <div className="status-panel failed" style={{ marginBottom: 20 }}>
-                  <div className="status-title">Data Pengamatan Belum Tersedia</div>
+                  <div className="status-title">{t("err_not_available")}</div>
                   <p className="status-desc">
-                    Data observasi satelit multi-sensor untuk wilayah ini sedang dalam tahap pemrosesan.
+                    {t("err_not_available_desc")}
                   </p>
                   {aoi !== "riau" && (
                     <div style={{ marginTop: 10 }}>
                       <button className="btn secondary" onClick={() => setAoi("riau")}>
-                        Kembali ke Riau (Data Siap)
+                        {t("back_to_ready")}
                       </button>
                     </div>
                   )}
@@ -189,12 +233,9 @@ export default function App() {
 
           <footer className="footer">
             <div className="boundary-line">
-              <b>Mandatory Scientific Disclosure:</b> Historical &amp; descriptive — not predictive.
-              A hotspot is a satellite thermal detection pixel, not necessarily a physical fire.
-              Seasonal critical window indicates historical peak burning climatology, not a safe-to-burn recommendation.
-              Data source: NASA FIRMS.
+              <b>{t("footer_disclosure_label")}</b> {t("footer_disclosure_text")}
             </div>
-            <div className="meta-right">@AstraGokilNasaGamerHebatGaming2026 · NASA Space Apps 2026 Jakarta</div>
+            <div className="meta-right">{t("footer_credit")}</div>
           </footer>
         </div>
       </MotionConfig>

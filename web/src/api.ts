@@ -40,7 +40,13 @@ export const api = {
   calendar: (aoi: string) => get<Calendar>(`/api/aoi/${aoi}/calendar`),
   windows: (aoi: string) => get<{ windows: Window[] } & Envelope>(`/api/aoi/${aoi}/windows`),
   method: (aoi: string) => get<Method>(`/api/method?aoi=${aoi}`),
-  grid: (aoi: string) => get<Grid>(`/api/aoi/${aoi}/grid`),
+  grid: async (aoi: string) => {
+    const data = await get<Grid>(`/api/aoi/${aoi}/grid`);
+    if (!Array.isArray(data.cells) || data.cells.some(cell => !Number.isFinite(cell.detection_count))) {
+      throw new Error("API grid belum memuat hitungan observasi per sel. Restart server backend di port 8300.");
+    }
+    return data;
+  },
   detections: (aoi: string, bounds?: Pick<GridCell, "west" | "south" | "east" | "north">) => {
     const query = bounds ? `?${new URLSearchParams({
       west: String(bounds.west),

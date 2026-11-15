@@ -305,6 +305,21 @@ input, textarea, select { caret-color: var(--ember); }
 }
 .theme-toggle:hover { color: var(--ember); border-color: var(--ember); transform: translateY(-1px); }
 
+.lang-toggle {
+  display: inline-flex; align-items: center; justify-content: center; gap: 5px;
+  height: 38px; padding: 0 10px; border-radius: 12px; background: var(--surface);
+  border: 1px solid var(--line-strong); color: var(--ink2); cursor: pointer;
+  box-shadow: var(--shadow-sm); transition: all 140ms ease;
+  font-family: "IBM Plex Mono", monospace; font-size: 11.5px; font-weight: 600;
+  user-select: none;
+}
+.lang-toggle:hover { color: var(--ember); border-color: var(--ember); transform: translateY(-1px); }
+.lang-toggle .lang-code { transition: color 120ms ease; opacity: 0.5; }
+.lang-toggle .lang-code.active { color: var(--ember); font-weight: 700; opacity: 1; }
+.lang-toggle .lang-sep { opacity: 0.35; font-weight: 400; }
+.lang-toggle svg { opacity: 0.75; }
+.lang-toggle:hover svg { opacity: 1; }
+
 /* Provenance & Telemetry Metadata Banner */
 .prov {
   display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px;

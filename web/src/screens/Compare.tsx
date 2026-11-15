@@ -12,12 +12,12 @@ const SWATCH = {
 
 type Visible = { modis: boolean; viirs: boolean; naive: boolean; harm: boolean };
 
-function LegendRows({ visible, onToggle }: { visible: Visible; onToggle: (k: keyof Visible) => void }) {
+function LegendRows({ visible, onToggle, lang }: { visible: Visible; onToggle: (k: keyof Visible) => void; lang: "id" | "en" }) {
   const rows: [keyof Visible, string, ReactNode][] = [
-    ["modis", "MODIS raw (Aqua reference, 1 km)", <span className="swatch" style={{ background: SWATCH.modis }} />],
-    ["viirs", "VIIRS raw (S-NPP, 375 m — dotted)", <span className="swatch" style={{ background: SWATCH.viirs }} />],
-    ["naive", "Naive splice (uncorrected handover — dashed)", <span className="swatch" style={{ background: SWATCH.naive }} />],
-    ["harm", "Harmonized estimate + uncertainty interval (band)", <span className="swatch" style={{ background: SWATCH.harm, height: 6 }} />],
+    ["modis", lang === "id" ? "MODIS mentah (Acuan Aqua, 1 km)" : "MODIS raw (Aqua reference, 1 km)", <span className="swatch" style={{ background: SWATCH.modis }} />],
+    ["viirs", lang === "id" ? "VIIRS mentah (S-NPP, 375 m — titik)" : "VIIRS raw (S-NPP, 375 m — dotted)", <span className="swatch" style={{ background: SWATCH.viirs }} />],
+    ["naive", lang === "id" ? "Sambungan naif (tanpa kalibrasi — putus-putus)" : "Naive splice (uncorrected handover — dashed)", <span className="swatch" style={{ background: SWATCH.naive }} />],
+    ["harm", lang === "id" ? "Estimasi terharmonisasi + rentang ketidakpastian" : "Harmonized estimate + uncertainty interval (band)", <span className="swatch" style={{ background: SWATCH.harm, height: 6 }} />],
   ];
 
   return (
@@ -40,7 +40,7 @@ function LegendRows({ visible, onToggle }: { visible: Visible; onToggle: (k: key
 }
 
 export default function Compare() {
-  const { aoi, setAoi, series, theme } = useAoi();
+  const { aoi, setAoi, series, theme, lang, t } = useAoi();
   const [method, setMethod] = useState<Method | null>(null);
   const [visible, setVisible] = useState<Visible>({ modis: true, viirs: true, naive: true, harm: true });
   const ref = useRef<HTMLDivElement>(null);
@@ -83,24 +83,26 @@ export default function Compare() {
     <div className="grid2">
       <div>
         <span className="state-chip chip-neutral" style={{ fontSize: 10, marginBottom: 4 }}>
-          SENSOR TRANSITION BENCHMARK
+          {lang === "id" ? "BENCHMARK TRANSISI SENSOR" : "SENSOR TRANSITION BENCHMARK"}
         </span>
-        <h1>Analytics — raw satellite records vs harmonized series</h1>
+        <h1>{t("compare_title")}</h1>
         <p className="sub">
-          A naive splice creates an artificial jump at the 2012 sensor transition. EmberLine harmonizes VIIRS onto the MODIS reference scale and presents every estimate with its bounded empirical uncertainty interval.
+          {lang === "id"
+            ? "Penyambungan data secara naif menimbulkan lonjakan artifisial pada transisi sensor 2012. EmberLine menyelaraskan VIIRS ke skala acuan MODIS dengan rentang ketidakpastian empiris berbatas."
+            : "A naive splice creates an artificial jump at the 2012 sensor transition. EmberLine harmonizes VIIRS onto the MODIS reference scale and presents every estimate with its bounded empirical uncertainty interval."}
         </p>
 
         {series ? (
           <div className="card" style={{ marginTop: 20 }}>
             <div ref={ref} style={{ width: "100%", height: 420 }} />
             <div className="legend-row">
-              <LegendRows visible={visible} onToggle={toggle} />
+              <LegendRows visible={visible} onToggle={toggle} lang={lang} />
             </div>
           </div>
         ) : (
           <div className="status-panel loading" style={{ marginTop: 20 }}>
-            <div className="status-title">Memuat data deret waktu satelit…</div>
-            <p className="status-desc">Menyusun observasi multi-sensor dan pita rentang ketidakpastian empiris.</p>
+            <div className="status-title">{lang === "id" ? "Memuat data deret waktu satelit…" : "Loading satellite series telemetry…"}</div>
+            <p className="status-desc">{lang === "id" ? "Menyusun observasi multi-sensor dan pita rentang ketidakpastian empiris." : "Compiling multi-sensor observations and empirical uncertainty bands."}</p>
             <div className="skel" style={{ height: 380, marginTop: 10 }} />
           </div>
         )}
@@ -109,8 +111,8 @@ export default function Compare() {
       <aside style={{ display: "grid", gap: 16 }}>
         <div className="card">
           <div className="card-header">
-            <h2>Series visibility layers</h2>
-            <span className="state-chip chip-neutral mono" style={{ fontSize: 10 }}>interactive</span>
+            <h2>{lang === "id" ? "Lapisan Visibilitas Deret" : "Series visibility layers"}</h2>
+            <span className="state-chip chip-neutral mono" style={{ fontSize: 10 }}>{lang === "id" ? "interaktif" : "interactive"}</span>
           </div>
           <div
             className="legend-row"
@@ -122,7 +124,7 @@ export default function Compare() {
               gap: 8,
             }}
           >
-            <LegendRows visible={visible} onToggle={toggle} />
+            <LegendRows visible={visible} onToggle={toggle} lang={lang} />
           </div>
           <p className="sub" style={{ marginTop: 12, fontSize: 12 }}>
             Aqua MODIS (1 km pixel) represents the legacy reference baseline. VIIRS (375 m pixel) captures smaller fire anomalies and records systematically higher raw radiant intensity.
@@ -157,9 +159,9 @@ export default function Compare() {
           className="btn secondary"
           style={{ width: "100%", justifyContent: "center" }}
           onClick={() => window.open(`/api/aoi/${series?.aoi_id}/export?what=series`, "_blank")}
-          title="Download complete daily telemetry series with uncertainty intervals in CSV format"
+          title={lang === "id" ? "Unduh seluruh deret data harian satelit beserta rentang ketidakpastian dalam format CSV" : "Download complete daily telemetry series with uncertainty intervals in CSV format"}
         >
-          Export daily telemetry series (CSV)
+          {t("compare_export_btn")}
         </button>
       </aside>
     </div>
