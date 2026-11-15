@@ -24,6 +24,34 @@ export type Grid = { cell_deg: number; bounds?: { south: number; west: number; n
 export type Detection = { date: string; lat: number; lon: number; frp: number; sensor: "modis" | "viirs"; conf: string; daynight: string };
 export type Detections = { n_detections: number; note: string; detections: Detection[] };
 
+export type HotspotAnalysisRequest = {
+  lat: number;
+  lon: number;
+  date: string;
+  frp: number;
+  sensor: "modis" | "viirs";
+  conf: string;
+  daynight: string;
+  region?: string;
+  question?: string;
+  api_key?: string;
+};
+
+export type HotspotAnalysisResponse = {
+  status: "success" | "fallback" | "error";
+  model: string;
+  provider: "grok" | "heuristic";
+  analysis: string;
+  telemetry_context: {
+    biome: string;
+    peatland_susceptibility: string;
+    seasonal_climate: string;
+    sensor_resolution: string;
+    frp_interpretation: string;
+  };
+  note?: string;
+};
+
 async function get<T>(path: string): Promise<T> {
   const res = await fetch(path);
   if (!res.ok) {
@@ -67,6 +95,16 @@ export const api = {
       const b = await r.json();
       if (!r.ok) throw new Error(b?.detail?.message || b?.detail || String(r.status));
       return b as { job_id: string; status: string };
+    }),
+  analyzeHotspot: (data: HotspotAnalysisRequest) =>
+    fetch("/api/ai/analyze-hotspot", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+    }).then(async (r) => {
+      const b = await r.json();
+      if (!r.ok) throw new Error(b?.detail?.message || b?.detail || String(r.status));
+      return b as HotspotAnalysisResponse;
     }),
   job: (id: string) => get<{ job_id: string; status: string; progress_pct?: number; stage?: string; error?: { message: string } }>(`/api/jobs/${id}`),
 };

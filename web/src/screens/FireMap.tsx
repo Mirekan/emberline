@@ -1,8 +1,82 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
-import { api, Preset, Detections, Detection, Grid, GridCell } from "../api";
+import { api, Preset, Detections, Detection, Grid, GridCell, HotspotAnalysisResponse } from "../api";
 import { useAoi } from "../App";
+
+function MarkdownView({ content }: { content: string }) {
+  const lines = content.split("\n");
+  const elements: React.ReactNode[] = [];
+  let inBlockquote = false;
+  let quoteLines: string[] = [];
+
+  const flushQuote = (key: number) => {
+    if (quoteLines.length > 0) {
+      elements.push(
+        <blockquote key={`quote-${key}`}>
+          {quoteLines.map((ql, i) => (
+            <p key={i}>{formatInline(ql)}</p>
+          ))}
+        </blockquote>
+      );
+      quoteLines = [];
+    }
+  };
+
+  const formatInline = (text: string): React.ReactNode => {
+    const parts = text.split(/(\*\*[^*]+\*\*)/g);
+    return parts.map((part, idx) => {
+      if (part.startsWith("**") && part.endsWith("**")) {
+        return <strong key={idx}>{part.slice(2, -2)}</strong>;
+      }
+      return part;
+    });
+  };
+
+  lines.forEach((line, idx) => {
+    const trimmed = line.trim();
+    if (trimmed.startsWith(">")) {
+      inBlockquote = true;
+      quoteLines.push(trimmed.replace(/^>\s*/, ""));
+      return;
+    } else if (inBlockquote) {
+      inBlockquote = false;
+      flushQuote(idx);
+    }
+
+    if (!trimmed) return;
+
+    if (trimmed.startsWith("### ")) {
+      elements.push(
+        <h4 key={idx}>{formatInline(trimmed.replace(/^###\s+/, ""))}</h4>
+      );
+    } else if (trimmed.startsWith("## ")) {
+      elements.push(
+        <h3 key={idx}>{formatInline(trimmed.replace(/^##\s+/, ""))}</h3>
+      );
+    } else if (trimmed.startsWith("# ")) {
+      elements.push(
+        <h2 key={idx}>{formatInline(trimmed.replace(/^#\s+/, ""))}</h2>
+      );
+    } else if (trimmed.startsWith("- ") || trimmed.startsWith("* ")) {
+      elements.push(
+        <li key={idx}>{formatInline(trimmed.replace(/^[-*]\s+/, ""))}</li>
+      );
+    } else if (/^\d+\.\s+/.test(trimmed)) {
+      elements.push(
+        <li key={idx}>{formatInline(trimmed.replace(/^\d+\.\s+/, ""))}</li>
+      );
+    } else {
+      elements.push(<p key={idx}>{formatInline(trimmed)}</p>);
+    }
+  });
+
+  if (inBlockquote) {
+    flushQuote(lines.length);
+  }
+
+  return <div className="ai-markdown-body">{elements}</div>;
+}
 
 const REGIONS: { name: string; center: [number, number]; preset?: string }[] = [
   { name: "Kalimantan Tengah", center: [-1.8, 113.8], preset: "central_kalimantan" },
@@ -199,7 +273,49 @@ export default function FireMap() {
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const [mapReady, setMapReady] = useState(false);
 
+  // AI Telemetry Context Inspector & Grok Integration
+  const [selectedDetection, setSelectedDetection] = useState<Detection | null>(null);
+  const [isAiDrawerOpen, setIsAiDrawerOpen] = useState(false);
+  const [aiLoading, setAiLoading] = useState(false);
+  const [aiResponse, setAiResponse] = useState<HotspotAnalysisResponse | null>(null);
+  const [aiError, setAiError] = useState<string | null>(null);
+  const [aiQuestion, setAiQuestion] = useState("");
+  const [grokApiKey, setGrokApiKey] = useState(() => {
+    return localStorage.getItem("emberline_grok_key") || "";
+  });
+  const [apiKeySettingsOpen, setApiKeySettingsOpen] = useState(false);
+  const [apiKeyInput, setApiKeyInput] = useState(() => {
+    return localStorage.getItem("emberline_grok_key") || "";
+  });
+  const [keySavedStatus, setKeySavedStatus] = useState<string | null>(null);
+  const lastClickedDetectionRef = useRef<Detection | null>(null);
+  const aiDrawerRef = useRef<HTMLDivElement>(null);
+
   const visibleRowsRef = useRef<Detection[]>([]);
+
+  const triggerAiAnalysis = async (targetDet: Detection, customQuestion?: string) => {
+    setAiLoading(true);
+    setAiError(null);
+    try {
+      const res = await api.analyzeHotspot({
+        lat: targetDet.lat,
+        lon: targetDet.lon,
+        date: targetDet.date,
+        frp: targetDet.frp,
+        sensor: targetDet.sensor,
+        conf: targetDet.conf,
+        daynight: targetDet.daynight,
+        region: selName || aoi,
+        question: customQuestion || undefined,
+        api_key: grokApiKey.trim() || undefined,
+      });
+      setAiResponse(res);
+    } catch (err: any) {
+      setAiError(err?.message || "Gagal menghubungi layanan analisis satelit AI.");
+    } finally {
+      setAiLoading(false);
+    }
+  };
 
   useEffect(() => {
     api.presets().then(r => setPresets(r.presets)).catch(() => { });
@@ -219,6 +335,27 @@ export default function FireMap() {
       L.DomEvent.disableClickPropagation(toolbarRef.current);
     }
   }, []);
+
+  useEffect(() => {
+    if (aiDrawerRef.current) {
+      L.DomEvent.disableScrollPropagation(aiDrawerRef.current);
+      L.DomEvent.disableClickPropagation(aiDrawerRef.current);
+    }
+  }, [isAiDrawerOpen]);
+
+  useEffect(() => {
+    (window as any).__emberline_open_ai_analyzer = () => {
+      const target = lastClickedDetectionRef.current;
+      if (target) {
+        setSelectedDetection(target);
+        setIsAiDrawerOpen(true);
+        triggerAiAnalysis(target);
+      }
+    };
+    return () => {
+      delete (window as any).__emberline_open_ai_analyzer;
+    };
+  }, [grokApiKey, selName, aoi]);
 
   // Sync selected region name when global AOI changes
   useEffect(() => {
@@ -347,11 +484,13 @@ export default function FireMap() {
       }
 
       if (nearest) {
+        lastClickedDetectionRef.current = nearest;
+        setSelectedDetection(nearest);
         const isViirs = nearest.sensor === "viirs";
         L.popup({ autoPan: false, closeButton: true })
           .setLatLng([nearest.lat, nearest.lon])
           .setContent(
-            `<div style="font-size:12px; min-width:200px; line-height:1.5; font-family:var(--font-sans, system-ui);">
+            `<div style="font-size:12px; min-width:210px; line-height:1.5; font-family:var(--font-sans, system-ui);">
               <div style="font-weight:700; color:${isViirs ? "#EF4444" : "#2563EB"}; margin-bottom:4px; display:flex; align-items:center; justify-content:space-between;">
                 <span>${isViirs ? "VIIRS 375m (S-NPP)" : "MODIS 1km (Aqua)"}</span>
                 <span style="font-size:10px; padding:1px 6px; background:rgba(128,128,128,0.15); border-radius:4px; font-weight:600;">Conf: ${nearest.conf}</span>
@@ -367,6 +506,29 @@ export default function FireMap() {
               <div style="font-size:10px; color:#888; margin-top:4px; border-top:1px dashed rgba(128,128,128,0.3); padding-top:4px; line-height:1.3;">
                 Piksel observasi satelit — bukan klaim batas fisik kebakaran.
               </div>
+              <button
+                type="button"
+                onclick="window.__emberline_open_ai_analyzer && window.__emberline_open_ai_analyzer()"
+                style="
+                  width:100%;
+                  margin-top:8px;
+                  padding:7px 10px;
+                  background:#0D9488;
+                  color:#ffffff;
+                  border:none;
+                  border-radius:6px;
+                  font-weight:600;
+                  font-size:11px;
+                  cursor:pointer;
+                  box-shadow:0 1px 3px rgba(0,0,0,0.25);
+                  display:flex;
+                  align-items:center;
+                  justify-content:center;
+                  gap:6px;
+                "
+              >
+                Tanya AI (Grok Telemetry) &rarr;
+              </button>
             </div>`
           )
           .openOn(map);
@@ -1173,6 +1335,263 @@ export default function FireMap() {
       >
         Hotspot = observasi termal satelit, bukan kepastian kebakaran fisik · Radius ∝ FRP (MW)
       </span>
+
+      {/* Floating Shortcut to Open AI Drawer if Hotspot is Selected and Drawer is Closed */}
+      {selectedDetection && !isAiDrawerOpen && (
+        <button
+          type="button"
+          className="ai-floating-trigger"
+          onClick={() => {
+            setIsAiDrawerOpen(true);
+            triggerAiAnalysis(selectedDetection);
+          }}
+          title="Buka panel analisis telemetri satelit AI untuk titik ini"
+        >
+          <span>
+            Titik Terpilih: {selectedDetection.sensor === "viirs" ? "VIIRS" : "MODIS"} {selectedDetection.frp.toFixed(1)} MW
+          </span>
+          <span>·</span>
+          <span>Tanya AI (Grok) &rarr;</span>
+        </button>
+      )}
+
+      {/* AI Telemetry Context Drawer (xAI Grok & Heuristic) */}
+      {isAiDrawerOpen && selectedDetection && (
+        <div ref={aiDrawerRef} className="ai-drawer-container">
+          <div className="ai-drawer-header">
+            <div>
+              <div className="ai-drawer-title">Analisis Telemetri Satelit AI</div>
+              <div className="ai-drawer-subtitle">Didukung oleh xAI Grok & FIRMS Climatology</div>
+            </div>
+            <div className="ai-header-actions">
+              <button
+                type="button"
+                className={"ai-btn-key" + (grokApiKey ? " active" : "")}
+                onClick={() => setApiKeySettingsOpen(o => !o)}
+                title="Konfigurasi API Key Grok"
+              >
+                <span>API Key: {grokApiKey ? "Tersimpan" : "Bawaan"}</span>
+              </button>
+              <button
+                type="button"
+                className="ai-btn-close"
+                onClick={() => setIsAiDrawerOpen(false)}
+                title="Tutup Panel Analisis"
+              >
+                ✕
+              </button>
+            </div>
+          </div>
+
+          {apiKeySettingsOpen && (
+            <div className="ai-settings-card">
+              <div style={{ fontWeight: 600, color: "var(--ink)", marginBottom: 4 }}>
+                Pengaturan API Key Grok / xAI
+              </div>
+              <div style={{ color: "var(--ink3)", fontSize: 11, lineHeight: 1.4 }}>
+                Key disimpan di peramban lokal (localStorage). Sistem juga membaca <code>GROK_API_KEY</code> di file <code>.env</code>. Jika dikosongkan, sistem tetap berjalan memakai analisis telemetri satelit bawaan.
+              </div>
+              <div className="ai-settings-input-group">
+                <input
+                  type="password"
+                  className="ai-settings-input"
+                  placeholder="xai-..."
+                  value={apiKeyInput}
+                  onChange={(e) => setApiKeyInput(e.target.value)}
+                />
+                <button
+                  type="button"
+                  className="seg-btn"
+                  style={{ background: "var(--ember)", color: "#fff", border: "none", padding: "4px 10px", fontSize: 11, fontWeight: 600 }}
+                  onClick={() => {
+                    const cleanKey = apiKeyInput.trim();
+                    localStorage.setItem("emberline_grok_key", cleanKey);
+                    setGrokApiKey(cleanKey);
+                    setKeySavedStatus("Tersimpan!");
+                    setTimeout(() => setKeySavedStatus(null), 2500);
+                  }}
+                >
+                  Simpan
+                </button>
+                {grokApiKey && (
+                  <button
+                    type="button"
+                    className="seg-btn"
+                    style={{ background: "var(--surface)", border: "1px solid var(--line)", padding: "4px 8px", fontSize: 11 }}
+                    onClick={() => {
+                      localStorage.removeItem("emberline_grok_key");
+                      setGrokApiKey("");
+                      setApiKeyInput("");
+                      setKeySavedStatus("Dihapus");
+                      setTimeout(() => setKeySavedStatus(null), 2500);
+                    }}
+                  >
+                    Hapus
+                  </button>
+                )}
+              </div>
+              {keySavedStatus && (
+                <div style={{ fontSize: 10.5, color: "#10B981", fontWeight: 600 }}>{keySavedStatus}</div>
+              )}
+            </div>
+          )}
+
+          <div className="ai-drawer-body">
+            {/* Hotspot details badge card */}
+            <div className="ai-hotspot-card">
+              <div style={{ fontSize: 11, fontWeight: 700, color: "var(--ink)" }}>
+                Parameter Observasi Radiometrik
+              </div>
+              <div className="ai-badge-row">
+                <span className={"ai-badge " + (selectedDetection.sensor === "viirs" ? "ai-badge-viirs" : "ai-badge-modis")}>
+                  {selectedDetection.sensor === "viirs" ? "VIIRS 375m (S-NPP)" : "MODIS 1km (Aqua)"}
+                </span>
+                <span className="ai-badge ai-badge-frp">
+                  FRP: {selectedDetection.frp.toFixed(2)} MW
+                </span>
+                <span className="ai-badge ai-badge-dim">
+                  {selectedDetection.date} · {selectedDetection.daynight === "D" ? "Siang (Day)" : "Malam (Night)"}
+                </span>
+                <span className="ai-badge ai-badge-dim">
+                  Lat: {selectedDetection.lat.toFixed(5)}° · Lon: {selectedDetection.lon.toFixed(5)}°
+                </span>
+                <span className="ai-badge ai-badge-dim">
+                  Keyakinan: {selectedDetection.conf}
+                </span>
+              </div>
+            </div>
+
+            {/* Quick Prompts */}
+            <div className="ai-prompt-container">
+              <div style={{ fontSize: 11, fontWeight: 600, color: "var(--ink2)" }}>
+                Pertanyaan Cepat untuk AI:
+              </div>
+              <div className="ai-chips-list">
+                {[
+                  "Kenapa titik ini terbakar?",
+                  "Kondisi lahan gambut & kerentanan",
+                  "Analisis intensitas radiasi FRP",
+                  "Korelasi musim kemarau & El Niño",
+                ].map((promptChip) => (
+                  <button
+                    key={promptChip}
+                    type="button"
+                    className="ai-chip-prompt"
+                    onClick={() => {
+                      setAiQuestion(promptChip);
+                      triggerAiAnalysis(selectedDetection, promptChip);
+                    }}
+                    disabled={aiLoading}
+                  >
+                    {promptChip}
+                  </button>
+                ))}
+              </div>
+
+              <div className="ai-form-row">
+                <input
+                  type="text"
+                  className="ai-text-input"
+                  placeholder="Tanyakan hal lain seputar titik ini..."
+                  value={aiQuestion}
+                  onChange={(e) => setAiQuestion(e.target.value)}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter" && !aiLoading) {
+                      triggerAiAnalysis(selectedDetection, aiQuestion);
+                    }
+                  }}
+                />
+                <button
+                  type="button"
+                  className="ai-submit-btn"
+                  onClick={() => triggerAiAnalysis(selectedDetection, aiQuestion)}
+                  disabled={aiLoading}
+                >
+                  {aiLoading ? "Memproses..." : "Kirim"}
+                </button>
+              </div>
+            </div>
+
+            {/* AI Response Output */}
+            {aiLoading && (
+              <div className="ai-response-box" style={{ textAlign: "center", padding: "28px 16px" }}>
+                <div style={{ fontWeight: 600, color: "var(--ink)", marginBottom: 6 }}>
+                  Menganalisis Telemetri Satelit...
+                </div>
+                <div style={{ fontSize: 11, color: "var(--ink3)" }}>
+                  Menggabungkan bioma spasial, hidrologi gambut, data ENSO/IOD, dan radiasi sensor.
+                </div>
+              </div>
+            )}
+
+            {aiError && !aiLoading && (
+              <div className="ai-response-box" style={{ borderColor: "#EF4444", background: "rgba(239,68,68,0.06)" }}>
+                <div style={{ fontWeight: 600, color: "#EF4444", marginBottom: 4 }}>
+                  Kendala Komunikasi AI
+                </div>
+                <div style={{ fontSize: 11.5, color: "var(--ink2)", marginBottom: 8 }}>
+                  {aiError}
+                </div>
+                <button
+                  type="button"
+                  className="seg-btn"
+                  style={{ background: "var(--surface)", border: "1px solid var(--line)", fontSize: 11, padding: "4px 10px" }}
+                  onClick={() => triggerAiAnalysis(selectedDetection, aiQuestion)}
+                >
+                  Coba Lagi
+                </button>
+              </div>
+            )}
+
+            {aiResponse && !aiLoading && (
+              <div className="ai-response-box">
+                <div className="ai-status-bar">
+                  <span className={"ai-provider-badge " + (aiResponse.provider === "grok" ? "ai-provider-grok" : "ai-provider-heuristic")}>
+                    {aiResponse.provider === "grok" ? `xAI Grok (${aiResponse.model})` : "Telemetri Satelit Heuristik"}
+                  </span>
+                  <span style={{ fontSize: 10, color: "var(--ink3)" }}>
+                    Sesuai Kaidah Kontrak Sains
+                  </span>
+                </div>
+
+                {aiResponse.telemetry_context && (
+                  <div className="ai-context-grid">
+                    <div className="ai-context-tile">
+                      <div className="ai-context-label">Bioma & Ekosistem</div>
+                      <div className="ai-context-value">{aiResponse.telemetry_context.biome}</div>
+                    </div>
+                    <div className="ai-context-tile">
+                      <div className="ai-context-label">Kerentanan Gambut</div>
+                      <div className="ai-context-value">{aiResponse.telemetry_context.peatland_susceptibility}</div>
+                    </div>
+                    <div className="ai-context-tile">
+                      <div className="ai-context-label">Siklus Iklim</div>
+                      <div className="ai-context-value">{aiResponse.telemetry_context.seasonal_climate}</div>
+                    </div>
+                    <div className="ai-context-tile">
+                      <div className="ai-context-label">Resolusi & Radiasi</div>
+                      <div className="ai-context-value">{aiResponse.telemetry_context.frp_interpretation}</div>
+                    </div>
+                  </div>
+                )}
+
+                <MarkdownView content={aiResponse.analysis} />
+
+                {aiResponse.note && (
+                  <div style={{ fontSize: 10.5, color: "var(--ink3)", marginTop: 10, fontStyle: "italic", borderTop: "1px solid var(--line)", paddingTop: 6 }}>
+                    Catatan: {aiResponse.note}
+                  </div>
+                )}
+              </div>
+            )}
+          </div>
+
+          {/* Bottom Honesty Guardrail */}
+          <div style={{ padding: "8px 14px", background: "var(--sunken)", borderTop: "1px solid var(--line)", fontSize: 10, color: "var(--ink3)", lineHeight: 1.3 }}>
+            Sensor antariksa merekam pancaran radiasi gelombang elektromagnetik. Penentuan penyebab fisik di darat memerlukan pemeriksaan lapangan langsung.
+          </div>
+        </div>
+      )}
     </div>
   );
 }

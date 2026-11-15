@@ -18,6 +18,8 @@ import json
 import math
 import os
 import re
+import urllib.error
+import urllib.request
 import uuid
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
@@ -557,3 +559,317 @@ def job_status(job_id: str):
                         "retryable": True}
     return {k: v for k, v in job.items() if k not in ("created", "expires")} | \
            {"poll": f"/api/jobs/{job_id}"}
+
+
+def _get_grok_key(client_key: str | None = None) -> str | None:
+    """Retrieve Grok/xAI API key from client parameter, environment variables, or .env files."""
+    if client_key and client_key.strip():
+        return client_key.strip()
+    env_key = os.getenv("GROK_API_KEY") or os.getenv("XAI_API_KEY")
+    if env_key and env_key.strip():
+        return env_key.strip()
+    for candidate in (ROOT / ".env", ROOT / "api" / ".env"):
+        if candidate.exists():
+            try:
+                for line in candidate.read_text(encoding="utf-8").splitlines():
+                    line = line.strip()
+                    if not line or line.startswith("#") or "=" not in line:
+                        continue
+                    k, v = line.split("=", 1)
+                    if k.strip() in ("GROK_API_KEY", "XAI_API_KEY"):
+                        val = v.strip().strip("'\"")
+                        if val:
+                            return val
+            except Exception:
+                pass
+    return None
+
+
+def _analyze_hotspot_heuristic(
+    lat: float,
+    lon: float,
+    date: str,
+    frp: float,
+    sensor: str,
+    conf: str,
+    daynight: str,
+    question: str | None = None,
+    region: str | None = None,
+) -> dict:
+    """Generate structured scientific telemetry context for a detected satellite hotspot."""
+    is_viirs = sensor.lower() == "viirs"
+    sensor_name = "VIIRS 375m (S-NPP/NOAA-20)" if is_viirs else "MODIS 1km (Aqua/Terra)"
+    overpass_str = "Malam (Night overpass)" if daynight.upper() == "N" else "Siang (Day overpass)"
+
+    # 1. Spatial & Biome Context
+    if -1.5 <= lat <= 2.5 and 100.0 <= lon <= 104.0:
+        reg_title = "Pesisir Timur Sumatra (Riau / Semenanjung Siak-Kampar)"
+        biome = "Lahan Gambut Tropis Pesisir Timur Sumatra (Kubah Gambut Ombrogenous Dalam)"
+        susceptibility = "Sangat Tinggi. Kedalaman gambut mencapai > 3–8 m. Muka air tanah (MAT) yang turun di bawah 0,4 m saat kemarau memicu risiko smoldering fire (kebakaran bawah permukaan) yang menghasilkan asap tebal berkepanjangan."
+    elif -5.0 <= lat <= -1.5 and 102.0 <= lon <= 106.5:
+        reg_title = "Dataran Rendah & Pesisir Sumatra Selatan (OKI / Musi Banyuasin)"
+        biome = "Rawa Gambut Dataran Rendah & Aluvial Sumatra Selatan"
+        susceptibility = "Tinggi. Area konsesi dan kubah gambut rawa rentan terhadap kekeringan musiman saat Monsun Timur bertiup dari belahan selatan."
+    elif -2.8 <= lat <= -0.7 and 101.1 <= lon <= 104.5:
+        reg_title = "Cekungan Gambut Batanghari (Jambi)"
+        biome = "Rawa Gambut Pedalaman & Zona Penyangga Hutan Jambi"
+        susceptibility = "Tinggi. Fluktuasi hidrologis gambut sangat sensitif terhadap defisit curah hujan musiman dan pembukaan kanal drainase."
+    elif -3.5 <= lat <= 1.0 and 110.5 <= lon <= 116.0:
+        reg_title = "Kalimantan Tengah (Eks-PLG / Katingan / Pulang Pisau)"
+        biome = "Ekosistem Kubah Gambut Tropis Eks-PLG Kalimantan Tengah"
+        susceptibility = "Ekstrem. Sejarah pembukaan kanal drainase menurunkan muka air tanah secara drastis saat kemarau, menyulut kebakaran gambut dalam yang sulit dipadamkan dari permukaan."
+    elif -9.5 <= lat <= -6.0 and 137.5 <= lon <= 141.2:
+        reg_title = "Papua Selatan (Merauke - Lanskap Trans-Fly)"
+        biome = "Sabana Terbuka, Hutan Monsun Eukaliptus & Rawa Musiman Merauke"
+        susceptibility = "Rendah untuk gambut, namun Sangat Tinggi untuk kebakaran vegetasi rumput kering dan semak akibat angin kencang monsun tenggara yang terik."
+    else:
+        reg_title = region or "Wilayah Daratan Kepulauan Indonesia"
+        biome = "Ekosistem Hutan & Tutupan Vegetasi Tropis Indonesia"
+        susceptibility = "Bervariasi berdasarkan zonasi tanah mineral vs gambut lokal dan tingkat kelembapan kanopi vegetasi."
+
+    # 2. Seasonality & Climate Phase
+    year_str = date.split("-")[0] if "-" in date else "2024"
+    month_str = date.split("-")[1] if "-" in date and len(date.split("-")) > 1 else "01"
+    year_int = int(year_str) if year_str.isdigit() else 2024
+    month_int = int(month_str) if month_str.isdigit() else 1
+
+    if year_int == 2015:
+        climate_phase = "Super El Niño 2015 + IOD Positif (Kekeringan terparah dalam dua dekade di Indonesia)"
+    elif year_int == 2019:
+        climate_phase = "El Niño Moderat + IOD Positif Kuat (Defisit curah hujan ekstrem di wilayah barat)"
+    elif year_int == 2023:
+        climate_phase = "El Niño Berkembang + IOD Positif (Peningkatan drastis anomali termal setelah 3 tahun La Niña)"
+    elif year_int in (2020, 2021, 2022):
+        climate_phase = "Fase Triple-Dip La Niña (Tahun basah dengan anomali presipitasi tinggi)"
+    elif year_int in (2014, 2018):
+        climate_phase = "Kondisi El Niño Lemah / Anomali Musim Kering Regional"
+    else:
+        climate_phase = "Fase ENSO Netral / Variasi Siklus Monsun Standar"
+
+    if month_int in (6, 7, 8, 9, 10):
+        seasonal_cycle = "Puncak Monsun Timur (Musim Kemarau Austral). Angin kering bertiup dari benua Australia melintasi Indonesia."
+    elif month_int in (2, 3) and "Riau" in reg_title:
+        seasonal_cycle = "Musim Kering Pertama Riau (Pola Bimodal). Angin dari belahan bumi utara memicu kemarau lokal di pesisir Riau."
+    else:
+        seasonal_cycle = "Musim Hujan atau Masa Transisi (Monsun Barat). Curah hujan umumnya tinggi."
+
+    # 3. FRP & Radiative Characteristics
+    if frp >= 50.0:
+        frp_class = "Ekstrem (> 50 MW)"
+        frp_desc = "Intensitas radiasi termal sangat tinggi. Mengindikasikan pelepasan daya kalor pembakaran yang masif dan terkonsentrasi di permukaan tanah atau tajuk vegetasi."
+    elif frp >= 20.0:
+        frp_class = "Tinggi (20–50 MW)"
+        frp_desc = "Intensitas radiasi termal tinggi. Konsisten dengan pembakaran aktif vegetasi atau lapisan gambut terbuka yang melepaskan energi radiasi signifikan."
+    elif frp >= 5.0:
+        frp_class = "Moderat (5–20 MW)"
+        frp_desc = "Intensitas radiasi termal moderat. Tipikal untuk pembakaran permukaan (surface fire) bertahap atau titik panas yang terhalang sebagian oleh kanopi/asap tebal."
+    else:
+        frp_class = "Rendah (< 5 MW)"
+        frp_desc = "Sensitivitas radiasi rendah. Tipikal untuk api awal, sisa bara gambut bawah tanah (smoldering fire), atau anomali termal berskala sub-piksel kecil."
+
+    sensor_res = (
+        "375 meter pada nadir (Band I4 3,75 µm). Mampu mendeteksi anomali api kecil berenergi rendah."
+        if is_viirs
+        else "1.000 meter nominal (Band 21/22 4 µm). Menangkap akumulasi energi radiasi pada footprint yang lebih luas."
+    )
+
+    daynight_desc = (
+        "Overpass malam hari (~01:30 LT): Kontras radiometrik sangat tinggi terhadap latar belakang dingin daratan tanpa interferensi pantulan matahari (solar glint)."
+        if daynight.upper() == "N"
+        else "Overpass siang hari (~13:30 LT): Suhu daratan mencapai titik tertinggi; algoritma satelit memfilter pantulan specular matahari sebelum mengesahkan titik anomali."
+    )
+
+    # 4. Synthesizing Analysis & Addressing Questions
+    q_lower = (question or "").lower()
+    if any(w in q_lower for w in ("kenapa", "sebab", "mengapa", "penyebab")):
+        inquiry_section = f"""### Analisis Ilmiah Mengenai Penyebab Terdeteksinya Anomali:
+1. **Faktor Biofisik & Hidrologi Lahan**:
+   Titik anomali berada di zona **{reg_title}** pada tanggal **{date}**. Pada periode ini, iklim berada dalam **{climate_phase}** dengan siklus **{seasonal_cycle}**. Penurunan kelembapan permukaan serta penurunan muka air tanah menyebabkan seresah dan biomassa menjadi bahan bakar yang sangat mudah terbakar (flammable).
+
+2. **Aktivitas Antropogenik vs Kejadian Alami**:
+   Secara statistik di kawasan tropis Indonesia, anomali kebakaran lahan dataran rendah sebagian besar dipicu oleh aktivitas pembersihan dan penyiapan lahan berbasis api (land clearing) yang meluas saat cuaca kering. Kejadian alami seperti sambaran petir tanpa hujan sangat langka di dataran rendah gambut.
+
+3. **Batasan Kontrak Sains Satelit (Contract Honesty)**:
+   Sensor antariksa {sensor_name} mengukur radiasi termal elektromagnetik ({frp:.2f} MW) saat melintas di atas koordinat {lat:.5f}°, {lon:.5f}°. Satelit **tidak merekam identitas pelaku atau bukti visual fisik di darat**. Penentuan penyebab hukum atau pelaku pembakaran secara mutlak membutuhkan investigasi darat (ground verification) oleh aparat berwenang."""
+    elif question and question.strip():
+        inquiry_section = f"""### Respons terhadap Pertanyaan Pengguna ("{question.strip()}"):
+Berdasarkan data telemetri satelit {sensor_name} pada tanggal {date}:
+- **Kondisi Radiometrik**: Titik ini terdeteksi dengan Fire Radiative Power (FRP) sebesar **{frp:.2f} MW** (kategori {frp_class}) dengan tingkat keyakinan **{conf}** pada waktu **{overpass_str}**.
+- **Kondisi Wilayah**: Lokasi ({lat:.5f}°, {lon:.5f}°) berada di zona **{reg_title}**, dengan karakteristik bioma **{biome}**.
+- **Interpretasi**: Anomali termal ini konsisten dengan kondisi kekeringan regional ({climate_phase}) yang menurunkan kelembapan vegetasi di kawasan ini."""
+    else:
+        inquiry_section = f"""### Ringkasan Interpretasi Ilmiah Telemetri Satelit:
+- Titik koordinat **{lat:.5f}°, {lon:.5f}°** di zona **{reg_title}** menunjukkan anomali radiatif termal sebesar **{frp:.2f} MW** ({frp_class}) pada tanggal **{date}**.
+- Deteksi dilakukan oleh instrumen **{sensor_name}** pada orbit **{overpass_str}** dengan tingkat keyakinan (confidence) **{conf}**.
+- Keberadaan anomali ini berkorelasi erat dengan siklus kekeringan musiman (**{seasonal_cycle}**) pada fase iklim **{climate_phase}**."""
+
+    full_analysis = f"""## Laporan Analisis Telemetri Satelit FIRMS
+
+{inquiry_section}
+
+### Karakteristik Biofisik & Ekosistem:
+- **Wilayah Spasial**: {reg_title} ({lat:.5f}° LU/LS, {lon:.5f}° BT)
+- **Tipe Bioma & Lanskap**: {biome}
+- **Kerentanan Gambut**: {susceptibility}
+
+### Parameter Sensor & Radiasi Termal:
+- **Instrumen Sensor**: {sensor_name} — Resolusi spasial {sensor_res}
+- **Daya Radiasi Kebakaran (FRP)**: **{frp:.2f} MW** ({frp_class})
+- **Waktu Overpass**: {overpass_str} — {daynight_desc}
+- **Kondisi Iklim Global & Regional**: {climate_phase} · {seasonal_cycle}
+
+> **Prinsip Kejujuran Kontrak Ilmiah (NASA FIRMS & EmberLine):**
+> Hotspot yang ditampilkan adalah deteksi anomali radiasi inframerah termal dari orbit satelit, bukan kepastian batas perimeter kebakaran fisik atau pembuktian penyebab hukum secara sepihak. Pembuktian kausalitas membutuhkan verifikasi patroli darat."""
+
+    return {
+        "status": "success",
+        "provider": "heuristic",
+        "model": "emberline-heuristic-telemetry-v1",
+        "analysis": full_analysis,
+        "telemetry_context": {
+            "biome": biome,
+            "peatland_susceptibility": susceptibility,
+            "seasonal_climate": f"{climate_phase} | {seasonal_cycle}",
+            "sensor_resolution": sensor_res,
+            "frp_interpretation": f"{frp_class}: {frp_desc}",
+        },
+        "note": "Analisis telemetri satelit berbasis prinsip kejujuran data FIRMS."
+    }
+
+
+def _call_grok_hotspot_analysis(
+    lat: float,
+    lon: float,
+    date: str,
+    frp: float,
+    sensor: str,
+    conf: str,
+    daynight: str,
+    question: str | None = None,
+    region: str | None = None,
+    api_key: str | None = None,
+) -> dict:
+    """Invoke xAI Grok API for hotspot analysis, falling back to heuristic telemetry if unavailable."""
+    key = _get_grok_key(api_key)
+    if not key:
+        return _analyze_hotspot_heuristic(
+            lat=lat, lon=lon, date=date, frp=frp, sensor=sensor,
+            conf=conf, daynight=daynight, question=question, region=region
+        )
+
+    system_prompt = (
+        "Anda adalah EmberLine AI Satellite Telemetry & Climatology Analyst, asisten pakar analisis data satelit NASA FIRMS "
+        "untuk sistem pemantauan kebakaran hutan dan lahan (karhutla) di Indonesia.\n\n"
+        "PANDUAN & GUARDRAILS KONTRAK SAINS (MANDATORI):\n"
+        "1. Analisis titik panas (hotspot) satelit berdasarkan parameter biofisik, tipe bioma (lahan gambut vs mineral/sabana), "
+        "siklus iklim monsun/El Niño, dan karakteristik radiometrik sensor (VIIRS 375m atau MODIS 1km).\n"
+        "2. KEJUJURAN KONTRAK SAINS:\n"
+        "   - Deteksi hotspot adalah anomali radiometrik (Thermal Anomaly) yang terobservasi pada piksel satelit saat overpass, "
+        "BUKAN bukti batas fisik kebakaran atau kepastian mutlak kebakaran berlanjut di darat.\n"
+        "   - JANGAN PERNAH berspekulasi atau menuduh pelaku hukum/kriminal tertentu (seperti menuduh perusahaan A, pembakaran berencana, "
+        "atau nama individu) karena radiometer satelit di antariksa tidak merekam bukti visual pelaku di darat.\n"
+        "   - Bila ditanya 'kenapa terbakar?', jelaskan dari sudut pandang ilmiah/biofisik (penurunan muka air tanah gambut, kemarau, "
+        "akumulasi bahan bakar kering, aktivitas pembersihan lahan berbasis api di kawasan tropis) dan tegaskan bahwa verifikasi "
+        "penyebab langsung membutuhkan ground-check/patroli lapangan.\n"
+        "3. JANGAN GUNAKAN EMOJI SAMA SEKALI.\n"
+        "4. Format jawaban dengan markdown terstruktur rapi: Ringkasan Radiometrik, Konteks Bioma & Gambut, Konteks Iklim & Musiman, "
+        "Jawaban Pertanyaan/Analisis Penyebab Ilmiah, dan Catatan Kehati-hatian Ilmiah."
+    )
+
+    sensor_label = "VIIRS 375m (S-NPP/NOAA-20)" if sensor.lower() == "viirs" else "MODIS 1km (Aqua/Terra)"
+    overpass_label = "Malam Hari (Night)" if daynight.upper() == "N" else "Siang Hari (Day)"
+    user_prompt = (
+        f"Data Deteksi Titik Satelit FIRMS:\n"
+        f"- Koordinat: Lat {lat:.5f}°, Lon {lon:.5f}°\n"
+        f"- Tanggal Observasi: {date}\n"
+        f"- Sensor Satelit: {sensor_label}\n"
+        f"- Fire Radiative Power (FRP): {frp:.2f} MW\n"
+        f"- Keyakinan (Confidence): {conf}\n"
+        f"- Waktu Lintasan (Overpass): {overpass_label}\n"
+        f"- Wilayah Referensi: {region or 'Indonesia'}\n"
+    )
+    if question and question.strip():
+        user_prompt += f"\nPertanyaan Khusus dari Pengguna:\n\"{question.strip()}\"\n"
+    else:
+        user_prompt += "\nMohon berikan analisis konteks biofisik, bioma gambut, iklim, dan radiometrik untuk titik deteksi ini.\n"
+
+    req_data = json.dumps({
+        "model": "grok-2-latest",
+        "messages": [
+            {"role": "system", "content": system_prompt},
+            {"role": "user", "content": user_prompt},
+        ],
+        "temperature": 0.2,
+        "max_tokens": 1200,
+    }).encode("utf-8")
+
+    req = urllib.request.Request(
+        "https://api.x.ai/v1/chat/completions",
+        data=req_data,
+        headers={
+            "Content-Type": "application/json",
+            "Authorization": f"Bearer {key}",
+            "User-Agent": "EmberLine/1.0",
+        },
+        method="POST",
+    )
+
+    try:
+        with urllib.request.urlopen(req, timeout=18) as resp:
+            raw_res = json.loads(resp.read().decode("utf-8"))
+            content = raw_res.get("choices", [{}])[0].get("message", {}).get("content", "")
+            if not content:
+                raise ValueError("Respon kosong dari xAI Grok API.")
+            
+            heuristic_ctx = _analyze_hotspot_heuristic(
+                lat=lat, lon=lon, date=date, frp=frp, sensor=sensor,
+                conf=conf, daynight=daynight, question=question, region=region
+            )
+            return {
+                "status": "success",
+                "provider": "grok",
+                "model": raw_res.get("model", "grok-2-latest"),
+                "analysis": content,
+                "telemetry_context": heuristic_ctx["telemetry_context"],
+                "note": "Analisis dihasilkan oleh xAI Grok API dengan guardrail telemetri satelit EmberLine."
+            }
+    except Exception as exc:
+        fallback_res = _analyze_hotspot_heuristic(
+            lat=lat, lon=lon, date=date, frp=frp, sensor=sensor,
+            conf=conf, daynight=daynight, question=question, region=region
+        )
+        fallback_res["note"] = f"Koneksi xAI Grok dialihkan ke telemetri satelit internal ({str(exc)[:100]})."
+        return fallback_res
+
+
+@app.post("/api/ai/analyze-hotspot")
+def api_analyze_hotspot(body: dict):
+    """Analyze a single satellite hotspot observation using Grok AI or satellite telemetry heuristic."""
+    try:
+        lat = float(body.get("lat"))
+        lon = float(body.get("lon"))
+        frp = float(body.get("frp", 0.0))
+    except (TypeError, ValueError):
+        raise HTTPException(400, detail={"code": "bad_coordinates", "message": "lat, lon, and frp must be valid numbers."})
+
+    date = str(body.get("date", "2024-01-01"))
+    sensor = str(body.get("sensor", "viirs"))
+    conf = str(body.get("conf", "n"))
+    daynight = str(body.get("daynight", "D"))
+    region = body.get("region")
+    question = body.get("question")
+    api_key = body.get("api_key")
+
+    return _call_grok_hotspot_analysis(
+        lat=lat,
+        lon=lon,
+        date=date,
+        frp=frp,
+        sensor=sensor,
+        conf=conf,
+        daynight=daynight,
+        question=question,
+        region=region,
+        api_key=api_key,
+    )
+
