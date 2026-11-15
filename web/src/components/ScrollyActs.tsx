@@ -11,10 +11,12 @@ import {
 } from "framer-motion";
 import type { ReactNode } from "react";
 import { stageState } from "./stageState";
+import { useAoi } from "../App";
 
 type ActWindow = [number, number, number, number];
 
 export function RiskGaugeCard() {
+  const { t } = useAoi();
   const score = useMotionValue(0);
   const roundedScore = useTransform(score, value => Math.round(value).toString().padStart(2, "0"));
   const radius = 52;
@@ -34,11 +36,11 @@ export function RiskGaugeCard() {
     <div
       className="hero-hud-card"
       role="img"
-      aria-label="Ilustrasi gauge 24 dari 100, status Aman. Bukan skor risiko EmberLine."
+      aria-label={t("hud_aria")}
     >
       <div className="hero-hud-heading">
-        <span className="hero-hud-kicker">HUD · Skala ilustratif</span>
-        <span className="hero-hud-live"><i /> DEMO</span>
+        <span className="hero-hud-kicker">{t("hud_kicker")}</span>
+        <span className="hero-hud-live"><i /> {t("hud_demo")}</span>
       </div>
 
       <div className="hero-hud-main">
@@ -70,19 +72,19 @@ export function RiskGaugeCard() {
           <div className="hero-gauge-value">
             <strong><motion.span>{roundedScore}</motion.span></strong>
             <span>/100</span>
-            <b><span /> Aman</b>
+            <b><span /> {t("hud_safe")}</b>
           </div>
         </div>
 
         <div className="hero-hud-metrics">
-          <div><span>Cakupan konsep</span><strong>38 provinsi</strong></div>
-          <div><span>Observasi</span><strong>MODIS + VIIRS</strong></div>
-          <div><span>Konteks</span><strong>Historis</strong></div>
+          <div><span>{t("hud_concept_coverage")}</span><strong>{t("hud_concept_val")}</strong></div>
+          <div><span>{t("hud_obs_label")}</span><strong>{t("hud_obs_val")}</strong></div>
+          <div><span>{t("hud_context_label")}</span><strong>{t("hud_context_val")}</strong></div>
         </div>
       </div>
 
       <p className="hero-hud-note">
-        Skor 24/100 dan 38 provinsi mengikuti visual demo new-ui, bukan hasil analisis EmberLine.
+        {t("hud_note")}
       </p>
     </div>
   );

@@ -56,8 +56,9 @@ export default function App() {
   const [error, setError] = useState<string | null>(null);
   const [calFilter, setCalFilter] = useState<string | null>(null);
   const [lang, setLang] = useState<Lang>(() => {
-    const savedLang = localStorage.getItem("emberline-lang");
-    return savedLang === "en" || savedLang === "id" ? savedLang : "id";
+    // Strictly default to 'id' (Bahasa Indonesia) on first load
+    const savedLang = localStorage.getItem("emberline-lang-v3");
+    return savedLang === "en" ? "en" : "id";
   });
   const [theme, setTheme] = useState<"light" | "dark">(() => {
     const savedTheme = localStorage.getItem("emberline-theme");
@@ -72,7 +73,7 @@ export default function App() {
 
   useEffect(() => {
     document.documentElement.setAttribute("lang", lang);
-    localStorage.setItem("emberline-lang", lang);
+    localStorage.setItem("emberline-lang-v3", lang);
   }, [lang]);
 
   const toggleTheme = () => {
@@ -92,18 +93,6 @@ export default function App() {
   }, [aoi, tab]);
 
   const isMock = Boolean(series?.mock || series?.fixture);
-
-  const provLeft = series
-    ? (
-      <>
-        <span>{t("prov_run")} <span className="mono">{series.run_id.slice(-14)}</span></span>
-        <span className="prov-sep">|</span>
-        <span>{t("prov_model")} <span className="mono">{series.model_version ?? "v1.0-harm"}</span></span>
-        <span className="prov-sep">|</span>
-        <span className="mono">{series.days.length.toLocaleString(lang === "id" ? "id-ID" : "en-US")} {t("prov_daily_obs")}</span>
-      </>
-    )
-    : t("prov_loading");
 
   return (
     <AoiContext.Provider value={{ aoi, setAoi, series, theme, calFilter, setCalFilter, lang, setLang, toggleLang, t }}>
@@ -161,19 +150,6 @@ export default function App() {
               </button>
             </div>
           </header>
-
-          {tab !== "firemap" && (
-            <div className="prov">
-              <div className="prov-left">{provLeft}</div>
-              <div className="prov-right">
-                <span className="state-chip chip-neutral" style={{ fontSize: 10 }}>{t("prov_descriptive")}</span>
-                <span className="prov-sep">|</span>
-                <span>NASA FIRMS</span>
-                <span className="prov-sep">|</span>
-                <span>MODIS C6.1 (Aqua) + VIIRS 375m (S-NPP)</span>
-              </div>
-            </div>
-          )}
 
           <main className={"content" + (tab === "firemap" ? " content-flush" : "")}>
             <div key={tab} className="screen-fade">

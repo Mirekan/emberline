@@ -23,7 +23,7 @@ export const DICTIONARY = {
     prov_loading: "Memuat data observasi satelit…",
     prov_run: "Eksekusi",
     prov_model: "Model",
-    prov_daily_obs: "pengamatan harian",
+    prov_daily_obs: "observasi harian",
     prov_descriptive: "Deskriptif, bukan prediktif",
 
     // Footer
@@ -54,6 +54,7 @@ export const DICTIONARY = {
 
     // HUD / Gauge Card
     hud_kicker: "HUD · Skala ilustratif",
+    hud_demo: "DEMO",
     hud_safe: "Aman",
     hud_concept_coverage: "Cakupan konsep",
     hud_concept_val: "38 provinsi",
@@ -61,6 +62,8 @@ export const DICTIONARY = {
     hud_obs_val: "MODIS + VIIRS",
     hud_context_label: "Konteks",
     hud_context_val: "Historis",
+    hud_note: "Skor 24/100 dan 38 provinsi mengikuti visual demo new-ui, bukan hasil analisis EmberLine.",
+    hud_aria: "Ilustrasi gauge 24 dari 100, status Aman. Bukan skor risiko EmberLine.",
 
     // FireMap Screen
     map_fullscreen: "Layar Penuh",
@@ -261,6 +264,7 @@ export const DICTIONARY = {
 
     // HUD / Gauge Card
     hud_kicker: "HUD · Illustrative scale",
+    hud_demo: "DEMO",
     hud_safe: "Safe",
     hud_concept_coverage: "Concept coverage",
     hud_concept_val: "38 provinces",
@@ -268,6 +272,8 @@ export const DICTIONARY = {
     hud_obs_val: "MODIS + VIIRS",
     hud_context_label: "Context",
     hud_context_val: "Historical",
+    hud_note: "Score 24/100 and 38 provinces follow the new-ui demo visual, not EmberLine analysis results.",
+    hud_aria: "Illustrative gauge 24 of 100, Safe status. Not an EmberLine risk score.",
 
     // FireMap Screen
     map_fullscreen: "Fullscreen",
