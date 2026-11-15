@@ -185,7 +185,7 @@ export default function FireMap() {
   });
   const [presets, setPresets] = useState<Preset[]>([]);
   const [grid, setGrid] = useState<Grid | null>(null);
-  const [gridOn, setGridOn] = useState(false); // Default OFF so the map shows clean topography and fire dots
+  const [gridOn, setGridOn] = useState(true); // Default ON: full grid displayed directly across the whole map
   const [gridLoading, setGridLoading] = useState(false);
   const [gridError, setGridError] = useState("");
   const [selectedCell, setSelectedCell] = useState<GridCell | null>(null);
@@ -392,14 +392,12 @@ export default function FireMap() {
     };
   }, []);
 
-  // Load the density grid overlay
+  // Load the comprehensive density grid overlay directly across all monitored regions in Indonesia
   useEffect(() => {
     let cancelled = false;
-    const targetAoi = selName === null ? "all" : aoi;
-    setGrid(null);
-    setGridError("");
     setGridLoading(true);
-    api.grid(targetAoi)
+    setGridError("");
+    api.grid("all")
       .then(data => {
         if (!cancelled) setGrid(data);
       })
@@ -412,7 +410,7 @@ export default function FireMap() {
         if (!cancelled) setGridLoading(false);
       });
     return () => { cancelled = true; };
-  }, [aoi, selName]);
+  }, []);
 
   // Load satellite hotspot detections across the entire active region
   useEffect(() => {
@@ -1015,7 +1013,7 @@ function getCellRisk(count: number, maxCount: number): { label: "Aman" | "Waspad
             </div>
           </div>
           <div style={{ fontSize: 10, color: "var(--ink3)", lineHeight: 1.4, marginTop: 7 }}>
-            {gridOn ? "Klik sel mana saja pada peta untuk memperbesar & menginspeksi titik di area tersebut." : "Aktifkan bila ingin melihat agregasi densitas spasial (Aman, Waspada, Siaga, Bahaya)."}
+            {gridOn ? `${(grid?.n_cells ?? 1668).toLocaleString()} sel 0,1° aktif di seluruh wilayah sentinel Indonesia. Klik sel untuk fokus inspeksi.` : "Aktifkan bila ingin melihat agregasi densitas spasial (Aman, Waspada, Siaga, Bahaya)."}
           </div>
         </div>
 
