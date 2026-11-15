@@ -919,6 +919,18 @@ export default function FireMap() {
         </div>`
       );
       area.on("click", (e) => {
+        // Prioritize dot popup if clicked close to a hotspot
+        const rows = visibleRowsRef.current;
+        if (rows && rows.length > 0 && map) {
+          const clickPt = map.latLngToContainerPoint(e.latlng);
+          for (let i = 0; i < rows.length; i++) {
+            const d = rows[i];
+            const pt = map.latLngToContainerPoint([d.lat, d.lon]);
+            if (Math.hypot(pt.x - clickPt.x, pt.y - clickPt.y) < 18) {
+              return;
+            }
+          }
+        }
         L.DomEvent.stopPropagation(e);
         setSelectedCell(prev => (prev?.cell_id === cell.cell_id ? null : cell));
       });
@@ -927,7 +939,19 @@ export default function FireMap() {
 
     // 4. Click handler on the full rectangle to focus / inspect any 0.1° cell
     bgRect.on("click", (e) => {
-      L.DomEvent.stopPropagation(e);
+      // Prioritize dot popup if clicked close to a hotspot
+      const rows = visibleRowsRef.current;
+      if (rows && rows.length > 0 && map) {
+        const clickPt = map.latLngToContainerPoint(e.latlng);
+        for (let i = 0; i < rows.length; i++) {
+          const d = rows[i];
+          const pt = map.latLngToContainerPoint([d.lat, d.lon]);
+          if (Math.hypot(pt.x - clickPt.x, pt.y - clickPt.y) < 18) {
+            return;
+          }
+        }
+      }
+
       const clickedLat = Math.floor(e.latlng.lat / step) * step;
       const clickedLon = Math.floor(e.latlng.lng / step) * step;
       const cellSouth = Math.round(clickedLat * 10) / 10;
@@ -936,24 +960,11 @@ export default function FireMap() {
       const existing = cellsByCoord.get(key);
 
       if (existing) {
+        L.DomEvent.stopPropagation(e);
         setSelectedCell(prev => (prev?.cell_id === existing.cell_id ? null : existing));
       } else {
-        const dummyId = `R${Math.round(cellSouth * 10)}C${Math.round(cellWest * 10)}`;
-        setSelectedCell(prev => {
-          if (prev?.cell_id === dummyId) return null;
-          return {
-            cell_id: dummyId,
-            south: cellSouth,
-            west: cellWest,
-            north: Math.round((cellSouth + step) * 10) / 10,
-            east: Math.round((cellWest + step) * 10) / 10,
-            detection_count: 0,
-            total_modis: 0,
-            total_viirs: 0,
-            n_days: 0,
-            has_data: false,
-          };
-        });
+        // Clicking open ocean / unmonitored space releases focused cell selection
+        setSelectedCell(null);
       }
     });
 

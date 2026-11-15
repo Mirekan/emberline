@@ -52,18 +52,18 @@ export const DICTIONARY = {
     overview_data_ready: "data siap",
     overview_queued: "dalam antrean",
 
-    // HUD / Gauge Card
-    hud_kicker: "HUD · Skala ilustratif",
-    hud_demo: "DEMO",
-    hud_safe: "Ilustrasi",
-    hud_concept_coverage: "Cakupan konsep",
-    hud_concept_val: "38 provinsi",
-    hud_obs_label: "Observasi",
-    hud_obs_val: "MODIS + VIIRS",
-    hud_context_label: "Konteks",
-    hud_context_val: "Historis",
-    hud_note: "Skor 24/100 dan angka 38 provinsi hanya ilustrasi, bukan hasil analisis EmberLine.",
-    hud_aria: "Gauge ilustratif 24 dari 100. Bukan penilaian keamanan atau skor risiko EmberLine.",
+    // HUD / Gauge Card (Dynamic Telemetry)
+    hud_kicker: "TELEMETRI SIKLUS HISTORIS",
+    hud_demo: "SAINS C-06",
+    hud_safe: "Aman",
+    hud_concept_coverage: "Indeks Hari Ini",
+    hud_concept_val: "Siklus 366-Hari",
+    hud_obs_label: "Puncak Musim",
+    hud_obs_val: "Ags–Okt",
+    hud_context_label: "Pengamatan",
+    hud_context_val: "Aqua + S-NPP",
+    hud_note: "Indeks tanggal hari ini dihitung dari kurva klimatologi 366-hari C-06 wilayah terpilih. Deskriptif historis, bukan prakiraan cuaca.",
+    hud_aria: "Indeks klimatologi historis tanggal hari ini untuk wilayah terpilih.",
 
     // Scrollytelling Story Acts
     story_progress_label: "CERITA",
@@ -288,18 +288,18 @@ export const DICTIONARY = {
     overview_data_ready: "data ready",
     overview_queued: "queued",
 
-    // HUD / Gauge Card
-    hud_kicker: "HUD · Illustrative scale",
-    hud_demo: "DEMO",
-    hud_safe: "Illustration",
-    hud_concept_coverage: "Concept coverage",
-    hud_concept_val: "38 provinces",
-    hud_obs_label: "Observations",
-    hud_obs_val: "MODIS + VIIRS",
-    hud_context_label: "Context",
-    hud_context_val: "Historical",
-    hud_note: "The 24/100 score and 38-province count are illustrative, not EmberLine analysis results.",
-    hud_aria: "Illustrative gauge showing 24 of 100. Not a safety assessment or EmberLine risk score.",
+    // HUD / Gauge Card (Dynamic Telemetry)
+    hud_kicker: "HISTORICAL CYCLE TELEMETRY",
+    hud_demo: "C-06 SCIENCE",
+    hud_safe: "Safe",
+    hud_concept_coverage: "Today's Index",
+    hud_concept_val: "366-Day Cycle",
+    hud_obs_label: "Seasonal Peak",
+    hud_obs_val: "Aug–Oct",
+    hud_context_label: "Observations",
+    hud_context_val: "Aqua + S-NPP",
+    hud_note: "Today's index is computed from the 366-day C-06 climatology curve for the selected region. Descriptive historical telemetry, not a weather forecast.",
+    hud_aria: "Historical climatology index for today's date in the selected region.",
 
     // Scrollytelling Story Acts
     story_progress_label: "STORY",
