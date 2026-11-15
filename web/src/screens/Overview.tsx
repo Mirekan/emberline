@@ -2,11 +2,10 @@ import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { api, Preset } from "../api";
 import { useAoi } from "../App";
-import EmberStage from "../components/EmberStage";
 import ScrollyActs, { RiskGaugeCard } from "../components/ScrollyActs";
 
 export default function Overview({ goCalendar, goMethod }: { goCalendar: () => void; goMethod: () => void }) {
-  const { aoi, series, theme } = useAoi();
+  const { aoi, series } = useAoi();
   const [presets, setPresets] = useState<Preset[]>([]);
   useEffect(() => {
     api.presets().then(r => setPresets(r.presets)).catch(() => {});
@@ -21,7 +20,6 @@ export default function Overview({ goCalendar, goMethod }: { goCalendar: () => v
 
   return (
     <div className="overview-page">
-      <EmberStage theme={theme} />
       <section className="overview-hero" aria-labelledby="overview-title">
         <div className="overview-hero-copy">
           <p className="overview-eyebrow"><i /> EMBERLINE · MISSION CONTROL</p>

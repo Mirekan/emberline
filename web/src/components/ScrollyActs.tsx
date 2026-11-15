@@ -114,7 +114,12 @@ function RiskLevel({
   return (
     <div className="story-risk-level">
       <motion.span
-        style={{ backgroundColor: color, scaleX: reduced ? 1 : scaleX, opacity: reduced ? 1 : opacity }}
+        style={{
+          backgroundColor: color,
+          boxShadow: `0 0 13px ${color}55`,
+          scaleX: reduced ? 1 : scaleX,
+          opacity: reduced ? 1 : opacity,
+        }}
       />
       <small>{label}</small>
     </div>
@@ -204,6 +209,8 @@ export default function ScrollyActs() {
   });
 
   useEffect(() => {
+    stageState.progress = 0;
+    stageState.smoothProgress = 0;
     if (reduced) stageState.progress = 0;
   }, [reduced]);
 

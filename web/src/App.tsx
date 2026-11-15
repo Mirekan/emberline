@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useEffect, useState } from "react";
+import React, { createContext, lazy, Suspense, useContext, useEffect, useState } from "react";
 import { motion, MotionConfig } from "framer-motion";
 import { api, Series } from "./api";
 import { HomeIcon, MapIcon, CalendarIcon, CrisisIcon, ChartIcon, ResearchIcon, FlameMark, SunIcon, MoonIcon } from "./components/Icons";
@@ -9,6 +9,8 @@ import Seasons from "./screens/Seasons";
 import MethodScreen from "./screens/MethodScreen";
 import FireMap from "./screens/FireMap";
 import Anomalies from "./screens/Anomalies";
+
+const EmberStage = lazy(() => import("./components/EmberStage"));
 
 const TABS = [
   ["overview", "Overview", HomeIcon],
@@ -76,6 +78,11 @@ export default function App() {
     <AoiContext.Provider value={{ aoi, setAoi, series, theme, calFilter, setCalFilter }}>
       <MotionConfig reducedMotion="user">
         <div className="app">
+          {tab === "overview" && (
+            <Suspense fallback={<div className="ember-stage" aria-hidden="true"><div className="ember-stage-fallback" /></div>}>
+              <EmberStage theme={theme} />
+            </Suspense>
+          )}
           <header className="topbar">
             <div className="brand">
               <FlameMark size={32} />
