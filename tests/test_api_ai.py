@@ -29,22 +29,24 @@ class TestAIHotspotAnalyzer(unittest.TestCase):
         self.assertIn("Gambut", res["telemetry_context"]["biome"])
 
     def test_api_endpoint_success_heuristic_fallback(self):
-        resp = self.client.post("/api/ai/analyze-hotspot", json={
-            "lat": -1.8,
-            "lon": 113.8,
-            "date": "2019-09-15",
-            "frp": 35.4,
-            "sensor": "viirs",
-            "conf": "h",
-            "daynight": "D",
-            "question": "Apakah ini lahan gambut?"
-        })
-        self.assertEqual(resp.status_code, 200)
-        data = resp.json()
-        self.assertEqual(data["status"], "success")
-        self.assertEqual(data["provider"], "heuristic")
-        self.assertIn("Kalimantan Tengah", data["analysis"])
-        self.assertIn("telemetry_context", data)
+        from unittest.mock import patch
+        with patch("api.app._get_grok_key", return_value=(None, "heuristic")):
+            resp = self.client.post("/api/ai/analyze-hotspot", json={
+                "lat": -1.8,
+                "lon": 113.8,
+                "date": "2019-09-15",
+                "frp": 35.4,
+                "sensor": "viirs",
+                "conf": "h",
+                "daynight": "D",
+                "question": "Apakah ini lahan gambut?"
+            })
+            self.assertEqual(resp.status_code, 200)
+            data = resp.json()
+            self.assertEqual(data["status"], "success")
+            self.assertEqual(data["provider"], "heuristic")
+            self.assertIn("Kalimantan Tengah", data["analysis"])
+            self.assertIn("telemetry_context", data)
 
     def test_api_endpoint_bad_coordinates(self):
         resp = self.client.post("/api/ai/analyze-hotspot", json={

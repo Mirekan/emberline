@@ -40,7 +40,7 @@ export type HotspotAnalysisRequest = {
 export type HotspotAnalysisResponse = {
   status: "success" | "fallback" | "error";
   model: string;
-  provider: "grok" | "heuristic";
+  provider: "grok" | "groq" | "heuristic";
   analysis: string;
   telemetry_context: {
     biome: string;

@@ -1361,14 +1361,14 @@ export default function FireMap() {
           <div className="ai-drawer-header">
             <div>
               <div className="ai-drawer-title">Analisis Telemetri Satelit AI</div>
-              <div className="ai-drawer-subtitle">Didukung oleh xAI Grok & FIRMS Climatology</div>
+              <div className="ai-drawer-subtitle">Didukung oleh Groq / xAI Grok & FIRMS Climatology</div>
             </div>
             <div className="ai-header-actions">
               <button
                 type="button"
                 className={"ai-btn-key" + (grokApiKey ? " active" : "")}
                 onClick={() => setApiKeySettingsOpen(o => !o)}
-                title="Konfigurasi API Key Grok"
+                title="Konfigurasi API Key Groq / Grok"
               >
                 <span>API Key: {grokApiKey ? "Tersimpan" : "Bawaan"}</span>
               </button>
@@ -1386,16 +1386,16 @@ export default function FireMap() {
           {apiKeySettingsOpen && (
             <div className="ai-settings-card">
               <div style={{ fontWeight: 600, color: "var(--ink)", marginBottom: 4 }}>
-                Pengaturan API Key Grok / xAI
+                Pengaturan API Key (Groq Cloud / xAI Grok)
               </div>
               <div style={{ color: "var(--ink3)", fontSize: 11, lineHeight: 1.4 }}>
-                Key disimpan di peramban lokal (localStorage). Sistem juga membaca <code>GROK_API_KEY</code> di file <code>.env</code>. Jika dikosongkan, sistem tetap berjalan memakai analisis telemetri satelit bawaan.
+                Mendukung <b>Groq</b> (<code>gsk_...</code>) dan <b>xAI Grok</b> (<code>xai-...</code>). Key tersimpan di peramban lokal (localStorage). Sistem juga membaca file <code>.env</code> (GROK_API_KEY / GROQ_API_KEY). Jika dikosongkan, modul telemetri satelit internal tetap aktif.
               </div>
               <div className="ai-settings-input-group">
                 <input
                   type="password"
                   className="ai-settings-input"
-                  placeholder="xai-..."
+                  placeholder="gsk_... (Groq) atau xai-... (Grok)"
                   value={apiKeyInput}
                   onChange={(e) => setApiKeyInput(e.target.value)}
                 />
@@ -1546,8 +1546,12 @@ export default function FireMap() {
             {aiResponse && !aiLoading && (
               <div className="ai-response-box">
                 <div className="ai-status-bar">
-                  <span className={"ai-provider-badge " + (aiResponse.provider === "grok" ? "ai-provider-grok" : "ai-provider-heuristic")}>
-                    {aiResponse.provider === "grok" ? `xAI Grok (${aiResponse.model})` : "Telemetri Satelit Heuristik"}
+                  <span className={"ai-provider-badge " + (aiResponse.provider === "groq" || aiResponse.provider === "grok" ? "ai-provider-grok" : "ai-provider-heuristic")}>
+                    {aiResponse.provider === "groq"
+                      ? `Groq Cloud (${aiResponse.model})`
+                      : aiResponse.provider === "grok"
+                      ? `xAI Grok (${aiResponse.model})`
+                      : "Telemetri Satelit Heuristik"}
                   </span>
                   <span style={{ fontSize: 10, color: "var(--ink3)" }}>
                     Sesuai Kaidah Kontrak Sains

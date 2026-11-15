@@ -561,28 +561,50 @@ def job_status(job_id: str):
            {"poll": f"/api/jobs/{job_id}"}
 
 
-def _get_grok_key(client_key: str | None = None) -> str | None:
-    """Retrieve Grok/xAI API key from client parameter, environment variables, or .env files."""
+def _get_grok_key(client_key: str | None = None) -> tuple[str | None, str]:
+    """Retrieve Grok or Groq API key from client parameter, environment variables, .env, or .env.example files.
+    Returns (api_key, provider_name: 'groq' | 'grok' | 'heuristic').
+    """
+    key = None
     if client_key and client_key.strip():
-        return client_key.strip()
-    env_key = os.getenv("GROK_API_KEY") or os.getenv("XAI_API_KEY")
-    if env_key and env_key.strip():
-        return env_key.strip()
-    for candidate in (ROOT / ".env", ROOT / "api" / ".env"):
-        if candidate.exists():
-            try:
-                for line in candidate.read_text(encoding="utf-8").splitlines():
-                    line = line.strip()
-                    if not line or line.startswith("#") or "=" not in line:
-                        continue
-                    k, v = line.split("=", 1)
-                    if k.strip() in ("GROK_API_KEY", "XAI_API_KEY"):
-                        val = v.strip().strip("'\"")
-                        if val:
-                            return val
-            except Exception:
-                pass
-    return None
+        key = client_key.strip()
+    if not key:
+        env_key = os.getenv("GROK_API_KEY") or os.getenv("GROQ_API_KEY") or os.getenv("XAI_API_KEY")
+        if env_key and env_key.strip():
+            key = env_key.strip()
+    if not key:
+        for candidate in (
+            ROOT / ".env",
+            ROOT / "api" / ".env",
+            ROOT / "api" / ".env.example",
+            ROOT / ".env.example",
+        ):
+            if candidate.exists():
+                try:
+                    for line in candidate.read_text(encoding="utf-8").splitlines():
+                        line = line.strip()
+                        if not line or line.startswith("#") or "=" not in line:
+                            continue
+                        k, v = line.split("=", 1)
+                        if k.strip() in ("GROK_API_KEY", "GROQ_API_KEY", "XAI_API_KEY"):
+                            val = v.strip().strip("'\"")
+                            if val:
+                                key = val
+                                break
+                    if key:
+                        break
+                except Exception:
+                    pass
+
+    if not key:
+        return None, "heuristic"
+
+    # Identify provider from API key prefix:
+    # Groq Cloud keys start with 'gsk_'
+    # xAI Grok keys start with 'xai-'
+    if key.startswith("gsk_"):
+        return key, "groq"
+    return key, "grok"
 
 
 def _analyze_hotspot_heuristic(
@@ -749,8 +771,8 @@ def _call_grok_hotspot_analysis(
     region: str | None = None,
     api_key: str | None = None,
 ) -> dict:
-    """Invoke xAI Grok API for hotspot analysis, falling back to heuristic telemetry if unavailable."""
-    key = _get_grok_key(api_key)
+    """Invoke Groq or xAI Grok API for hotspot analysis, falling back to heuristic telemetry if unavailable."""
+    key, provider_type = _get_grok_key(api_key)
     if not key:
         return _analyze_hotspot_heuristic(
             lat=lat, lon=lon, date=date, frp=frp, sensor=sensor,
@@ -793,8 +815,20 @@ def _call_grok_hotspot_analysis(
     else:
         user_prompt += "\nMohon berikan analisis konteks biofisik, bioma gambut, iklim, dan radiometrik untuk titik deteksi ini.\n"
 
+    # Configure endpoint & model based on key type
+    if provider_type == "groq":
+        api_url = "https://api.groq.com/openai/v1/chat/completions"
+        model_name = "qwen/qwen3.8-27b"
+        provider_name = "groq"
+        user_agent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
+    else:
+        api_url = "https://api.x.ai/v1/chat/completions"
+        model_name = "grok-2-latest"
+        provider_name = "grok"
+        user_agent = "EmberLine/1.0"
+
     req_data = json.dumps({
-        "model": "grok-2-latest",
+        "model": model_name,
         "messages": [
             {"role": "system", "content": system_prompt},
             {"role": "user", "content": user_prompt},
@@ -804,12 +838,12 @@ def _call_grok_hotspot_analysis(
     }).encode("utf-8")
 
     req = urllib.request.Request(
-        "https://api.x.ai/v1/chat/completions",
+        api_url,
         data=req_data,
         headers={
             "Content-Type": "application/json",
             "Authorization": f"Bearer {key}",
-            "User-Agent": "EmberLine/1.0",
+            "User-Agent": user_agent,
         },
         method="POST",
     )
@@ -819,7 +853,7 @@ def _call_grok_hotspot_analysis(
             raw_res = json.loads(resp.read().decode("utf-8"))
             content = raw_res.get("choices", [{}])[0].get("message", {}).get("content", "")
             if not content:
-                raise ValueError("Respon kosong dari xAI Grok API.")
+                raise ValueError(f"Respon kosong dari {provider_name.upper()} API.")
             
             heuristic_ctx = _analyze_hotspot_heuristic(
                 lat=lat, lon=lon, date=date, frp=frp, sensor=sensor,
@@ -827,18 +861,18 @@ def _call_grok_hotspot_analysis(
             )
             return {
                 "status": "success",
-                "provider": "grok",
-                "model": raw_res.get("model", "grok-2-latest"),
+                "provider": provider_name,
+                "model": raw_res.get("model", model_name),
                 "analysis": content,
                 "telemetry_context": heuristic_ctx["telemetry_context"],
-                "note": "Analisis dihasilkan oleh xAI Grok API dengan guardrail telemetri satelit EmberLine."
+                "note": f"Analisis dihasilkan oleh {provider_name.upper()} AI dengan guardrail telemetri satelit EmberLine."
             }
     except Exception as exc:
         fallback_res = _analyze_hotspot_heuristic(
             lat=lat, lon=lon, date=date, frp=frp, sensor=sensor,
             conf=conf, daynight=daynight, question=question, region=region
         )
-        fallback_res["note"] = f"Koneksi xAI Grok dialihkan ke telemetri satelit internal ({str(exc)[:100]})."
+        fallback_res["note"] = f"Koneksi {provider_name.upper()} dialihkan ke telemetri satelit internal ({str(exc)[:100]})."
         return fallback_res
 
 
