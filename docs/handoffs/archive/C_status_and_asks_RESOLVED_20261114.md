@@ -1,3 +1,9 @@
+# [RESOLVED 14 Nov 2026 ~23:30 WIB] — archived coordination note
+
+> **Status: ALL ASKS FULFILLED.** ASK-1 approvals (DECISIONS.md 8fdc1b3) · ASK-2 data handoff (make data completed, 10,753 windows) · ASK-3 pyarrow pinned + contracts FROZEN · ASK-4 C-01 signed. Kept as audit trail — do not delete.
+
+---
+
 # C status & asks — before/alongside C-06 & C-07
 
 Task: coordination note (owner C) · date: 14 Nov 2026 ~15:20 WIB ·
