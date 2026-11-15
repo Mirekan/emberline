@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { api, Preset } from "../api";
 import { useAoi } from "../App";
 import ScrollyActs, { RiskGaugeCard } from "../components/ScrollyActs";
+import { HeroBackground } from "../components/HeroBackground";
 
 export default function Overview({ goCalendar, goMethod }: { goCalendar: () => void; goMethod: () => void }) {
   const { aoi, series, lang, t } = useAoi();
@@ -21,6 +22,7 @@ export default function Overview({ goCalendar, goMethod }: { goCalendar: () => v
   return (
     <div className="overview-page">
       <section className="overview-hero" aria-labelledby="overview-title">
+        <HeroBackground />
         <div className="overview-hero-copy">
           <p className="overview-eyebrow"><i /> {t("overview_eyebrow")}</p>
           <h1 id="overview-title">
