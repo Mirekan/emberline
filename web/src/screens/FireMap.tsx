@@ -781,16 +781,16 @@ export default function FireMap() {
   function getCellDensity(count: number, maxCount: number): { label: string; color: string; bg: string } {
     const isEn = lang === "en";
     if (count === 0) {
-      return { label: isEn ? "Safe (0 Hotspots)" : "Aman (0 Titik)", color: "#10B981", bg: "rgba(16, 185, 129, 0.15)" };
+      return { label: isEn ? "0 records" : "0 rekaman", color: "#94A3B8", bg: "rgba(148, 163, 184, 0.15)" };
     }
     const intensity = maxCount > 0 ? Math.log1p(count) / Math.log1p(maxCount) : 0;
     if (intensity < 0.33) {
-      return { label: isEn ? "Low" : "Rendah", color: "#FACC15", bg: "rgba(250, 204, 21, 0.2)" };
+      return { label: isEn ? "Low" : "Rendah", color: "#10B981", bg: "rgba(16, 185, 129, 0.15)" };
     }
     if (intensity < 0.66) {
-      return { label: isEn ? "Medium" : "Sedang", color: "#F97316", bg: "rgba(249, 115, 22, 0.25)" };
+      return { label: isEn ? "Medium" : "Sedang", color: "#FACC15", bg: "rgba(250, 204, 21, 0.2)" };
     }
-    return { label: isEn ? "High" : "Tinggi", color: "#EF4444", bg: "rgba(239, 68, 68, 0.32)" };
+    return { label: isEn ? "High" : "Tinggi", color: "#F97316", bg: "rgba(249, 115, 22, 0.25)" };
   }
 
   const maxCount = useMemo(() => {
@@ -833,14 +833,14 @@ export default function FireMap() {
     const bounds = grid.bounds ?? { south: -12.0, west: 94.0, north: 8.0, east: 152.0 };
     const step = grid.cell_deg ?? 0.1;
 
-    // Full rectangular subtle safe green background overlay for unmonitored / base grid area
+    // Full rectangular subtle white background overlay for unmonitored / base grid area
     const bgRect = L.rectangle(
       [[bounds.south, bounds.west], [bounds.north, bounds.east]],
       {
         renderer: canvasRenderer,
-        color: "rgba(16, 185, 129, 0.30)",
+        color: "rgba(255, 255, 255, 0.40)",
         weight: 1.0,
-        fillColor: "#10B981",
+        fillColor: "#FFFFFF",
         fillOpacity: 0.035,
         interactive: true,
         bubblingMouseEvents: false,
@@ -859,7 +859,7 @@ export default function FireMap() {
 
     const linesLayer = L.polyline(gridLines, {
       renderer: canvasRenderer,
-      color: "rgba(16, 185, 129, 0.18)",
+      color: "rgba(255, 255, 255, 0.20)",
       weight: 0.4,
       interactive: false,
     });
@@ -872,8 +872,7 @@ export default function FireMap() {
       cellsByCoord.set(key, cell);
 
       const count = cell.detection_count;
-      const isZero = count === 0;
-      if (isZero && (riskFilter === "danger" || riskFilter === "alert")) continue;
+      if (count === 0) continue; // Unpopulated cells already rendered in the white base grid
 
       const intensity = maxCount > 0 ? Math.log1p(count) / Math.log1p(maxCount) : 0;
       if (riskFilter === "danger" && intensity < 0.66) continue;
@@ -886,12 +885,12 @@ export default function FireMap() {
         [[cell.south, cell.west], [cell.north, cell.east]],
         {
           renderer: canvasRenderer,
-          color: isSelected ? "#FFFFFF" : (isZero ? "rgba(16, 185, 129, 0.35)" : density.color),
-          weight: isSelected ? 2.5 : (isZero ? 0.45 : 0.65),
+          color: isSelected ? "#FFFFFF" : density.color,
+          weight: isSelected ? 2.5 : 0.65,
           fillColor: density.color,
           fillOpacity: isSelected
             ? 0.70
-            : (isZero ? Math.max(0.10, gridOpacity * 0.40) : Math.min(0.85, gridOpacity * (0.60 + intensity * 0.75))),
+            : Math.min(0.85, gridOpacity * (0.60 + intensity * 0.75)),
           interactive: true,
           bubblingMouseEvents: false,
         },
@@ -899,7 +898,7 @@ export default function FireMap() {
       area.bindTooltip(
         `<div style="font-size:11px; line-height:1.4;">
           <div style="font-weight:700; color:${density.color}; margin-bottom:2px;">${lang === "id" ? "Kepadatan observasi" : "Observation density"}: ${density.label}</div>
-          <div>${isZero ? (lang === "id" ? "0 observasi satelit (Bebas Hotspot / Aman)" : "0 satellite observations (Safe / Zero Hotspots)") : `${count.toLocaleString(lang === "id" ? "id-ID" : "en-US")} ${lang === "id" ? "observasi satelit" : "satellite observations"}`}</div>
+          <div>${count.toLocaleString(lang === "id" ? "id-ID" : "en-US")} ${lang === "id" ? "observasi satelit" : "satellite observations"}</div>
           <div style="font-size:10px; color:#aaa;">${lang === "id" ? "Klik untuk fokus sel" : "Click to focus cell"}</div>
         </div>`
       );
@@ -944,14 +943,14 @@ export default function FireMap() {
 
     // 5. If a cell is selected, render a prominent highlight rectangle over it
     if (selectedCell) {
-      const density = getCellDensity(selectedCell.detection_count, maxCount);
+      const isObs = selectedCell.detection_count > 0;
       const highlight = L.rectangle(
         [[selectedCell.south, selectedCell.west], [selectedCell.north, selectedCell.east]],
         {
           renderer: canvasRenderer,
           color: "#FFFFFF",
           weight: 2.5,
-          fillColor: density.color,
+          fillColor: isObs ? getCellDensity(selectedCell.detection_count, maxCount).color : "#FFFFFF",
           fillOpacity: 0.55,
           interactive: false,
         }
@@ -1581,19 +1580,7 @@ export default function FireMap() {
               {lang === "id" ? "Sel:" : "Cell:"} <span className="mono">{selectedCell.cell_id}</span> (0,1° ≈ 11 km)
             </div>
             <div style={{ fontSize: 10.5, color: "var(--ink2)", marginBottom: 8 }}>
-              {selectedCell.detection_count === 0 ? (
-                <span>
-                  {lang === "id"
-                    ? "Observasi Satelit: 0 titik (Kondisi Aman / Bebas Titik Panas)"
-                    : "Satellite Observations: 0 points (Safe Condition / Zero Hotspots)"}
-                </span>
-              ) : (
-                <span>
-                  {lang === "id" ? "Observasi Satelit:" : "Satellite Observations:"}{" "}
-                  <b>{selectedCell.detection_count.toLocaleString(lang === "id" ? "id-ID" : "en-US")}</b>{" "}
-                  {lang === "id" ? "titik" : "points"} ({selectedCell.total_viirs} VIIRS · {selectedCell.total_modis} MODIS)
-                </span>
-              )}
+              {lang === "id" ? "Observasi Satelit:" : "Satellite Observations:"} <b>{selectedCell.detection_count.toLocaleString(lang === "id" ? "id-ID" : "en-US")}</b> {lang === "id" ? "titik" : "points"} ({selectedCell.total_viirs} VIIRS · {selectedCell.total_modis} MODIS)
             </div>
             <button
               type="button"
@@ -1641,33 +1628,37 @@ export default function FireMap() {
               {gridOn ? (lang === "id" ? "Aktif" : "Active") : (lang === "id" ? "Nonaktif" : "Off")}
             </button>
           </div>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 6, fontSize: 9.5, color: "var(--ink2)", textAlign: "center", marginTop: 4 }}>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(5, 1fr)", gap: 4, fontSize: 9.5, color: "var(--ink2)", textAlign: "center", marginTop: 4 }}>
             <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 3 }}>
-              <span style={{ display: "inline-block", width: "100%", height: 4, borderRadius: 2, background: "#10B981" }} />
-              <span>{lang === "id" ? "Aman (0 Titik)" : "Safe (0 Points)"}</span>
+              <span style={{ display: "inline-block", width: "100%", height: 4, borderRadius: 2, background: "#FFFFFF", border: "1px solid rgba(255, 255, 255, 0.6)" }} />
+              <span>{lang === "id" ? "Belum Ada" : "No Data"}</span>
             </div>
             <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 3 }}>
-              <span style={{ display: "inline-block", width: "100%", height: 4, borderRadius: 2, background: "#FACC15" }} />
+              <span style={{ display: "inline-block", width: "100%", height: 4, borderRadius: 2, background: "#94A3B8" }} />
+              <span>{lang === "id" ? "0 rekaman" : "0 records"}</span>
+            </div>
+            <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 3 }}>
+              <span style={{ display: "inline-block", width: "100%", height: 4, borderRadius: 2, background: "#10B981" }} />
               <span>{lang === "id" ? "Rendah" : "Low"}</span>
             </div>
             <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 3 }}>
-              <span style={{ display: "inline-block", width: "100%", height: 4, borderRadius: 2, background: "#F97316" }} />
+              <span style={{ display: "inline-block", width: "100%", height: 4, borderRadius: 2, background: "#FACC15" }} />
               <span>{lang === "id" ? "Sedang" : "Medium"}</span>
             </div>
             <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 3 }}>
-              <span style={{ display: "inline-block", width: "100%", height: 4, borderRadius: 2, background: "#EF4444" }} />
+              <span style={{ display: "inline-block", width: "100%", height: 4, borderRadius: 2, background: "#F97316" }} />
               <span>{lang === "id" ? "Tinggi" : "High"}</span>
             </div>
           </div>
           <div style={{ fontSize: 10, color: "var(--ink3)", lineHeight: 1.4, marginTop: 7 }}>
             {gridOn ? (
               lang === "id"
-                ? `${(grid?.n_cells ?? 29900).toLocaleString("id-ID")} sel 0,1° aktif di seluruh kepulauan Indonesia. Area tanpa deteksi kebakaran ditandai hijau (Aman).`
-                : `${(grid?.n_cells ?? 29900).toLocaleString("en-US")} 0.1° cells active across Indonesia. Areas with zero fire detections are shown in green (Safe).`
+                ? `${(grid?.n_cells ?? 29900).toLocaleString("id-ID")} sel 0,1° aktif di seluruh kepulauan Indonesia. Wilayah yang belum ada data observasi ditandai putih.`
+                : `${(grid?.n_cells ?? 29900).toLocaleString("en-US")} 0.1° cells active across Indonesia. Areas without observation data are shown in white.`
             ) : (
               lang === "id"
-                ? "Aktifkan bila ingin melihat agregasi densitas spasial (Hijau = Aman, Kuning/Oranye/Merah = Intensitas observasi)."
-                : "Enable to see spatial density aggregation across Indonesia (Green = Safe, Yellow/Orange/Red = Observation intensity)."
+                ? "Aktifkan bila ingin melihat agregasi densitas spasial (Putih = Belum ada data, Berwarna = Densitas observasi)."
+                : "Enable to see spatial density aggregation across Indonesia."
             )}
           </div>
         </div>
