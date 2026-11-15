@@ -337,13 +337,13 @@ input, textarea, select { caret-color: var(--ember); }
 .overview-page > *:not(.ember-stage) { position: relative; z-index: 1; }
 :root[data-theme="light"] .ember-stage { opacity: 0.86; }
 .overview-hero {
-  position: relative; min-height: max(620px, calc(100svh - 190px));
+  position: relative; min-height: max(560px, calc(100svh - 190px));
   padding: 48px 20px 34px;
-  display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(340px, 0.85fr);
-  align-items: center; gap: 30px 54px;
+  display: flex; flex-direction: column; justify-content: center;
+  align-items: flex-start; gap: 32px;
   text-align: left;
 }
-.overview-hero-copy { max-width: 680px; }
+.overview-hero-copy { max-width: 820px; }
 .overview-hero .overview-eyebrow { margin-bottom: 20px; }
 .overview-hero .overview-eyebrow i {
   width: 7px; height: 7px; border-radius: 50%; background: var(--ember);
@@ -378,7 +378,7 @@ input, textarea, select { caret-color: var(--ember); }
 .overview-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 24px; }
 .overview-actions .btn { min-height: 44px; padding-inline: 20px; }
 .overview-stats {
-  grid-column: 1 / -1; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));
+  width: 100%; max-width: 820px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));
   overflow: hidden; border: 1px solid var(--line); border-radius: 16px;
   background: color-mix(in srgb, var(--surface) 62%, transparent);
   backdrop-filter: blur(16px) saturate(1.15); -webkit-backdrop-filter: blur(16px) saturate(1.15);

@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { api, Preset } from "../api";
 import { useAoi } from "../App";
-import ScrollyActs, { RiskGaugeCard } from "../components/ScrollyActs";
+import ScrollyActs from "../components/ScrollyActs";
 
 export default function Overview({ goCalendar, goMethod }: { goCalendar: () => void; goMethod: () => void }) {
   const { aoi, series, lang, t } = useAoi();
@@ -37,7 +37,6 @@ export default function Overview({ goCalendar, goMethod }: { goCalendar: () => v
           </div>
           <span className="overview-scroll-cue">{t("overview_scroll_cue")} <span aria-hidden="true">↓</span></span>
         </div>
-        <RiskGaugeCard />
         <div className="overview-stats" aria-label={lang === "id" ? "Ringkasan cakupan observasi" : "Observation coverage summary"}>
           <div><strong>38</strong><span>{t("overview_stat_provinces")}</span></div>
           <div><strong>{series?.days.length.toLocaleString(lang === "id" ? "id-ID" : "en-US") ?? "—"}</strong><span>{t("overview_stat_obs")}</span></div>

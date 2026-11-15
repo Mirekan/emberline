@@ -56,8 +56,9 @@ export default function App() {
   const [error, setError] = useState<string | null>(null);
   const [calFilter, setCalFilter] = useState<string | null>(null);
   const [lang, setLang] = useState<Lang>(() => {
-    const savedLang = localStorage.getItem("emberline-lang");
-    return savedLang === "en" || savedLang === "id" ? savedLang : "id";
+    // Strictly default to 'id' (Bahasa Indonesia) on first load
+    const savedLang = localStorage.getItem("emberline-lang-v3");
+    return savedLang === "en" ? "en" : "id";
   });
   const [theme, setTheme] = useState<"light" | "dark">(() => {
     const savedTheme = localStorage.getItem("emberline-theme");
@@ -72,7 +73,7 @@ export default function App() {
 
   useEffect(() => {
     document.documentElement.setAttribute("lang", lang);
-    localStorage.setItem("emberline-lang", lang);
+    localStorage.setItem("emberline-lang-v3", lang);
   }, [lang]);
 
   const toggleTheme = () => {

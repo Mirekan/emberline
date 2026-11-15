@@ -23,7 +23,7 @@ export const DICTIONARY = {
     prov_loading: "Memuat data observasi satelit…",
     prov_run: "Eksekusi",
     prov_model: "Model",
-    prov_daily_obs: "pengamatan harian",
+    prov_daily_obs: "observasi harian",
     prov_descriptive: "Deskriptif, bukan prediktif",
 
     // Footer
