@@ -1,43 +1,35 @@
-# api/ — backend (owner: D)
+# EmberLine API
 
-Rust/actix-web local server skeleton, selected by team member D. Entry point:
-`src/main.rs`; routes and tests: `src/lib.rs`. Dependencies are pinned in
-`Cargo.toml` and `Cargo.lock`. No database, authentication, queue, or pipeline import.
+The FastAPI application in `app.py` serves versioned files from `artifacts/`.
+It does not import the science pipeline or recompute scientific results. The
+development server listens on `127.0.0.1:8300`, matching the Vite proxy.
 
-## Run from the repository root
+## Run locally
 
-```bash
-make dev
-curl http://127.0.0.1:8000/api/health
-make test
-make build
-make serve
+From the repository root:
+
+```powershell
+python -m venv .venv
+.\.venv\Scripts\python.exe -m pip install -r api\requirements.txt
+npm run serve
 ```
 
-`make test` also runs C's existing Python protocol check; install its pinned
-dependency using the root README setup. Rust-only: `cargo test --manifest-path api/Cargo.toml --locked`.
-Stop the server with Ctrl+C before starting another on the same address.
+On macOS/Linux, use `.venv/bin/python` for the install command. The npm
+`serve` script selects the platform-specific Python executable from `.venv`.
+Stop the server with Ctrl+C.
 
-Set `EMBERLINE_BIND_ADDR` to an IP:port socket address, default `127.0.0.1:8000`:
-`EMBERLINE_BIND_ADDR=127.0.0.1:8080 make dev`. IPv6 uses `[::1]:8080`.
-Invalid addresses or occupied ports fail startup. Environment variables must be
-exported; `.env` is not auto-loaded. No FIRMS key is read or needed by this skeleton.
+## Endpoints
 
-## Current HTTP boundary
+- `GET /api/health`
+- `GET /api/aoi/presets`
+- `GET /api/aoi/{id}/series`
+- `GET /api/aoi/{id}/calendar`, `/climatology`, `/windows`, `/stress`, `/grid`,
+  and `/detections`
+- `GET /api/method?aoi={id}`
+- `GET /api/aoi/{id}/export?what=series|windows|calendar`
+- `POST /api/aoi/analyze` and `GET /api/jobs/{job_id}`
 
-- `GET /api/health`: HTTP 200 liveness, `service: "emberline-api"`, package
-  `version`, `status: "not_ready"`, `ready: false`, `data_version: null`, `run_id: null`.
-  This proves the process responds, not scientific/data readiness. No data is loaded.
-- Unknown routes: HTTP 404 `application/problem+json` with fixed
-  `type`, `title`, `status`, `detail`; request text and private paths are not echoed.
-- No CORS permissions are granted; no wildcard origin. Approve frontend origins
-  with E before enabling cross-origin access. No request-URL logging.
-
-## Not implemented
-
-Artifact-backed endpoints, custom jobs, CSV exports, frontend integration, and
-public deployment. Keep future results backed by validated versioned artifacts
-from `artifacts/`; never import `pipeline/` or invent scientific values (DEV-S05).
-Shared contracts in [`../contracts/`](../contracts/) still need C/E sign-off.
-Hosting approval and A's scope decisions remain pending; this is not D-03 completion.
-Keep `FIRMS_MAP_KEY` server-side, errors sanitized, and future jobs bounded.
+Artifact-backed routes return an explicit error when the requested data is
+unavailable. The analyze job store is in-process and bounded; jobs are not
+persisted across server restarts. `FIRMS_MAP_KEY`, when used by other tools,
+is not returned by the API.

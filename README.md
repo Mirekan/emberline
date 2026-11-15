@@ -27,7 +27,7 @@ and `../TEAM_TASKS.csv`. This README is a stub — task F-05 owns final content.
 | `pipeline/grid.py`, `match.py`, `harmonize.py`, `metrics.py`, `calendar.py`, `windows.py` | **C** | science pipeline |
 | `data/raw/`, `data/processed/` | **B** | caches (git-ignored; `data/raw/MANIFEST.json` committed) |
 | `artifacts/` | **C** outputs, **D** serves | versioned results (JSON committed, parquet ignored) |
-| `api/` | **D** | Rust/actix-web server skeleton; artifact serving pending — never imports pipeline |
+| `api/` | **D** | FastAPI service on port 8300; serves versioned artifacts without importing the pipeline |
 | `web/` | **E** | React/Vite frontend — never imports Python |
 | `tests/` | all roles | tests beside their code; `make test` runs everything |
 | `docs/method.md`, `validation.md`, `limitations.md` | **C** (A verifies) | science docs |
@@ -37,26 +37,24 @@ and `../TEAM_TASKS.csv`. This README is a stub — task F-05 owns final content.
 
 ## Quickstart
 
-Requirements: Rust 1.89+ with Cargo; Python 3 with `venv`/`pip` (or `uv`) for
-the existing science protocol check. No credentials required for the skeleton.
+Requirements: Python 3.10+ and Node.js. The API reads local versioned artifacts;
+it does not require credentials for the routes below.
 
 ```bash
-python3 -m venv .venv
-.venv/bin/python -m pip install -r requirements-test.txt
-# Alternative setup: uv venv .venv && uv pip install --python .venv/bin/python -r requirements-test.txt
-make help        # target list with owners
-make test        # Rust API tests + C-01 protocol check
-make build       # release backend binary: api/target/release/emberline-api
-make dev         # backend only: http://127.0.0.1:8000
-# In another terminal:
-curl http://127.0.0.1:8000/api/health
+python -m venv .venv
+# Windows:
+.\.venv\Scripts\python.exe -m pip install -r api\requirements.txt
+# macOS/Linux: .venv/bin/python -m pip install -r api/requirements.txt
+npm run serve
+# In another terminal, run the frontend:
+npm --prefix web run dev
 ```
 
-`make serve` runs the release backend. Health returns HTTP 200 for liveness,
-`status: "not_ready"`, `ready: false`, and null data/run versions until validated
-artifacts are integrated. Frontend, science endpoints, and deployment are pending.
-`make data` (B-03) and `make reproduce AOI=riau` (C-07) remain unimplemented.
-See [`api/README.md`](api/README.md) for configuration and limits.
+The API listens on `http://127.0.0.1:8300`, which matches the Vite `/api` proxy.
+It serves health, AOI presets, accepted series, calendars, windows, maps,
+detections, methods, jobs, and exports from `artifacts/`. If an artifact is
+missing, the endpoint reports that explicitly; the API does not recompute science.
+See [`api/README.md`](api/README.md) for details.
 
 ## Integration rules (short version)
 

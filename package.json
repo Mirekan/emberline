@@ -7,7 +7,7 @@
     "dev": "npm --prefix web run dev",
     "build": "npm --prefix web run build",
     "install:web": "npm --prefix web install",
-    "serve": "python -m uvicorn api.app:app --port 8300",
+    "serve": "node api/serve.mjs",
     "preview": "npm --prefix web run preview"
   }
 }
