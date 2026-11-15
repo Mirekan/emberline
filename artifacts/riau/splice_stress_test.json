@@ -10,16 +10,19 @@
   "negative_results_note": "error_ratio >= 1 or N/A entries stay visible in the demo and method page \u2014 valid negative results are evidence",
   "protocol_version": "PROTO-C01-v0.9",
   "selection_rule": "T_i = peak observed-MODIS FRP-sum day of each equal third of the held-out span (predetermined, no peeking at predictions)",
-  "status": "deferred",
+  "status": "ok",
   "task": "C-05 stress",
   "tests": [
     {
-      "reason": "window lacks a before/after side",
+      "error_harmonized": 0.329334,
+      "error_naive": 0.369105,
+      "error_ratio": 0.89225,
+      "interpretation": "harmonization reduces the splice artifact",
       "shift_harmonized": {
-        "n": 0,
+        "n": 29,
         "n_excluded": 0,
-        "reason": "window missing a before/after side",
-        "value": "N/A"
+        "reason": "",
+        "value": 0.910901
       },
       "shift_naive": {
         "n": 29,
@@ -33,7 +36,7 @@
         "reason": "",
         "value": 0.581567
       },
-      "status": "deferred",
+      "status": "ok",
       "transition_date": "2021-02-19",
       "truth_note": "continued MODIS is the reference measurement, not fire ground truth",
       "window": [
@@ -44,12 +47,15 @@
       "window_fraction": 1.0
     },
     {
-      "reason": "window lacks a before/after side",
+      "error_harmonized": -0.322878,
+      "error_naive": -0.379861,
+      "error_ratio": 0.84999,
+      "interpretation": "harmonization reduces the splice artifact",
       "shift_harmonized": {
-        "n": 0,
+        "n": 29,
         "n_excluded": 0,
-        "reason": "window missing a before/after side",
-        "value": "N/A"
+        "reason": "",
+        "value": -0.946371
       },
       "shift_naive": {
         "n": 29,
@@ -63,7 +69,7 @@
         "reason": "",
         "value": -0.623493
       },
-      "status": "deferred",
+      "status": "ok",
       "transition_date": "2023-08-10",
       "truth_note": "continued MODIS is the reference measurement, not fire ground truth",
       "window": [
@@ -74,12 +80,15 @@
       "window_fraction": 1.0
     },
     {
-      "reason": "window lacks a before/after side",
+      "error_harmonized": 0.651511,
+      "error_naive": 0.779845,
+      "error_ratio": 0.835437,
+      "interpretation": "harmonization reduces the splice artifact",
       "shift_harmonized": {
-        "n": 0,
+        "n": 29,
         "n_excluded": 0,
-        "reason": "window missing a before/after side",
-        "value": "N/A"
+        "reason": "",
+        "value": 2.254907
       },
       "shift_naive": {
         "n": 29,
@@ -93,7 +102,7 @@
         "reason": "",
         "value": 1.603396
       },
-      "status": "deferred",
+      "status": "ok",
       "transition_date": "2026-03-12",
       "truth_note": "continued MODIS is the reference measurement, not fire ground truth",
       "window": [

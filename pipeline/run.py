@@ -176,9 +176,10 @@ def run(aoi_id: str, run_ts: str | None = None, detections: list[Path] | None = 
         stages["c05_metrics"] = {"status": "mismatch", "error": str(err)[:300],
                                  "note": "F-15 violation recorded honestly — rebuild via make reproduce"}
     try:
-        # B1 (accepted, DEC-6) = published stress artifact; B2 kept visible (negative result)
+        # B1 (accepted, DEC-6) = published stress artifact — B1 values live in
+        # baseline_series.csv; B2 kept visible (negative result, separate file)
         stages["c05_splice_stress"] = {"status": splice_stress.run(
-            series_b, series_h, artifacts, aoi_id,
+            series_b, series_b, artifacts, aoi_id,
             harmonized_column="B1_ratio_pred_mw", out_name="splice_stress_test.json",
             method_label="B1 (accepted)")["manifest"].get("status")}
         splice_stress.run(series_b, series_h, artifacts, aoi_id,

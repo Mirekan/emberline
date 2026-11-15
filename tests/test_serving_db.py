@@ -118,7 +118,8 @@ def check_list():
     stress = _rows(db, "SELECT * FROM splice_stress")
     methods = {r["method"] for r in stress}
     check("splice_stress carries B2 AND B1 (negative results stay visible)",
-          {"B1", "B2"} <= methods and len(stress) >= 5,
+          any(m.startswith("B1") for m in methods) and "B2" in methods
+          and len(stress) >= 5,
           f"got {methods}, {len(stress)} rows")
     check("no fabricated p-values anywhere",
           "p_value" not in json.dumps(_rows(db, "SELECT * FROM meta")).lower())

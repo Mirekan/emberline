@@ -5,8 +5,8 @@
     "start": "2012-01-20"
   },
   "aoi_id": "riau",
-  "created_utc": "2026-11-14T16:00:00+00:00",
-  "git_sha": "f90f1f7",
+  "created_utc": "2026-11-15T10:18:27+00:00",
+  "git_sha": "e269e62",
   "honesty_note": "stage statuses are recorded verbatim \u2014 insufficient_data/deferred stages are NOT failures or passes, they are the actual state",
   "input_sha256": {
     "data/manifests/retrieval_mask_riau.csv": "718e0a8893e96935804e22f42b8488d2a9062b1f08925479ae5f6f3d5159e4f3",
@@ -21,11 +21,11 @@
   "metrics_path": "/home/ade/project/nasa/science_analytics/emberline/artifacts/riau/harmonization_metrics.json",
   "params_hash": "0d6ea05a5d7d73122aff09c5fb006b62586c4c6f0a1f49790fb83ae4fe02bcce",
   "protocol_version": "PROTO-C01-v0.9",
-  "run_id": "PROTO-C01-v0.9_f90f1f7_20261114T1600Z",
+  "run_id": "PROTO-C01-v0.9_e269e62_20261115T1018Z",
   "seeds": {
     "interval_bootstrap": 42
   },
-  "serving_db_sha256": "d1a29b61d6aba9fa878715620323c733790778acc7ed4bf97aa1ac3c10afcea4",
+  "serving_db_sha256": "4abefe766652bd74b1bc39d68009f7494b6066e265627a04cc65df1ed4cb5c36",
   "sources": [
     "MODIS_SP",
     "VIIRS_SNPP_SP"
@@ -66,7 +66,7 @@
       "status": "ok"
     },
     "c05_splice_stress": {
-      "status": "deferred"
+      "status": "ok"
     },
     "c06_calendar": {
       "outputs": {
@@ -84,7 +84,7 @@
       "outputs": {
         "db": "/home/ade/project/nasa/science_analytics/emberline/artifacts/riau/serving.db"
       },
-      "sha256": "d1a29b61d6aba9fa878715620323c733790778acc7ed4bf97aa1ac3c10afcea4",
+      "sha256": "4abefe766652bd74b1bc39d68009f7494b6066e265627a04cc65df1ed4cb5c36",
       "status": "ok",
       "tables": {
         "accepted_series": 5307,
