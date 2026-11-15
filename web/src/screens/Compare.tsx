@@ -74,8 +74,12 @@ export default function Compare() {
 
   const b0 = method?.metrics.b0_naive_splice_level_shift;
   const b2 = method?.metrics.b2_naive_splice_level_shift;
-  const fmtX = (v: number | string | null | undefined) =>
-    typeof v === "number" ? `${v.toFixed(2)}×` : "N/A:evaluating";
+  const isInsufficient = method?.status === "insufficient_data";
+  const fmtX = (v: number | string | null | undefined) => {
+    if (typeof v === "number") return `${v.toFixed(2)}×`;
+    if (isInsufficient) return lang === "id" ? "Gerbang F-9b" : "F-9b gate";
+    return "N/A:evaluating";
+  };
 
   const computed = series?.fixture == null;
 

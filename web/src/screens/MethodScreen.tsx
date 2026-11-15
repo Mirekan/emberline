@@ -76,7 +76,25 @@ export default function MethodScreen() {
           </div>
         )}
 
-        {!loading && m && (
+        {!loading && m && m.status === "insufficient_data" && (
+          <div className="status-panel failed" style={{ marginTop: 20 }}>
+            <div className="status-title">
+              {lang === "id" ? "Gerbang Dukungan Data F-9b: Dukungan Sinyal Terbatas" : "F-9b Support Gate: Insufficient Signal Support"}
+            </div>
+            <p className="status-desc">
+              {lang === "id"
+                ? `Wilayah ini memiliki kurang dari 2 tahun pelatihan dengan minimal 10 hari sinyal MODIS (${m.status_reason || "insufficient_data"}). Sesuai protokol ilmiah EmberLine (Rule E-03 / F-9b / DEC-2), model regresi sengaja tidak dipaksakan pada data tipis demi mencegah estimasi palsu.`
+                : `This region has fewer than 2 training years with at least 10 MODIS signal days (${m.status_reason || "insufficient_data"}). Per EmberLine scientific protocol (Rule E-03 / F-9b / DEC-2), regression models are intentionally not fitted on thin support to prevent fabricated estimates.`}
+            </p>
+            <div style={{ marginTop: 12 }}>
+              <button className="btn secondary" onClick={() => setAoi("merauke")}>
+                {lang === "id" ? "Buka Merauke (Data Papua Siap)" : "Open Merauke (Papua Data Ready)"}
+              </button>
+            </div>
+          </div>
+        )}
+
+        {!loading && m && m.status !== "insufficient_data" && (
           <>
             <div className="card" style={{ marginTop: 20, padding: 0, overflow: "hidden" }}>
               <table>
@@ -130,6 +148,70 @@ export default function MethodScreen() {
                 </tbody>
               </table>
             </div>
+
+            {m.stress_tests && m.stress_tests.length > 0 && (
+              <div className="card" style={{ marginTop: 18, padding: 0, overflow: "hidden" }}>
+                <div style={{ padding: "14px 18px", borderBottom: "1px solid var(--line)" }}>
+                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                    <h2 style={{ fontSize: 14, margin: 0 }}>
+                      {lang === "id" ? "Uji Stres Sambungan Sensor (Pseudo-Transitions)" : "Splice Stress Tests (Pseudo-Transitions)"}
+                    </h2>
+                    <span className="state-chip chip-neutral mono" style={{ fontSize: 10 }}>
+                      {lang === "id" ? "Protokol C-05" : "C-05 Protocol"}
+                    </span>
+                  </div>
+                  <p className="sub" style={{ marginTop: 4, fontSize: 12 }}>
+                    {lang === "id"
+                      ? "3 tanggal transisi buatan dipilih berdasarkan puncak observasi MODIS pada rentang uji mandiri (held-out) sebelum melihat prediksi. Jendela ±14 hari diuji terhadap kelanjutan MODIS sebagai acuan kebenaran observasi."
+                      : "3 pseudo-transitions selected at the peak observed MODIS day per third of the held-out span before inspecting predictions. ±14-day windows benchmarked against continued MODIS as the reference measurement."}
+                  </p>
+                </div>
+                <table>
+                  <thead>
+                    <tr>
+                      <th>{lang === "id" ? "Tanggal Transisi / Jendela" : "Transition Date / Window"}</th>
+                      <th>{lang === "id" ? "Lonjakan Naif" : "Naive Shift"}</th>
+                      <th>{lang === "id" ? "Lonjakan Terharmonisasi" : "Harmonized Shift"}</th>
+                      <th>{lang === "id" ? "Rasio Galat (Harm/Naif)" : "Error Ratio (Harm/Naive)"}</th>
+                      <th>{lang === "id" ? "Kesimpulan Evaluasi" : "Evaluation Finding"}</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {m.stress_tests.map((test, idx) => {
+                      const tDate = test.transition_date || test.pseudo_transition || `Uji #${idx + 1}`;
+                      const getVal = (v: any) => (typeof v === "object" && v !== null ? v.value : v);
+                      const sNaive = getVal(test.shift_naive);
+                      const sHarm = getVal(test.shift_harmonized);
+                      const ratio = test.error_ratio;
+                      return (
+                        <tr key={idx}>
+                          <td style={{ fontWeight: 600 }}>
+                            {tDate}
+                            {test.window && (
+                              <div style={{ fontSize: 10.5, color: "var(--ink2)", fontWeight: 400 }}>
+                                {test.window[0]} .. {test.window[1]}
+                              </div>
+                            )}
+                          </td>
+                          <td className="mono" style={{ color: "var(--ember)" }}>
+                            {typeof sNaive === "number" ? `${sNaive.toFixed(3)}` : "—"}
+                          </td>
+                          <td className="mono" style={{ color: "var(--ok)", fontWeight: 600 }}>
+                            {typeof sHarm === "number" ? `${sHarm.toFixed(3)}` : "—"}
+                          </td>
+                          <td className="mono" style={{ fontWeight: 700 }}>
+                            {typeof ratio === "number" ? `${ratio.toFixed(3)}×` : (ratio ?? "—")}
+                          </td>
+                          <td style={{ fontSize: 11.5, color: "var(--ink2)" }}>
+                            {test.interpretation || (lang === "id" ? "Harmonisasi mengurangi lonjakan sambungan naif" : "Harmonization reduces naive splice artifact")}
+                          </td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+              </div>
+            )}
 
             <div className="grid2" style={{ marginTop: 18, gridTemplateColumns: "1fr 1fr" }}>
               <div className="card">

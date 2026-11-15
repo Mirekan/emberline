@@ -329,7 +329,35 @@ export default function CalendarScreen({ goMap }: { goMap: () => void }) {
         </div>
       )}
 
-      {!loading && !err && cal && (
+      {!loading && !err && cal && yearsAll.length === 0 && (
+        <div className="status-panel failed" style={{ marginTop: 20, padding: "18px 22px", borderRadius: 12 }}>
+          <div className="status-title" style={{ fontSize: 16, fontWeight: 700 }}>
+            {lang === "id" ? "Dukungan Data Kalender Belum Tersedia (Gerbang F-9b)" : "Calendar Telemetry Unavailable (F-9b Gate)"}
+          </div>
+          <p className="status-desc" style={{ marginTop: 6, fontSize: 13.5, color: "var(--ink2)", lineHeight: 1.6 }}>
+            {lang === "id"
+              ? "Wilayah ini tidak memiliki jumlah hari sinyal yang mencukupi selama era pelatihan untuk membangun kurva klimatologi multi-tahun yang stabil. Sesuai aturan kejujuran kontrak ilmiah (Rule E-03 / DEC-2), data tidak direkayasa atau diinterpolasi secara semu."
+              : "This region has insufficient signal days during the training era to establish a stable multi-year climatology curve. Per scientific contract honesty (Rule E-03 / DEC-2), observations are strictly not fabricated or artificially interpolated."}
+          </p>
+          {readyPresets.length > 0 && (
+            <div style={{ display: "flex", gap: 10, flexWrap: "wrap", alignItems: "center", marginTop: 14 }}>
+              <span style={{ fontSize: 12.5, fontWeight: 600, color: "var(--ink)" }}>{t("cal_ready_regions")}</span>
+              {readyPresets.map(p => (
+                <button
+                  key={p.id}
+                  className="btn secondary"
+                  style={{ padding: "6px 14px", fontSize: 12.5, borderRadius: 8, fontWeight: 600 }}
+                  onClick={() => setAoi(p.id)}
+                >
+                  {t("cal_open_region")} {PRESET_NAMES[lang]?.[p.id] ?? p.name}
+                </button>
+              ))}
+            </div>
+          )}
+        </div>
+      )}
+
+      {!loading && !err && cal && yearsAll.length > 0 && (
         <div className="grid2" style={{ marginTop: 18, gridTemplateColumns: "3fr 2fr" }}>
           <div className="card">
             {summary && (

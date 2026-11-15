@@ -1,8 +1,103 @@
 {
   "aoi_id": "jambi",
-  "changepoint_significance": "not_implemented (no p-values manufactured)",
   "protocol_version": "PROTO-C01-v0.9",
-  "reason": "C-03/C-04 artifacts absent (insufficient_data upstream) \u2014 stress tests deferred pending full-era data; machinery verified on synthetic tests",
-  "status": "deferred",
-  "task": "C-05 stress"
+  "task": "C-05 stress",
+  "status": "ok",
+  "method": "B1 (accepted)",
+  "selection_rule": "T_i = peak observed-MODIS FRP-sum day of each equal third of the held-out span",
+  "heldout_span": [
+    "2021-01-01",
+    "2026-07-31"
+  ],
+  "n_heldout_days": 2038,
+  "tests": [
+    {
+      "status": "ok",
+      "transition_date": "2022-09-14",
+      "window": [
+        "2022-08-31",
+        "2022-09-28"
+      ],
+      "window_days_present": 29,
+      "window_fraction": 1.0,
+      "shift_naive": {
+        "value": 5.467,
+        "n": 29,
+        "reason": ""
+      },
+      "shift_harmonized": {
+        "value": 1.127,
+        "n": 29,
+        "reason": ""
+      },
+      "shift_truth_continued_modis": {
+        "value": 1.411,
+        "n": 29,
+        "reason": ""
+      },
+      "error_naive": 4.056,
+      "error_harmonized": -0.284,
+      "error_ratio": 0.799,
+      "interpretation": "harmonization reduces the splice artifact"
+    },
+    {
+      "status": "ok",
+      "transition_date": "2024-09-20",
+      "window": [
+        "2024-09-06",
+        "2024-10-04"
+      ],
+      "window_days_present": 29,
+      "window_fraction": 1.0,
+      "shift_naive": {
+        "value": 4.417,
+        "n": 29,
+        "reason": ""
+      },
+      "shift_harmonized": {
+        "value": 0.91,
+        "n": 29,
+        "reason": ""
+      },
+      "shift_truth_continued_modis": {
+        "value": 1.425,
+        "n": 29,
+        "reason": ""
+      },
+      "error_naive": 2.992,
+      "error_harmonized": -0.515,
+      "error_ratio": 0.639,
+      "interpretation": "harmonization reduces the splice artifact"
+    },
+    {
+      "status": "ok",
+      "transition_date": "2025-09-08",
+      "window": [
+        "2025-08-25",
+        "2025-09-22"
+      ],
+      "window_days_present": 29,
+      "window_fraction": 1.0,
+      "shift_naive": {
+        "value": 4.334,
+        "n": 29,
+        "reason": ""
+      },
+      "shift_harmonized": {
+        "value": 0.893,
+        "n": 29,
+        "reason": ""
+      },
+      "shift_truth_continued_modis": {
+        "value": 0.849,
+        "n": 29,
+        "reason": ""
+      },
+      "error_naive": 3.485,
+      "error_harmonized": 0.044,
+      "error_ratio": 1.052,
+      "interpretation": "harmonization reduces the splice artifact"
+    }
+  ],
+  "changepoint_significance": "not_implemented (no p-values manufactured)"
 }

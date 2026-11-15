@@ -15,7 +15,30 @@ export type CalYear = { year: number; eligible: boolean; positions: CalPos[] };
 export type Calendar = Envelope & { years: CalYear[]; climatology: { month_day: string; median_mw: number | null; iqr?: { p25_mw: number; p75_mw: number } | null; n_years: number; state: string }[]; climatology_smoothed_median_mw: (number | null)[]; critical_windows: Window[]; index_denominator_p95_training_mw: number };
 export type Window = { start_md: string; end_md: string; wraps_new_year?: boolean; years_active: number | null; years_eligible: number | null; median_intensity_mw?: number };
 export type Preset = { id: string; name: string; west: number; south: number; east: number; north: number; sources: string; start: string; end: string; artifact_status: string; mock: string | null };
-export type Method = Envelope & { split: { train_years: string[]; test_years: string[] }; coefficients: Record<string, number>; interval: Record<string, unknown>; metrics: Record<string, number | string>; stress_tests: { pseudo_transition?: string; status: string; shift_naive?: number; shift_harmonized?: number; error_ratio?: number | string; reason?: string }[]; limitations: string[]; citations: string };
+export type Method = Envelope & {
+  status?: string;
+  status_reason?: string;
+  split: { train_years: string[]; test_years: string[] };
+  coefficients: Record<string, number>;
+  interval: Record<string, unknown>;
+  metrics: Record<string, number | string | null>;
+  stress_tests: {
+    pseudo_transition?: string;
+    transition_date?: string;
+    status: string;
+    shift_naive?: number | { value: number };
+    shift_harmonized?: number | { value: number };
+    shift_truth_continued_modis?: number | { value: number };
+    error_naive?: number;
+    error_harmonized?: number;
+    error_ratio?: number | string;
+    reason?: string;
+    interpretation?: string;
+    window?: string[];
+  }[];
+  limitations: string[];
+  citations: string;
+};
 
 export type GridYear = { modis: number; viirs: number; n_days: number };
 export type GridCell = { cell_id: string; south: number; west: number; north: number; east: number; years?: Record<string, GridYear>; n_days: number; total_modis: number; total_viirs: number; detection_count: number; has_data?: boolean };

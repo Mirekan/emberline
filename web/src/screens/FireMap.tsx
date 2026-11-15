@@ -400,6 +400,7 @@ export default function FireMap() {
   const [detYear, setDetYear] = useState("2026"); // Default to 2026 on initial load to prevent overcrowding
   const [detSensor, setDetSensor] = useState<"all" | "modis" | "viirs">("all");
   const [viewMode, setViewMode] = useState<"both" | "dots" | "grid">("both");
+  const [currentZoom, setCurrentZoom] = useState<number>(() => getInitialCoords().zoom);
   const [riskFilter, setRiskFilter] = useState<"all" | "danger" | "alert">("all");
   const [minFrp, setMinFrp] = useState<number>(0);
   const [gridOpacity, setGridOpacity] = useState<number>(0.32);
@@ -627,6 +628,10 @@ export default function FireMap() {
     tileLayerRef.current = tileLayer;
     mapRef.current = map;
     setMapReady(true);
+
+    map.on("zoomend", () => {
+      setCurrentZoom(map.getZoom());
+    });
 
     // Track mouse coordinates directly via DOM ref & requestAnimationFrame
     // Eliminates 100% of React re-renders during mouse movement across fullscreen!
@@ -1023,7 +1028,7 @@ export default function FireMap() {
     return [...new Set(det.detections.map(d => d.date.slice(0, 4)))].sort((a, b) => b.localeCompare(a));
   }, [det]);
 
-  // Render satellite detection dots at their true geographic coordinates with high-contrast outlines
+  // Render satellite detection dots at their true geographic coordinates with progressive disclosure
   useEffect(() => {
     const map = mapRef.current;
     const canvasRenderer = canvasRendererRef.current;
@@ -1040,10 +1045,15 @@ export default function FireMap() {
     }
 
     const rows = detRows;
+    const isMacroView = viewMode === "both" && currentZoom < 7;
 
-    // Limit to 2,500 highest FRP points when "all" years are selected for smooth GPU rendering
-    const cappedRows = rows.length > 2500
-      ? [...rows].sort((a, b) => b.frp - a.frp).slice(0, 2500)
+    // Progressive disclosure:
+    // In macro view (zoom < 7) with both grid + dots active, highlight top 800 FRP anchors
+    // so the statistical density grid remains clearly readable without visual crowding.
+    // In micro view (zoom >= 7) or explicit dots-only mode, render full point telemetry (up to 2,500 points).
+    const maxDotLimit = isMacroView ? 800 : 2500;
+    const cappedRows = rows.length > maxDotLimit
+      ? [...rows].sort((a, b) => b.frp - a.frp).slice(0, maxDotLimit)
       : rows;
 
     visibleRowsRef.current = cappedRows;
@@ -1057,21 +1067,27 @@ export default function FireMap() {
       const isViirs = d.sensor === "viirs";
 
       // Dual-ring high contrast: dark silhouette ring + neon core
-      // Guarantees maximum visibility on red, orange, and yellow backgrounds
+      // Guarantees maximum visibility across dark, muted, and street basemaps
+      const dotRadius = isMacroView
+        ? (isViirs ? 2.3 : 3.2)
+        : (isViirs ? (2.9 + Math.sqrt(t) * 2.3) : (4.1 + Math.sqrt(t) * 2.7));
+      const fillOpacity = isMacroView ? 0.70 : 0.95;
+      const strokeWeight = isMacroView ? 0.9 : 1.3;
+
       L.circleMarker([d.lat, d.lon], {
         renderer: canvasRenderer,
-        radius: isViirs ? (2.9 + Math.sqrt(t) * 2.3) : (4.1 + Math.sqrt(t) * 2.7),
+        radius: dotRadius,
         color: "#0F172A",
-        weight: 1.3,
+        weight: strokeWeight,
         fillColor: isViirs ? "#FF2A3B" : "#2563EB",
-        fillOpacity: 0.95,
+        fillOpacity: fillOpacity,
         interactive: false,
       }).addTo(g);
     }
 
     g.addTo(map);
     dotsLayerRef.current = g;
-  }, [det, detOn, detRows, mapReady]);
+  }, [det, detOn, detRows, mapReady, viewMode, currentZoom]);
 
   // Smoothly pan only when user explicitly switches AOI preset
   const lastAoiRef = useRef<string>(aoi);
@@ -1095,6 +1111,7 @@ export default function FireMap() {
     if (targetPreset) {
       lastAoiRef.current = targetPreset;
       setAoi(targetPreset);
+      api.series(targetPreset).catch(() => { });
       const p = presets.find(pp => pp.id === targetPreset);
       if (p) {
         mapRef.current?.flyToBounds([[p.south, p.west], [p.north, p.east]], {
@@ -1177,6 +1194,15 @@ export default function FireMap() {
             {lang === "id" ? "Grid 0,1°" : "Density Grid"}
           </button>
         </div>
+
+        {/* Dynamic Zoom & Resolution Badge */}
+        <span
+          className="state-chip chip-neutral mono"
+          style={{ fontSize: 10, padding: "2px 7px", height: 26, display: "inline-flex", alignItems: "center", borderRadius: 6 }}
+          title={lang === "id" ? "Level pembesaran peta & pengungkapan progresif data" : "Map zoom level & progressive disclosure telemetry"}
+        >
+          Z{currentZoom} · {viewMode === "grid" ? (lang === "id" ? "Grid 0,1°" : "Density") : (currentZoom < 7 ? (lang === "id" ? "Makro" : "Macro") : (lang === "id" ? "Mikro" : "Micro"))}
+        </span>
 
         <div style={{ width: 1, height: 18, background: "var(--line-strong)", margin: "0 2px" }} />
 

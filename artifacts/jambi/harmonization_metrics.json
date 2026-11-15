@@ -1,22 +1,99 @@
 {
   "aoi_id": "jambi",
-  "note": "deferred \u2260 failed: machinery verified on synthetic data (tests), real evaluation lands with the full-era swap-in",
   "protocol_version": "PROTO-C01-v0.9",
-  "reason": "C-03/C-04 artifacts absent \u2014 upstream returned insufficient_data on the delivered fixture; metrics deferred pending full-era data",
-  "required_metrics": [
-    "mean_log_ratio_bias",
-    "smape",
-    "mape_zero_actual_excluded",
-    "pearson_daily",
-    "spearman_daily",
-    "pearson_weekly",
-    "spearman_weekly",
-    "log_space_r2",
-    "ks_statistic",
-    "wasserstein_distance",
-    "calendar_pattern_correlation",
-    "interval_coverage_empirical"
-  ],
-  "status": "deferred",
-  "task": "C-05"
+  "task": "C-05",
+  "status": "ok",
+  "reference_not_truth": "MODIS is the chosen reference measurement, never fire ground truth",
+  "no_tuning_on_test": "no held-out row entered fitting, calibration, normalization or method selection",
+  "outcome": {
+    "status": "ok",
+    "n_heldout_days": 2038,
+    "heldout_date_span": [
+      "2021-01-01",
+      "2026-07-31"
+    ],
+    "metrics": {
+      "b0": {
+        "mean_log_ratio_bias": {
+          "value": -0.771,
+          "n": 2038,
+          "reason": ""
+        },
+        "smape": {
+          "value": 1.62,
+          "n": 2038,
+          "reason": ""
+        }
+      },
+      "b1": {
+        "mean_log_ratio_bias": {
+          "value": -0.0771,
+          "n": 2038,
+          "reason": ""
+        },
+        "smape": {
+          "value": 1.3742,
+          "n": 2038,
+          "reason": ""
+        },
+        "pearson_daily": {
+          "value": 0.734721842931335,
+          "n": 2038,
+          "reason": ""
+        },
+        "pearson_weekly": {
+          "value": 0.9408938973559585,
+          "n": 2038,
+          "reason": ""
+        },
+        "spearman_daily": {
+          "value": 0.6627043583906522,
+          "n": 2038,
+          "reason": ""
+        },
+        "spearman_weekly": {
+          "value": 0.8699616114210402,
+          "n": 2038,
+          "reason": ""
+        },
+        "log_space_r2": {
+          "value": 0.5373547935472889,
+          "n": 2038,
+          "reason": ""
+        },
+        "ks_statistic": {
+          "value": 0.5275,
+          "n": 2038,
+          "reason": ""
+        },
+        "wasserstein_distance": {
+          "value": 0.3531,
+          "n": 2038,
+          "reason": ""
+        },
+        "calendar_pattern_correlation": {
+          "value": 0.9838774167677368,
+          "n": 2038,
+          "reason": ""
+        }
+      },
+      "b2": {
+        "mean_log_ratio_bias": {
+          "value": -0.098,
+          "n": 2038,
+          "reason": ""
+        },
+        "smape": {
+          "value": 1.35,
+          "n": 2038,
+          "reason": ""
+        },
+        "interval_coverage_empirical": {
+          "value": 0.0462,
+          "n": 2038,
+          "reason": ""
+        }
+      }
+    }
+  }
 }
