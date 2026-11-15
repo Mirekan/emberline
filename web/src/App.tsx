@@ -37,14 +37,14 @@ type Ctx = {
 };
 const AoiContext = createContext<Ctx>({
   aoi: "riau",
-  setAoi: () => {},
+  setAoi: () => { },
   series: null,
   theme: "light",
   calFilter: null,
-  setCalFilter: () => {},
+  setCalFilter: () => { },
   lang: "id",
-  setLang: () => {},
-  toggleLang: () => {},
+  setLang: () => { },
+  toggleLang: () => { },
   t: (k: TranslationKey) => k,
 });
 export const useAoi = () => useContext(AoiContext);
@@ -116,14 +116,7 @@ export default function App() {
           )}
           <header className="topbar">
             <div className="brand">
-              <FlameMark size={32} />
-              <span className="brand-word">EmberLine</span>
-              <span className="brand-tag">SPACE APPS 2026</span>
-              {isMock && (
-                <span className="mock-badge" title={t("mock_badge_title")}>
-                  <span className="mock-dot" /> {t("mock_badge")}
-                </span>
-              )}
+              <img src="/emberline_logo.png" alt="Logo" style={{ width: 150, height: 50, objectFit: "contain" }} />
             </div>
 
             <nav className="iconnav" role="tablist" aria-label="Console Sections">
