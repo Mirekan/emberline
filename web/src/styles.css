@@ -660,7 +660,7 @@ tbody tr:hover { background: color-mix(in srgb, var(--sunken) 45%, transparent);
 .legend-toggle.off span:last-child { text-decoration: line-through; }
 .swatch { display: inline-block; width: 14px; height: 14px; border-radius: 3px; }
 .ramp { display: inline-flex; }
-.ramp i { width: 13px; height: 13px; display: inline-block; border-radius: 2px; }
+.ramp i { width: 13px; height: 13px; display: inline-block; border: 1px solid var(--line); border-radius: 2px; }
 .sw-zero { background: var(--sunken); border: 1px solid var(--line-strong); position: relative; }
 .sw-zero::after { content: ""; position: absolute; inset: 0; margin: auto; width: 4px; height: 4px; border-radius: 99px; background: var(--ink3); }
 .sw-gap { border: 1px solid var(--line-strong); background: repeating-linear-gradient(45deg, transparent 0 3px, color-mix(in srgb, var(--ink) 30%, transparent) 3px 4px); }

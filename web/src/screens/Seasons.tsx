@@ -29,7 +29,7 @@ export default function Seasons() {
     if (cal && ref.current) {
       chart.current?.dispose();
       chart.current = init(ref.current);
-      chart.current.setOption(seasonsOption(cal.climatology, cal.climatology_smoothed_median_mw, cal.critical_windows));
+      chart.current.setOption(seasonsOption(cal.climatology, cal.climatology_smoothed_median_mw, cal.critical_windows, theme));
       const ro = new ResizeObserver(() => chart.current?.resize());
       ro.observe(ref.current);
       return () => {

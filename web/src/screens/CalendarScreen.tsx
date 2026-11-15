@@ -5,7 +5,7 @@ import { yearTiles, monthTiles, yearTilesFromDays, monthTilesFromDays, Tile, MON
 import { useAoi } from "../App";
 import Seasons from "./Seasons";
 
-const RAMP6 = ["#F8ECD4", "#F0D8A8", "#E5BE77", "#D59B47", "#C07A2A", "#9B4C12"];
+const RAMP6 = [0, 8, 14, 20, 26, 32];
 
 const PRESET_NAMES: Record<string, string> = {
   riau: "Riau (Lahan Gambut Sumatera)",
@@ -309,8 +309,15 @@ export default function CalendarScreen({ goMap }: { goMap: () => void }) {
             <div className="legend-row">
               <span className="item">
                 <span className="ramp">
-                  {RAMP6.map((c, i) => (
-                    <i key={i} style={{ background: c }} />
+                  {RAMP6.map((intensity, i) => (
+                    <i
+                      key={i}
+                      style={{
+                        background: intensity === 0
+                          ? "var(--surface)"
+                          : `color-mix(in srgb, var(--ember) ${intensity}%, var(--surface))`,
+                      }}
+                    />
                   ))}
                 </span>
                 <span>Gradien energi FRP (rendah → tinggi relatif terhadap puncak)</span>

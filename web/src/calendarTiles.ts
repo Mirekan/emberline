@@ -1,12 +1,11 @@
 /* Tile-comparison builder (user directive: "ada perbandingan tahun ada perbandingan bulan,
    bukan matrix tahun × tanggal") — one tile = one year, or one tile = one month.
-   Color: white → orange (ramp 01 Foundations), normalized to the peak in view.
+   Color: theme-aware surface → ember, normalized to the peak in view.
    Honesty states preserved: retrieval-gap tiles are hatched and never zero-filled. */
 import type { Calendar } from "./api";
 
 type CalYearT = Calendar["years"][0];
 
-const RAMP = ["#F8ECD4", "#F0D8A8", "#E5BE77", "#D59B47", "#C07A2A"]; // low → peak
 const MONTH_ABBR = ["Jan", "Feb", "Mar", "Apr", "Mei", "Jun", "Jul", "Agu", "Sep", "Okt", "Nov", "Des"];
 
 export type Tile = {
@@ -21,13 +20,10 @@ export type Tile = {
 };
 
 function fillFor(val: number, max: number): string {
-  if (val <= 0 || max <= 0) return "#FFFFFF"; // valid zero / empty → white
+  if (val <= 0 || max <= 0) return "var(--surface)";
   const t = val / max;
-  if (t <= 0.25) return RAMP[0];
-  if (t <= 0.5) return RAMP[1];
-  if (t <= 0.75) return RAMP[2];
-  if (t < 1) return RAMP[3];
-  return RAMP[4];
+  const intensity = t <= 0.25 ? 8 : t <= 0.5 ? 14 : t <= 0.75 ? 20 : t < 1 ? 26 : 32;
+  return `color-mix(in srgb, var(--ember) ${intensity}%, var(--surface))`;
 }
 
 function summarize(ps: CalYearT["positions"][]) {

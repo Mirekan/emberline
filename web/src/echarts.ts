@@ -4,29 +4,31 @@ import type { CalYear } from "./api";
 export const RAMP = ["#F8ECD4", "#F0D8A8", "#E5BE77", "#D59B47", "#C07A2A"];
 
 const reduced = typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+type ChartTheme = "light" | "dark";
 
-function isDarkMode(): boolean {
+function isDarkMode(theme?: ChartTheme): boolean {
+  if (theme) return theme === "dark";
   if (typeof window === "undefined") return false;
-  const theme = document.documentElement.getAttribute("data-theme");
-  if (theme === "dark") return true;
-  if (theme === "light") return false;
+  const documentTheme = document.documentElement.getAttribute("data-theme");
+  if (documentTheme === "dark") return true;
+  if (documentTheme === "light") return false;
   return window.matchMedia("(prefers-color-scheme: dark)").matches;
 }
 
-function getThemeFont() {
-  const dark = isDarkMode();
+function getThemeFont(theme?: ChartTheme) {
+  const dark = isDarkMode(theme);
   return {
     fontFamily: '"Inter", -apple-system, BlinkMacSystemFont, sans-serif',
     color: dark ? "#BBB7AC" : "#423F39",
   };
 }
 
-function getAxisLineColor(): string {
-  return isDarkMode() ? "rgba(255, 255, 255, 0.16)" : "rgba(20, 19, 17, 0.16)";
+function getAxisLineColor(theme?: ChartTheme): string {
+  return isDarkMode(theme) ? "rgba(255, 255, 255, 0.16)" : "rgba(20, 19, 17, 0.16)";
 }
 
-function getSplitLineColor(): string {
-  return isDarkMode() ? "rgba(255, 255, 255, 0.07)" : "rgba(20, 19, 17, 0.07)";
+function getSplitLineColor(theme?: ChartTheme): string {
+  return isDarkMode(theme) ? "rgba(255, 255, 255, 0.07)" : "rgba(20, 19, 17, 0.07)";
 }
 
 export function init(el: HTMLElement) {
@@ -34,14 +36,14 @@ export function init(el: HTMLElement) {
 }
 
 /* Calendar heatmap — 366 month/day columns × year rows; 5 states via pattern+text. */
-export function calendarOption(years: CalYear[], denom: number) {
+export function calendarOption(years: CalYear[], denom: number, theme?: ChartTheme) {
   const mdList = years[0]?.positions.map(p => p.month_day) ?? [];
   const yLabels = years.map(y => String(y.year));
   const heatData: [number, number, number][] = [];
   const special: { value: [number, number]; style: string; reason?: string }[] = [];
   const unc: [number, number][] = [];
-  const dark = isDarkMode();
-  const font = getThemeFont();
+  const dark = isDarkMode(theme);
+  const font = getThemeFont(theme);
 
   years.forEach((y, yi) => {
     y.positions.forEach((p, xi) => {
@@ -62,7 +64,7 @@ export function calendarOption(years: CalYear[], denom: number) {
     xAxis: {
       type: "category",
       data: mdList,
-      axisLine: { lineStyle: { color: getAxisLineColor() } },
+      axisLine: { lineStyle: { color: getAxisLineColor(theme) } },
       axisTick: { show: false },
       axisLabel: {
         color: font.color,
@@ -168,15 +170,16 @@ export function compareOption(
     harmonized_hi_mw: number | null;
     harmonized_estimate_mw: number | null;
   }[],
-  visible: { modis: boolean; viirs: boolean; naive: boolean; harm: boolean } = { modis: true, viirs: true, naive: true, harm: true }
+  visible: { modis: boolean; viirs: boolean; naive: boolean; harm: boolean } = { modis: true, viirs: true, naive: true, harm: true },
+  theme?: ChartTheme,
 ) {
   const ts = days.map(d => d.date);
   const mk = (data: (number | null)[]) => data.map((v, i) => (v == null ? [ts[i], null] : [ts[i], v]));
   const lo = days.map(d => d.harmonized_lo_mw);
   const hi = days.map(d => d.harmonized_hi_mw);
   const span = hi.map((h, i) => (h == null || lo[i] == null ? null : h - lo[i]));
-  const font = getThemeFont();
-  const dark = isDarkMode();
+  const font = getThemeFont(theme);
+  const dark = isDarkMode(theme);
 
   const all = [
     {
@@ -245,7 +248,7 @@ export function compareOption(
     grid: { left: 8, right: 16, top: 30, bottom: 32, containLabel: true },
     xAxis: {
       type: "time",
-      axisLine: { lineStyle: { color: getAxisLineColor() } },
+      axisLine: { lineStyle: { color: getAxisLineColor(theme) } },
       axisLabel: {
         color: font.color,
         fontSize: 11,
@@ -258,7 +261,7 @@ export function compareOption(
       name: "FRP-sum (MW, MODIS-equivalent)",
       nameTextStyle: { color: font.color, fontSize: 11 },
       axisLabel: { color: font.color, fontSize: 11 },
-      splitLine: { lineStyle: { color: getSplitLineColor() } },
+      splitLine: { lineStyle: { color: getSplitLineColor(theme) } },
     },
     tooltip: { show: false },
     series: visible.harm ? all : all.filter(s => !["Harmonized", "_lo", "_span"].includes(s.name)),
@@ -269,7 +272,8 @@ export function compareOption(
 export function seasonsOption(
   clim: { month_day: string; median_mw: number | null; iqr?: { p25_mw: number; p75_mw: number } | null; state: string }[],
   smooth: (number | null)[],
-  windows: { start_md: string; end_md: string; wraps_new_year?: boolean }[]
+  windows: { start_md: string; end_md: string; wraps_new_year?: boolean }[],
+  theme?: ChartTheme,
 ) {
   const md = clim.map(c => c.month_day);
   const p25 = clim.map(c => (c.iqr ? c.iqr.p25_mw : null));
@@ -282,8 +286,8 @@ export function seasonsOption(
     });
   const wBase = md.map(() => 0);
   const wSpan = md.map(s => (inWin(s) ? 100 : null));
-  const font = getThemeFont();
-  const dark = isDarkMode();
+  const font = getThemeFont(theme);
+  const dark = isDarkMode(theme);
 
   return {
     animation: !reduced,
@@ -293,7 +297,7 @@ export function seasonsOption(
       type: "category",
       data: md,
       boundaryGap: false,
-      axisLine: { lineStyle: { color: getAxisLineColor() } },
+      axisLine: { lineStyle: { color: getAxisLineColor(theme) } },
       axisTick: { show: false },
       axisLabel: {
         color: font.color,
@@ -307,7 +311,7 @@ export function seasonsOption(
       name: "FRP-sum (MW)",
       nameTextStyle: { color: font.color, fontSize: 11 },
       axisLabel: { color: font.color, fontSize: 11 },
-      splitLine: { lineStyle: { color: getSplitLineColor() } },
+      splitLine: { lineStyle: { color: getSplitLineColor(theme) } },
     },
     tooltip: { show: false },
     series: [
