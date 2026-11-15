@@ -1,0 +1,58 @@
+{
+  "run_id": "PROTO-C01-v0.9_20261115T0324Z_b2_simple_log_ratio_only_FIXTURE",
+  "git_sha": "ae408ed7e680796e7822c7732406f947e3292aa0",
+  "created_utc": "2026-11-15T03:24:50+00:00",
+  "aoi_bbox_date_range": {
+    "aoi": "south_sumatra",
+    "slug": "w103_s-5_e106_n-2",
+    "bbox": [
+      103.0,
+      -5.0,
+      106.0,
+      -2.0
+    ],
+    "coverage": {
+      "first": "2012-01-20",
+      "last": "2026-07-31"
+    }
+  },
+  "sources": [
+    "MODIS_SP",
+    "VIIRS_SNPP_SP"
+  ],
+  "input_sha256": {
+    "data/fixtures/FIXTURE_SYNTHETIC/south_sumatra/MODIS_SP/w103_s-5_e106_n-2/normalized.csv": "e2e3f84e8492225638722e3f7b4836da370c13a0cd9a02199cbfbd907921ec10",
+    "data/fixtures/FIXTURE_SYNTHETIC/south_sumatra/VIIRS_SNPP_SP/w103_s-5_e106_n-2/normalized.csv": "829562e505364513d220fb629f7c2d69ed4999f5818990c6d4d27cb7c9ec3964"
+  },
+  "params_hash": "f1e61abb82e1bd0d8250abef4b43b078a318e3e83ce5c745dc126017b9d827fc",
+  "train_years": [
+    "2012",
+    "2013",
+    "2014",
+    "2015",
+    "2016",
+    "2017",
+    "2018",
+    "2019",
+    "2020"
+  ],
+  "test_years": [
+    "2021",
+    "2022",
+    "2023",
+    "2024",
+    "2025",
+    "2026"
+  ],
+  "metrics_path": "artifacts/south_sumatra/metrics.json",
+  "library_versions": {
+    "python": "stdlib-only",
+    "numpy": "not-used",
+    "pandas": "not-used"
+  },
+  "seeds": {
+    "bootstrap": 20261114
+  },
+  "fixture": "FIXTURE_SYNTHETIC",
+  "boundary": "Historical & descriptive \u2014 not predictive."
+}

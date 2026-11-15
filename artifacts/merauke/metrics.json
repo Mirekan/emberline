@@ -1,0 +1,22 @@
+{
+  "run_id": "PROTO-C01-v0.9_20261115T0325Z_b2_simple_log_ratio_only_FIXTURE",
+  "fixture": "FIXTURE_SYNTHETIC",
+  "metrics": {
+    "n_test_days_paired": 2038,
+    "n_nonzero_modis_days": 757,
+    "n_nonzero_est_days": 1832,
+    "mean_log_ratio_bias": -0.0771,
+    "smape": 1.3742,
+    "mape_zero_actual_excluded": 1.8643,
+    "pearson_daily": 0.734721842931335,
+    "spearman_daily": 0.6627043583906522,
+    "pearson_weekly": 0.9408938973559585,
+    "spearman_weekly": 0.8699616114210402,
+    "log_space_r2": 0.5373547935472889,
+    "ks_statistic": 0.5275,
+    "wasserstein_distance": 0.3531,
+    "calendar_pattern_correlation": 0.9838774167677368,
+    "interval_coverage_empirical": 0.0462,
+    "interval_coverage_note": "MODIS treated as reference measurement \u2014 not ground truth."
+  }
+}

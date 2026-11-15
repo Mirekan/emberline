@@ -239,6 +239,7 @@ export default function FireMap() {
     if (aoi === "south_sumatra") return { center: [-3.3, 104.6], zoom: 7 };
     if (aoi === "jambi") return { center: [-1.8, 103.0], zoom: 7 };
     if (aoi === "riau") return { center: [0.6, 102.0], zoom: 7 };
+    if (aoi === "merauke") return { center: [-8.0, 139.0], zoom: 7 };
     return { center: [-2.5, 118.0], zoom: 5 }; // Whole Indonesia center
   };
 

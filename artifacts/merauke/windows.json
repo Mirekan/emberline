@@ -1,0 +1,24 @@
+{
+  "run_id": "PROTO-C01-v0.9_20261115T0325Z_b2_simple_log_ratio_only_FIXTURE",
+  "fixture": "FIXTURE_SYNTHETIC",
+  "windows": [
+    {
+      "start_md": "02-28",
+      "end_md": "03-03",
+      "wraps_new_year": false,
+      "median_intensity_mw": 8.14,
+      "threshold_percentile": 75,
+      "years_active": null,
+      "years_eligible": 15
+    },
+    {
+      "start_md": "08-01",
+      "end_md": "10-27",
+      "wraps_new_year": false,
+      "median_intensity_mw": 25.52,
+      "threshold_percentile": 75,
+      "years_active": null,
+      "years_eligible": 15
+    }
+  ]
+}

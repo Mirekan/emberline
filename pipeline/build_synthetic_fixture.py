@@ -40,6 +40,24 @@ AOI_CONFIGS = {
         # Accurate peatland fire centers in Central Kalimantan (Pulang Pisau MRP, Kapuas, Sebangau)
         "centers": [(114.1, -2.3), (114.5, -2.6), (113.8, -2.0), (113.7, -2.5), (114.8, -2.2)],
     },
+    "south_sumatra": {
+        "slug": "w103_s-5_e106_n-2",
+        "west": 103.0, "south": -5.0, "east": 106.0, "north": -2.0,
+        # Accurate peatland fire centers in South Sumatra (Ogan Komering Ilir / OKI, Banyuasin)
+        "centers": [(105.0, -3.4), (105.3, -3.6), (104.8, -3.1), (105.1, -3.8), (104.4, -2.8)],
+    },
+    "jambi": {
+        "slug": "w102_s-3_e104.5_n-1",
+        "west": 102.0, "south": -3.0, "east": 104.5, "north": -1.0,
+        # Accurate peatland fire centers in Jambi (Muaro Jambi, Tanjung Jabung)
+        "centers": [(103.8, -1.4), (103.5, -1.6), (104.0, -1.3), (103.6, -1.8), (103.2, -1.5)],
+    },
+    "merauke": {
+        "slug": "w137_s-9_e141_n-7",
+        "west": 137.0, "south": -9.0, "east": 141.0, "north": -7.0,
+        # Accurate savanna fire centers in Merauke, Southern Papua
+        "centers": [(140.4, -8.3), (140.2, -8.1), (139.8, -8.0), (140.5, -7.8), (140.0, -7.5)],
+    },
 }
 
 START = date(2012, 1, 20)
@@ -189,15 +207,12 @@ def build_for_aoi(aoi: str, rnd: random.Random) -> None:
 
 def main() -> int:
     ap = argparse.ArgumentParser()
-    ap.add_argument("--aoi", default="all", choices=["riau", "central_kalimantan", "all"])
+    ap.add_argument("--aoi", default="all", choices=["riau", "central_kalimantan", "south_sumatra", "jambi", "merauke", "all"])
     args = ap.parse_args()
     rnd = random.Random(SEED)
-    aois = ["riau", "central_kalimantan"] if args.aoi == "all" else [args.aoi]
+    aois = list(AOI_CONFIGS.keys()) if args.aoi == "all" else [args.aoi]
     for a in aois:
         build_for_aoi(a, rnd)
-    print(f"[fixture] label   -> FIXTURE_SYNTHETIC (never a claimed result)")
-    return 0
-    print(f"[fixture] ledger  -> {led_path.relative_to(ROOT).as_posix()}")
     print(f"[fixture] label   -> FIXTURE_SYNTHETIC (never a claimed result)")
     return 0
 

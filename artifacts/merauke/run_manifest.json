@@ -1,0 +1,58 @@
+{
+  "run_id": "PROTO-C01-v0.9_20261115T0325Z_b2_simple_log_ratio_only_FIXTURE",
+  "git_sha": "ae408ed7e680796e7822c7732406f947e3292aa0",
+  "created_utc": "2026-11-15T03:25:40+00:00",
+  "aoi_bbox_date_range": {
+    "aoi": "merauke",
+    "slug": "w137_s-9_e141_n-7",
+    "bbox": [
+      137.0,
+      -9.0,
+      141.0,
+      -7.0
+    ],
+    "coverage": {
+      "first": "2012-01-20",
+      "last": "2026-07-31"
+    }
+  },
+  "sources": [
+    "MODIS_SP",
+    "VIIRS_SNPP_SP"
+  ],
+  "input_sha256": {
+    "data/fixtures/FIXTURE_SYNTHETIC/merauke/MODIS_SP/w137_s-9_e141_n-7/normalized.csv": "396791e30f2b274a597e3fc29d228576512f3a46359f61531bb60b953a8ef4e2",
+    "data/fixtures/FIXTURE_SYNTHETIC/merauke/VIIRS_SNPP_SP/w137_s-9_e141_n-7/normalized.csv": "4950223050b855159fe468a2030db0689177a0e6b297f5ee0d7884d453800f9b"
+  },
+  "params_hash": "f1e61abb82e1bd0d8250abef4b43b078a318e3e83ce5c745dc126017b9d827fc",
+  "train_years": [
+    "2012",
+    "2013",
+    "2014",
+    "2015",
+    "2016",
+    "2017",
+    "2018",
+    "2019",
+    "2020"
+  ],
+  "test_years": [
+    "2021",
+    "2022",
+    "2023",
+    "2024",
+    "2025",
+    "2026"
+  ],
+  "metrics_path": "artifacts/merauke/metrics.json",
+  "library_versions": {
+    "python": "stdlib-only",
+    "numpy": "not-used",
+    "pandas": "not-used"
+  },
+  "seeds": {
+    "bootstrap": 20261114
+  },
+  "fixture": "FIXTURE_SYNTHETIC",
+  "boundary": "Historical & descriptive \u2014 not predictive."
+}

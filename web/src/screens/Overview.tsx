@@ -31,8 +31,12 @@ export default function Overview({ goCalendar }: { goCalendar: () => void }) {
           margin: "0 auto",
         }}
       >
-        See a fire record that no longer jumps when the satellite changes
+        See when fire activity rises—and where the record has gaps
       </h1>
+
+      <p style={{ margin: "22px auto 0", fontSize: 16, color: "var(--ink2)", maxWidth: 680, lineHeight: 1.6 }}>
+        Fire activity can change with the season, while satellite coverage can leave gaps in the record. This view brings those observations together so you can see when detections rise, compare patterns across the year, and keep the limits of the data in view.
+      </p>
 
       <motion.button
         onClick={goCalendar}
@@ -40,9 +44,9 @@ export default function Overview({ goCalendar }: { goCalendar: () => void }) {
         whileTap={{ scale: 0.97 }}
         transition={{ type: "spring", stiffness: 300, damping: 24 }}
         style={{
-          marginTop: 48,
-          padding: "24px 56px",
-          fontSize: "clamp(22px, 2.5vw, 32px)",
+          marginTop: 30,
+          padding: "18px 38px",
+          fontSize: "clamp(18px, 2vw, 24px)",
           fontWeight: 800,
           fontFamily: "var(--font-display)",
           background: "var(--sunken)",
@@ -61,8 +65,8 @@ export default function Overview({ goCalendar }: { goCalendar: () => void }) {
         Opens: {targetLabel}{span ? ` · ${span}` : ""}{status ? ` · ${status}` : ""}
       </p>
 
-      <p style={{ marginTop: 14, fontSize: 14.5, color: "var(--ink3)", maxWidth: 640, margin: "14px auto 0", lineHeight: 1.5 }}>
-        Honest hotspot history — MODIS &amp; VIIRS harmonized, with uncertainty, gaps flagged, never predicted.
+      <p style={{ marginTop: 14, fontSize: 13, color: "var(--ink3)", maxWidth: 640, margin: "14px auto 0", lineHeight: 1.5 }}>
+        MODIS &amp; VIIRS observations, harmonized with uncertainty and data gaps flagged. Historical context, never a prediction.
       </p>
     </div>
   );
